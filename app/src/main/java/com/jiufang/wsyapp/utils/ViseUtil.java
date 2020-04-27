@@ -27,15 +27,10 @@ public class ViseUtil {
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
+                            if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
-                            }else if(jsonObject.optString("status").equals("11")){
-//                                SpUtils.clear(context);
-//                                Intent intent = new Intent();
-//                                intent.setClass(context, LoginActivity.class);
-//                                context.startActivity(intent);
                             }else {
-                                ToastUtil.showShort(context, jsonObject.optString("errorMsg"));
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -69,15 +64,10 @@ public class ViseUtil {
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
+                            if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
-                            }else if(jsonObject.optString("status").equals("11")){
-//                                SpUtils.clear(context);
-//                                Intent intent = new Intent();
-//                                intent.setClass(context, LoginActivity.class);
-//                                context.startActivity(intent);
                             }else {
-                                ToastUtil.showShort(context, jsonObject.optString("errorMsg"));
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -101,15 +91,10 @@ public class ViseUtil {
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
+                            if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
-                            }else if(jsonObject.optString("status").equals("11")){
-//                                SpUtils.clear(context);
-//                                Intent intent = new Intent();
-//                                intent.setClass(context, LoginActivity.class);
-//                                context.startActivity(intent);
                             }else {
-                                ToastUtil.showShort(context, jsonObject.optString("errorMsg"));
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
                             WeiboDialogUtils.closeDialog(dialog);
                         } catch (JSONException e) {
@@ -135,14 +120,10 @@ public class ViseUtil {
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
+                            if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
-                            }else if(jsonObject.optString("status").equals("11")){
-//                                Intent intent = new Intent();
-//                                intent.setClass(context, LoginActivity.class);
-//                                context.startActivity(intent);
                             }else {
-                                ToastUtil.showShort(context, jsonObject.optString("errorMsg"));
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -174,16 +155,13 @@ public class ViseUtil {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        Logger.e("123123", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
+                            if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
-                            }else if(jsonObject.optString("status").equals("11")){
-//                                Intent intent = new Intent();
-//                                intent.setClass(context, LoginActivity.class);
-//                                context.startActivity(intent);
                             }else {
-                                ToastUtil.showShort(context, jsonObject.optString("errorMsg"));
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -207,14 +185,10 @@ public class ViseUtil {
                     public void onSuccess(String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("status").equals("200")){
+                            if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
-                            }else if(jsonObject.optString("status").equals("11")){
-//                                Intent intent = new Intent();
-//                                intent.setClass(context, LoginActivity.class);
-//                                context.startActivity(intent);
                             }else {
-                                ToastUtil.showShort(context, jsonObject.optString("errorMsg"));
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
                             WeiboDialogUtils.closeDialog(dialog);
                         } catch (JSONException e) {
@@ -226,6 +200,34 @@ public class ViseUtil {
                     public void onFail(int errCode, String errMsg) {
                         ToastUtil.showShort(context, "网络异常");
                         WeiboDialogUtils.closeDialog(dialog);
+                    }
+                });
+
+    }
+
+    public static void Post(final Context context, String url, String json, final ViseListener listener){
+
+        ViseHttp.POST(url)
+                .setJson(json)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Logger.e("123123", data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optString("code").equals("200")){
+                                listener.onReturn(data);
+                            }else {
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                        ToastUtil.showShort(context, "网络异常");
                     }
                 });
 
