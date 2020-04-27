@@ -16,6 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+            //说明so的路径为该libs路径，关联所有地图SDK的so文件
+        }
+    }
 }
 
 dependencies {
@@ -31,4 +37,9 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-6'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-6'
+    compile 'com.yinglan.alphatabs:library:1.0.8'
+    /*萤石SDK核心模块，必须依赖*/
+    implementation 'com.ezviz.sdk:ezviz-sdk:4.10.1'
+    /*视频通话模块，按需使用*/
+    implementation 'com.ezviz.sdk:videotalk:1.0.0'
 }
