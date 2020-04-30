@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.jiufang.wsyapp.ui.MainActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.jiufang.wsyapp.widget.MyViewPager
         android:id="@+id/mViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,7 +31,7 @@
             android:padding="8dp"
             app:tabIconNormal="@mipmap/footer_btn001"
             app:tabIconSelected="@mipmap/footer_btn001_red"
-            app:tabText="首页"
+            app:tabText="物视"
             app:tabTextSize="10sp"
             app:textColorNormal="#666666"
             app:textColorSelected="#1E8EE4" />
@@ -43,7 +43,7 @@
             android:padding="8dp"
             app:tabIconNormal="@mipmap/footer_btn002"
             app:tabIconSelected="@mipmap/footer_btn002_red"
-            app:tabText="城市微观"
+            app:tabText="消息"
             app:tabTextSize="10sp"
             app:textColorNormal="#666666"
             app:textColorSelected="#1E8EE4" />
@@ -55,7 +55,7 @@
             android:padding="8dp"
             app:tabIconNormal="@mipmap/footer_btn003"
             app:tabIconSelected="@mipmap/footer_btn003_red"
-            app:tabText="城市风采"
+            app:tabText="套餐"
             app:tabTextSize="10sp"
             app:textColorNormal="#666666"
             app:textColorSelected="#1E8EE4" />
