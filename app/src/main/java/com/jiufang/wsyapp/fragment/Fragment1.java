@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -17,6 +16,7 @@ import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.DESUtil;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.zxing.activity.CaptureActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -24,13 +24,8 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.videogo.exception.BaseException;
-import com.videogo.util.Base64;
-import com.videogo.util.ConnectionDetector;
 import com.videogo.util.LocalValidate;
-import com.videogo.util.LogUtil;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -39,6 +34,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Administrator on 2020/4/27.
@@ -60,6 +57,8 @@ public class Fragment1 extends LazyFragment {
     private String mSerialNoStr = null;
     private String mSerialVeryCodeStr = null;
     private String deviceType = null;
+
+    private String devType="";
 
     @Override
     protected int getLayoutRes() {
@@ -112,7 +111,7 @@ public class Fragment1 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.rl_left})
+    @OnClick({R.id.rl_left, R.id.rl_right})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_left:
@@ -127,6 +126,30 @@ public class Fragment1 extends LazyFragment {
                 recyclerView.setAdapter(adapter);
                 recyclerView.scrollToPosition(lastPostion);
                 break;
+            case R.id.rl_right:
+                startActivityForResult(new Intent(getContext(), CaptureActivity.class), 1001);
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            String result = bundle.getString("result");
+            jiexiYs(result);
+//            String devSn="";
+//            if (result.contains(",")) {
+//                devSn = result.split(",")[0].split(":")[1];
+//            }else if(result.contains(":")){
+//                devSn=result.split(":")[0];
+//                devType=result.split(":")[1];
+//            }
+//            if(devSn!=null&&devSn.length()!=15){
+//                devSn= result.substring(result.indexOf(":")+1,result.indexOf("}"));
+//            }
+//            mSnText.setText(devSn);
         }
     }
 

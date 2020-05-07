@@ -48,4 +48,5 @@ dependencies {
     /*视频通话模块，按需使用*/
     implementation 'com.ezviz.sdk:videotalk:1.0.0'
     compile 'com.android.support:recyclerview-v7:27.1.1'
+    implementation files('libs/zxing.jar')
 }

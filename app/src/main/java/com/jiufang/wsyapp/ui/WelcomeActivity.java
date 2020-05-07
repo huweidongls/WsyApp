@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.utils.StatusBarUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,6 +53,7 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        StatusBarUtils.setStatusBarTransparent(WelcomeActivity.this);
         ButterKnife.bind(WelcomeActivity.this);
         initData();
 

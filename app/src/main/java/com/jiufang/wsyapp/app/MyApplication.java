@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.ForgetTimeCount;
+import com.jiufang.wsyapp.utils.RegisterTimeCount;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.vise.xsnow.http.ViseHttp;
 
@@ -21,7 +23,8 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     private List<Activity> mList = new LinkedList<Activity>();
     // 修改密码获取验证码倒计时
-//    public static RegisterTimeCount registerTimeCount;
+    public static RegisterTimeCount registerTimeCount;
+    public static ForgetTimeCount forgetTimeCount;
 
     public MyApplication() {
     }
@@ -34,7 +37,8 @@ public class MyApplication extends Application {
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL)
         .globalHeaders(map);
-//        registerTimeCount = new RegisterTimeCount(60000, 1000);
+        registerTimeCount = new RegisterTimeCount(120000, 1000);
+        forgetTimeCount = new ForgetTimeCount(120000, 1000);
 //        RichText.initCacheDir(this);
     }
 
