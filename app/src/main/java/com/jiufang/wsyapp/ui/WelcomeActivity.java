@@ -40,8 +40,6 @@ public class WelcomeActivity extends BaseActivity {
                 case 100:
                     if(num <= 0){
                         toMain();
-                    }else {
-                        tv.setText("跳过 "+num);
                     }
                     break;
             }
@@ -75,10 +73,14 @@ public class WelcomeActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv})
+    @OnClick({R.id.tv, R.id.btn})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv:
+                timer.cancel();
+                toMain();
+                break;
+            case R.id.btn:
                 timer.cancel();
                 toMain();
                 break;

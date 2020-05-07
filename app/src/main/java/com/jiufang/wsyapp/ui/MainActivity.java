@@ -15,6 +15,7 @@ import com.jiufang.wsyapp.fragment.Fragment1;
 import com.jiufang.wsyapp.fragment.Fragment2;
 import com.jiufang.wsyapp.fragment.Fragment3;
 import com.jiufang.wsyapp.fragment.Fragment4;
+import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.vise.xsnow.permission.OnPermissionCallback;
 import com.vise.xsnow.permission.PermissionManager;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        StatusBarUtils.setStatusBar(MainActivity.this, getResources().getColor(R.color.white_ffffff));
         PermissionManager.instance().request(this, new OnPermissionCallback() {
                     @Override
                     public void onRequestAllow(String permissionName) {

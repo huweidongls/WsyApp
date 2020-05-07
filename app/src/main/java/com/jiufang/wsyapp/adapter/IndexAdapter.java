@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
@@ -36,7 +37,13 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv.setText("-设备名称"+position+"（在线）");
+        if(position%2 == 0){
+            holder.ll1.setVisibility(View.VISIBLE);
+            holder.ll2.setVisibility(View.GONE);
+        }else {
+            holder.ll1.setVisibility(View.GONE);
+            holder.ll2.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -46,11 +53,13 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tv;
+        private LinearLayout ll1;
+        private LinearLayout ll2;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tv = itemView.findViewById(R.id.tv);
+            ll1 = itemView.findViewById(R.id.ll1);
+            ll2 = itemView.findViewById(R.id.ll2);
         }
     }
 

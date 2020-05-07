@@ -7,26 +7,62 @@
     tools:context="com.jiufang.wsyapp.ui.WelcomeActivity">
 
     <ImageView
+        android:layout_marginTop="100dp"
+        android:adjustViewBounds="true"
         android:src="@mipmap/welcome"
         android:id="@+id/iv"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <TextView
+        android:gravity="center"
         android:id="@+id/tv"
         android:textColor="@color/white_ffffff"
-        android:textSize="13sp"
-        android:layout_marginRight="20dp"
+        android:textSize="10sp"
+        android:layout_marginRight="11dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
-        android:background="#55000000"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="跳过 3"
+        android:background="@drawable/bg_ff7d87_ffa36e_10dp"
+        android:text="跳过"
+        android:layout_width="50dp"
+        android:layout_height="20dp" />
+    
+    <Button
+        android:id="@+id/btn"
+        android:layout_marginBottom="167dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="128dp"
+        android:layout_marginLeft="128dp"
+        android:background="@drawable/bg_ffa16f_17dp_bord"
+        android:textColor="@color/theme"
+        android:text="立即体验"
+        android:layout_width="match_parent"
+        android:layout_height="35dp" />
+
+    <LinearLayout
+        android:layout_marginBottom="21dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/welcome_logo"
+            android:layout_width="42dp"
+            android:layout_height="28dp" />
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/black_333333"
+            android:textSize="8sp"
+            android:text="物视云1.0.0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -15,8 +15,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line" />
+        android:layout_height="0.5dp"
+        android:background="#F0F0F0" />
 
     <com.yinglan.alphatabs.AlphaTabsIndicator
         android:id="@+id/alphaIndicator"
@@ -34,7 +34,7 @@
             app:tabText="物视"
             app:tabTextSize="10sp"
             app:textColorNormal="#666666"
-            app:textColorSelected="#1E8EE4" />
+            app:textColorSelected="@color/theme" />
 
         <com.yinglan.alphatabs.AlphaTabView
             android:layout_width="0dp"
@@ -46,7 +46,7 @@
             app:tabText="消息"
             app:tabTextSize="10sp"
             app:textColorNormal="#666666"
-            app:textColorSelected="#1E8EE4" />
+            app:textColorSelected="@color/theme" />
 
         <com.yinglan.alphatabs.AlphaTabView
             android:layout_width="0dp"
@@ -58,7 +58,7 @@
             app:tabText="套餐"
             app:tabTextSize="10sp"
             app:textColorNormal="#666666"
-            app:textColorSelected="#1E8EE4" />
+            app:textColorSelected="@color/theme" />
 
 
         <com.yinglan.alphatabs.AlphaTabView
@@ -71,7 +71,7 @@
             app:tabText="我的"
             app:tabTextSize="10sp"
             app:textColorNormal="#666666"
-            app:textColorSelected="#1E8EE4" />
+            app:textColorSelected="@color/theme" />
     </com.yinglan.alphatabs.AlphaTabsIndicator>
 
 </LinearLayout>
