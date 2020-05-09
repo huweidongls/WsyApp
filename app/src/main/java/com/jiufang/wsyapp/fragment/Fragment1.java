@@ -8,13 +8,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.adapter.IndexAdapter;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.utils.DESUtil;
 import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.zxing.activity.CaptureActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -47,6 +51,10 @@ public class Fragment1 extends LazyFragment {
     SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.rv)
     RecyclerView recyclerView;
+    @BindView(R.id.ll_yes)
+    LinearLayout llYes;
+    @BindView(R.id.ll_no)
+    LinearLayout llNo;
 
     private IndexAdapter adapter;
     private List<String> mList;
@@ -73,8 +81,14 @@ public class Fragment1 extends LazyFragment {
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-        mLocalValidate = new LocalValidate();
-        initData();
+        if(SpUtils.getUserId(getContext()).equals("0")){
+            llNo.setVisibility(View.VISIBLE);
+            llYes.setVisibility(View.GONE);
+        }else {
+            llNo.setVisibility(View.GONE);
+            llYes.setVisibility(View.VISIBLE);
+            initData();
+        }
     }
 
     private void initData() {
@@ -111,11 +125,11 @@ public class Fragment1 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.rl_left, R.id.rl_right})
+    @OnClick({R.id.rl_left, R.id.rl_right, R.id.btn_login})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_left:
-                jiexiYs("ys7C78047095TQJATVCS-C1HC-1D1WFR");
                 if (recyclerView.getLayoutManager() instanceof GridLayoutManager){
                     lastPostion = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -128,6 +142,10 @@ public class Fragment1 extends LazyFragment {
                 break;
             case R.id.rl_right:
                 startActivityForResult(new Intent(getContext(), CaptureActivity.class), 1001);
+                break;
+            case R.id.btn_login:
+                intent.setClass(getContext(), LoginActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -295,26 +313,6 @@ public class Fragment1 extends LazyFragment {
     protected void onFragmentHide() {
         super.onFragmentHide();
         Logger.e("ViewPager","CarFragment-onFragmentHide");
-    }
-
-    private void sendMsg() {
-
-        String phone = "18686817319";
-        String key = "Hvc.2020";
-        String s1 = DESUtil.encryptDES(phone, key);
-        Logger.e("123123", "加密"+s1);
-        String s2 = DESUtil.decryptDES(s1, key);
-        Logger.e("123123", "解密"+s2);
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("encryptionData", s1);
-        map.put("phone", phone);
-        ViseUtil.Post(getContext(), NetUrl.sendCaptchaCodeWithSMS, map, new ViseUtil.ViseListener() {
-            @Override
-            public void onReturn(String s) {
-
-            }
-        });
-
     }
 
 }

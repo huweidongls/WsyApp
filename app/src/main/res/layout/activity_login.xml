@@ -173,6 +173,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/btn_login"
         android:background="@drawable/bg_ffa16f_17dp_bord"
         android:textSize="17sp"
         android:textColor="#FFA06F"

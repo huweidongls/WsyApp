@@ -99,7 +99,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/et_pwd"
+                android:id="@+id/et_code"
                 android:layout_marginRight="17dp"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"

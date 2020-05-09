@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_ffffff"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,5 +13,18 @@
             style="@style/tv_top_title" />
 
     </RelativeLayout>
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:src="@mipmap/taocan_lc"
+        android:layout_width="match_parent"
+        android:layout_height="240dp" />
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:src="@mipmap/taocan_ys"
+        android:layout_marginTop="23dp"
+        android:layout_width="match_parent"
+        android:layout_height="240dp" />
 
 </LinearLayout>

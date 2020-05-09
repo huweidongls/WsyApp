@@ -1,5 +1,6 @@
 package com.jiufang.wsyapp.ui;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +11,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.LoginByPasswordBean;
+import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
+import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ToastUtil;
+import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.utils.WeiboDialogUtils;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +44,8 @@ public class LoginActivity extends BaseActivity {
 
     private boolean isShowPwd = false;
 
+    private Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +63,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_eye, R.id.tv_register, R.id.tv_forget})
+    @OnClick({R.id.rl_eye, R.id.tv_register, R.id.tv_forget, R.id.btn_login})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -72,6 +87,31 @@ public class LoginActivity extends BaseActivity {
             case R.id.tv_forget:
                 intent.setClass(context, ForgetActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_login:
+                String phone = etPhone.getText().toString();
+                String pwd = etPwd.getText().toString();
+                if(StringUtils.isEmpty(phone)||StringUtils.isEmpty(pwd)){
+                    ToastUtil.showShort(context, "手机号或密码不能为空");
+                }else {
+                    dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+                    Map<String, String> map = new LinkedHashMap<>();
+                    map.put("password", pwd);
+                    map.put("username", phone);
+                    ViseUtil.Post(context, NetUrl.loginByPassword, map, dialog, new ViseUtil.ViseListener() {
+                        @Override
+                        public void onReturn(String s) {
+                            Gson gson = new Gson();
+                            LoginByPasswordBean bean = gson.fromJson(s, LoginByPasswordBean.class);
+                            SpUtils.setUserId(context, bean.getData().getUserId()+"");
+                            SpUtils.setToken(context, bean.getData().getToken());
+                            Intent intent = new Intent();
+                            intent.setClass(context, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    });
+                }
                 break;
         }
     }

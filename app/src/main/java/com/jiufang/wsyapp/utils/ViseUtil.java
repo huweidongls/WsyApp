@@ -155,7 +155,6 @@ public class ViseUtil {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        Logger.e("123123", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("code").equals("200")){
@@ -205,33 +204,32 @@ public class ViseUtil {
 
     }
 
-    public static void Post(final Context context, String url, String json, final ViseListener listener){
-
-        ViseHttp.POST(url)
-                .setJson(json)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        Logger.e("123123", data);
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.optString("code").equals("200")){
-                                listener.onReturn(data);
-                            }else {
-                                ToastUtil.showShort(context, jsonObject.optString("message"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
-                        ToastUtil.showShort(context, "网络异常");
-                    }
-                });
-
-    }
+//    public static void Post(final Context context, String url, String json, final ViseListener listener){
+//
+//        ViseHttp.POST(url)
+//                .setJson(json)
+//                .request(new ACallback<String>() {
+//                    @Override
+//                    public void onSuccess(String data) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(data);
+//                            if(jsonObject.optString("code").equals("200")){
+//                                listener.onReturn(data);
+//                            }else {
+//                                ToastUtil.showShort(context, jsonObject.optString("message"));
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFail(int errCode, String errMsg) {
+//                        ToastUtil.showShort(context, "网络异常");
+//                    }
+//                });
+//
+//    }
 
     public interface ViseListener{
         void onReturn(String s);

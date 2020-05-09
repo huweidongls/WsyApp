@@ -2,6 +2,7 @@ package com.jiufang.wsyapp.ui;
 
 import android.Manifest;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -114,13 +115,15 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void onPageSelected(int position) {
-//            if (0 == position) {
-//                alphaTabsIndicator.getTabView(0).showNumber(alphaTabsIndicator.getTabView(0).getBadgeNumber() - 1);
-//            } else if (2 == position) {
-//                alphaTabsIndicator.getCurrentItemView().removeShow();
-//            } else if (3 == position) {
-//                alphaTabsIndicator.removeAllBadge();
-//            }
+            if (0 == position) {
+                StatusBarUtils.setStatusBar(MainActivity.this, getResources().getColor(R.color.white_ffffff));
+            } else if (1 == position) {
+                StatusBarUtils.setStatusBar(MainActivity.this, getResources().getColor(R.color.white_ffffff));
+            } else if (2 == position) {
+                StatusBarUtils.setStatusBar(MainActivity.this, getResources().getColor(R.color.white_ffffff));
+            } else if (3 == position) {
+                StatusBarUtils.setStatusBar(MainActivity.this, Color.parseColor("#FF9F70"));
+            }
         }
 
         @Override

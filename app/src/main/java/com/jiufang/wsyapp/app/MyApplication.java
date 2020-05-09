@@ -34,6 +34,10 @@ public class MyApplication extends Application {
         super.onCreate();
         Map<String, String> map = new LinkedHashMap<>();
         map.put("token", SpUtils.getToken(getApplicationContext()));
+        map.put("app-version", "1.0.0");
+        map.put("device-type", "1");
+        map.put("device-unique-id", "123");
+        map.put("device-name", "");
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL)
         .globalHeaders(map);
