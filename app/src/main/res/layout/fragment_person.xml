@@ -3,9 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_msg"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_marginTop="95dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/msg_null"
+                    android:layout_width="137dp"
+                    android:layout_height="124dp" />
+
+                <TextView
+                    android:layout_marginTop="34dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#999999"
+                    android:textSize="10sp"
+                    android:text="当前没有找到想要的消息~"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

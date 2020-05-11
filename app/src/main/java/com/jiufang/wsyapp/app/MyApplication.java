@@ -33,6 +33,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Map<String, String> map = new LinkedHashMap<>();
+//        map.put("Content-Type", "application/x-www-form-urlencoded");
         map.put("token", SpUtils.getToken(getApplicationContext()));
         map.put("app-version", "1.0.0");
         map.put("device-type", "1");

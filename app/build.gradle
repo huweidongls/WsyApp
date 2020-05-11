@@ -51,4 +51,5 @@ dependencies {
     implementation files('libs/zxing.jar')
     compile 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.SheHuan:NiceImageView:1.0.5'
+    implementation 'com.github.donkingliang:ImageSelector:1.6.8'
 }

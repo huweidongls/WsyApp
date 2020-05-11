@@ -48,7 +48,6 @@ public class Fragment2 extends LazyFragment {
     @Override
     protected void initView(View rootView) {
         ButterKnife.bind(this, rootView);
-        initData();
     }
 
     private void initData() {
@@ -63,6 +62,7 @@ public class Fragment2 extends LazyFragment {
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
+        initData();
     }
 
     @OnClick({R.id.rl1, R.id.rl2, R.id.rl3})

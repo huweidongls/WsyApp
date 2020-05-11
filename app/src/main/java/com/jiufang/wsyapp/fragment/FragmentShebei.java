@@ -34,6 +34,11 @@ public class FragmentShebei extends LazyFragment {
     @Override
     protected void initView(View rootView) {
         ButterKnife.bind(this, rootView);
+    }
+
+    @Override
+    protected void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
         initData();
     }
 

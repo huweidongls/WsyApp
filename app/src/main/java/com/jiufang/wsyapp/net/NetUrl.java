@@ -17,5 +17,15 @@ public class NetUrl {
     public static final String setPassword = "/user/v1.0.0/setPassword";
     //密码登录
     public static final String loginByPassword = "/v1.0.0/loginByPassword";
+    //获取个人消息分页列表
+    public static final String getPersonalMessagePageList = "/message/v1.0.0/getPersonalMessagePageList";
+    //获取系统消息分页列表
+    public static final String getSysMessagePageList = "/message/v1.0.0/getSysMessagePageList";
+    //上传单个文件
+    public static final String upload = "/user/upload";
+    //获取个人消息详情
+    public static final String getPersonalMessageById = "/message/v1.0.0/getPersonalMessageById";
+    //获取系统消息详情
+    public static final String getSysMessageById = "/message/v1.0.0/getSysMessageById";
 
 }

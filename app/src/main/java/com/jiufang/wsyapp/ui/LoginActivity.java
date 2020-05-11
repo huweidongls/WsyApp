@@ -23,6 +23,7 @@ import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
+import com.vise.xsnow.http.ViseHttp;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -105,6 +106,14 @@ public class LoginActivity extends BaseActivity {
                             LoginByPasswordBean bean = gson.fromJson(s, LoginByPasswordBean.class);
                             SpUtils.setUserId(context, bean.getData().getUserId()+"");
                             SpUtils.setToken(context, bean.getData().getToken());
+                            Map<String, String> map1 = new LinkedHashMap<>();
+                            map1.put("token", bean.getData().getToken());
+                            map1.put("app-version", "1.0.0");
+                            map1.put("device-type", "1");
+                            map1.put("device-unique-id", "123");
+                            map1.put("device-name", "");
+                            ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL)
+                                    .globalHeaders(map1);
                             Intent intent = new Intent();
                             intent.setClass(context, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
