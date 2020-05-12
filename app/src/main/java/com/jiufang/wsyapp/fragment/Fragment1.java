@@ -108,6 +108,17 @@ public class Fragment1 extends LazyFragment {
             }
         });
 
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("pageIndex", "1");
+        map.put("pageSize", "10");
+        map.put("userId", SpUtils.getUserId(getContext()));
+        ViseUtil.Post(getContext(), NetUrl.getBindDeviceList, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                Logger.e("123123", s);
+            }
+        });
+
         mList = new ArrayList<>();
         mList.add("");
         mList.add("");

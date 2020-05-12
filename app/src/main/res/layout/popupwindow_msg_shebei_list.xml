@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginRight="7dp"
+            android:layout_gravity="end"
+            android:src="@mipmap/top_w"
+            android:layout_width="8dp"
+            android:layout_height="6dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_all"
+            android:background="@color/white_ffffff"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:src="@mipmap/msg_shebei_pop_all"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:layout_marginLeft="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#272727"
+                    android:textSize="12sp"
+                    android:text="全部"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="7dp"
+                android:background="#E7E7E7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:src="@mipmap/msg_shebei_pop_dongjian"
+                    android:layout_width="14dp"
+                    android:layout_height="15dp" />
+
+                <TextView
+                    android:layout_marginLeft="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#272727"
+                    android:textSize="12sp"
+                    android:text="动检"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="7dp"
+                android:background="#E7E7E7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:src="@mipmap/msg_shebei_pop_renxing"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:layout_marginLeft="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#272727"
+                    android:textSize="12sp"
+                    android:text="人形"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="7dp"
+                android:background="#E7E7E7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:src="@mipmap/msg_shebei_pop_yichangyin"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:layout_marginLeft="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#272727"
+                    android:textSize="12sp"
+                    android:text="异常音"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

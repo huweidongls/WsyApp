@@ -45,32 +45,32 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_marginTop="19dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
                 android:textColor="#171F24"
                 android:textSize="16sp"
-                android:text="【通知】疫情期间延长“暂停设备解绑服务"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_time"
                 android:layout_marginTop="13dp"
                 android:layout_marginLeft="14dp"
                 android:textColor="#949494"
                 android:textSize="12sp"
-                android:text="2020/04/30  18:24:37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_content"
                 android:lineSpacingMultiplier="1.5"
                 android:layout_marginRight="14dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="21dp"
                 android:textColor="#171F24"
                 android:textSize="14sp"
-                android:text="为应对全国新型冠状病毒感染肺炎疫情，全面响应国家号召。延迟复工期间（即日起至2月16日），将暂停设备解绑申请审核，期间的设备解绑申请将于2月17日开始陆续审核。如需解绑设备也可在原账号下进行删除操作。"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

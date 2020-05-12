@@ -3,22 +3,34 @@ package com.jiufang.wsyapp.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.GetSysMessageByIdBean;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MsgSystemDetailsActivity extends BaseActivity {
 
     private Context context = MsgSystemDetailsActivity.this;
+
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_content)
+    TextView tvContent;
 
     private String id = "";
 
@@ -41,7 +53,16 @@ public class MsgSystemDetailsActivity extends BaseActivity {
         ViseUtil.Post(context, NetUrl.getSysMessageById, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
-
+                Gson gson = new Gson();
+                GetSysMessageByIdBean bean = gson.fromJson(s, GetSysMessageByIdBean.class);
+                int type = bean.getData().getSysType();
+                if(type == 1){
+                    tvTitle.setText("【通知】"+bean.getData().getMessageTitle());
+                }else {
+                    tvTitle.setText("【公告】"+bean.getData().getMessageTitle());
+                }
+                tvTime.setText(bean.getData().getMessageTime());
+                tvContent.setText(bean.getData().getMessageContent());
             }
         });
 

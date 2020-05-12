@@ -104,7 +104,8 @@
         </provider>
 
         <activity android:name=".ui.MsgPersonDetailsActivity" />
-        <activity android:name=".ui.MsgSystemDetailsActivity"></activity>
+        <activity android:name=".ui.MsgSystemDetailsActivity" />
+        <activity android:name=".ui.MsgShebeiListActivity"></activity>
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.jiufang.wsyapp"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -52,4 +52,5 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.SheHuan:NiceImageView:1.0.5'
     implementation 'com.github.donkingliang:ImageSelector:1.6.8'
+    compile 'com.github.zyyoona7:EasyPopup:1.1.2'
 }

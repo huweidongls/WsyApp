@@ -27,5 +27,7 @@ public class NetUrl {
     public static final String getPersonalMessageById = "/message/v1.0.0/getPersonalMessageById";
     //获取系统消息详情
     public static final String getSysMessageById = "/message/v1.0.0/getSysMessageById";
+    //获取绑定设备分页列表
+    public static final String getBindDeviceList = "/home/v1.0.0/getBindDeviceList";
 
 }

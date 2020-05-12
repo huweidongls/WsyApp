@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -124,7 +125,8 @@
             android:layout_width="match_parent"
             android:layout_height="188dp">
 
-            <ImageView
+            <com.shehuan.niv.NiceImageView
+                app:corner_radius="5dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/index"
                 android:layout_width="match_parent"
@@ -282,14 +284,15 @@
             android:layout_width="match_parent"
             android:layout_height="188dp">
 
-            <ImageView
+            <com.shehuan.niv.NiceImageView
+                app:corner_radius="5dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/index"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
             <ImageView
-                android:src="#cc000000"
+                android:src="@drawable/bg_cc000000_5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
