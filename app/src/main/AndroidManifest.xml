@@ -105,7 +105,13 @@
 
         <activity android:name=".ui.MsgPersonDetailsActivity" />
         <activity android:name=".ui.MsgSystemDetailsActivity" />
-        <activity android:name=".ui.MsgShebeiListActivity"></activity>
+        <activity android:name=".ui.MsgShebeiListActivity" />
+
+        <service android:name=".service.DownloadService" />
+
+        <activity android:name=".ui.LcTaocanActivity" />
+        <activity android:name=".ui.YsTaocanActivity" />
+        <activity android:name=".ui.LcTaocanDetailsActivity"></activity>
     </application>
 
 </manifest>

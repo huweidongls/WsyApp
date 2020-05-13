@@ -74,7 +74,7 @@ public class Fragment4 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.iv_avatar})
+    @OnClick({R.id.iv_avatar, R.id.rl1})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_avatar:
@@ -85,6 +85,9 @@ public class Fragment4 extends LazyFragment {
                         .setSingle(true)  //设置是否单选
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
                         .start(this, REQUEST_CODE); // 打开相册
+                break;
+            case R.id.rl1:
+
                 break;
         }
     }

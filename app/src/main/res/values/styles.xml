@@ -34,10 +34,10 @@
     </style>
     <!--顶部返回按钮-->
     <style name="iv_top_back">
-        <item name="android:src">@mipmap/back_f</item>
+        <item name="android:src">@mipmap/back_b</item>
         <item name="android:layout_centerInParent">true</item>
-        <item name="android:layout_width">10dp</item>
-        <item name="android:layout_height">17dp</item>
+        <item name="android:layout_width">8dp</item>
+        <item name="android:layout_height">14dp</item>
     </style>
     <!--顶部右侧文字按钮-->
     <style name="tv_top_right">

@@ -17,10 +17,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_centerInParent="true"
-                android:src="@mipmap/back_b"
-                android:layout_width="8dp"
-                android:layout_height="14dp" />
+                style="@style/iv_top_back" />
 
         </RelativeLayout>
 

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jiufang.wsyapp.ui.LcTaocanDetailsActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="乐橙套餐详情"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@mipmap/bg_lc_taocan_details"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="26dp"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:text="【7天月套餐】循环保存7天内动检录像-月套餐"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/white_ffffff"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginTop="23dp"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_gravity="center_vertical"
+                                android:background="@color/theme"
+                                android:layout_width="1dp"
+                                android:layout_height="11dp"/>
+
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="7dp"
+                                android:textSize="13sp"
+                                android:textColor="#000000"
+                                android:text="7天说明"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="22dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_marginLeft="19dp"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/lc_taocan"
+                                android:layout_width="123dp"
+                                android:layout_height="94dp" />
+
+                            <LinearLayout
+                                android:layout_marginLeft="14dp"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textColor="#FFAF02"
+                                    android:textSize="19sp"
+                                    android:text="快速充值  有效续费"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:layout_marginTop="6dp"
+                                    android:textColor="#FFA16F"
+                                    android:textSize="16sp"
+                                    android:text="延长云存储期限"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:layout_marginTop="12dp"
+                                    android:textColor="#FFA16F"
+                                    android:textSize="9sp"
+                                    android:text="乐橙云存储服务卡(月套餐)"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:textColor="#FFA16F"
+                                    android:textSize="9sp"
+                                    android:text="7天存储自动循环 ¥11元"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_marginRight="13dp"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginTop="41dp"
+                            android:textColor="#666666"
+                            android:textSize="9sp"
+                            android:text="温馨提示：1.购买云存储套餐后，原免费试用套餐服务终止，自动进入收费套餐服务。2.如同时购买两个云存储套餐，服务时长自动叠加，无需担心失效。"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginTop="27dp"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_gravity="center_vertical"
+                                android:background="@color/theme"
+                                android:layout_width="1dp"
+                                android:layout_height="11dp"/>
+
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="7dp"
+                                android:textSize="13sp"
+                                android:textColor="#000000"
+                                android:text="月套餐说明"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_marginTop="16dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_marginLeft="13dp"
+                            android:textColor="@color/black_333333"
+                            android:textSize="9sp"
+                            android:text="乐橙云储存7天套餐-月卡套餐"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginTop="24dp"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_gravity="center_vertical"
+                                android:background="@color/theme"
+                                android:layout_width="1dp"
+                                android:layout_height="11dp"/>
+
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="7dp"
+                                android:textSize="13sp"
+                                android:textColor="#000000"
+                                android:text="云储存说明"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_marginTop="14dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_marginLeft="13dp"
+                            android:textColor="@color/black_333333"
+                            android:textSize="9sp"
+                            android:text="乐橙云储存7天套餐-月卡套餐"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_marginBottom="29dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="55dp"
+                            android:textColor="#000000"
+                            android:textSize="17sp"
+                            android:text="声明：虚拟产品不退不换，等等"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="22dp"
+                android:id="@+id/ll_xieyi"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="11sp"
+                    android:text="请先阅读并同意"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="11sp"
+                    android:text="萤石云服务协议"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_marginRight="2dp"
+                android:layout_alignBottom="@+id/ll_xieyi"
+                android:layout_alignTop="@+id/ll_xieyi"
+                android:layout_toLeftOf="@+id/ll_xieyi"
+                android:src="@mipmap/duihao_xieyi_null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/ll_xieyi"
+                android:layout_marginBottom="7dp"
+                android:id="@+id/ll_buy"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/bg_taocan_pay"
+                android:orientation="horizontal"
+                android:layout_width="152dp"
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="36dp"
+                    android:src="@mipmap/pay"
+                    android:layout_width="20dp"
+                    android:layout_height="18dp" />
+
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp"
+                    android:textColor="@color/white_ffffff"
+                    android:text="立即购买"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

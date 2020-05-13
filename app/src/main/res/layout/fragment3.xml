@@ -15,12 +15,14 @@
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/iv1"
         android:scaleType="fitXY"
         android:src="@mipmap/taocan_lc"
         android:layout_width="match_parent"
         android:layout_height="240dp" />
 
     <ImageView
+        android:id="@+id/iv2"
         android:scaleType="fitXY"
         android:src="@mipmap/taocan_ys"
         android:layout_marginTop="23dp"
