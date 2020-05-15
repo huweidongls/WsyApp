@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiufang.wsyapp.ui.LcTaocanDetailsActivity">
+    tools:context="com.jiufang.wsyapp.ui.YsTaocanDetailsActivity">
 
     <RelativeLayout
         style="@style/rl_top_bar">
@@ -21,13 +21,13 @@
         </RelativeLayout>
 
         <TextView
-            android:text="乐橙套餐详情"
+            android:text="萤石套餐详情"
             style="@style/tv_top_title" />
 
     </RelativeLayout>
 
     <LinearLayout
-        android:background="@mipmap/bg_lc_taocan_details"
+        android:background="@mipmap/bg_ys_taocan_details"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -264,7 +264,7 @@
                 <TextView
                     android:textColor="#000000"
                     android:textSize="11sp"
-                    android:text="乐橙云服务协议"
+                    android:text="萤石云服务协议"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

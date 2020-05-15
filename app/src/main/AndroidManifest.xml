@@ -111,7 +111,10 @@
 
         <activity android:name=".ui.LcTaocanActivity" />
         <activity android:name=".ui.YsTaocanActivity" />
-        <activity android:name=".ui.LcTaocanDetailsActivity"></activity>
+        <activity android:name=".ui.LcTaocanDetailsActivity" />
+        <activity android:name=".ui.TaocanShebeiActivity" />
+        <activity android:name=".ui.YsTaocanDetailsActivity" />
+        <activity android:name=".ui.TaocanBuyActivity"></activity>
     </application>
 
 </manifest>

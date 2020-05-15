@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.jiufang.wsyapp.R;
@@ -16,8 +15,6 @@ import com.jiufang.wsyapp.adapter.IndexAdapter;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.LoginActivity;
-import com.jiufang.wsyapp.utils.DESUtil;
-import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.zxing.activity.CaptureActivity;
@@ -115,7 +112,7 @@ public class Fragment1 extends LazyFragment {
         ViseUtil.Post(getContext(), NetUrl.getBindDeviceList, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
-                Logger.e("123123", s);
+
             }
         });
 
@@ -317,13 +314,11 @@ public class Fragment1 extends LazyFragment {
     @Override
     protected void onFragmentVisible() {
         super.onFragmentVisible();
-        Logger.e("ViewPager","CarFragment-onFragmentVisible");
     }
 
     @Override
     protected void onFragmentHide() {
         super.onFragmentHide();
-        Logger.e("ViewPager","CarFragment-onFragmentHide");
     }
 
 }

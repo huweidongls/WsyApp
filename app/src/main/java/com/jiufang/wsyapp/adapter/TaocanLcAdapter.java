@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.bean.GetComboCategoryListBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,9 @@ import java.util.List;
 public class TaocanLcAdapter extends RecyclerView.Adapter<TaocanLcAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<GetComboCategoryListBean.DataBean> data;
 
-    public TaocanLcAdapter(List<String> data) {
+    public TaocanLcAdapter(List<GetComboCategoryListBean.DataBean> data) {
         this.data = data;
     }
 
@@ -39,11 +41,9 @@ public class TaocanLcAdapter extends RecyclerView.Adapter<TaocanLcAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
+        viewHolder.tvTitle.setText("【"+data.get(i).getName()+"】"+data.get(i).getExplain());
+        List<GetComboCategoryListBean.DataBean.ComboVoListBean> list;
+        list = data.get(i).getComboVoList();
         TaocanLcItemAdapter itemAdapter = new TaocanLcItemAdapter(list);
         GridLayoutManager manager = new GridLayoutManager(context, 3);
         viewHolder.recyclerView.setLayoutManager(manager);
@@ -59,10 +59,12 @@ public class TaocanLcAdapter extends RecyclerView.Adapter<TaocanLcAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private RecyclerView recyclerView;
+        private TextView tvTitle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.rv);
+            tvTitle = itemView.findViewById(R.id.tv_title);
         }
     }
 

@@ -13,7 +13,6 @@ import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetComboByIdBean;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.GlideUtils;
-import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -25,9 +24,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LcTaocanDetailsActivity extends BaseActivity {
+public class YsTaocanDetailsActivity extends BaseActivity {
 
-    private Context context = LcTaocanDetailsActivity.this;
+    private Context context = YsTaocanDetailsActivity.this;
 
     @BindView(R.id.iv_agree)
     ImageView ivAgree;
@@ -42,11 +41,11 @@ public class LcTaocanDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lc_taocan_details);
+        setContentView(R.layout.activity_ys_taocan_details);
 
         id = getIntent().getStringExtra("id");
-        StatusBarUtils.setStatusBar(LcTaocanDetailsActivity.this, getResources().getColor(R.color.white_ffffff));
-        ButterKnife.bind(LcTaocanDetailsActivity.this);
+        StatusBarUtils.setStatusBar(YsTaocanDetailsActivity.this, getResources().getColor(R.color.white_ffffff));
+        ButterKnife.bind(YsTaocanDetailsActivity.this);
         initData();
 
     }
@@ -80,11 +79,11 @@ public class LcTaocanDetailsActivity extends BaseActivity {
             case R.id.ll_buy:
                 if(isAgree){
                     intent.putExtra("id", bean.getData().getId()+"");
-                    intent.putExtra("type", "1");
+                    intent.putExtra("type", "2");
                     intent.setClass(context, TaocanShebeiActivity.class);
                     startActivity(intent);
                 }else {
-                    ToastUtil.showShort(context, "请勾选乐橙云服务协议");
+                    ToastUtil.showShort(context, "请勾选萤石云服务协议");
                 }
                 break;
             case R.id.ll_xieyi:

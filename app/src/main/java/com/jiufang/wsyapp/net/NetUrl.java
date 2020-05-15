@@ -8,6 +8,7 @@ public class NetUrl {
 
 //    public static final String BASE_URL = "http://hvc.jiufangkeji.com";
     public static final String BASE_URL = "http://hvc.jiufangkeji.com";
+    public static final String BASE_IMG_URL = "http://hvc.jiufangkeji.com/resource/";
     public static final String H5BASE_URL = "http://xfsysh5.5ijiaoyu.cn/";
     //用户获取验证码
     public static final String sendCaptchaCodeWithSMS = "/v1.0.0/sendCaptchaCodeWithSMS";
@@ -29,5 +30,11 @@ public class NetUrl {
     public static final String getSysMessageById = "/message/v1.0.0/getSysMessageById";
     //获取绑定设备分页列表
     public static final String getBindDeviceList = "/home/v1.0.0/getBindDeviceList";
+    //获取套餐类别列表
+    public static final String getComboCategoryList = "/combo/v1.0.0/getComboCategoryList";
+    //获取套餐详情
+    public static final String getComboById = "/combo/v1.0.0/getComboById";
+    //获取绑定设备列表
+    public static final String getComboDeviceChooseList = "/combo/v1.0.0/getComboDeviceChooseList";
 
 }

@@ -11,7 +11,6 @@ import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.net.NetUrl;
-import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
@@ -131,7 +130,7 @@ public class Fragment4 extends LazyFragment {
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
-                            Logger.e("123123", errMsg);
+
                         }
                     });
 

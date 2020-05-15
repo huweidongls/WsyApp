@@ -160,6 +160,7 @@ public class ViseUtil {
                             if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
                             }else {
+                                listener.onReturn(null);
                                 ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
                         } catch (JSONException e) {

@@ -12,7 +12,6 @@ import com.jiufang.wsyapp.adapter.MessageSystemAdapter;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.bean.GetSysMessagePageListBean;
 import com.jiufang.wsyapp.net.NetUrl;
-import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -22,7 +21,6 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

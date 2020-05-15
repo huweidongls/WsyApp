@@ -10,7 +10,6 @@ import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetPersonalMessageByIdBean;
 import com.jiufang.wsyapp.net.NetUrl;
-import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 

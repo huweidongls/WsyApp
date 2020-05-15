@@ -14,7 +14,6 @@ import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.LoginByCaptchaBean;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.DESUtil;
-import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
