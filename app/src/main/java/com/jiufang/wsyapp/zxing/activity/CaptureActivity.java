@@ -17,6 +17,7 @@ package com.jiufang.wsyapp.zxing.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,11 +34,14 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.zxing.Result;
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.ui.AddShebeiActivity;
+import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.zxing.camera.CameraManager;
 import com.jiufang.wsyapp.zxing.decode.DecodeThread;
 import com.jiufang.wsyapp.zxing.utils.BeepManager;
@@ -47,6 +51,8 @@ import com.jiufang.wsyapp.zxing.utils.InactivityTimer;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -62,6 +68,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
 
+    private Context context = CaptureActivity.this;
+
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
     private InactivityTimer inactivityTimer;
@@ -75,8 +83,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     /**
      * 控制闪光灯
      */
-    private TextView textView;
-    private TextView textView1;
+    private LinearLayout llDeng;
+    private ImageView ivDeng;
+    private TextView tvDeng;
 
     private Rect mCropRect = null;
     private boolean isHasSurface = false;
@@ -92,10 +101,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("扫描二维码");
+//        setTitle("扫描二维码");
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_capture);
+
+        StatusBarUtils.setStatusBar(CaptureActivity.this, getResources().getColor(R.color.white_ffffff));
+        ButterKnife.bind(CaptureActivity.this);
 
         scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
         scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
@@ -113,26 +125,41 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         animation.setRepeatMode(Animation.RESTART);
         scanLine.startAnimation(animation);
 
-        textView = findViewById(R.id.textView11);
-        textView1 = findViewById(R.id.textView12);
-        setPramaFrontLight(false);
-        textView.setOnClickListener(new View.OnClickListener() {
+        llDeng = findViewById(R.id.ll_deng);
+        ivDeng = findViewById(R.id.iv_deng);
+        tvDeng = findViewById(R.id.tv_deng);
+//        setPramaFrontLight(false);
+        llDeng.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if(!cameraManager.getOpenFlash()){
+                    //打开
                     cameraManager.openFlash();
-                }
-            }
-        });
-        textView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(cameraManager.getOpenFlash()){
+                    ivDeng.setImageResource(R.mipmap.zhaoliang);
+                    tvDeng.setText("轻触关闭");
+                }else {
+                    //关闭
                     cameraManager.openFlash();
+                    ivDeng.setImageResource(R.mipmap.zhaomie);
+                    tvDeng.setText("轻触照亮");
                 }
             }
         });
 
+    }
+
+    @OnClick({R.id.rl_back, R.id.tv_xlh})
+    public void onClick(View view){
+        Intent intent = new Intent();
+        switch (view.getId()){
+            case R.id.rl_back:
+                finish();
+                break;
+            case R.id.tv_xlh:
+                intent.setClass(context, AddShebeiActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     public static final String KEY_FRONT_LIGHT = "preferences_front_light";

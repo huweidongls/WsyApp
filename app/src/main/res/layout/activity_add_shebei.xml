@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_ffffff"
+    android:orientation="vertical"
+    tools:context="com.jiufang.wsyapp.ui.AddShebeiActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="添加设备"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/add_shebei_top"
+                android:layout_width="match_parent"
+                android:layout_height="204dp" />
+
+            <TextView
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="14dp"
+                android:textSize="14sp"
+                android:textColor="#1A1A1A"
+                android:text="设备品牌"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/rl_select"
+                android:background="#FAFAFC"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="39dp">
+
+                <TextView
+                    android:id="@+id/tv_brand"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#999999"
+                    android:textSize="13sp"
+                    android:text="请选择设备品牌"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/bottom_b"
+                    android:layout_width="11dp"
+                    android:layout_height="6dp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:textSize="14sp"
+                android:textColor="#1A1A1A"
+                android:text="设备序列号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_marginTop="10dp"
+                android:background="#F3F3F3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="39dp">
+
+                <EditText
+                    android:id="@+id/et_xlh"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp"
+                    android:hint="请输入设备序列号"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="#F3F3F3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="11dp"
+                android:textSize="14sp"
+                android:textColor="#1A1A1A"
+                android:text="设备安全码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_marginTop="10dp"
+                android:background="#F3F3F3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="39dp">
+
+                <EditText
+                    android:id="@+id/et_anquan"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp"
+                    android:hint="请输入设备安全码"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="#F3F3F3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="14dp"
+                android:textColor="#7F7F7F"
+                android:textSize="12sp"
+                android:text="*如标签上无安全验证码，则不输入"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:background="@drawable/bg_fdd0b7_3dp"
+                android:textColor="@color/white_ffffff"
+                android:textSize="13sp"
+                android:text="下一步"
+                android:layout_marginBottom="14dp"
+                android:layout_marginTop="53dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginLeft="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

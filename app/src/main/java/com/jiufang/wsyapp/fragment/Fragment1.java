@@ -10,11 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.adapter.IndexAdapter;
 import com.jiufang.wsyapp.base.LazyFragment;
+import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.LoginActivity;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.zxing.activity.CaptureActivity;
@@ -54,7 +57,7 @@ public class Fragment1 extends LazyFragment {
     LinearLayout llNo;
 
     private IndexAdapter adapter;
-    private List<String> mList;
+    private List<GetBindDeviceListBean.DataBean.RecordsBean> mList;
 
     private int lastPostion;
 
@@ -64,6 +67,8 @@ public class Fragment1 extends LazyFragment {
     private String deviceType = null;
 
     private String devType="";
+
+    private int page = 1;
 
     @Override
     protected int getLayoutRes() {
@@ -95,13 +100,41 @@ public class Fragment1 extends LazyFragment {
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(500);
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("pageIndex", "1");
+                map.put("pageSize", "10");
+                map.put("userId", SpUtils.getUserId(getContext()));
+                ViseUtil.Post(getContext(), NetUrl.getBindDeviceList, map, refreshLayout, 0, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        Gson gson = new Gson();
+                        GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
+                        mList.clear();
+                        mList.addAll(bean.getData().getRecords());
+                        adapter.notifyDataSetChanged();
+                        page = 2;
+                    }
+                });
             }
         });
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 refreshLayout.finishLoadMore(500);
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("pageIndex", page+"");
+                map.put("pageSize", "10");
+                map.put("userId", SpUtils.getUserId(getContext()));
+                ViseUtil.Post(getContext(), NetUrl.getBindDeviceList, map, refreshLayout, 1, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        Gson gson = new Gson();
+                        GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
+                        mList.addAll(bean.getData().getRecords());
+                        adapter.notifyDataSetChanged();
+                        page = page+1;
+                    }
+                });
             }
         });
 
@@ -112,24 +145,17 @@ public class Fragment1 extends LazyFragment {
         ViseUtil.Post(getContext(), NetUrl.getBindDeviceList, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
-
+                Gson gson = new Gson();
+                GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
+                mList = bean.getData().getRecords();
+                adapter = new IndexAdapter(mList);
+                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setAdapter(adapter);
+                page = 2;
             }
         });
-
-        mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new IndexAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
 
     }
 

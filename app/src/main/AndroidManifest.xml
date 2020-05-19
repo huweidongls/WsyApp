@@ -114,7 +114,12 @@
         <activity android:name=".ui.LcTaocanDetailsActivity" />
         <activity android:name=".ui.TaocanShebeiActivity" />
         <activity android:name=".ui.YsTaocanDetailsActivity" />
-        <activity android:name=".ui.TaocanBuyActivity"></activity>
+        <activity android:name=".ui.TaocanBuyActivity" />
+        <activity android:name=".ui.AddShebeiActivity" />
+        <activity android:name=".ui.SelectShebeiActivity" />
+        <activity android:name=".ui.LcPlayActivity" />
+        <activity android:name=".ui.IsBindingActivity" />
+        <activity android:name=".ui.AddDeviceTongdianActivity"></activity>
     </application>
 
 </manifest>

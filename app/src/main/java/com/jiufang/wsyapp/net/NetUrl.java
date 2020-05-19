@@ -36,5 +36,11 @@ public class NetUrl {
     public static final String getComboById = "/combo/v1.0.0/getComboById";
     //获取绑定设备列表
     public static final String getComboDeviceChooseList = "/combo/v1.0.0/getComboDeviceChooseList";
+    //绑定设备
+    public static final String bindDevice = "/device/v1.0.0/bindDevice";
+    //解绑设备
+    public static final String unBindDevice = "/device/v1.0.0/unBindDevice";
+    //检测设备是否被绑定
+    public static final String checkDeviceBindStatus = "/device/v1.0.0/checkDeviceBindStatus";
 
 }

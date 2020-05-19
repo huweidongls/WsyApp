@@ -2,15 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:orientation="vertical" >
+    android:background="@android:color/transparent" >
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="扫描二维码"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
 
     <SurfaceView
+        android:layout_below="@+id/rl_top"
         android:id="@+id/capture_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <RelativeLayout
+        android:layout_below="@+id/rl_top"
         android:id="@+id/capture_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -18,7 +39,7 @@
         <ImageView
             android:id="@+id/capture_mask_top"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="20dp"
             android:layout_alignParentTop="true"
             android:background="@drawable/shadow" />
 
@@ -38,6 +59,36 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/scan_line" />
+
+            <LinearLayout
+                android:id="@+id/ll_deng"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_deng"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/zhaomie"
+                    android:layout_width="17dp"
+                    android:layout_height="31dp" />
+
+                <TextView
+                    android:id="@+id/tv_deng"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="13sp"
+                    android:text="轻触照亮"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
         </RelativeLayout>
 
         <ImageView
@@ -68,25 +119,43 @@
             android:layout_toRightOf="@+id/capture_crop_view"
             android:background="@drawable/shadow" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="打开"
-            android:textColor="@android:color/white"
-            android:id="@+id/textView11"
-            android:layout_marginTop="32dp"
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/capture_crop_view"
-            android:layout_centerHorizontal="true" />
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/jishenewm"
+                android:layout_width="189dp"
+                android:layout_height="68dp" />
+
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white_ffffff"
+                android:textSize="13sp"
+                android:text="请扫描设备机身标签上的二维码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="关闭"
-            android:textColor="@android:color/white"
-            android:id="@+id/textView12"
-            android:layout_marginTop="82dp"
-            android:layout_below="@+id/capture_crop_view"
-            android:layout_centerHorizontal="true" />
+            android:id="@+id/tv_xlh"
+            android:background="@drawable/bg_ffffff_3dp_bord"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/white_ffffff"
+            android:text="输入序列号"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="47dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="125dp"
+            android:layout_height="24dp" />
 
     </RelativeLayout>
 

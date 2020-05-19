@@ -155,6 +155,7 @@ public class ViseUtil {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        Logger.e("123123", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("code").equals("200")){
@@ -234,6 +235,7 @@ public class ViseUtil {
 
     public interface ViseListener{
         void onReturn(String s);
+//        void onElse(String s);
     }
 
 }
