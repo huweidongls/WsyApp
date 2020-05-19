@@ -61,6 +61,11 @@ public class YsTaocanActivity extends BaseActivity {
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setAdapter(adapter);
             }
+
+            @Override
+            public void onElse(String s) {
+
+            }
         });
 
     }

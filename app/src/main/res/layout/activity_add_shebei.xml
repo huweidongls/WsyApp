@@ -164,6 +164,8 @@
                 android:layout_height="wrap_content" />
 
             <Button
+                android:enabled="false"
+                android:focusable="false"
                 android:id="@+id/btn_next"
                 android:background="@drawable/bg_fdd0b7_3dp"
                 android:textColor="@color/white_ffffff"

@@ -42,5 +42,9 @@ public class NetUrl {
     public static final String unBindDevice = "/device/v1.0.0/unBindDevice";
     //检测设备是否被绑定
     public static final String checkDeviceBindStatus = "/device/v1.0.0/checkDeviceBindStatus";
+    //检测设备是否在线
+    public static final String checkDeviceOnlineStatus = "/device/v1.0.0/checkDeviceOnlineStatus";
+    //创建乐橙直播地址
+    public static final String bindLcDeviceLive = "/device/v1.0.0/bindLcDeviceLive";
 
 }

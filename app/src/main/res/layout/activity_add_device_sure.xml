@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_ffffff"
-    tools:context="com.jiufang.wsyapp.ui.AddDeviceTongdianActivity">
+    tools:context="com.jiufang.wsyapp.ui.AddDeviceSureActivity">
 
     <RelativeLayout
         android:id="@+id/rl_top"
@@ -48,70 +48,74 @@
 
         <ImageView
             android:scaleType="centerCrop"
-            android:src="@mipmap/yibangding"
+            android:src="@mipmap/bg_add_device_sure"
             android:layout_width="match_parent"
-            android:layout_height="234dp" />
+            android:layout_height="254dp" />
 
         <TextView
-            android:id="@+id/tv"
-            android:textSize="14sp"
-            android:textColor="#1A1A1A"
-            android:layout_marginTop="27dp"
-            android:gravity="center"
-            android:layout_marginLeft="67dp"
-            android:layout_marginRight="67dp"
-            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="31dp"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:text="请确认设备绿灯闪烁"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="29dp"
+            android:textColor="#FFA16F"
+            android:textSize="16sp"
+            android:text="未见设备绿灯闪烁？联系客服"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginRight="14dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginRight="14dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="26dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/ll_select"
-            android:layout_marginRight="13dp"
+            android:id="@+id/ll_gouxuan"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_select"
+                android:id="@+id/iv_gouxuan"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/duihao_null"
-                android:layout_width="17dp"
-                android:layout_height="17dp" />
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
 
             <TextView
-                android:id="@+id/tv_bottom"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="9dp"
-                android:textColor="#7F7F7F"
-                android:textSize="12sp"
-                android:text="设备已通电"
+                android:textColor="#8C8A8A"
+                android:textSize="16sp"
+                android:text="已确认设备绿灯闪烁"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-        
+
         <Button
             android:focusable="false"
             android:id="@+id/btn_next"
             android:enabled="false"
-            android:textSize="13sp"
-            android:textColor="@color/white_ffffff"
-            android:text="下一步"
+            android:layout_marginTop="25dp"
             android:background="@drawable/bg_fdd0b7_3dp"
-            android:layout_marginTop="35dp"
+            android:textColor="@color/white_ffffff"
+            android:textSize="18sp"
+            android:text="下一步"
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="44dp" />
 
     </LinearLayout>
 

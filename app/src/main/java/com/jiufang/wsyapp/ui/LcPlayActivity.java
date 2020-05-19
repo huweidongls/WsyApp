@@ -57,10 +57,15 @@ public class LcPlayActivity extends BaseActivity {
 
         Map<String, String> map = new LinkedHashMap<>();
         map.put("bindDeviceId", id);
-        ViseUtil.Post(context, NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
+        ViseUtil.Post(context, NetUrl.bindLcDeviceLive, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
                 Logger.e("123123", s);
+            }
+
+            @Override
+            public void onElse(String s) {
+
             }
         });
 

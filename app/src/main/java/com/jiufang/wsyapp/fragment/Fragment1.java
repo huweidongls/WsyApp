@@ -114,6 +114,11 @@ public class Fragment1 extends LazyFragment {
                         adapter.notifyDataSetChanged();
                         page = 2;
                     }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
                 });
             }
         });
@@ -133,6 +138,11 @@ public class Fragment1 extends LazyFragment {
                         mList.addAll(bean.getData().getRecords());
                         adapter.notifyDataSetChanged();
                         page = page+1;
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
                     }
                 });
             }
@@ -154,6 +164,11 @@ public class Fragment1 extends LazyFragment {
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setAdapter(adapter);
                 page = 2;
+            }
+
+            @Override
+            public void onElse(String s) {
+
             }
         });
 

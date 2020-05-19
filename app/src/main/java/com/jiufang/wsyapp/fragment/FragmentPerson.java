@@ -90,6 +90,11 @@ public class FragmentPerson extends LazyFragment {
                         }
                         page = 2;
                     }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
                 });
             }
         });
@@ -115,6 +120,11 @@ public class FragmentPerson extends LazyFragment {
                             llMsg.setVisibility(View.VISIBLE);
                         }
                         page = page + 1;
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
                     }
                 });
             }
@@ -143,6 +153,11 @@ public class FragmentPerson extends LazyFragment {
                     llMsg.setVisibility(View.VISIBLE);
                 }
                 page = 2;
+            }
+
+            @Override
+            public void onElse(String s) {
+
             }
         });
 

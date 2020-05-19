@@ -119,7 +119,11 @@
         <activity android:name=".ui.SelectShebeiActivity" />
         <activity android:name=".ui.LcPlayActivity" />
         <activity android:name=".ui.IsBindingActivity" />
-        <activity android:name=".ui.AddDeviceTongdianActivity"></activity>
+        <activity android:name=".ui.AddDeviceTongdianActivity" />
+        <activity android:name=".ui.AddDeviceWifiActivity" />
+        <activity android:name=".ui.AddDeviceSureActivity" />
+        <activity android:name=".ui.AddDeviceSuccessActivity" />
+        <activity android:name=".ui.AddDeviceAddressActivity"></activity>
     </application>
 
 </manifest>

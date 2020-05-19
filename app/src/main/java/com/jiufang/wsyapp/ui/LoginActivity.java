@@ -70,12 +70,12 @@ public class LoginActivity extends BaseActivity {
             case R.id.rl_eye:
                 if (!isShowPwd) {
                     isShowPwd = true;
-                    Glide.with(context).load(R.mipmap.eye).into(ivEye);
+                    ivEye.setImageResource(R.mipmap.eye);
                     etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     etPwd.setSelection(etPwd.getText().length());
                 } else {
                     isShowPwd = false;
-                    Glide.with(context).load(R.mipmap.biyan).into(ivEye);
+                    ivEye.setImageResource(R.mipmap.biyan);
                     etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     etPwd.setSelection(etPwd.getText().length());
                 }
@@ -117,6 +117,11 @@ public class LoginActivity extends BaseActivity {
                             intent.setClass(context, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                        }
+
+                        @Override
+                        public void onElse(String s) {
+
                         }
                     });
                 }

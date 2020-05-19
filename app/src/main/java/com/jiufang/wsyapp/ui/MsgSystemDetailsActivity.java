@@ -63,6 +63,11 @@ public class MsgSystemDetailsActivity extends BaseActivity {
                 tvTime.setText(bean.getData().getMessageTime());
                 tvContent.setText(bean.getData().getMessageContent());
             }
+
+            @Override
+            public void onElse(String s) {
+
+            }
         });
 
     }

@@ -86,6 +86,12 @@ public class TaocanShebeiActivity extends BaseActivity {
                     llMsg.setVisibility(View.VISIBLE);
                 }
             }
+
+            @Override
+            public void onElse(String s) {
+                recyclerView.setVisibility(View.GONE);
+                llMsg.setVisibility(View.VISIBLE);
+            }
         });
 
     }

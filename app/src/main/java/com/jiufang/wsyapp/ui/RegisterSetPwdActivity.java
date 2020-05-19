@@ -89,6 +89,11 @@ public class RegisterSetPwdActivity extends BaseActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }
+
+                        @Override
+                        public void onElse(String s) {
+
+                        }
                     });
                 }
                 break;

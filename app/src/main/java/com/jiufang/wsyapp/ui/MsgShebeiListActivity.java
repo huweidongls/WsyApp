@@ -145,7 +145,7 @@ public class MsgShebeiListActivity extends BaseActivity {
 
                 break;
             case R.id.tv_delete:
-                DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(context, new DialogMsgDelete.ClickListener() {
+                DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(context, "确认删除吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
                     @Override
                     public void onSure() {
 

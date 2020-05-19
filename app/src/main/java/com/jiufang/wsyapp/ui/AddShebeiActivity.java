@@ -82,6 +82,7 @@ public class AddShebeiActivity extends BaseActivity {
                 String s = editable.toString();
                 if(!StringUtils.isEmpty(type)&&!StringUtils.isEmpty(s)){
                     btnNext.setBackgroundResource(R.drawable.bg_ffa16f_3dp);
+                    btnNext.setFocusable(true);
                     btnNext.setEnabled(true);
                 }
             }
@@ -129,22 +130,23 @@ public class AddShebeiActivity extends BaseActivity {
         ViseUtil.Post(context, NetUrl.checkDeviceBindStatus, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
+                Intent intent = new Intent();
+                intent.setClass(context, AddDeviceTongdianActivity.class);
+                intent.putExtra("type", type);
+                intent.putExtra("xlh", xlh);
+                intent.putExtra("anquan", anquan);
+                startActivity(intent);
+            }
 
+            @Override
+            public void onElse(String s) {
+                Intent intent = new Intent();
+                intent.setClass(context, IsBindingActivity.class);
+                intent.putExtra("type", type);
+                intent.putExtra("s", s);
+                startActivity(intent);
             }
         });
-
-//        Map<String, String> map = new LinkedHashMap<>();
-//        map.put("userId", SpUtils.getUserId(context));
-//        map.put("deviceSn", xlh);
-//        if(!StringUtils.isEmpty(anquan)){
-//            map.put("deviceSecurityCode", anquan);
-//        }
-//        ViseUtil.Post(context, NetUrl.bindDevice, map, new ViseUtil.ViseListener() {
-//            @Override
-//            public void onReturn(String s) {
-//
-//            }
-//        });
 
     }
 
@@ -166,6 +168,7 @@ public class AddShebeiActivity extends BaseActivity {
                 type = "1";
                 if(!StringUtils.isEmpty(type)&&!StringUtils.isEmpty(etXlh.getText().toString())){
                     btnNext.setBackgroundResource(R.drawable.bg_ffa16f_3dp);
+                    btnNext.setFocusable(true);
                     btnNext.setEnabled(true);
                 }
                 easyPopup.dismiss();
@@ -178,6 +181,7 @@ public class AddShebeiActivity extends BaseActivity {
                 type = "2";
                 if(!StringUtils.isEmpty(type)&&!StringUtils.isEmpty(etXlh.getText().toString())){
                     btnNext.setBackgroundResource(R.drawable.bg_ffa16f_3dp);
+                    btnNext.setFocusable(true);
                     btnNext.setEnabled(true);
                 }
                 easyPopup.dismiss();

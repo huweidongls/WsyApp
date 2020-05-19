@@ -64,6 +64,11 @@ public class MsgPersonDetailsActivity extends BaseActivity {
                 tvXinghao.setText(bean.getData().getDeviceModel());
                 tvXlh.setText(bean.getData().getDeviceSn());
             }
+
+            @Override
+            public void onElse(String s) {
+
+            }
         });
 
     }

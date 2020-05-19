@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_ffffff"
+    tools:context="com.jiufang.wsyapp.ui.AddDeviceAddressActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="设备添加"
+            style="@style/tv_top_title" />
+
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="53dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/kefu"
+                android:layout_width="27dp"
+                android:layout_height="24dp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/rl_top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="33dp"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:text="为设备起个名字吧"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:background="@drawable/bg_dcdada_2dp_bord"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="31dp">
+
+            <EditText
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:textColor="@color/black_333333"
+                android:textSize="11sp"
+                android:hint="请为设备起名（选填）"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="33dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:text="信息将在使用“一键报警”功能时，提交给相关部门"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:background="@drawable/bg_dcdada_2dp_bord"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="31dp">
+
+            <EditText
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:textColor="@color/black_333333"
+                android:textSize="11sp"
+                android:hint="设备使用者姓名（选填）"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@drawable/bg_dcdada_2dp_bord"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="31dp">
+
+            <EditText
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:textColor="@color/black_333333"
+                android:textSize="11sp"
+                android:hint="设备使用者联系电话（选填）"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="@drawable/bg_dcdada_2dp_bord"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="31dp">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:textColor="@color/black_333333"
+                android:textSize="11sp"
+                android:hint="设备位置（选填）"
+                android:background="@null"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_gravity="center_vertical"
+                android:background="#DCDADA"
+                android:layout_width="1dp"
+                android:layout_height="16dp"/>
+
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/black_333333"
+                android:textSize="10sp"
+                android:text="地图"
+                android:layout_width="58dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_complete"
+        android:background="@drawable/bg_ffa16f_3dp"
+        android:textColor="@color/white_ffffff"
+        android:textSize="13sp"
+        android:text="完成"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginBottom="57dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+</RelativeLayout>

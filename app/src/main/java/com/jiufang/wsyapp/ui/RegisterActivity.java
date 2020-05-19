@@ -103,6 +103,11 @@ public class RegisterActivity extends BaseActivity {
                             intent.putExtra("token", token);
                             startActivity(intent);
                         }
+
+                        @Override
+                        public void onElse(String s) {
+
+                        }
                     });
                 }
                 break;
@@ -120,6 +125,11 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onReturn(String s) {
                 ToastUtil.showShort(context, "验证码发送成功");
+            }
+
+            @Override
+            public void onElse(String s) {
+
             }
         });
 

@@ -61,6 +61,11 @@ public class YsTaocanDetailsActivity extends BaseActivity {
                 bean = gson.fromJson(s, GetComboByIdBean.class);
                 tvTitle.setText(bean.getData().getComboName());
             }
+
+            @Override
+            public void onElse(String s) {
+
+            }
         });
 
     }

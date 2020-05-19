@@ -10,6 +10,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/iv"
             android:layout_marginTop="37dp"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/lajitong"
@@ -17,6 +18,7 @@
             android:layout_height="41dp" />
 
         <TextView
+            android:id="@+id/tv"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:textSize="17sp"
@@ -50,7 +52,7 @@
                 android:background="@drawable/bg_e9e7e7_7dp_bord"
                 android:textColor="#373737"
                 android:textSize="9sp"
-                android:text="确定"
+                android:text="取消"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="27dp" />

@@ -40,8 +40,14 @@ import android.widget.TextView;
 
 import com.google.zxing.Result;
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.AddDeviceTongdianActivity;
 import com.jiufang.wsyapp.ui.AddShebeiActivity;
+import com.jiufang.wsyapp.ui.IsBindingActivity;
+import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
+import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.zxing.camera.CameraManager;
 import com.jiufang.wsyapp.zxing.decode.DecodeThread;
 import com.jiufang.wsyapp.zxing.utils.BeepManager;
@@ -50,6 +56,8 @@ import com.jiufang.wsyapp.zxing.utils.InactivityTimer;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -258,13 +266,145 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         inactivityTimer.onActivity();
         beepManager.playBeepSoundAndVibrate();
 
-        Intent resultIntent = new Intent();
-        bundle.putInt("width", mCropRect.width());
-        bundle.putInt("height", mCropRect.height());
-        bundle.putString("result", rawResult.getText());
-        resultIntent.putExtras(bundle);
-        this.setResult(RESULT_OK, resultIntent);
-        CaptureActivity.this.finish();
+//        Intent resultIntent = new Intent();
+//        bundle.putInt("width", mCropRect.width());
+//        bundle.putInt("height", mCropRect.height());
+//        bundle.putString("result", rawResult.getText());
+//        resultIntent.putExtras(bundle);
+//        this.setResult(RESULT_OK, resultIntent);
+//        CaptureActivity.this.finish();
+
+        String result = rawResult.getText();
+        if(result.contains("{")&&result.contains(":")&&result.contains("}")){
+            //乐橙设备
+            jiexiLc(result);
+        }else {
+            //萤石设备
+            jiexiYs(result);
+        }
+
+    }
+
+    private void jiexiLc(String result){
+
+        String devSn="";
+        String devType="";
+        if (result.contains(",")) {
+            devSn = result.split(",")[0].split(":")[1];
+        }else if(result.contains(":")){
+            devSn=result.split(":")[0];
+            devType=result.split(":")[1];
+        }
+        if(devSn!=null&&devSn.length()!=15){
+            devSn= result.substring(result.indexOf(":")+1,result.indexOf("}"));
+        }
+//        mSnText.setText(devSn);
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("snCode", devSn);
+        map.put("userId", SpUtils.getUserId(context));
+        String finalDevSn = devSn;
+        ViseUtil.Post(context, NetUrl.checkDeviceBindStatus, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                Intent intent = new Intent();
+                intent.setClass(context, AddDeviceTongdianActivity.class);
+                intent.putExtra("type", "1");
+                intent.putExtra("xlh", finalDevSn);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onElse(String s) {
+                Intent intent = new Intent();
+                intent.setClass(context, IsBindingActivity.class);
+                intent.putExtra("type", "1");
+                intent.putExtra("s", s);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void jiexiYs(String resultString) {
+        //ys7C78047095TQJATVCS-C1HC-1D1WFR
+        // 初始化数据
+        String mSerialNoStr = "";
+        String mSerialVeryCodeStr = "";
+        String deviceType = "";
+        Log.e("123123", "resultString = " + resultString);
+        // CS-F1-1WPFR
+        // CS-A1-1WPFR
+        // CS-C1-1FPFR
+        // resultString = "www.xxx.com\n456654855\nABCDEF\nCS-C3-21PPFR\n";
+        // 字符集合
+        String[] newlineCharacterSet = {
+                "\n\r", "\r\n", "\r", "\n"};
+        String stringOrigin = resultString;
+        // 寻找第一次出现的位置
+        int a = -1;
+        int firstLength = 1;
+        for (String string : newlineCharacterSet) {
+            if (a == -1) {
+                a = resultString.indexOf(string);
+                if (a > stringOrigin.length() - 3) {
+                    a = -1;
+                }
+                if (a != -1) {
+                    firstLength = string.length();
+                }
+            }
+        }
+
+        // 扣去第一次出现回车的字符串后，剩余的是第二行以及以后的
+        if (a != -1) {
+            resultString = resultString.substring(a + firstLength);
+        }
+        // 寻找最后一次出现的位置
+        int b = -1;
+        for (String string : newlineCharacterSet) {
+            if (b == -1) {
+                b = resultString.indexOf(string);
+                if (b != -1) {
+                    mSerialNoStr = resultString.substring(0, b);
+                    firstLength = string.length();
+                }
+            }
+        }
+
+        // 寻找遗失的验证码阶段
+        if (mSerialNoStr != null && b != -1 && (b + firstLength) <= resultString.length()) {
+            resultString = resultString.substring(b + firstLength);
+        }
+
+        // 再次寻找回车键最后一次出现的位置
+        int c = -1;
+        for (String string : newlineCharacterSet) {
+            if (c == -1) {
+                c = resultString.indexOf(string);
+                if (c != -1) {
+                    mSerialVeryCodeStr = resultString.substring(0, c);
+                }
+            }
+        }
+
+        // 寻找CS-C2-21WPFR 判断是否支持wifi
+        if (mSerialNoStr != null && c != -1 && (c + firstLength) <= resultString.length()) {
+            resultString = resultString.substring(c + firstLength);
+        }
+        if (resultString != null && resultString.length() > 0) {
+            deviceType = resultString;
+        }
+
+        if (b == -1) {
+            mSerialNoStr = resultString;
+        }
+
+        if (mSerialNoStr == null) {
+            mSerialNoStr = stringOrigin;
+        }
+        Log.e("123123", "mSerialNoStr = " + mSerialNoStr + ",mSerialVeryCodeStr = " + mSerialVeryCodeStr
+                + ",deviceType = " + deviceType);
+
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {

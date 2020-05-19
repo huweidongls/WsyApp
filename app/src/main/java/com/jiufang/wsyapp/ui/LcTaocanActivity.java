@@ -62,6 +62,11 @@ public class LcTaocanActivity extends BaseActivity {
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setAdapter(adapter);
             }
+
+            @Override
+            public void onElse(String s) {
+
+            }
         });
 
     }

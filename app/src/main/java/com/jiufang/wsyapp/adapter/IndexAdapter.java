@@ -12,9 +12,16 @@ import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
+import com.jiufang.wsyapp.dialog.DialogMsgDelete;
+import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.LcPlayActivity;
+import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.ToastUtil;
+import com.jiufang.wsyapp.utils.ViseUtil;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2020/4/30.
@@ -66,6 +73,36 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                 }else {
                     //萤石
                 }
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(context, "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
+                    @Override
+                    public void onSure() {
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put("bindDeviceId", data.get(position).getId()+"");
+                        ViseUtil.Post(context, NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                ToastUtil.showShort(context, "设备解绑成功");
+                            }
+
+                            @Override
+                            public void onElse(String s) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+                dialogMsgDelete.show();
+                return false;
             }
         });
 
