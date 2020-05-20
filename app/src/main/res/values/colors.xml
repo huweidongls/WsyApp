@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FFA16F</color>
 
+    <color name="lc_bg_color">#efeff4</color>
+    <color name="lc_media_color">#000000</color>
+
     <!--颜色面板-->
     <color name="yellow_ffc822">#ffc822</color>
     <color name="blue_2681fc">#2681fc</color>

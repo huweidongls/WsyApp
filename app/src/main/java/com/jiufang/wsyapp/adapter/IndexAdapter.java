@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.dialog.DialogMsgDelete;
+import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
+import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.LcPlayActivity;
 import com.jiufang.wsyapp.utils.Logger;
@@ -22,6 +24,7 @@ import com.jiufang.wsyapp.utils.ViseUtil;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2020/4/30.
@@ -31,6 +34,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
     private Context context;
     private List<GetBindDeviceListBean.DataBean.RecordsBean> data;
+    private ChannelInfo channelInfo;
 
     public IndexAdapter(List<GetBindDeviceListBean.DataBean.RecordsBean> data) {
         this.data = data;
@@ -66,10 +70,19 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             public void onClick(View view) {
                 if(brandId == 1){
                     //乐橙
-                    Intent intent = new Intent();
-                    intent.setClass(context, LcPlayActivity.class);
+//                    Intent intent = new Intent();
+//                    intent.setClass(context, LcPlayActivity.class);
+//                    intent.putExtra("id", data.get(position).getId()+"");
+//                    context.startActivity(intent);
+
+                    Intent intent = new Intent(context, MediaPlayActivity.class);
+//                    intent.putExtra("UUID", channelInfo.getUuid());
                     intent.putExtra("id", data.get(position).getId()+"");
+                    intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_ONLINE);
+                    intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
+//                    DevicelistActivity.this.startActivityForResult(intent, 0);
                     context.startActivity(intent);
+
                 }else {
                     //萤石
                 }

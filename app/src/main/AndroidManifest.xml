@@ -123,7 +123,8 @@
         <activity android:name=".ui.AddDeviceWifiActivity" />
         <activity android:name=".ui.AddDeviceSureActivity" />
         <activity android:name=".ui.AddDeviceSuccessActivity" />
-        <activity android:name=".ui.AddDeviceAddressActivity"></activity>
+        <activity android:name=".ui.AddDeviceAddressActivity"/>
+        <activity android:name=".mediaplay.MediaPlayActivity"/>
     </application>
 
 </manifest>
