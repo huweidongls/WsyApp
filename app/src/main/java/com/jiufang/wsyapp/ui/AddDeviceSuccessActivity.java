@@ -16,11 +16,14 @@ public class AddDeviceSuccessActivity extends BaseActivity {
 
     private Context context = AddDeviceSuccessActivity.this;
 
+    private String id = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device_success);
 
+        id = getIntent().getStringExtra("id");
         StatusBarUtils.setStatusBar(AddDeviceSuccessActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(AddDeviceSuccessActivity.this);
         initData();
@@ -42,6 +45,7 @@ public class AddDeviceSuccessActivity extends BaseActivity {
                 break;
             case R.id.btn_next:
                 intent.setClass(context, AddDeviceAddressActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
                 break;
         }

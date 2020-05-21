@@ -64,6 +64,7 @@
         android:layout_height="31dp">
 
         <EditText
+            android:id="@+id/et_anquan"
             android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"
             android:layout_marginRight="11dp"

@@ -315,6 +315,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
             @Override
             public void onElse(String s) {
+                Logger.e("123123", s);
                 Intent intent = new Intent();
                 intent.setClass(context, IsBindingActivity.class);
                 intent.putExtra("type", "1");

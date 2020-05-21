@@ -48,5 +48,7 @@ public class NetUrl {
     public static final String bindLcDeviceLive = "/device/v1.0.0/bindLcDeviceLive";
     //获取乐橙设备详情
     public static final String getBindDeviceDetail = "/device/v1.0.0/getBindDeviceDetail";
+    //更新设备名称
+    public static final String updateBindDeviceName = "/device/v1.0.0/updateBindDeviceName";
 
 }

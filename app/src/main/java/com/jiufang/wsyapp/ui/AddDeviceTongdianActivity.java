@@ -89,7 +89,6 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                 ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, new ViseUtil.ViseListener() {
                     @Override
                     public void onReturn(String s) {
-                        Logger.e("123123", "success"+s);
                         try {
                             Intent intent = new Intent();
                             JSONObject jsonObject = new JSONObject(s);

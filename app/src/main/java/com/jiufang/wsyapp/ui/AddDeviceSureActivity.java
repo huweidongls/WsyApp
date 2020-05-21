@@ -8,14 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.BindDeviceBean;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -89,14 +95,26 @@ public class AddDeviceSureActivity extends BaseActivity {
         ViseUtil.Post(context, NetUrl.bindDevice, map, dialog, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
+                Gson gson = new Gson();
+                BindDeviceBean bean = gson.fromJson(s, BindDeviceBean.class);
                 Intent intent = new Intent();
                 intent.setClass(context, AddDeviceSuccessActivity.class);
+                intent.putExtra("id", bean.getData().getId()+"");
                 startActivity(intent);
             }
 
             @Override
             public void onElse(String s) {
-
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    Intent intent = new Intent();
+                    intent.setClass(context, AddDeviceAnquanActivity.class);
+                    intent.putExtra("type", type);
+                    intent.putExtra("xlh", xlh);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
