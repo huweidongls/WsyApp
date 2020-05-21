@@ -48,7 +48,7 @@ public class MyApplication extends Application {
         forgetTimeCount = new ForgetTimeCount(120000, 1000);
 //        RichText.initCacheDir(this);
 
-        LCOpenSDK_Api.setHost("https://openapi.lechange.cn:443/");
+        LCOpenSDK_Api.setHost("openapi.lechange.cn:443");
         /*******Android 4.4 等部分版本需要在此处特殊处理，单独加载so库文件 *****/
         try {
             System.loadLibrary("netsdk");

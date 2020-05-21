@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_ffffff"
+    tools:context="com.jiufang.wsyapp.ui.AddDeviceAnquanActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="设备添加"
+            style="@style/tv_top_title" />
+
+        <!--<RelativeLayout-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_width="53dp"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<ImageView-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:src="@mipmap/kefu"-->
+                <!--android:layout_width="27dp"-->
+                <!--android:layout_height="24dp" />-->
+
+        <!--</RelativeLayout>-->
+
+    </RelativeLayout>
+
+    <View
+        android:background="#EEEEEE"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="33dp"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        android:text="此设备有安全码，请填写安全码完成绑定"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:background="@drawable/bg_dcdada_2dp_bord"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="31dp">
+
+        <EditText
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:textColor="@color/black_333333"
+            android:textSize="11sp"
+            android:hint="请输入设备安全码"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:textColor="@color/white_ffffff"
+        android:textSize="13sp"
+        android:background="@drawable/bg_ffa16f_3dp"
+        android:text="下一步"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:text="找不到设备安全码？"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#FE965F"
+            android:text="联系客服"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

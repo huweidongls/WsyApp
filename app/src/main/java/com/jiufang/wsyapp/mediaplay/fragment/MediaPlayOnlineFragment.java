@@ -531,10 +531,12 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
 		} else {
 			showLoading(R.string.common_loading);
 		}
+		com.jiufang.wsyapp.utils.Logger.e("123123", "token--"+bean.getData().getUserToken()+"--deviceId--"+bean.getData().getSnCode()
+		+"--channelId--"+bean.getData().getChannelId());
 		mPlayWin.playRtspReal(
 				bean.getData().getUserToken(),
-				bean.getData().getDeviceId()+"",
-				null,
+				bean.getData().getSnCode(),
+				bean.getData().getSnCode(),
 				Integer.valueOf(bean.getData().getChannelId()), bateMode, bean.getData().isIsOpt());//最后一个参数为true，表示使用长连接
 	}
 
@@ -698,8 +700,8 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
 		LCOpenSDK_Talk.setListener(new AudioTalkerListener());//对讲前先设备监听
 		LCOpenSDK_Talk.playTalk(
 				bean.getData().getUserToken(),
-				bean.getData().getDeviceId()+"",
-				null, bean.getData().isIsOpt());//对讲使用长连接
+				bean.getData().getSnCode(),
+				bean.getData().getSnCode(), bean.getData().isIsOpt());//对讲使用长连接
 	}
 
 	/**
