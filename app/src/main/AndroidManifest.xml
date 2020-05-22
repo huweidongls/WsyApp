@@ -65,11 +65,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".zxing.activity.CaptureActivity"
@@ -125,7 +125,20 @@
         <activity android:name=".ui.AddDeviceSuccessActivity" />
         <activity android:name=".ui.AddDeviceAddressActivity" />
         <activity android:name=".mediaplay.MediaPlayActivity" />
-        <activity android:name=".ui.AddDeviceAnquanActivity"></activity>
+        <activity android:name=".ui.AddDeviceAnquanActivity" />
+        <activity android:name=".ui.AddDeviceMapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="STyTAl5jkOCvlFzCczjeiZzHHbbyCgLt" />
+        <!--<service android:name="com.baidu.location.f"-->
+            <!--android:enabled="true"-->
+            <!--android:process=":remote"/>-->
     </application>
 
 </manifest>

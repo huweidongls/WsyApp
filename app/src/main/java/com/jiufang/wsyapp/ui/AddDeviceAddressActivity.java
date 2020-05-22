@@ -55,17 +55,21 @@ public class AddDeviceAddressActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_complete})
+    @OnClick({R.id.rl_back, R.id.btn_complete, R.id.tv_map})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_back:
                 finish();
                 break;
             case R.id.btn_complete:
 //                onComplete();
-                Intent intent = new Intent();
                 intent.setClass(context, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                break;
+            case R.id.tv_map:
+                intent.setClass(context, AddDeviceMapActivity.class);
                 startActivity(intent);
                 break;
         }

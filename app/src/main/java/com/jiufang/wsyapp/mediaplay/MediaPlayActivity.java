@@ -37,6 +37,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 描述：视频播放Activity 作者： lc
@@ -115,6 +116,15 @@ public class MediaPlayActivity extends FragmentActivity implements
                 break;
         }
 
+    }
+
+    @OnClick({R.id.rl_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.rl_back:
+                finish();
+                break;
+        }
     }
 
     /**

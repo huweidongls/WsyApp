@@ -160,6 +160,7 @@
                 android:layout_height="16dp"/>
 
             <TextView
+                android:id="@+id/tv_map"
                 android:gravity="center"
                 android:textColor="@color/black_333333"
                 android:textSize="10sp"

@@ -53,4 +53,5 @@ dependencies {
     implementation 'com.github.SheHuan:NiceImageView:1.0.5'
     implementation 'com.github.donkingliang:ImageSelector:1.6.8'
     compile 'com.github.zyyoona7:EasyPopup:1.1.2'
+    implementation files('libs/BaiduLBS_Android.jar')
 }
