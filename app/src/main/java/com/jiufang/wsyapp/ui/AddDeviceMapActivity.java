@@ -1,9 +1,12 @@
 package com.jiufang.wsyapp.ui;
 
 import android.content.Context;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -22,7 +25,15 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.adapter.MapAddressAdapter;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
@@ -39,11 +50,16 @@ public class AddDeviceMapActivity extends BaseActivity {
 
     @BindView(R.id.mapview)
     MapView mapView;
+    @BindView(R.id.rv)
+    RecyclerView recyclerView;
 
     private BaiduMap baiduMap;
     private MapStatus mapStatus;
+    private GeoCoder geoCoder;
 
     private boolean isFirstLoc = true;
+
+    private MapAddressAdapter adapter;
 
     private BitmapDescriptor mCurrentMarker;
     private LocationClient locationClient;
@@ -145,10 +161,44 @@ public class AddDeviceMapActivity extends BaseActivity {
             @Override
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
                 LatLng latLng = mapStatus.target;
-                Logger.e("123123", "lat--"+latLng.latitude+"--lng--"+latLng.longitude);
+                Logger.e("123123", "lat--"+latLng.latitude+"--lng--"+latLng.longitude+"--tostring--"+latLng.toString());
+                latlngToAddress(latLng);
             }
         });
 
+        geoCoder = GeoCoder.newInstance();
+        // 设置地址或经纬度反编译后的监听,这里有两个回调方法
+        geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
+
+            @Override
+            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                    ToastUtil.showShort(context, "找不到该地址!");
+                } else {
+                    ToastUtil.showShort(context, result.getAddress());
+                    List<PoiInfo> pois = result.getPoiList();
+                    adapter = new MapAddressAdapter(pois);
+                    LinearLayoutManager manager = new LinearLayoutManager(context);
+                    manager.setOrientation(LinearLayoutManager.VERTICAL);
+                    recyclerView.setLayoutManager(manager);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onGetGeoCodeResult(GeoCodeResult result) {
+                // 详细地址转换在经纬度
+                ToastUtil.showShort(context, result.getAddress());
+
+            }
+        });
+
+    }
+
+    // 百度地图通过坐标获取地址，（ 要签名打包才能得到地址）
+    private void latlngToAddress(LatLng latlng) {
+        // 设置反地理经纬度坐标,请求位置时,需要一个经纬度
+        geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latlng));
     }
 
     @Override
