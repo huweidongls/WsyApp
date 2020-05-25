@@ -406,6 +406,33 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         Log.e("123123", "mSerialNoStr = " + mSerialNoStr + ",mSerialVeryCodeStr = " + mSerialVeryCodeStr
                 + ",deviceType = " + deviceType);
 
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("snCode", mSerialNoStr);
+        map.put("userId", SpUtils.getUserId(context));
+        String finalDevSn = mSerialNoStr;
+        String finalMSerialVeryCodeStr = mSerialVeryCodeStr;
+        ViseUtil.Post(context, NetUrl.checkDeviceBindStatus, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                Intent intent = new Intent();
+                intent.setClass(context, AddDeviceTongdianActivity.class);
+                intent.putExtra("type", "2");
+                intent.putExtra("xlh", finalDevSn);
+                intent.putExtra("anquan", finalMSerialVeryCodeStr);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onElse(String s) {
+                Logger.e("123123", s);
+                Intent intent = new Intent();
+                intent.setClass(context, IsBindingActivity.class);
+                intent.putExtra("type", "2");
+                intent.putExtra("s", s);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {

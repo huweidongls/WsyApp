@@ -101,7 +101,7 @@
                 android:layout_marginRight="11dp"
                 android:textColor="@color/black_333333"
                 android:textSize="11sp"
-                android:hint="设备使用者姓名（选填）"
+                android:hint="设备使用者姓名"
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -124,7 +124,7 @@
                 android:layout_marginRight="11dp"
                 android:textColor="@color/black_333333"
                 android:textSize="11sp"
-                android:hint="设备使用者联系电话（选填）"
+                android:hint="设备使用者联系电话"
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -140,14 +140,14 @@
             android:layout_width="match_parent"
             android:layout_height="31dp">
 
-            <EditText
+            <TextView
                 android:id="@+id/et_map"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
                 android:textColor="@color/black_333333"
                 android:textSize="11sp"
-                android:hint="设备位置（选填）"
+                android:hint="设备位置"
                 android:background="@null"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -185,7 +185,7 @@
                 android:layout_marginRight="11dp"
                 android:textColor="@color/black_333333"
                 android:textSize="11sp"
-                android:hint="设备使用者门牌号（选填）"
+                android:hint="设备使用者门牌号"
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

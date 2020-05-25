@@ -12,6 +12,7 @@
         style="@style/rl_top_bar">
 
         <RelativeLayout
+            android:id="@+id/rl_back"
             android:layout_width="36dp"
             android:layout_height="match_parent">
 

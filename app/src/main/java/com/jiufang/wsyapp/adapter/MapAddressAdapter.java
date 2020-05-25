@@ -21,9 +21,11 @@ public class MapAddressAdapter extends RecyclerView.Adapter<MapAddressAdapter.Vi
 
     private Context context;
     private List<PoiInfo> data;
+    private ClickListener listener;
 
-    public MapAddressAdapter(List<PoiInfo> data) {
+    public MapAddressAdapter(List<PoiInfo> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @NonNull
@@ -40,6 +42,12 @@ public class MapAddressAdapter extends RecyclerView.Adapter<MapAddressAdapter.Vi
         viewHolder.tvName.setText(data.get(i).getName());
         viewHolder.tvAddress.setText(data.get(i).getAddress());
         //city是城市
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(i);
+            }
+        });
     }
 
     @Override
@@ -57,6 +65,10 @@ public class MapAddressAdapter extends RecyclerView.Adapter<MapAddressAdapter.Vi
             tvName = itemView.findViewById(R.id.tv_name);
             tvAddress = itemView.findViewById(R.id.tv_address);
         }
+    }
+
+    public interface ClickListener{
+        void onItemClick(int pos);
     }
 
 }

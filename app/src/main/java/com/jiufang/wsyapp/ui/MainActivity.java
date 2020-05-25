@@ -16,6 +16,8 @@ import com.jiufang.wsyapp.fragment.Fragment1;
 import com.jiufang.wsyapp.fragment.Fragment2;
 import com.jiufang.wsyapp.fragment.Fragment3;
 import com.jiufang.wsyapp.fragment.Fragment4;
+import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.vise.xsnow.permission.OnPermissionCallback;
@@ -72,6 +74,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void init() {
+
+        Logger.e("token", SpUtils.getToken(context));
 
         MainAdapter mainAdapter = new MainAdapter(getSupportFragmentManager());
         mViewPger.setOffscreenPageLimit(4);

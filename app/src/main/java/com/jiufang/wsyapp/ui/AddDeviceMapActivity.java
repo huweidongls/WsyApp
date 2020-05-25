@@ -1,12 +1,14 @@
 package com.jiufang.wsyapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -43,6 +45,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AddDeviceMapActivity extends BaseActivity {
 
@@ -133,6 +136,15 @@ public class AddDeviceMapActivity extends BaseActivity {
 
     }
 
+    @OnClick({R.id.rl_back})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.rl_back:
+                finish();
+                break;
+        }
+    }
+
     private void initData() {
 
         baiduMap = mapView.getMap();
@@ -177,7 +189,15 @@ public class AddDeviceMapActivity extends BaseActivity {
                 } else {
                     ToastUtil.showShort(context, result.getAddress());
                     List<PoiInfo> pois = result.getPoiList();
-                    adapter = new MapAddressAdapter(pois);
+                    adapter = new MapAddressAdapter(pois, new MapAddressAdapter.ClickListener() {
+                        @Override
+                        public void onItemClick(int pos) {
+                            Intent intent = new Intent();
+                            intent.putExtra("bean", pois.get(pos));
+                            setResult(1002, intent);
+                            finish();
+                        }
+                    });
                     LinearLayoutManager manager = new LinearLayoutManager(context);
                     manager.setOrientation(LinearLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(manager);

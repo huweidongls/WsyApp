@@ -1,17 +1,26 @@
 package com.jiufang.wsyapp.ui;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.GetAreaByNameBean;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -31,11 +40,14 @@ public class AddDeviceAddressActivity extends BaseActivity {
     @BindView(R.id.et_phone)
     EditText etPhone;
     @BindView(R.id.et_map)
-    EditText etMap;
+    TextView etMap;
     @BindView(R.id.et_address)
     EditText etAddress;
 
     private String id = "";
+    private String area = "";
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +75,26 @@ public class AddDeviceAddressActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_complete:
-//                onComplete();
-                intent.setClass(context, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                onComplete();
                 break;
             case R.id.tv_map:
                 intent.setClass(context, AddDeviceMapActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1001);
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(data != null&&requestCode == 1001){
+            PoiInfo poiInfo = data.getParcelableExtra("bean");
+            etMap.setText(poiInfo.getAddress()+"-"+poiInfo.getName());
+            area = poiInfo.getCity();
+            Logger.e("123123", area);
+        }
+
     }
 
     private void onComplete() {
@@ -83,21 +105,45 @@ public class AddDeviceAddressActivity extends BaseActivity {
         String map = etMap.getText().toString();
         String address = etAddress.getText().toString();
 
-        if(StringUtils.isEmpty(deviceName)&&StringUtils.isEmpty(name)&&StringUtils.isEmpty(phone)
-                &&StringUtils.isEmpty(map)&&StringUtils.isEmpty(address)){
-            Intent intent = new Intent();
-            intent.setClass(context, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }else if(!StringUtils.isEmpty(deviceName)&&StringUtils.isEmpty(name)&&StringUtils.isEmpty(phone)
-                &&StringUtils.isEmpty(map)&&StringUtils.isEmpty(address)){
-
+        if(StringUtils.isEmpty(name)||StringUtils.isEmpty(phone)
+                ||StringUtils.isEmpty(map)||StringUtils.isEmpty(address)){
+            ToastUtil.showShort(context, "请完善信息");
+        }else {
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待");
             Map<String, String> map1 = new LinkedHashMap<>();
-            map1.put("", "");
-            ViseUtil.Post(context, NetUrl.updateBindDeviceName, map1, new ViseUtil.ViseListener() {
+            map1.put("areaName", area);
+            ViseUtil.Post(context, NetUrl.getAreaByName, map1, new ViseUtil.ViseListener() {
                 @Override
                 public void onReturn(String s) {
+                    Logger.e("123123", s);
+                    Gson gson = new Gson();
+                    GetAreaByNameBean bean = gson.fromJson(s, GetAreaByNameBean.class);
+                    int areaId = bean.getData().getId();
+                    Map<String, String> map2 = new LinkedHashMap<>();
+                    map2.put("address", map);
+                    map2.put("areaId", areaId+"");
+                    map2.put("bindDeviceId", id);
+                    map2.put("bindDeviceName", deviceName);
+                    map2.put("houseNumber", address);
+                    map2.put("personName", name);
+                    map2.put("personPhone", phone);
+                    String asd = gson.toJson(map2);
+                    Logger.e("123123", asd);
+                    ViseUtil.Post(context, NetUrl.updateBindDeviceUsePerson, map2, dialog, new ViseUtil.ViseListener() {
+                        @Override
+                        public void onReturn(String s) {
+                            ToastUtil.showShort(context, "设置成功");
+                            Intent intent = new Intent();
+                            intent.setClass(context, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
 
+                        @Override
+                        public void onElse(String s) {
+
+                        }
+                    });
                 }
 
                 @Override
@@ -105,12 +151,6 @@ public class AddDeviceAddressActivity extends BaseActivity {
 
                 }
             });
-
-        }else if(StringUtils.isEmpty(deviceName)&&(!StringUtils.isEmpty(name)||!StringUtils.isEmpty(phone)
-                ||!StringUtils.isEmpty(map)||!StringUtils.isEmpty(address))){
-
-        }else {
-
         }
 
     }

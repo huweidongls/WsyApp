@@ -50,5 +50,9 @@ public class NetUrl {
     public static final String getBindDeviceDetail = "/device/v1.0.0/getBindDeviceDetail";
     //更新设备名称
     public static final String updateBindDeviceName = "/device/v1.0.0/updateBindDeviceName";
+    //根据名称查询地区
+    public static final String getAreaByName = "/area/v1.0.0/getAreaByName";
+    //更新设备使用人信息
+    public static final String updateBindDeviceUsePerson = "/device/v1.0.0/updateBindDeviceUsePerson";
 
 }
