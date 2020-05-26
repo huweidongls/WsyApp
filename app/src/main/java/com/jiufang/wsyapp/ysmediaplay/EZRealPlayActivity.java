@@ -472,15 +472,24 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         mRealPlaySquareInfo = new RealPlaySquareInfo();
         Intent intent = getIntent();
         if (intent != null) {
-            mCameraInfo = intent.getParcelableExtra(IntentConsts.EXTRA_CAMERA_INFO);
-            mDeviceInfo = intent.getParcelableExtra(IntentConsts.EXTRA_DEVICE_INFO);
-            mRtspUrl = intent.getStringExtra(IntentConsts.EXTRA_RTSP_URL);
-            if (mCameraInfo != null) {
-                mCurrentQulityMode = (mCameraInfo.getVideoLevel());
-            }
-            LogUtil.debugLog(TAG, "rtspUrl:" + mRtspUrl);
+            String snCode = intent.getStringExtra("sn");
+//            mCameraInfo = intent.getParcelableExtra(IntentConsts.EXTRA_CAMERA_INFO);
+//            mDeviceInfo = intent.getParcelableExtra(IntentConsts.EXTRA_DEVICE_INFO);
+//            EZDeviceInfo deviceInfo = null;
+            try {
+                mDeviceInfo = MyApplication.getOpenSDK().getDeviceInfo(snCode);
+                mCameraInfo = EZUtils.getCameraInfoFromDevice(mDeviceInfo,0);
+                mRtspUrl = intent.getStringExtra(IntentConsts.EXTRA_RTSP_URL);
+                if (mCameraInfo != null) {
+                    mCurrentQulityMode = (mCameraInfo.getVideoLevel());
+                }
+                LogUtil.debugLog(TAG, "rtspUrl:" + mRtspUrl);
 
-            getRealPlaySquareInfo();
+                getRealPlaySquareInfo();
+            } catch (BaseException e) {
+                e.printStackTrace();
+            }
+
         }
         if (mDeviceInfo != null && mDeviceInfo.getIsEncrypt() == 1) {
             mVerifyCode = DataManager.getInstance().getDeviceSerialVerifyCode(mCameraInfo.getDeviceSerial());

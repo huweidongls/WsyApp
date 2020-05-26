@@ -142,7 +142,12 @@
         <!-- <service android:name="com.baidu.location.f" -->
         <!-- android:enabled="true" -->
         <!-- android:process=":remote"/> -->
-        <activity android:name=".ui.YsPlayActivity"></activity>
+        <activity android:name=".ui.YsPlayActivity"/>
+        <activity
+            android:name=".ysmediaplay.EZRealPlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <receiver android:name=".ysmediaplay.RootActivity$NotificationReceiver" />
     </application>
 
 </manifest>

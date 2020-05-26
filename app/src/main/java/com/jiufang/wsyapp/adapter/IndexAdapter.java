@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.app.MyApplication;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
@@ -21,6 +22,12 @@ import com.jiufang.wsyapp.ui.YsPlayActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.ysmediaplay.EZRealPlayActivity;
+import com.jiufang.wsyapp.ysmediaplay.util.EZUtils;
+import com.videogo.constant.IntentConsts;
+import com.videogo.exception.BaseException;
+import com.videogo.openapi.bean.EZCameraInfo;
+import com.videogo.openapi.bean.EZDeviceInfo;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -87,8 +94,14 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                 }else {
                     //萤石
                     Intent intent = new Intent();
-                    intent.setClass(context, YsPlayActivity.class);
-                    intent.putExtra("id", data.get(position).getId()+"");
+//                    intent.setClass(context, YsPlayActivity.class);
+//                    intent.putExtra("id", data.get(position).getId()+"");
+
+                    MyApplication.getOpenSDK().setAccessToken(data.get(position).getDeviceAccessToken());
+                    intent = new Intent(context, EZRealPlayActivity.class);
+//                    intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, cameraInfo);
+//                    intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, deviceInfo);
+                    intent.putExtra("sn", data.get(position).getSnCode());
                     context.startActivity(intent);
                 }
             }
