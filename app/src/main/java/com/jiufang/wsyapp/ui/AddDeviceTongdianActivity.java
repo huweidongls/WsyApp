@@ -90,6 +90,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                     @Override
                     public void onReturn(String s) {
                         try {
+                            Logger.e("123123", s);
                             Intent intent = new Intent();
                             JSONObject jsonObject = new JSONObject(s);
                             boolean b = jsonObject.optBoolean("data");

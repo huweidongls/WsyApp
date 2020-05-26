@@ -25,7 +25,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.ezviz.sdk.configwifi.EZConfigWifiErrorEnum;
+import com.ezviz.sdk.configwifi.EZConfigWifiInfoEnum;
+import com.ezviz.sdk.configwifi.EZWiFiConfigManager;
+import com.ezviz.sdk.configwifi.ap.ApConfigParam;
+import com.ezviz.sdk.configwifi.common.EZConfigWifiCallback;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.mediaplay.Business;
@@ -36,8 +40,9 @@ import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.lechange.common.configwifi.LCSmartConfig;
 import com.lechange.common.log.Logger;
 import com.lechange.opensdk.configwifi.LCOpenSDK_ConfigWifi;
+import com.vise.xsnow.permission.OnPermissionCallback;
+import com.vise.xsnow.permission.PermissionManager;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -138,13 +143,46 @@ public class AddDeviceWifiActivity extends BaseActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_sure:
-                String pwd = etPwd.getText().toString();
-                if(StringUtils.isEmpty(pwd)){
-                    ToastUtil.showShort(context, "密码不能为空");
-                }else {
-                    showWifiConfig();
-                }
+                PermissionManager.instance().request(AddDeviceWifiActivity.this, new OnPermissionCallback() {
+                    @Override
+                    public void onRequestAllow(String permissionName) {
+                        String pwd = etPwd.getText().toString();
+                        if(StringUtils.isEmpty(pwd)){
+                            ToastUtil.showShort(context, "密码不能为空");
+                        }else {
+                            if(type.equals("1")){
+                                showWifiConfig();
+                            }else if(type.equals("2")){
+                                Logger.e("123123", "type--"+type+"--xlh--"+xlh+"--anquan--"+anquan);
+                                dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+                                YsWifiConfig();
+                            }
+                        }
 //                configWifi();
+                    }
+
+                    @Override
+                    public void onRequestRefuse(String permissionName) {
+                        ToastUtil.showShort(context, "请打开定位权限完成设备配网");
+                    }
+
+                    @Override
+                    public void onRequestNoAsk(String permissionName) {
+                        String pwd = etPwd.getText().toString();
+                        if(StringUtils.isEmpty(pwd)){
+                            ToastUtil.showShort(context, "密码不能为空");
+                        }else {
+                            if(type.equals("1")){
+                                showWifiConfig();
+                            }else if(type.equals("2")){
+                                Logger.e("123123", "type--"+type+"--xlh--"+xlh+"--anquan--"+anquan);
+                                dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+                                YsWifiConfig();
+                            }
+                        }
+//                configWifi();
+                    }
+                }, Manifest.permission.ACCESS_FINE_LOCATION);
                 break;
             case R.id.rl_back:
                 finish();
@@ -163,6 +201,91 @@ public class AddDeviceWifiActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    /**
+     * 配置萤石设备wifi
+     */
+    private void YsWifiConfig() {
+
+        // 开启日志
+        EZWiFiConfigManager.showLog(true);
+
+        // step1.准备配网参数
+        ApConfigParam param = new ApConfigParam();
+        param.routerWifiSsid /*路由器wifi名称*/= tvSsid.getText().toString();
+        param.routerWifiPwd /*路由器wifi密码*/= etPwd.getText().toString();
+        param.deviceSerial /*设备序列号*/= xlh;
+        param.deviceVerifyCode /*设备验证码*/= anquan;
+        param.deviceHotspotSsid /*设备热点名称*/= "ezviz";
+        param.deviceHotspotPwd /*设备热点密码*/= "123456";
+        param.autoConnect /*是否自动连接到设备热点*/= true;
+
+        // step2.开始配网
+        EZWiFiConfigManager.startAPConfig(getApplication(), param, new EZConfigWifiCallback(){
+            @Override
+            public void onInfo(int code, String message) {
+                super.onInfo(code, message);
+
+                // step3.结束配网
+                if (code == EZConfigWifiInfoEnum.CONNECTING_SENT_CONFIGURATION_TO_DEVICE.code){
+                    // todo 提示用户配网成功
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            WeiboDialogUtils.closeDialog(dialog);
+                            // 配网成功后，需要停止配网
+                            Logger.e("123123", "设备配网成功");
+                            ToastUtil.showShort(context, "设备配网成功");
+                            EZWiFiConfigManager.stopAPConfig();
+                            Intent intent = new Intent();
+                            intent.setClass(context, AddDeviceSureActivity.class);
+                            intent.putExtra("type", type);
+                            intent.putExtra("xlh", xlh);
+                            intent.putExtra("anquan", anquan);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onError(int code, String description) {
+                super.onError(code, description);
+                WeiboDialogUtils.closeDialog(dialog);
+                // step3.结束配网
+                if (code == EZConfigWifiErrorEnum.CONFIG_TIMEOUT.code){
+                    // todo 提示用户配网超时
+                    // 配网失败后，需要停止配网
+                    Logger.e("123123", "配网超时");
+                    EZWiFiConfigManager.stopAPConfig();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showShort(context, "配网超时");
+                        }
+                    });
+                }else if(code == EZConfigWifiErrorEnum.MAY_LACK_LOCATION_PERMISSION.code){
+                    // todo 提示用户授予app定位权限，并打开定位开关
+                    Logger.e("123123", "请授予定位权限并打开定位开关");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showShort(context, "请授予定位权限并打开定位开关");
+                        }
+                    });
+                }else if (code == EZConfigWifiErrorEnum.WRONG_DEVICE_VERIFY_CODE.code){
+                    // todo 提示用户验证码输入错误
+                    Logger.e("123123", "设备验证码错误");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showShort(context, "设备验证码错误");
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     /**

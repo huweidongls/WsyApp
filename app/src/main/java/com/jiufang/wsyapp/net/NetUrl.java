@@ -6,6 +6,8 @@ package com.jiufang.wsyapp.net;
 
 public class NetUrl {
 
+    public static final String YS_APP_KEY = "7ce02f98c4614264882a4fec56a32d5d";
+
 //    public static final String BASE_URL = "http://hvc.jiufangkeji.com";
     public static final String BASE_URL = "http://hvc.jiufangkeji.com";
     public static final String BASE_IMG_URL = "http://hvc.jiufangkeji.com/resource/";

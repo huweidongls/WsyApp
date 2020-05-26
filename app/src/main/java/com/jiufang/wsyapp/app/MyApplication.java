@@ -11,6 +11,7 @@ import com.jiufang.wsyapp.utils.RegisterTimeCount;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.lechange.opensdk.api.LCOpenSDK_Api;
 import com.lechange.opensdk.utils.LogUtils;
+import com.videogo.openapi.EZOpenSDK;
 import com.vise.xsnow.http.ViseHttp;
 
 import java.util.LinkedHashMap;
@@ -55,6 +56,14 @@ public class MyApplication extends Application {
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
+
+        /** * sdk日志开关，正式发布需要去掉 */
+        EZOpenSDK.showSDKLog(true);
+        /** * 设置是否支持P2P取流,详见api */
+        EZOpenSDK.enableP2P(false);
+
+        /** * APP_KEY请替换成自己申请的 */
+        EZOpenSDK.initLib(this, NetUrl.YS_APP_KEY);
 
         LCOpenSDK_Api.setHost("openapi.lechange.cn:443");
         /*******Android 4.4 等部分版本需要在此处特殊处理，单独加载so库文件 *****/

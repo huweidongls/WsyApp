@@ -72,7 +72,7 @@ public class AddDeviceSureActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ll_gouxuan:
-                ivGouxuan.setImageResource(R.mipmap.duihao_blue);
+                ivGouxuan.setImageResource(R.mipmap.gouxuan);
                 btnNext.setBackgroundResource(R.drawable.bg_ffa16f_3dp);
                 btnNext.setFocusable(true);
                 btnNext.setEnabled(true);

@@ -17,6 +17,7 @@ import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.LcPlayActivity;
+import com.jiufang.wsyapp.ui.YsPlayActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -85,6 +86,10 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
                 }else {
                     //萤石
+                    Intent intent = new Intent();
+                    intent.setClass(context, YsPlayActivity.class);
+                    intent.putExtra("id", data.get(position).getId()+"");
+                    context.startActivity(intent);
                 }
             }
         });
