@@ -11,7 +11,9 @@ import com.jiufang.wsyapp.utils.RegisterTimeCount;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.lechange.opensdk.api.LCOpenSDK_Api;
 import com.lechange.opensdk.utils.LogUtils;
+import com.videogo.openapi.EZGlobalSDK;
 import com.videogo.openapi.EZOpenSDK;
+import com.videogo.openapi.EzvizAPI;
 import com.vise.xsnow.http.ViseHttp;
 
 import java.util.LinkedHashMap;
@@ -32,6 +34,14 @@ public class MyApplication extends Application {
     public static ForgetTimeCount forgetTimeCount;
 
     public MyApplication() {
+    }
+
+    public static EZOpenSDK getOpenSDK() {
+        if (EzvizAPI.getInstance().isUsingGlobalSDK()){
+            return EZGlobalSDK.getInstance();
+        }else{
+            return EZOpenSDK.getInstance();
+        }
     }
 
     @Override

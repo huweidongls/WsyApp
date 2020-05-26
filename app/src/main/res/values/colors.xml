@@ -38,4 +38,23 @@
 
     <color name="theme">#FFA16F</color>
 
+    <color name="black_bg">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="viewfinder_frame">#929292</color>
+    <color name="gray_text">#adadad</color>
+    <color name="black">#333333</color>
+    <color name="dark_bg_70p">#bb000000</color>
+    <color name="yellow_text">#ff6600</color>
+    <color name="green_text">#3fb895</color>
+    <color name="common_sub_text">#888888</color>
+    <color name="source_detection_btn_color">#48a9fb</color>
+    <color name="common_bg">#f0f0f3</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="event_message_play_btn">#eeeeee</color>
+    <color name="common_text">#333333</color>
+    <color name="message_button_text">#555</color>
+    <color name="quality_focused_color">#448cf3</color>
+    <color name="black_text">#333333</color>
+    <color name="application_bg">@color/common_bg</color>
+
 </resources>
