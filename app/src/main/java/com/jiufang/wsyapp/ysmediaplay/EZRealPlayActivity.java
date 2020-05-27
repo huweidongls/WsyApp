@@ -67,6 +67,7 @@ import android.widget.Toast;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.app.MyApplication;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.ysmediaplay.loading.LoadingTextView;
 import com.jiufang.wsyapp.ysmediaplay.loading.WaitDialog;
 import com.jiufang.wsyapp.ysmediaplay.util.ActivityUtils;
@@ -117,6 +118,14 @@ import java.util.Calendar;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.videogo.openapi.EZConstants.MSG_GOT_STREAM_TYPE;
 import static com.videogo.openapi.EZConstants.MSG_VIDEO_SIZE_CHANGED;
@@ -472,28 +481,20 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         mRealPlaySquareInfo = new RealPlaySquareInfo();
         Intent intent = getIntent();
         if (intent != null) {
-            String snCode = intent.getStringExtra("sn");
-//            mCameraInfo = intent.getParcelableExtra(IntentConsts.EXTRA_CAMERA_INFO);
-//            mDeviceInfo = intent.getParcelableExtra(IntentConsts.EXTRA_DEVICE_INFO);
-//            EZDeviceInfo deviceInfo = null;
-            try {
-                mDeviceInfo = MyApplication.getOpenSDK().getDeviceInfo(snCode);
-                mCameraInfo = EZUtils.getCameraInfoFromDevice(mDeviceInfo,0);
-                mRtspUrl = intent.getStringExtra(IntentConsts.EXTRA_RTSP_URL);
-                if (mCameraInfo != null) {
-                    mCurrentQulityMode = (mCameraInfo.getVideoLevel());
-                }
-                LogUtil.debugLog(TAG, "rtspUrl:" + mRtspUrl);
-
-                getRealPlaySquareInfo();
-            } catch (BaseException e) {
-                e.printStackTrace();
+            mVerifyCode = intent.getStringExtra("code");
+            mCameraInfo = intent.getParcelableExtra(IntentConsts.EXTRA_CAMERA_INFO);
+            mDeviceInfo = intent.getParcelableExtra(IntentConsts.EXTRA_DEVICE_INFO);
+            mRtspUrl = intent.getStringExtra(IntentConsts.EXTRA_RTSP_URL);
+            if (mCameraInfo != null) {
+                mCurrentQulityMode = (mCameraInfo.getVideoLevel());
             }
-
+            LogUtil.debugLog(TAG, "rtspUrl:" + mRtspUrl);
+            Logger.e("123123", mCameraInfo.getDeviceSerial());
+            getRealPlaySquareInfo();
         }
-        if (mDeviceInfo != null && mDeviceInfo.getIsEncrypt() == 1) {
-            mVerifyCode = DataManager.getInstance().getDeviceSerialVerifyCode(mCameraInfo.getDeviceSerial());
-        }
+//        if (mDeviceInfo != null && mDeviceInfo.getIsEncrypt() == 1) {
+//            mVerifyCode = DataManager.getInstance().getDeviceSerialVerifyCode(mCameraInfo.getDeviceSerial());
+//        }
     }
 
     private void getRealPlaySquareInfo() {
@@ -2097,7 +2098,8 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
                 return;
             }
 
-            mEZPlayer.setPlayVerifyCode(DataManager.getInstance().getDeviceSerialVerifyCode(mCameraInfo.getDeviceSerial()));
+//            mEZPlayer.setPlayVerifyCode(DataManager.getInstance().getDeviceSerialVerifyCode(mCameraInfo.getDeviceSerial()));
+            mEZPlayer.setPlayVerifyCode(mVerifyCode);
 //            if (mDeviceInfo.getIsEncrypt() == 1) {
 //                mEZPlayer.setPlayVerifyCode(DataManager.getInstance().getDeviceSerialVerifyCode(mCameraInfo.getDeviceSerial()));
 //            }

@@ -132,7 +132,7 @@ public class GetBindDeviceListBean {
             private String productImage;
             private Object snapImage;
             private String snCode;
-            private Object securityCode;
+            private String securityCode;
             private String deviceName;
             private String deviceAccessToken;
             private int deviceStatus;
@@ -196,11 +196,11 @@ public class GetBindDeviceListBean {
                 this.snCode = snCode;
             }
 
-            public Object getSecurityCode() {
+            public String getSecurityCode() {
                 return securityCode;
             }
 
-            public void setSecurityCode(Object securityCode) {
+            public void setSecurityCode(String securityCode) {
                 this.securityCode = securityCode;
             }
 

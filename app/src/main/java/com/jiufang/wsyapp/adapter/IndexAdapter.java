@@ -1,5 +1,6 @@
 package com.jiufang.wsyapp.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,22 +18,26 @@ import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
 import com.jiufang.wsyapp.net.NetUrl;
-import com.jiufang.wsyapp.ui.LcPlayActivity;
-import com.jiufang.wsyapp.ui.YsPlayActivity;
-import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.jiufang.wsyapp.ysmediaplay.EZRealPlayActivity;
 import com.jiufang.wsyapp.ysmediaplay.util.EZUtils;
 import com.videogo.constant.IntentConsts;
-import com.videogo.exception.BaseException;
 import com.videogo.openapi.bean.EZCameraInfo;
 import com.videogo.openapi.bean.EZDeviceInfo;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2020/4/30.
@@ -43,6 +48,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
     private Context context;
     private List<GetBindDeviceListBean.DataBean.RecordsBean> data;
     private ChannelInfo channelInfo;
+    private Dialog dialog;
 
     public IndexAdapter(List<GetBindDeviceListBean.DataBean.RecordsBean> data) {
         this.data = data;
@@ -76,6 +82,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog = WeiboDialogUtils.createLoadingDialog(context, "正在跳转...");
                 if(brandId == 1){
                     //乐橙
 //                    Intent intent = new Intent();
@@ -90,19 +97,49 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                     intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
 //                    DevicelistActivity.this.startActivityForResult(intent, 0);
                     context.startActivity(intent);
+                    WeiboDialogUtils.closeDialog(dialog);
 
                 }else {
                     //萤石
-                    Intent intent = new Intent();
-//                    intent.setClass(context, YsPlayActivity.class);
-//                    intent.putExtra("id", data.get(position).getId()+"");
+                    Observable<EZDeviceInfo> observable = Observable.create(new ObservableOnSubscribe<EZDeviceInfo>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<EZDeviceInfo> e) throws Exception {
+                            EZDeviceInfo mDeviceInfo = MyApplication.getOpenSDK().getDeviceInfo(data.get(position).getSnCode());
+                            e.onNext(mDeviceInfo);
+                        }
+                    });
+                    Observer<EZDeviceInfo> observer = new Observer<EZDeviceInfo>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    MyApplication.getOpenSDK().setAccessToken(data.get(position).getDeviceAccessToken());
-                    intent = new Intent(context, EZRealPlayActivity.class);
-//                    intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, cameraInfo);
-//                    intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, deviceInfo);
-                    intent.putExtra("sn", data.get(position).getSnCode());
-                    context.startActivity(intent);
+                        }
+
+                        @Override
+                        public void onNext(EZDeviceInfo value) {
+                            EZCameraInfo mCameraInfo = EZUtils.getCameraInfoFromDevice(value,0);
+                            Intent intent;
+                            MyApplication.getOpenSDK().setAccessToken(data.get(position).getDeviceAccessToken());
+                            intent = new Intent(context, EZRealPlayActivity.class);
+                            intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
+                            intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
+                            intent.putExtra("code", data.get(position).getSecurityCode());
+                            context.startActivity(intent);
+                            WeiboDialogUtils.closeDialog(dialog);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    };
+                    observable.subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(observer);
                 }
             }
         });
