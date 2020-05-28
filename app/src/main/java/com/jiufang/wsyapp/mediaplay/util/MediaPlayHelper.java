@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 
 public class MediaPlayHelper {
 	
-	private final static String ProjectName = "LechangeDemo";
+	private final static String ProjectName = "Wsy";
 	
 	public enum DHFilesType {
 		DHImage,
