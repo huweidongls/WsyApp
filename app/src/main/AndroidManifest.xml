@@ -124,7 +124,8 @@
         <activity android:name=".ui.AddDeviceSureActivity" />
         <activity android:name=".ui.AddDeviceSuccessActivity" />
         <activity android:name=".ui.AddDeviceAddressActivity" />
-        <activity android:name=".mediaplay.MediaPlayActivity" />
+        <activity android:name=".mediaplay.MediaPlayActivity"
+            android:configChanges="orientation|keyboard|layoutDirection|screenSize" />
         <activity android:name=".ui.AddDeviceAnquanActivity" />
         <activity android:name=".ui.AddDeviceMapActivity">
 

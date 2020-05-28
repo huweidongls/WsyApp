@@ -56,5 +56,7 @@ public class NetUrl {
     public static final String getAreaByName = "/area/v1.0.0/getAreaByName";
     //更新设备使用人信息
     public static final String updateBindDeviceUsePerson = "/device/v1.0.0/updateBindDeviceUsePerson";
+    //退出登录
+    public static final String logout = "/v1.0.0/logout";
 
 }

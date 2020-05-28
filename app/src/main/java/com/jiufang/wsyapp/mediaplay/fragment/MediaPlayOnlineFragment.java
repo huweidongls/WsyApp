@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,9 +85,12 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     private ImageView mLiveScale;//全屏
 
     private LinearLayout mLiveUseLayout;
-    private ImageView mLiveScreenshot; //截屏
-    private ImageView mLiveTalk; //对讲
-    private ImageView mLiveRecord; //录屏
+    private LinearLayout llBottom;
+    private RelativeLayout mLiveScreenshot; //截屏
+    private RelativeLayout mLiveTalk; //对讲
+    private ImageView ivDuijiang;
+    private RelativeLayout mLiveRecord; //录屏
+    private ImageView ivLuxiang;
 
     /**
      * 描述：
@@ -148,9 +152,12 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         mLiveUseLayout = (LinearLayout) mView
                 .findViewById(R.id.live_use_layout);
         mLiveScale = (ImageView) mView.findViewById(R.id.live_scale);
-        mLiveScreenshot = (ImageView) mView.findViewById(R.id.live_screenshot);
-        mLiveTalk = (ImageView) mView.findViewById(R.id.live_talk);
-        mLiveRecord = (ImageView) mView.findViewById(R.id.live_record);
+        mLiveScreenshot = mView.findViewById(R.id.live_screenshot);
+        mLiveTalk = mView.findViewById(R.id.live_talk);
+        ivDuijiang = mView.findViewById(R.id.iv_duijiang);
+        mLiveRecord = mView.findViewById(R.id.live_record);
+        ivLuxiang = mView.findViewById(R.id.iv_luxiang);
+        llBottom = mView.findViewById(R.id.ll_bottom);
 
         mReplayTip.setOnClickListener(this);
         mLiveMode.setOnClickListener(this);
@@ -192,28 +199,6 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
                     }
                 });
             }
-//			int ability = bean.getData().getAudioTalk();
-////			Logger.d(TAG, "==ability== : " + channelInfo.getAbility() + ", isEnable==" + (ability & ChannelInfo.Ability.AudioTalk));
-//			if ((ability & ChannelInfo.Ability.AudioTalk) == 0) {
-//				if (getActivity().getResources().getConfiguration().orientation ==
-//						Configuration.ORIENTATION_LANDSCAPE) {
-//					mLiveTalk.setOnClickListener(new OnClickListener() {
-//						@Override
-//						public void onClick(View v) {
-//							toast("该设备不支持语音对讲功能");
-//						}
-//					});
-//				} else if
-//						(getActivity().getResources().getConfiguration().orientation ==
-//								Configuration.ORIENTATION_PORTRAIT) {
-//					mLiveTalk.setOnClickListener(new OnClickListener() {
-//						@Override
-//						public void onClick(View v) {
-//							toast("该设备不支持语音对讲功能");
-//						}
-//					});
-//				}
-//			}
         }
     }
 
@@ -252,10 +237,12 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         super.resetViews(mConfiguration);
         if (mConfiguration.orientation == Configuration.ORIENTATION_LANDSCAPE) { // 横屏
             mLiveUseLayout.setVisibility(View.GONE);
+            llBottom.setVisibility(View.GONE);
             mLiveScale.setTag("LANDSCAPE");
             mLiveScale.setImageResource(R.drawable.live_btn_smallscreen);
         } else if (mConfiguration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             mLiveUseLayout.setVisibility(View.VISIBLE);
+            llBottom.setVisibility(View.VISIBLE);
             mLiveScale.setTag("PORTRAIT");
             mLiveScale.setImageResource(R.drawable.live_btn_fullscreen);
         }
@@ -670,7 +657,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         mPlayWin.stopRecord();
         isRecord = false;
         toast("录制成功");
-        mLiveRecord.setImageResource(R.drawable.live_btn_record_nor);
+        ivLuxiang.setImageResource(R.mipmap.play_luxiang);
 
         MediaScannerConnection.scanFile(getActivity(), new String[]{path},
                 null, null);
@@ -699,11 +686,12 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
             return;
         }
 
-        toastWithImg("开始对讲",
-                R.drawable.live_pic_talkback);
+//        toastWithImg("开始对讲",
+//                R.drawable.live_pic_talkback);
+        toast("开始对讲");
 
         // 替换图片
-        mLiveTalk.setImageResource(R.drawable.live_btn_talk_click);
+        ivDuijiang.setImageResource(R.mipmap.play_duijiang_y);
         mOpenTalk = AudioTalkStatus.talk_opening;
         // 关闭扬声器 默认为关
         if (isOpenSound) {
@@ -724,7 +712,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     public void stopTalk() {
         toast("对讲关闭");
         // 替换图片
-        mLiveTalk.setImageResource(R.drawable.live_btn_talk_nor);
+        ivDuijiang.setImageResource(R.mipmap.play_duijiang);
         LCOpenSDK_Talk.stopTalk();
         // 解决gc回收问题
         LCOpenSDK_Talk.setListener(null);//停止对讲后对讲监听置为空
@@ -912,22 +900,15 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
                 }
                 break;
             case R.id.live_screenshot://截屏
-                mLiveScreenshot
-                        .setImageResource(R.drawable.live_btn_screenshot_click);
                 capture();
-                mLiveScreenshot
-                        .setImageResource(R.drawable.live_btn_screenshot_nor);
                 break;
             case R.id.live_record://录像
                 if (!isRecord) {
                     boolean result = startRecord();
                     if (result) {
-                        toastWithImg(
-                                getString(R.string.video_monitor_media_record),
-                                R.drawable.live_pic_record);
+                        toast("开始录制");
                         isRecord = true;
-                        mLiveRecord
-                                .setImageResource(R.drawable.live_btn_record_click);
+                        ivLuxiang.setImageResource(R.mipmap.play_luxiang_y);
                     }
                 } else {
                     stopRecord();

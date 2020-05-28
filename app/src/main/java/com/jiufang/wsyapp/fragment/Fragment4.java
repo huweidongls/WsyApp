@@ -11,8 +11,10 @@ import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.MainActivity;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
+import com.jiufang.wsyapp.utils.ViseUtil;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -21,6 +23,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,7 +77,7 @@ public class Fragment4 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.iv_avatar, R.id.rl1})
+    @OnClick({R.id.iv_avatar, R.id.rl1, R.id.rl_exit})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_avatar:
@@ -87,6 +91,26 @@ public class Fragment4 extends LazyFragment {
                 break;
             case R.id.rl1:
 
+                break;
+            case R.id.rl_exit:
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("userId", SpUtils.getUserId(getContext()));
+                ViseUtil.Post(getContext(), NetUrl.logout, map, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        SpUtils.clear(getContext());
+                        ToastUtil.showShort(getContext(), "退出登录");
+                        Intent intent = new Intent();
+                        intent.setClass(getContext(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
                 break;
         }
     }
