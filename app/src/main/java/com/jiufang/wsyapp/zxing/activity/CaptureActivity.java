@@ -54,6 +54,9 @@ import com.jiufang.wsyapp.zxing.utils.BeepManager;
 import com.jiufang.wsyapp.zxing.utils.CaptureActivityHandler;
 import com.jiufang.wsyapp.zxing.utils.InactivityTimer;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.LinkedHashMap;
@@ -426,11 +429,25 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             @Override
             public void onElse(String s) {
                 Logger.e("123123", s);
-                Intent intent = new Intent();
-                intent.setClass(context, IsBindingActivity.class);
-                intent.putExtra("type", "2");
-                intent.putExtra("s", s);
-                startActivity(intent);
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    if(jsonObject.optString("code").equals("1101")){
+                        Intent intent = new Intent();
+                        intent.setClass(context, AddDeviceTongdianActivity.class);
+                        intent.putExtra("type", "2");
+                        intent.putExtra("xlh", finalDevSn);
+                        intent.putExtra("anquan", finalMSerialVeryCodeStr);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent();
+                        intent.setClass(context, IsBindingActivity.class);
+                        intent.putExtra("type", "2");
+                        intent.putExtra("s", s);
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

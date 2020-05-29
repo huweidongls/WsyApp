@@ -27,6 +27,9 @@ import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -140,11 +143,26 @@ public class AddShebeiActivity extends BaseActivity {
 
             @Override
             public void onElse(String s) {
-                Intent intent = new Intent();
-                intent.setClass(context, IsBindingActivity.class);
-                intent.putExtra("type", type);
-                intent.putExtra("s", s);
-                startActivity(intent);
+                Logger.e("123123", s);
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    if(jsonObject.optString("code").equals("1101")){
+                        Intent intent = new Intent();
+                        intent.setClass(context, AddDeviceTongdianActivity.class);
+                        intent.putExtra("type", type);
+                        intent.putExtra("xlh", xlh);
+                        intent.putExtra("anquan", anquan);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent();
+                        intent.setClass(context, IsBindingActivity.class);
+                        intent.putExtra("type", type);
+                        intent.putExtra("s", s);
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
