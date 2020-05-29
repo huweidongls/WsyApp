@@ -414,6 +414,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         ViseUtil.Post(context, NetUrl.checkDeviceBindStatus, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
+                Logger.e("123123", s);
                 Intent intent = new Intent();
                 intent.setClass(context, AddDeviceTongdianActivity.class);
                 intent.putExtra("type", "2");

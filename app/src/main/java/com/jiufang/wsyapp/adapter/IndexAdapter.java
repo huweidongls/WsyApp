@@ -18,6 +18,7 @@ import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
@@ -101,11 +102,14 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
                 }else {
                     //萤石
+                    MyApplication.getOpenSDK().setAccessToken(data.get(position).getDeviceAccessToken());
                     Observable<EZDeviceInfo> observable = Observable.create(new ObservableOnSubscribe<EZDeviceInfo>() {
                         @Override
                         public void subscribe(ObservableEmitter<EZDeviceInfo> e) throws Exception {
+                            Logger.e("123123", "1");
                             EZDeviceInfo mDeviceInfo = MyApplication.getOpenSDK().getDeviceInfo(data.get(position).getSnCode());
                             e.onNext(mDeviceInfo);
+                            Logger.e("123123", "2");
                         }
                     });
                     Observer<EZDeviceInfo> observer = new Observer<EZDeviceInfo>() {
@@ -116,15 +120,17 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
                         @Override
                         public void onNext(EZDeviceInfo value) {
+                            Logger.e("123123", "3");
                             EZCameraInfo mCameraInfo = EZUtils.getCameraInfoFromDevice(value,0);
                             Intent intent;
-                            MyApplication.getOpenSDK().setAccessToken(data.get(position).getDeviceAccessToken());
+                            Logger.e("123123", "4");
                             intent = new Intent(context, EZRealPlayActivity.class);
                             intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
                             intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
                             intent.putExtra("code", data.get(position).getSecurityCode());
                             context.startActivity(intent);
                             WeiboDialogUtils.closeDialog(dialog);
+                            Logger.e("123123", "5");
                         }
 
                         @Override

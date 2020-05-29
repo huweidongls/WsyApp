@@ -210,14 +210,13 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
     private String mRecordTime = null;
     private int mRecordSecond = 0;
 
-    private HorizontalScrollView mRealPlayOperateBar = null;
+    private LinearLayout mRealPlayOperateBar = null;
 
-    private LinearLayout mRealPlayPtzBtnLy = null;
-    private LinearLayout mRealPlayTalkBtnLy = null;
+    private RelativeLayout mRealPlayPtzBtnLy = null;
+    private RelativeLayout mRealPlayTalkBtnLy = null;
     private LinearLayout mRealPlaySslBtnLy = null;
     //    private LinearLayout mRealPlayPrivacyBtnLy = null;
-    private LinearLayout mRealPlayCaptureBtnLy = null;
-    private LinearLayout mRealPlayRecordContainerLy = null;
+    private RelativeLayout mRealPlayCaptureBtnLy = null;
 
     private ImageButton mRealPlayPtzBtn = null;
     private ImageButton mRealPlayTalkBtn = null;
@@ -906,7 +905,6 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
             }
             mRealPlayCaptureBtnLy.setVisibility(View.VISIBLE);
             mRealPlayFullCaptureBtn.setVisibility(View.VISIBLE);
-            mRealPlayRecordContainerLy.setVisibility(View.VISIBLE);
             mRealPlayFullRecordContainer.setVisibility(View.VISIBLE);
             mRealPlayFullSoundBtn.setVisibility(View.VISIBLE);
             mRealPlayFullPtzAnimBtn.setVisibility(View.GONE);
@@ -942,36 +940,29 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
             mRealPlayOperateBar = null;
         }
         if (bigScreen) {
-            mRealPlayOperateBar = (HorizontalScrollView) findViewById(R.id.ezopen_realplay_operate_bar2);
-            findViewById(R.id.ezopen_realplay_operate_bar).setVisibility(View.GONE);
-
-            mRealPlayPtzBtnLy = (LinearLayout) findViewById(R.id.realplay_ptz_btn_ly2);
-            mRealPlayTalkBtnLy = (LinearLayout) findViewById(R.id.realplay_talk_btn_ly2);
-            mRealPlaySslBtnLy = (LinearLayout) findViewById(R.id.realplay_ssl_btn_ly2);
-            mRealPlayCaptureBtnLy = (LinearLayout) findViewById(R.id.realplay_previously_btn_ly2);
-            mRealPlayRecordContainerLy = (LinearLayout) findViewById(R.id.realplay_video_container_ly2);
-
-            mRealPlayTalkBtn = (ImageButton) findViewById(R.id.realplay_talk_btn2);
-            mRealPlaySslBtn = (Button) findViewById(R.id.realplay_ssl_btn2);
-            mRealPlayPrivacyBtn = (ImageButton) findViewById(R.id.realplay_privacy_btn2);
-            mRealPlayCaptureBtn = (ImageButton) findViewById(R.id.realplay_previously_btn2);
-            mRealPlayRecordContainer = findViewById(R.id.realplay_video_container2);
-            mRealPlayRecordBtn = (ImageButton) findViewById(R.id.realplay_video_btn2);
-            mRealPlayRecordStartBtn = (ImageButton) findViewById(R.id.realplay_video_start_btn2);
-            mRealPlayPtzBtn = (ImageButton) findViewById(R.id.realplay_ptz_btn2);
+//            findViewById(R.id.ezopen_realplay_operate_bar).setVisibility(View.GONE);
+//
+//            mRealPlayPtzBtnLy = (LinearLayout) findViewById(R.id.realplay_ptz_btn_ly2);
+//            mRealPlayTalkBtnLy = (LinearLayout) findViewById(R.id.realplay_talk_btn_ly2);
+//            mRealPlaySslBtnLy = (LinearLayout) findViewById(R.id.realplay_ssl_btn_ly2);
+//            mRealPlayCaptureBtnLy = (LinearLayout) findViewById(R.id.realplay_previously_btn_ly2);
+//
+//            mRealPlayTalkBtn = (ImageButton) findViewById(R.id.realplay_talk_btn2);
+//            mRealPlaySslBtn = (Button) findViewById(R.id.realplay_ssl_btn2);
+//            mRealPlayPrivacyBtn = (ImageButton) findViewById(R.id.realplay_privacy_btn2);
+//            mRealPlayCaptureBtn = (ImageButton) findViewById(R.id.realplay_previously_btn2);
+//            mRealPlayRecordContainer = findViewById(R.id.realplay_video_container2);
+//            mRealPlayRecordBtn = (ImageButton) findViewById(R.id.realplay_video_btn2);
+//            mRealPlayRecordStartBtn = (ImageButton) findViewById(R.id.realplay_video_start_btn2);
+//            mRealPlayPtzBtn = (ImageButton) findViewById(R.id.realplay_ptz_btn2);
         } else {
-            mRealPlayOperateBar = (HorizontalScrollView) findViewById(R.id.ezopen_realplay_operate_bar);
-            findViewById(R.id.ezopen_realplay_operate_bar2).setVisibility(View.GONE);
+            mRealPlayOperateBar = findViewById(R.id.ezopen_realplay_operate_bar);
 
-            mRealPlayPtzBtnLy = (LinearLayout) findViewById(R.id.realplay_ptz_btn_ly);
-            mRealPlayTalkBtnLy = (LinearLayout) findViewById(R.id.realplay_talk_btn_ly);
-            mRealPlaySslBtnLy = (LinearLayout) findViewById(R.id.realplay_ssl_btn_ly);
-            mRealPlayCaptureBtnLy = (LinearLayout) findViewById(R.id.realplay_previously_btn_ly);
-            mRealPlayRecordContainerLy = (LinearLayout) findViewById(R.id.realplay_video_container_ly);
+            mRealPlayPtzBtnLy = findViewById(R.id.realplay_ptz_btn_ly);
+            mRealPlayTalkBtnLy = findViewById(R.id.realplay_talk_btn_ly);
+            mRealPlayCaptureBtnLy = findViewById(R.id.realplay_previously_btn_ly);
 
             mRealPlayTalkBtn = (ImageButton) findViewById(R.id.realplay_talk_btn);
-            mRealPlaySslBtn = (Button) findViewById(R.id.realplay_ssl_btn);
-            mRealPlayPrivacyBtn = (ImageButton) findViewById(R.id.realplay_privacy_btn);
             mRealPlayCaptureBtn = (ImageButton) findViewById(R.id.realplay_previously_btn);
             mRealPlayRecordContainer = findViewById(R.id.realplay_video_container);
             mRealPlayRecordBtn = (ImageButton) findViewById(R.id.realplay_video_btn);
@@ -1757,7 +1748,8 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         mPtzPopupWindow.setAnimationStyle(R.style.popwindowUpAnim);
         mPtzPopupWindow.setFocusable(true);
         mPtzPopupWindow.setOutsideTouchable(true);
-        mPtzPopupWindow.showAsDropDown(parent);
+//        mPtzPopupWindow.showAsDropDown(parent);
+        mPtzPopupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
         mPtzPopupWindow.setOnDismissListener(new OnDismissListener() {
 
             @Override
@@ -2212,8 +2204,8 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
             }
             mRealPlayFullPtzBtn.setEnabled(false);
             if (mDeviceInfo.getStatus() == 1) {
-                mRealPlayPrivacyBtn.setEnabled(true);
-                mRealPlaySslBtn.setEnabled(true);
+//                mRealPlayPrivacyBtn.setEnabled(true);
+//                mRealPlaySslBtn.setEnabled(true);
             } else {
                 mRealPlayPrivacyBtn.setEnabled(false);
                 mRealPlaySslBtn.setEnabled(false);
@@ -2680,9 +2672,9 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         //        mRealPlayPrivacyBtnLy.setVisibility(View.GONE);
         //        setSoundLocalizationUI();
 
-        {
-            mRealPlaySslBtnLy.setVisibility(View.GONE);
-        }
+//        {
+//            mRealPlaySslBtnLy.setVisibility(View.GONE);
+//        }
 
         if (getSupportPtz() == 1) {
             mRealPlayPtzBtnLy.setVisibility(View.VISIBLE);

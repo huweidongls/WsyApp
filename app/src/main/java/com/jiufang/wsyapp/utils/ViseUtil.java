@@ -2,7 +2,9 @@ package com.jiufang.wsyapp.utils;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 
+import com.jiufang.wsyapp.ui.LoginActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -122,6 +124,10 @@ public class ViseUtil {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
+                            }else if(jsonObject.optString("code").equals("5107")){
+                                Intent intent = new Intent();
+                                intent.setClass(context, LoginActivity.class);
+                                context.startActivity(intent);
                             }else {
                                 ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
@@ -159,6 +165,10 @@ public class ViseUtil {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
+                            }else if(jsonObject.optString("code").equals("5107")){
+                                Intent intent = new Intent();
+                                intent.setClass(context, LoginActivity.class);
+                                context.startActivity(intent);
                             }else {
                                 listener.onElse(data);
                                 ToastUtil.showShort(context, jsonObject.optString("message"));
@@ -187,6 +197,10 @@ public class ViseUtil {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.optString("code").equals("200")){
                                 listener.onReturn(data);
+                            }else if(jsonObject.optString("code").equals("5107")){
+                                Intent intent = new Intent();
+                                intent.setClass(context, LoginActivity.class);
+                                context.startActivity(intent);
                             }else {
                                 listener.onElse(data);
                                 ToastUtil.showShort(context, jsonObject.optString("message"));
