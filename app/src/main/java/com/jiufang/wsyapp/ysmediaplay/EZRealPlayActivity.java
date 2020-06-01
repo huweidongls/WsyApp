@@ -67,6 +67,9 @@ import android.widget.Toast;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.app.MyApplication;
+import com.jiufang.wsyapp.dialog.DialogBaojing;
+import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
+import com.jiufang.wsyapp.ui.CloudVideoActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.ysmediaplay.loading.LoadingTextView;
 import com.jiufang.wsyapp.ysmediaplay.loading.WaitDialog;
@@ -133,6 +136,8 @@ import static com.videogo.openapi.EZConstants.MSG_VIDEO_SIZE_CHANGED;
 public class EZRealPlayActivity extends RootActivity implements OnClickListener, SurfaceHolder.Callback,
         Handler.Callback, OnTouchListener, VerifyCodeInput.VerifyCodeInputListener {
     private static final String TAG = EZRealPlayActivity.class.getSimpleName();
+
+    private Context context = EZRealPlayActivity.this;
 
     private static final int ANIMATION_DURING_TIME = 500;
 
@@ -298,6 +303,9 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
     private long mStreamFlow = 0;
 
     private int mRealFlow = 0;
+
+    private RelativeLayout rlBaojing;
+    private RelativeLayout rlCloudVideo;
 
     //    private GoogleApiClient client;
     @Override
@@ -724,6 +732,9 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
 
         mFullscreenButton = (CheckTextButton) findViewById(R.id.fullscreen_button);
         mFullscreenFullButton = (CheckTextButton) findViewById(R.id.fullscreen_full_button);
+
+        rlBaojing = findViewById(R.id.rl_baojing);
+        rlCloudVideo = findViewById(R.id.rl_cloud_video);
 
         if (mRtspUrl == null) {
             initOperateBarUI(false);
@@ -1251,6 +1262,22 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.rl_cloud_video:
+                Intent intent = new Intent();
+                intent.setClass(context, CloudVideoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_baojing:
+                //一键报警
+                DialogBaojing dialogBaojing = new DialogBaojing(context, new DialogBaojing.ClickListener() {
+                    @Override
+                    public void onClick() {
+                        DialogBaojingSuccess dialogBaojingSuccess = new DialogBaojingSuccess(context);
+                        dialogBaojingSuccess.show();
+                    }
+                });
+                dialogBaojing.show();
+                break;
             case R.id.realplay_play_btn:
             case R.id.realplay_full_play_btn:
             case R.id.realplay_play_iv:

@@ -9,21 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jiufang.wsyapp.R;
-import com.jiufang.wsyapp.utils.GlideUtils;
 
 import java.util.List;
 
 /**
- * Created by Administrator on 2020/5/12.
+ * Created by Administrator on 2020/6/1.
  */
 
-public class MsgShebeiListAdapter extends RecyclerView.Adapter<MsgShebeiListAdapter.ViewHolder> {
+public class CloudVideoAdapter extends RecyclerView.Adapter<CloudVideoAdapter.ViewHolder> {
 
     private Context context;
     private List<String> data;
     private boolean isEdit = false;
 
-    public MsgShebeiListAdapter(List<String> data) {
+    public CloudVideoAdapter(List<String> data) {
         this.data = data;
     }
 
@@ -31,7 +30,7 @@ public class MsgShebeiListAdapter extends RecyclerView.Adapter<MsgShebeiListAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         this.context = viewGroup.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_msg_shebei_list, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_cloud_video, viewGroup, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }

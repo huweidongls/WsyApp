@@ -21,7 +21,8 @@
     <string name="live_play_name">实时预览</string>
     <string name="camera_lens_closed">镜头遮蔽中</string>
     <string name="loading_text_default">加载中，请稍候</string>
-    <string name="countdown">留言时长还剩%d秒</string><string name="quality_super_hd">超清</string>
+    <string name="countdown">留言时长还剩%d秒</string>
+    <string name="quality_super_hd">超清</string>
     <string name="quality_hd">高清</string>
     <string name="quality_balanced">均衡</string>
     <string name="quality_flunet">流畅</string>

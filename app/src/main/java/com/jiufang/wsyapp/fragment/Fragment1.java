@@ -17,6 +17,7 @@ import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.LoginActivity;
+import com.jiufang.wsyapp.ui.SearchActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -175,10 +176,14 @@ public class Fragment1 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.rl_left, R.id.rl_right, R.id.btn_login})
+    @OnClick({R.id.rl_left, R.id.rl_right, R.id.btn_login, R.id.ll_search})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.ll_search:
+                intent.setClass(getContext(), SearchActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_left:
                 if (recyclerView.getLayoutManager() instanceof GridLayoutManager){
                     lastPostion = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();

@@ -124,7 +124,8 @@
         <activity android:name=".ui.AddDeviceSureActivity" />
         <activity android:name=".ui.AddDeviceSuccessActivity" />
         <activity android:name=".ui.AddDeviceAddressActivity" />
-        <activity android:name=".mediaplay.MediaPlayActivity"
+        <activity
+            android:name=".mediaplay.MediaPlayActivity"
             android:configChanges="orientation|keyboard|layoutDirection|screenSize" />
         <activity android:name=".ui.AddDeviceAnquanActivity" />
         <activity android:name=".ui.AddDeviceMapActivity">
@@ -143,12 +144,16 @@
         <!-- <service android:name="com.baidu.location.f" -->
         <!-- android:enabled="true" -->
         <!-- android:process=":remote"/> -->
-        <activity android:name=".ui.YsPlayActivity"/>
+        <activity android:name=".ui.YsPlayActivity" />
         <activity
             android:name=".ysmediaplay.EZRealPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+
         <receiver android:name=".ysmediaplay.RootActivity$NotificationReceiver" />
+
+        <activity android:name=".ui.SearchActivity" />
+        <activity android:name=".ui.CloudVideoActivity"></activity>
     </application>
 
 </manifest>

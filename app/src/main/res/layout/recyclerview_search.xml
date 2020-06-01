@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="59dp">
+
+        <ImageView
+            android:layout_marginLeft="14dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ys"
+            android:layout_width="34dp"
+            android:layout_height="34dp" />
+
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_marginRight="9dp"
+            android:layout_marginLeft="9dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="#171F24"
+                android:textSize="15sp"
+                android:text="乐橙-TC2E"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="2dp"
+                android:textColor="#8F8F8F"
+                android:textSize="13sp"
+                android:text="5K05D84PAU69A7C"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginRight="19dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/right_gray"
+            android:layout_width="6dp"
+            android:layout_height="9dp" />
+
+    </LinearLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

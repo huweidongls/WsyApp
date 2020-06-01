@@ -10,6 +10,7 @@
 package com.jiufang.wsyapp.mediaplay.fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -33,17 +34,23 @@ import android.widget.Toast;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
+import com.jiufang.wsyapp.dialog.DialogBaojing;
+import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
 import com.jiufang.wsyapp.dialog.ProgressDialog;
 import com.jiufang.wsyapp.mediaplay.Business;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelPTZInfo;
 import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
+import com.jiufang.wsyapp.ui.CloudVideoActivity;
 import com.lechange.common.log.Logger;
 import com.lechange.opensdk.listener.LCOpenSDK_EventListener;
 import com.lechange.opensdk.listener.LCOpenSDK_TalkerListener;
 import com.lechange.opensdk.media.LCOpenSDK_Talk;
 
 import java.io.FileOutputStream;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 描述：实时视频监控 作者： lc
@@ -91,6 +98,9 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     private ImageView ivDuijiang;
     private RelativeLayout mLiveRecord; //录屏
     private ImageView ivLuxiang;
+
+    private RelativeLayout rlBaojing;
+    private RelativeLayout rlCloudVideo;
 
     /**
      * 描述：
@@ -158,6 +168,8 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         mLiveRecord = mView.findViewById(R.id.live_record);
         ivLuxiang = mView.findViewById(R.id.iv_luxiang);
         llBottom = mView.findViewById(R.id.ll_bottom);
+        rlBaojing = mView.findViewById(R.id.rl_baojing);
+        rlCloudVideo = mView.findViewById(R.id.rl_cloud_video);
 
         mReplayTip.setOnClickListener(this);
         mLiveMode.setOnClickListener(this);
@@ -168,6 +180,8 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         mLiveScreenshot.setOnClickListener(this);
         mLiveTalk.setOnClickListener(this);
         mLiveRecord.setOnClickListener(this);
+        rlBaojing.setOnClickListener(this);
+        rlCloudVideo.setOnClickListener(this);
 
         return mView;
 
@@ -813,25 +827,41 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     public void onClick(View view) {
         // TODO Auto-generated method stub
         switch (view.getId()) {
+            case R.id.rl_cloud_video:
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CloudVideoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_baojing:
+                //一键报警
+                DialogBaojing dialogBaojing = new DialogBaojing(getContext(), new DialogBaojing.ClickListener() {
+                    @Override
+                    public void onClick() {
+                        DialogBaojingSuccess dialogBaojingSuccess = new DialogBaojingSuccess(getContext());
+                        dialogBaojingSuccess.show();
+                    }
+                });
+                dialogBaojing.show();
+                break;
             case R.id.live_ptz:
                 if (!isPlaying) {
                     return;
                 }
-//			if ((channelInfo.getAbility() & ChannelInfo.Ability.PTZ) != 0) {
-//				if (IsPTZOpen) {
-//					// 测试专用
+			if (true) {
+				if (IsPTZOpen) {
+					// 测试专用
 //					mPlayWin.setStreamCallback(0);
-//					IsPTZOpen = false;
-//					mLivePtz.setImageResource(R.drawable.live_btn_ptz_off);
-//				} else {
-//					// 测试专用
+					IsPTZOpen = false;
+					mLivePtz.setImageResource(R.drawable.live_btn_ptz_off);
+				} else {
+					// 测试专用
 //					mPlayWin.setStreamCallback(1);
-//					IsPTZOpen = true;
-//					mLivePtz.setImageResource(R.drawable.live_btn_ptz_on);
-//				}
-//			} else {
-//				toast(R.string.toast_device_ability_no_ptz);
-//			}
+					IsPTZOpen = true;
+					mLivePtz.setImageResource(R.drawable.live_btn_ptz_on);
+				}
+			} else {
+				toast(R.string.toast_device_ability_no_ptz);
+			}
                 break;
             case R.id.live_scale://全屏
                 if ("LANDSCAPE".equals(mLiveScale.getTag())) {
