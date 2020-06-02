@@ -67,7 +67,7 @@ public class AddDeviceAddressActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_complete, R.id.tv_map})
+    @OnClick({R.id.rl_back, R.id.btn_complete, R.id.tv_map, R.id.ll_map})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -78,6 +78,10 @@ public class AddDeviceAddressActivity extends BaseActivity {
                 onComplete();
                 break;
             case R.id.tv_map:
+                intent.setClass(context, AddDeviceMapActivity.class);
+                startActivityForResult(intent, 1001);
+                break;
+            case R.id.ll_map:
                 intent.setClass(context, AddDeviceMapActivity.class);
                 startActivityForResult(intent, 1001);
                 break;

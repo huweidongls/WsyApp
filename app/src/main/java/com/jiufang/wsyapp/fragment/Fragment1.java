@@ -1,6 +1,7 @@
 package com.jiufang.wsyapp.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
@@ -16,6 +18,7 @@ import com.jiufang.wsyapp.adapter.IndexAdapter;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.CloudVideoActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.SearchActivity;
 import com.jiufang.wsyapp.utils.Logger;
@@ -28,8 +31,12 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.videogo.exception.BaseException;
 import com.videogo.util.LocalValidate;
+import com.zyyoona7.popup.EasyPopup;
+import com.zyyoona7.popup.XGravity;
+import com.zyyoona7.popup.YGravity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -68,6 +75,8 @@ public class Fragment1 extends LazyFragment {
     private String deviceType = null;
 
     private String devType="";
+
+    private EasyPopup easyPopup;
 
     private int page = 1;
 
@@ -160,7 +169,12 @@ public class Fragment1 extends LazyFragment {
                 Gson gson = new Gson();
                 GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
                 mList = bean.getData().getRecords();
-                adapter = new IndexAdapter(mList);
+                adapter = new IndexAdapter(mList, new IndexAdapter.ClickListener() {
+                    @Override
+                    public void onMore(int pos) {
+                        showMorePop();
+                    }
+                });
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(manager);
@@ -171,6 +185,34 @@ public class Fragment1 extends LazyFragment {
             @Override
             public void onElse(String s) {
 
+            }
+        });
+
+    }
+
+    /**
+     * 显示更多操作pop
+     */
+    private void showMorePop() {
+
+        easyPopup = EasyPopup.create(getContext())
+                .setContentView(R.layout.popupwindow_index_more)
+                .setFocusAndOutsideEnable(true)
+                //允许背景变暗
+                .setBackgroundDimEnable(true)
+                //变暗的透明度(0-1)，0为完全透明
+                .setDimValue(0.5f)
+                //变暗的背景颜色
+                .setDimColor(Color.BLACK)
+                .apply();
+        easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.ALIGN_BOTTOM, XGravity.CENTER, 0, 0);
+
+        TextView tvCancel = easyPopup.findViewById(R.id.tv_cancel);
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                easyPopup.dismiss();
             }
         });
 

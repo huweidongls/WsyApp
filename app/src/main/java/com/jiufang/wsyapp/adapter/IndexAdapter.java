@@ -50,9 +50,11 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
     private List<GetBindDeviceListBean.DataBean.RecordsBean> data;
     private ChannelInfo channelInfo;
     private Dialog dialog;
+    private ClickListener listener;
 
-    public IndexAdapter(List<GetBindDeviceListBean.DataBean.RecordsBean> data) {
+    public IndexAdapter(List<GetBindDeviceListBean.DataBean.RecordsBean> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @NonNull
@@ -80,6 +82,12 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             holder.ll2.setVisibility(View.GONE);
             holder.tvDeviceName.setText(data.get(position).getDeviceName());
         }
+        holder.llMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onMore(position);
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,6 +201,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         private LinearLayout ll2;
         private TextView tvDeviceName;
         private TextView tvDeviceName2;
+        private LinearLayout llMore;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -200,7 +209,12 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             ll2 = itemView.findViewById(R.id.ll2);
             tvDeviceName = itemView.findViewById(R.id.tv_device_name);
             tvDeviceName2 = itemView.findViewById(R.id.tv_device_name2);
+            llMore = itemView.findViewById(R.id.ll_more);
         }
+    }
+
+    public interface ClickListener{
+        void onMore(int pos);
     }
 
 }

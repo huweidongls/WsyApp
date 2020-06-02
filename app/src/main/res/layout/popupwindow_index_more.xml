@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@drawable/bg_ffffff_10dp"
+        android:orientation="vertical"
+        android:layout_width="252dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#171F24"
+            android:textSize="17sp"
+            android:text="操作"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#171F24"
+            android:textSize="14sp"
+            android:text="设备名称:CS_XP1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_marginTop="9dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:gravity="center"
+            android:textColor="#FFA16F"
+            android:textSize="15sp"
+            android:text="消息列表"
+            android:layout_width="match_parent"
+            android:layout_height="39dp" />
+
+        <View
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:gravity="center"
+            android:textColor="#FFA16F"
+            android:textSize="15sp"
+            android:text="画面分享"
+            android:layout_width="match_parent"
+            android:layout_height="39dp" />
+
+        <View
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:gravity="center"
+            android:textColor="#FFA16F"
+            android:textSize="15sp"
+            android:text="设置"
+            android:layout_width="match_parent"
+            android:layout_height="39dp" />
+
+        <View
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:gravity="center"
+            android:textColor="#FFA16F"
+            android:textSize="15sp"
+            android:text="取消"
+            android:layout_width="match_parent"
+            android:layout_height="39dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

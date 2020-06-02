@@ -132,6 +132,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_map"
             android:orientation="horizontal"
             android:background="@drawable/bg_dcdada_2dp_bord"
             android:layout_marginTop="15dp"

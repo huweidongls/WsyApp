@@ -61,11 +61,11 @@ public class AddDeviceTongdianActivity extends BaseActivity {
     private void initData() {
 
         if(type.equals("1")){
-            tv.setText("请将设备连通电源");
-            tvBottom.setText("设备已通电");
+            tv.setText("请将设备连通电源，耐心等待1分钟，直到指示灯变绿色");
+            tvBottom.setText("指示灯已经变绿色");
         }else {
-            tv.setText("请将设备插上电源，耐心等待1分钟，直到指示灯呈蓝色快速闪烁");
-            tvBottom.setText("指示灯已经蓝色快闪");
+            tv.setText("请将设备插上电源，耐心等待1分钟，直到指示灯变蓝色");
+            tvBottom.setText("指示灯已经变蓝色");
         }
 
     }
