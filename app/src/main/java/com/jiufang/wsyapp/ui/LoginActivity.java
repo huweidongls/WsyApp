@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -46,11 +47,14 @@ public class LoginActivity extends BaseActivity {
 
     private Dialog dialog;
 
+    private InputMethodManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        manager = ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE));
         StatusBarUtils.setStatusBarTransparent(LoginActivity.this);
         ButterKnife.bind(LoginActivity.this);
         initData();
@@ -63,10 +67,18 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_eye, R.id.tv_register, R.id.tv_forget, R.id.btn_login})
+    @OnClick({R.id.rl_eye, R.id.tv_register, R.id.tv_forget, R.id.btn_login, R.id.ll_phone, R.id.ll_pwd})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.ll_phone:
+                etPhone.requestFocus();
+                if (manager != null) manager.showSoftInput(etPhone, 0);
+                break;
+            case R.id.ll_pwd:
+                etPwd.requestFocus();
+                if (manager != null) manager.showSoftInput(etPwd, 0);
+                break;
             case R.id.rl_eye:
                 if (!isShowPwd) {
                     isShowPwd = true;

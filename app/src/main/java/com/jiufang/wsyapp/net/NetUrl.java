@@ -9,7 +9,8 @@ public class NetUrl {
     public static final String YS_APP_KEY = "7ce02f98c4614264882a4fec56a32d5d";
 
 //    public static final String BASE_URL = "http://hvc.jiufangkeji.com";
-    public static final String BASE_URL = "http://hvc.jiufangkeji.com";
+//    public static final String BASE_URL = "http://hvc.jiufangkeji.com";
+    public static final String BASE_URL = "http://192.168.1.125:8888";
     public static final String BASE_IMG_URL = "http://hvc.jiufangkeji.com/resource/";
     public static final String H5BASE_URL = "http://xfsysh5.5ijiaoyu.cn/";
     //用户获取验证码

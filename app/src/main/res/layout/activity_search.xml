@@ -31,6 +31,9 @@
                 android:layout_height="11dp" />
 
             <EditText
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:id="@+id/et_search"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="6dp"
                 android:layout_marginLeft="6dp"

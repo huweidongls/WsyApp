@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -45,11 +46,14 @@ public class ForgetActivity extends BaseActivity {
     private String phone = "";
     private String code = "";
 
+    private InputMethodManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
 
+        manager = ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE));
         MyApplication.forgetTimeCount.setActivity(ForgetActivity.this);
         StatusBarUtils.setStatusBarTransparent(ForgetActivity.this);
         ButterKnife.bind(ForgetActivity.this);
@@ -63,10 +67,18 @@ public class ForgetActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.tv_send, R.id.btn_next})
+    @OnClick({R.id.rl_back, R.id.tv_send, R.id.btn_next, R.id.ll_phone, R.id.ll_pwd})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.ll_phone:
+                etPhone.requestFocus();
+                if (manager != null) manager.showSoftInput(etPhone, 0);
+                break;
+            case R.id.ll_pwd:
+                etCode.requestFocus();
+                if (manager != null) manager.showSoftInput(etCode, 0);
+                break;
             case R.id.rl_back:
                 finish();
                 break;

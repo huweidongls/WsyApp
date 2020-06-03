@@ -153,7 +153,9 @@
         <receiver android:name=".ysmediaplay.RootActivity$NotificationReceiver" />
 
         <activity android:name=".ui.SearchActivity" />
-        <activity android:name=".ui.CloudVideoActivity"></activity>
+        <activity android:name=".ui.CloudVideoActivity" />
+        <activity android:name=".ui.MyDeviceActivity" />
+        <activity android:name=".ui.GoumaiJiluActivity"></activity>
     </application>
 
 </manifest>

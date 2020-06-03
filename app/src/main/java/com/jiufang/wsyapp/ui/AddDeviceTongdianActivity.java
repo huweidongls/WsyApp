@@ -1,5 +1,6 @@
 package com.jiufang.wsyapp.ui;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,10 @@ import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
+import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.vise.xsnow.permission.OnPermissionCallback;
+import com.vise.xsnow.permission.PermissionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,42 +87,92 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                 btnNext.setEnabled(true);
                 break;
             case R.id.btn_next:
-                Map<String, String> map = new LinkedHashMap<>();
-                map.put("snCode", xlh);
-                map.put("userId", SpUtils.getUserId(context));
-                ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, new ViseUtil.ViseListener() {
+                PermissionManager.instance().request(AddDeviceTongdianActivity.this, new OnPermissionCallback() {
                     @Override
-                    public void onReturn(String s) {
-                        try {
-                            Logger.e("123123", s);
-                            Intent intent = new Intent();
-                            JSONObject jsonObject = new JSONObject(s);
-                            boolean b = jsonObject.optBoolean("data");
-                            if(b){
-                                //设备有网
-                                intent.setClass(context, AddDeviceSureActivity.class);
-                                intent.putExtra("type", type);
-                                intent.putExtra("xlh", xlh);
-                                intent.putExtra("anquan", anquan);
-                                startActivity(intent);
-                            }else {
-                                //设备没网
-                                intent.setClass(context, AddDeviceWifiActivity.class);
-                                intent.putExtra("type", type);
-                                intent.putExtra("xlh", xlh);
-                                intent.putExtra("anquan", anquan);
-                                startActivity(intent);
+                    public void onRequestAllow(String permissionName) {
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put("snCode", xlh);
+                        map.put("userId", SpUtils.getUserId(context));
+                        ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                try {
+                                    Logger.e("123123", s);
+                                    Intent intent = new Intent();
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    boolean b = jsonObject.optBoolean("data");
+                                    if(b){
+                                        //设备有网
+                                        intent.setClass(context, AddDeviceSureActivity.class);
+                                        intent.putExtra("type", type);
+                                        intent.putExtra("xlh", xlh);
+                                        intent.putExtra("anquan", anquan);
+                                        startActivity(intent);
+                                    }else {
+                                        //设备没网
+                                        intent.setClass(context, AddDeviceWifiActivity.class);
+                                        intent.putExtra("type", type);
+                                        intent.putExtra("xlh", xlh);
+                                        intent.putExtra("anquan", anquan);
+                                        startActivity(intent);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
+                            @Override
+                            public void onElse(String s) {
+                                Logger.e("123123", "fail"+s);
+                            }
+                        });
                     }
 
                     @Override
-                    public void onElse(String s) {
-                        Logger.e("123123", "fail"+s);
+                    public void onRequestRefuse(String permissionName) {
+                        ToastUtil.showShort(context, "未开启定位权限");
                     }
-                });
+
+                    @Override
+                    public void onRequestNoAsk(String permissionName) {
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put("snCode", xlh);
+                        map.put("userId", SpUtils.getUserId(context));
+                        ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                try {
+                                    Logger.e("123123", s);
+                                    Intent intent = new Intent();
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    boolean b = jsonObject.optBoolean("data");
+                                    if(b){
+                                        //设备有网
+                                        intent.setClass(context, AddDeviceSureActivity.class);
+                                        intent.putExtra("type", type);
+                                        intent.putExtra("xlh", xlh);
+                                        intent.putExtra("anquan", anquan);
+                                        startActivity(intent);
+                                    }else {
+                                        //设备没网
+                                        intent.setClass(context, AddDeviceWifiActivity.class);
+                                        intent.putExtra("type", type);
+                                        intent.putExtra("xlh", xlh);
+                                        intent.putExtra("anquan", anquan);
+                                        startActivity(intent);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onElse(String s) {
+                                Logger.e("123123", "fail"+s);
+                            }
+                        });
+                    }
+                }, Manifest.permission.ACCESS_FINE_LOCATION);
                 break;
         }
     }

@@ -71,6 +71,7 @@
                 android:layout_height="86dp">
 
                 <RelativeLayout
+                    android:id="@+id/rl_my_device"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
@@ -145,6 +146,7 @@
                     android:layout_height="match_parent"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_goumaijilu"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent">

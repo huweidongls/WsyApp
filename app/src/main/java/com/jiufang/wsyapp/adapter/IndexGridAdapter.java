@@ -48,7 +48,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Administrator on 2020/4/30.
  */
 
-public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> {
+public class IndexGridAdapter extends RecyclerView.Adapter<IndexGridAdapter.ViewHolder> {
 
     private Context context;
     private List<GetBindDeviceListBean.DataBean.RecordsBean> data;
@@ -69,7 +69,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         }
     };
 
-    public IndexAdapter(List<GetBindDeviceListBean.DataBean.RecordsBean> data, ClickListener listener) {
+    public IndexGridAdapter(List<GetBindDeviceListBean.DataBean.RecordsBean> data, ClickListener listener) {
         this.data = data;
         this.listener = listener;
     }
@@ -78,7 +78,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_index, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_index_grid, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }

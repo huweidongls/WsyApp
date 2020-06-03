@@ -847,21 +847,21 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
                 if (!isPlaying) {
                     return;
                 }
-			if (true) {
-				if (IsPTZOpen) {
-					// 测试专用
-//					mPlayWin.setStreamCallback(0);
-					IsPTZOpen = false;
-					mLivePtz.setImageResource(R.drawable.live_btn_ptz_off);
-				} else {
-					// 测试专用
-//					mPlayWin.setStreamCallback(1);
-					IsPTZOpen = true;
-					mLivePtz.setImageResource(R.drawable.live_btn_ptz_on);
-				}
-			} else {
-				toast(R.string.toast_device_ability_no_ptz);
-			}
+//                if ((channelInfo.getAbility() & ChannelInfo.Ability.PTZ) != 0) {
+//                    if (IsPTZOpen) {
+//                        // 测试专用
+//                        mPlayWin.setStreamCallback(0);
+//                        IsPTZOpen = false;
+//                        mLivePtz.setImageResource(R.drawable.live_btn_ptz_off);
+//                    } else {
+//                        // 测试专用
+//                        mPlayWin.setStreamCallback(1);
+//                        IsPTZOpen = true;
+//                        mLivePtz.setImageResource(R.drawable.live_btn_ptz_on);
+//                    }
+//                } else {
+//                    toast(R.string.toast_device_ability_no_ptz);
+//                }
                 break;
             case R.id.live_scale://全屏
                 if ("LANDSCAPE".equals(mLiveScale.getTag())) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jiufang.wsyapp.R;
@@ -36,11 +37,14 @@ public class ForgetSetPwdActivity extends BaseActivity {
     private String userId = "";
     private String token = "";
 
+    private InputMethodManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_set_pwd);
 
+        manager = ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE));
         userId = getIntent().getStringExtra("userid");
         token = getIntent().getStringExtra("token");
         StatusBarUtils.setStatusBarTransparent(ForgetSetPwdActivity.this);
@@ -55,9 +59,17 @@ public class ForgetSetPwdActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_sure})
+    @OnClick({R.id.rl_back, R.id.btn_sure, R.id.ll_phone, R.id.ll_pwd})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.ll_phone:
+                etPwd.requestFocus();
+                if (manager != null) manager.showSoftInput(etPwd, 0);
+                break;
+            case R.id.ll_pwd:
+                etPwd2.requestFocus();
+                if (manager != null) manager.showSoftInput(etPwd2, 0);
+                break;
             case R.id.rl_back:
                 finish();
                 break;

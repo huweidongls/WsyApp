@@ -1,18 +1,31 @@
 package com.jiufang.wsyapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.adapter.SearchAdapter;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
+import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
+import com.jiufang.wsyapp.utils.ViseUtil;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,9 +37,15 @@ public class SearchActivity extends BaseActivity {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
+    @BindView(R.id.et_search)
+    EditText etSearch;
 
     private SearchAdapter adapter;
-    private List<String> mList;
+    private List<GetBindDeviceListBean.DataBean.RecordsBean> mList;
+
+    private InputMethodManager manager;//输入法管理器
+    private String search = "";
+    private int page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +55,67 @@ public class SearchActivity extends BaseActivity {
         StatusBarUtils.setStatusBar(SearchActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(SearchActivity.this);
         initData();
+        manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        search();
 
     }
 
     private void initData() {
 
         mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
         adapter = new SearchAdapter(mList);
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
+
+    }
+
+    private void search() {
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    //先隐藏键盘
+                    if (manager.isActive()) {
+                        manager.hideSoftInputFromWindow(etSearch.getApplicationWindowToken(), 0);
+                    }
+                    //自己需要的操作
+                    search = etSearch.getText().toString();
+                    if(!TextUtils.isEmpty(search)){
+                        onSearch(search);
+                    }
+                }
+                //记得返回false
+                return false;
+            }
+        });
+    }
+
+    private void onSearch(String search) {
+
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("pageIndex", "1");
+        map.put("pageSize", "10");
+        map.put("userId", SpUtils.getUserId(context));
+        map.put("keyword", search);
+        ViseUtil.Post(context, NetUrl.getBindDeviceList, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                Logger.e("123123", s);
+                Gson gson = new Gson();
+                GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
+                mList.clear();
+                mList.addAll(bean.getData().getRecords());
+                adapter.notifyDataSetChanged();
+                page = 2;
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
 
     }
 

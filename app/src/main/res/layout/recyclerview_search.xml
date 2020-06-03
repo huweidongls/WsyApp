@@ -10,6 +10,7 @@
         android:layout_height="59dp">
 
         <ImageView
+            android:id="@+id/iv"
             android:layout_marginLeft="14dp"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/ys"
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_name"
                 android:textColor="#171F24"
                 android:textSize="15sp"
                 android:text="乐橙-TC2E"
@@ -33,6 +35,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_code"
                 android:layout_marginTop="2dp"
                 android:textColor="#8F8F8F"
                 android:textSize="13sp"

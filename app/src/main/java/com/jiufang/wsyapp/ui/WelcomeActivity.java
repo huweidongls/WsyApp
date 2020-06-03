@@ -63,7 +63,9 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void run() {
                 if(num>0){
-                    handler.sendEmptyMessage(100);
+                    Message msg = Message.obtain();
+                    msg.what = 100;
+                    handler.sendMessage(msg);
                     num = num - 1;
                 }
             }

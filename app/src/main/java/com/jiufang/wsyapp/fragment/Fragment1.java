@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.adapter.IndexAdapter;
+import com.jiufang.wsyapp.adapter.IndexGridAdapter;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.net.NetUrl;
@@ -63,9 +64,14 @@ public class Fragment1 extends LazyFragment {
     LinearLayout llYes;
     @BindView(R.id.ll_no)
     LinearLayout llNo;
+    @BindView(R.id.rv_grid)
+    RecyclerView rvGrid;
 
     private IndexAdapter adapter;
     private List<GetBindDeviceListBean.DataBean.RecordsBean> mList;
+
+    private IndexGridAdapter adapterGrid;
+    private List<GetBindDeviceListBean.DataBean.RecordsBean> mListGrid;
 
     private int lastPostion;
 
@@ -122,6 +128,9 @@ public class Fragment1 extends LazyFragment {
                         mList.clear();
                         mList.addAll(bean.getData().getRecords());
                         adapter.notifyDataSetChanged();
+                        mListGrid.clear();
+                        mListGrid.addAll(bean.getData().getRecords());
+                        adapterGrid.notifyDataSetChanged();
                         page = 2;
                     }
 
@@ -135,7 +144,6 @@ public class Fragment1 extends LazyFragment {
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishLoadMore(500);
                 Map<String, String> map = new LinkedHashMap<>();
                 map.put("pageIndex", page+"");
                 map.put("pageSize", "10");
@@ -147,6 +155,8 @@ public class Fragment1 extends LazyFragment {
                         GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
                         mList.addAll(bean.getData().getRecords());
                         adapter.notifyDataSetChanged();
+                        mListGrid.addAll(bean.getData().getRecords());
+                        adapterGrid.notifyDataSetChanged();
                         page = page+1;
                     }
 
@@ -179,6 +189,16 @@ public class Fragment1 extends LazyFragment {
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setAdapter(adapter);
+                mListGrid = bean.getData().getRecords();
+                adapterGrid = new IndexGridAdapter(mListGrid, new IndexGridAdapter.ClickListener() {
+                    @Override
+                    public void onMore(int pos) {
+                        showMorePop();
+                    }
+                });
+                GridLayoutManager manager1 = new GridLayoutManager(getContext(), 2);
+                rvGrid.setLayoutManager(manager1);
+                rvGrid.setAdapter(adapterGrid);
                 page = 2;
             }
 
@@ -227,15 +247,26 @@ public class Fragment1 extends LazyFragment {
                 startActivity(intent);
                 break;
             case R.id.rl_left:
-                if (recyclerView.getLayoutManager() instanceof GridLayoutManager){
-                    lastPostion = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                }else {
+                if(recyclerView.getVisibility() == View.VISIBLE){
                     lastPostion = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                    recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                    rvGrid.scrollToPosition(lastPostion);
+                    recyclerView.setVisibility(View.GONE);
+                    rvGrid.setVisibility(View.VISIBLE);
+                }else {
+                    lastPostion = ((GridLayoutManager)rvGrid.getLayoutManager()).findFirstVisibleItemPosition();
+                    recyclerView.scrollToPosition(lastPostion);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    rvGrid.setVisibility(View.GONE);
                 }
-                recyclerView.setAdapter(adapter);
-                recyclerView.scrollToPosition(lastPostion);
+//                if (recyclerView.getLayoutManager() instanceof GridLayoutManager){
+//                    lastPostion = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//                }else {
+//                    lastPostion = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+//                    recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+//                }
+//                recyclerView.setAdapter(adapter);
+//                recyclerView.scrollToPosition(lastPostion);
                 break;
             case R.id.rl_right:
                 startActivityForResult(new Intent(getContext(), CaptureActivity.class), 1001);

@@ -11,7 +11,10 @@ import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.GoumaiJiluActivity;
+import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.MainActivity;
+import com.jiufang.wsyapp.ui.MyDeviceActivity;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -77,9 +80,28 @@ public class Fragment4 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.iv_avatar, R.id.rl1, R.id.rl_exit})
+    @OnClick({R.id.iv_avatar, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_goumaijilu:
+                if(SpUtils.getUserId(getContext()).equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), GoumaiJiluActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.rl_my_device:
+                if(SpUtils.getUserId(getContext()).equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), MyDeviceActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.iv_avatar:
                 //单选并剪裁
                 ImageSelector.builder()

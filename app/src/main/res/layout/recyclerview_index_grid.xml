@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:background="@drawable/bg_f8f8f8_7dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="126dp">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <LinearLayout
+                android:layout_marginLeft="12dp"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/duihao_green"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp" />
+
+                <TextView
+                    android:id="@+id/tv_device_name"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:textColor="#2B2B2B"
+                    android:text="TC2E"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_more"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:src="@mipmap/heidian"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp" />
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:src="@mipmap/heidian"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp" />
+
+                    <ImageView
+                        android:layout_marginRight="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/heidian"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="99dp">
+
+            <com.shehuan.niv.NiceImageView
+                app:corner_radius="5dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/index"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="10sp"
+                android:textColor="#3C3C3C"
+                android:text="lmou乐橙"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#3C3C3C"
+                android:textSize="9sp"
+                android:text="2020-01-29 13:00:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/play"
+                android:layout_width="26dp"
+                android:layout_height="26dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:background="@drawable/bg_f8f8f8_7dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="126dp">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <LinearLayout
+                android:layout_marginLeft="12dp"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="#D7D7D7"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp" />
+
+                <TextView
+                    android:id="@+id/tv_device_name2"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:textColor="#D7D7D7"
+                    android:text="TC2E"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:src="@mipmap/heidian"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp" />
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:src="@mipmap/heidian"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp" />
+
+                    <ImageView
+                        android:layout_marginRight="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/heidian"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="99dp">
+
+            <com.shehuan.niv.NiceImageView
+                app:corner_radius="5dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/index"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:src="@drawable/bg_cc000000_5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="10sp"
+                android:textColor="#6C6C6C"
+                android:text="lmou乐橙"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:background="@mipmap/index_kuang"
+                android:layout_width="121dp"
+                android:layout_height="69dp">
+
+                <TextView
+                    android:layout_marginTop="9dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="11sp"
+                    android:text="设备离线"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_marginRight="7dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@mipmap/time_white"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp" />
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="4dp"
+                        android:textColor="@color/white_ffffff"
+                        android:textSize="9sp"
+                        android:text="2020-01-29 13:00:00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:background="@drawable/bg_ffffff_11dp_bord"
+                    android:gravity="center"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="10sp"
+                    android:text="帮助"
+                    android:layout_marginBottom="7dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="9dp"
+                    android:layout_width="40dp"
+                    android:layout_height="18dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

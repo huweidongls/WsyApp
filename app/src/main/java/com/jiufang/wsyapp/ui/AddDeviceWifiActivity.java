@@ -398,7 +398,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
         // dialog参数设置
         AlertDialog.Builder builder = new AlertDialog.Builder(this); // 先得到构造器
         builder.setTitle("提示"); // 设置标题
-        builder.setMessage("根据说明书操作设备的配对按钮，再点击确认进入配对"); // 设置内容
+        builder.setMessage("调大手机音量，并将手机喇叭对准设备麦克风，确认听到“布谷”声"); // 设置内容
         builder.setPositiveButton("确定",
                 dialogOnclicListener);
         builder.setNegativeButton("取消",

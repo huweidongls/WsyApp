@@ -42,7 +42,7 @@
 
     <LinearLayout
         android:id="@+id/ll_phone"
-        android:layout_marginTop="119dp"
+        android:layout_marginTop="89dp"
         android:layout_below="@+id/tv_logo"
         android:layout_marginRight="21dp"
         android:layout_marginLeft="21dp"
@@ -51,6 +51,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_marginTop="30dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -87,13 +88,13 @@
         android:id="@+id/ll_pwd"
         android:layout_marginRight="21dp"
         android:layout_marginLeft="21dp"
-        android:layout_marginTop="31dp"
         android:layout_below="@+id/ll_phone"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_marginTop="31dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
