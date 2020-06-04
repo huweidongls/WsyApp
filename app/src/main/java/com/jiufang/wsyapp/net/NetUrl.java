@@ -59,5 +59,7 @@ public class NetUrl {
     public static final String updateBindDeviceUsePerson = "/device/v1.0.0/updateBindDeviceUsePerson";
     //退出登录
     public static final String logout = "/v1.0.0/logout";
+    //获取设备型号
+    public static final String getDeviceModal = "/device/v1.0.0/getDeviceModal";
 
 }

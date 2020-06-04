@@ -115,7 +115,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
 //			String channelId = b.getString("bean");
 //			channelInfo = Business.getInstance().getChannel(channelId);
             bean = (GetBindDeviceDetailBean) b.getSerializable("bean");
-            com.jiufang.wsyapp.utils.Logger.e("123123", bean.getData().getUserToken());
+            com.jiufang.wsyapp.utils.Logger.e("123123", bean.getData().getDeviceAccessToken());
         }
         if (bean == null) {
             Logger.e(TAG, " **server returned channelInfo == null, leads to toast: Device NOT FOUND");
@@ -546,10 +546,10 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         } else {
             showLoading(R.string.common_loading);
         }
-        com.jiufang.wsyapp.utils.Logger.e("123123", "token--" + bean.getData().getUserToken() + "--deviceId--" + bean.getData().getSnCode()
+        com.jiufang.wsyapp.utils.Logger.e("123123", "token--" + bean.getData().getDeviceAccessToken() + "--deviceId--" + bean.getData().getSnCode()
                 + "--channelId--" + bean.getData().getChannelId());
         mPlayWin.playRtspReal(
-                bean.getData().getUserToken(),
+                bean.getData().getDeviceAccessToken(),
                 bean.getData().getSnCode(),
                 bean.getData().getSnCode(),
                 Integer.valueOf(bean.getData().getChannelId()), bateMode, bean.getData().isIsOpt());//最后一个参数为true，表示使用长连接
@@ -715,7 +715,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         mLiveSound.setClickable(false);
         LCOpenSDK_Talk.setListener(new AudioTalkerListener());//对讲前先设备监听
         LCOpenSDK_Talk.playTalk(
-                bean.getData().getUserToken(),
+                bean.getData().getDeviceAccessToken(),
                 bean.getData().getSnCode(),
                 bean.getData().getSnCode(), bean.getData().isIsOpt());//对讲使用长连接
     }

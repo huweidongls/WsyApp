@@ -81,10 +81,10 @@ public class LcPlayActivity extends BaseActivity {
      * 描述：开始播放
      */
     public void play() {
-        com.jiufang.wsyapp.utils.Logger.e("123123", "token--"+bean.getData().getUserToken()+"--deviceId--"+bean.getData().getSnCode()
+        com.jiufang.wsyapp.utils.Logger.e("123123", "token--"+bean.getData().getDeviceAccessToken()+"--deviceId--"+bean.getData().getSnCode()
                 +"--channelId--"+bean.getData().getChannelId());
         mPlayWin.playRtspReal(
-                bean.getData().getUserToken(),
+                bean.getData().getDeviceAccessToken(),
                 bean.getData().getSnCode(),
                 bean.getData().getSnCode(),
                 Integer.valueOf(bean.getData().getChannelId()), bean.getData().getBateMode(), bean.getData().isIsOpt());//最后一个参数为true，表示使用长连接

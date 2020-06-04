@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
@@ -57,6 +58,8 @@ public class MediaPlayActivity extends FragmentActivity implements
 
     @BindView(R.id.rl_top)
     RelativeLayout rlTop;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,29 +77,11 @@ public class MediaPlayActivity extends FragmentActivity implements
         switch (getIntent().getIntExtra("TYPE", 0)) {
             case IS_VIDEO_ONLINE:
                 mediaPlayFragment = new MediaPlayOnlineFragment();
-                id = getIntent().getStringExtra("id");
-                Map<String, String> map = new LinkedHashMap<>();
-                map.put("bindDeviceId", id);
-                map.put("userId", SpUtils.getUserId(context));
-                ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, new ViseUtil.ViseListener() {
-                    @Override
-                    public void onReturn(String s) {
-                        Logger.e("123123", s);
-                        Gson gson = new Gson();
-                        GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
-                        b.putSerializable("bean", bean);
-                        mediaPlayFragment.setArguments(b);
-                        changeFragment(mediaPlayFragment, false);
-                    }
-
-                    @Override
-                    public void onElse(String s) {
-
-                    }
-                });
-//                b.putString("RESID", id);
-//                mediaPlayFragment.setArguments(b);
-//                changeFragment(mediaPlayFragment, false);
+                GetBindDeviceDetailBean bean = (GetBindDeviceDetailBean) getIntent().getSerializableExtra("bean");
+                tvTitle.setText(bean.getData().getDeviceName());
+                b.putSerializable("bean", bean);
+                mediaPlayFragment.setArguments(b);
+                changeFragment(mediaPlayFragment, false);
                 break;
             case IS_VIDEO_REMOTE_RECORD:
                 mediaPlayFragment = new MediaPlayBackFragment();

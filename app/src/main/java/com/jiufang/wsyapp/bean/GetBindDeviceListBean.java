@@ -12,8 +12,8 @@ public class GetBindDeviceListBean {
      * code : 200
      * success : true
      * message : 操作成功
-     * data : {"total":2,"records":[{"id":2,"brandId":1,"productCategoryId":1,"productCategoryName":"云台摄像机","productImage":"202005022100276117296.png","snapImage":null,"snCode":"2F0476DPAL01070","securityCode":null,"deviceName":"乐橙摄像机","deviceAccessToken":"Ut_00004ec0fa9bc1794a8f8bbef4a2d187","deviceStatus":1,"offlineTime":null,"cloudStorageStatus":0,"nativeStorageStatus":1},{"id":1,"brandId":1,"productCategoryId":1,"productCategoryName":"云台摄像机","productImage":"202005022100276117296.png","snapImage":"202005022100276117296.png","snCode":"5L09076PAJ513BD","securityCode":"L2B8E85F","deviceName":"走廊监控","deviceAccessToken":null,"deviceStatus":1,"offlineTime":null,"cloudStorageStatus":1,"nativeStorageStatus":1}],"pageIndex":1,"pageSize":10}
-     * time : 2020-05-18 16:11:44
+     * data : {"total":1,"records":[{"id":1,"brandId":1,"productCategoryId":1,"productCategoryName":"摄像机","productImage":"202005022100276117296.png","snapImage":null,"snCode":"5K05D84PAU69A7C","securityCode":"L25C2542","deviceName":"萤石带云台","deviceModel":"CS-C1HC-1D1WFR","haveCloudConsole":1,"offlineTime":null}],"pageIndex":1,"pageSize":10}
+     * time : 2020-06-04 13:58:28
      */
 
     private int code;
@@ -64,8 +64,8 @@ public class GetBindDeviceListBean {
 
     public static class DataBean {
         /**
-         * total : 2
-         * records : [{"id":2,"brandId":1,"productCategoryId":1,"productCategoryName":"云台摄像机","productImage":"202005022100276117296.png","snapImage":null,"snCode":"2F0476DPAL01070","securityCode":null,"deviceName":"乐橙摄像机","deviceAccessToken":"Ut_00004ec0fa9bc1794a8f8bbef4a2d187","deviceStatus":1,"offlineTime":null,"cloudStorageStatus":0,"nativeStorageStatus":1},{"id":1,"brandId":1,"productCategoryId":1,"productCategoryName":"云台摄像机","productImage":"202005022100276117296.png","snapImage":"202005022100276117296.png","snCode":"5L09076PAJ513BD","securityCode":"L2B8E85F","deviceName":"走廊监控","deviceAccessToken":null,"deviceStatus":1,"offlineTime":null,"cloudStorageStatus":1,"nativeStorageStatus":1}]
+         * total : 1
+         * records : [{"id":1,"brandId":1,"productCategoryId":1,"productCategoryName":"摄像机","productImage":"202005022100276117296.png","snapImage":null,"snCode":"5K05D84PAU69A7C","securityCode":"L25C2542","deviceName":"萤石带云台","deviceModel":"CS-C1HC-1D1WFR","haveCloudConsole":1,"offlineTime":null}]
          * pageIndex : 1
          * pageSize : 10
          */
@@ -109,20 +109,18 @@ public class GetBindDeviceListBean {
 
         public static class RecordsBean {
             /**
-             * id : 2
+             * id : 1
              * brandId : 1
              * productCategoryId : 1
-             * productCategoryName : 云台摄像机
+             * productCategoryName : 摄像机
              * productImage : 202005022100276117296.png
              * snapImage : null
-             * snCode : 2F0476DPAL01070
-             * securityCode : null
-             * deviceName : 乐橙摄像机
-             * deviceAccessToken : Ut_00004ec0fa9bc1794a8f8bbef4a2d187
-             * deviceStatus : 1
+             * snCode : 5K05D84PAU69A7C
+             * securityCode : L25C2542
+             * deviceName : 萤石带云台
+             * deviceModel : CS-C1HC-1D1WFR
+             * haveCloudConsole : 1
              * offlineTime : null
-             * cloudStorageStatus : 0
-             * nativeStorageStatus : 1
              */
 
             private int id;
@@ -134,11 +132,9 @@ public class GetBindDeviceListBean {
             private String snCode;
             private String securityCode;
             private String deviceName;
-            private String deviceAccessToken;
-            private int deviceStatus;
+            private String deviceModel;
+            private int haveCloudConsole;
             private Object offlineTime;
-            private int cloudStorageStatus;
-            private int nativeStorageStatus;
 
             public int getId() {
                 return id;
@@ -212,20 +208,20 @@ public class GetBindDeviceListBean {
                 this.deviceName = deviceName;
             }
 
-            public String getDeviceAccessToken() {
-                return deviceAccessToken;
+            public String getDeviceModel() {
+                return deviceModel;
             }
 
-            public void setDeviceAccessToken(String deviceAccessToken) {
-                this.deviceAccessToken = deviceAccessToken;
+            public void setDeviceModel(String deviceModel) {
+                this.deviceModel = deviceModel;
             }
 
-            public int getDeviceStatus() {
-                return deviceStatus;
+            public int getHaveCloudConsole() {
+                return haveCloudConsole;
             }
 
-            public void setDeviceStatus(int deviceStatus) {
-                this.deviceStatus = deviceStatus;
+            public void setHaveCloudConsole(int haveCloudConsole) {
+                this.haveCloudConsole = haveCloudConsole;
             }
 
             public Object getOfflineTime() {
@@ -234,22 +230,6 @@ public class GetBindDeviceListBean {
 
             public void setOfflineTime(Object offlineTime) {
                 this.offlineTime = offlineTime;
-            }
-
-            public int getCloudStorageStatus() {
-                return cloudStorageStatus;
-            }
-
-            public void setCloudStorageStatus(int cloudStorageStatus) {
-                this.cloudStorageStatus = cloudStorageStatus;
-            }
-
-            public int getNativeStorageStatus() {
-                return nativeStorageStatus;
-            }
-
-            public void setNativeStorageStatus(int nativeStorageStatus) {
-                this.nativeStorageStatus = nativeStorageStatus;
             }
         }
     }

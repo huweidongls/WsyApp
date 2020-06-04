@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
@@ -17,6 +18,7 @@ import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.UtilsDevicePic;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 
@@ -38,10 +40,19 @@ public class AddDeviceSureActivity extends BaseActivity {
     ImageView ivGouxuan;
     @BindView(R.id.btn_next)
     Button btnNext;
+    @BindView(R.id.iv_title)
+    ImageView ivTitle;
+    @BindView(R.id.tv1)
+    TextView tv1;
+    @BindView(R.id.tv2)
+    TextView tv2;
+    @BindView(R.id.tv3)
+    TextView tv3;
 
     private String type = "";//1乐橙 2萤石
     private String xlh = "";
     private String anquan = "";
+    private String xinghao = "";//设备型号
 
     private Dialog dialog;
 
@@ -53,6 +64,7 @@ public class AddDeviceSureActivity extends BaseActivity {
         type = getIntent().getStringExtra("type");
         xlh = getIntent().getStringExtra("xlh");
         anquan = getIntent().getStringExtra("anquan");
+        xinghao = getIntent().getStringExtra("xinghao");
         StatusBarUtils.setStatusBar(AddDeviceSureActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(AddDeviceSureActivity.this);
         initData();
@@ -61,7 +73,16 @@ public class AddDeviceSureActivity extends BaseActivity {
 
     private void initData() {
 
-
+        ivTitle.setImageResource(UtilsDevicePic.getDevicePic(xinghao));
+        if(type.equals("1")){
+            tv1.setText("请确认设备绿灯常亮");
+            tv2.setText("未见设备绿灯常亮？联系客服");
+            tv3.setText("已确认设备绿灯常亮");
+        }else {
+            tv1.setText("请确认设备蓝灯慢闪");
+            tv2.setText("未见设备蓝灯慢闪？联系客服");
+            tv3.setText("已确认设备蓝灯慢闪");
+        }
 
     }
 
@@ -100,6 +121,7 @@ public class AddDeviceSureActivity extends BaseActivity {
                 Intent intent = new Intent();
                 intent.setClass(context, AddDeviceSuccessActivity.class);
                 intent.putExtra("id", bean.getData().getId()+"");
+                intent.putExtra("xinghao", xinghao);
                 startActivity(intent);
             }
 
@@ -111,6 +133,7 @@ public class AddDeviceSureActivity extends BaseActivity {
                     intent.setClass(context, AddDeviceAnquanActivity.class);
                     intent.putExtra("type", type);
                     intent.putExtra("xlh", xlh);
+                    intent.putExtra("xinghao", xinghao);
                     startActivity(intent);
                 } catch (JSONException e) {
                     e.printStackTrace();

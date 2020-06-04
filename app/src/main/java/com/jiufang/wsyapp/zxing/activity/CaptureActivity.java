@@ -309,11 +309,31 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         ViseUtil.Post(context, NetUrl.checkDeviceBindStatus, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
-                Intent intent = new Intent();
-                intent.setClass(context, AddDeviceTongdianActivity.class);
-                intent.putExtra("type", "1");
-                intent.putExtra("xlh", finalDevSn);
-                startActivity(intent);
+                Map<String, String> map1 = new LinkedHashMap<>();
+                map1.put("sn", finalDevSn);
+                ViseUtil.Post(context, NetUrl.getDeviceModal, map1, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        Logger.e("123123", s);
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            String xinghao = jsonObject.optString("data");
+                            Intent intent = new Intent();
+                            intent.setClass(context, AddDeviceTongdianActivity.class);
+                            intent.putExtra("type", "1");
+                            intent.putExtra("xlh", finalDevSn);
+                            intent.putExtra("xinghao", xinghao);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
             }
 
             @Override
@@ -418,12 +438,31 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             @Override
             public void onReturn(String s) {
                 Logger.e("123123", s);
-                Intent intent = new Intent();
-                intent.setClass(context, AddDeviceTongdianActivity.class);
-                intent.putExtra("type", "2");
-                intent.putExtra("xlh", finalDevSn);
-                intent.putExtra("anquan", finalMSerialVeryCodeStr);
-                startActivity(intent);
+                Map<String, String> map1 = new LinkedHashMap<>();
+                map1.put("sn", finalDevSn);
+                ViseUtil.Post(context, NetUrl.getDeviceModal, map1, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            String xinghao = jsonObject.optString("data");
+                            Intent intent = new Intent();
+                            intent.setClass(context, AddDeviceTongdianActivity.class);
+                            intent.putExtra("type", "2");
+                            intent.putExtra("xlh", finalDevSn);
+                            intent.putExtra("anquan", finalMSerialVeryCodeStr);
+                            intent.putExtra("xinghao", xinghao);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
             }
 
             @Override

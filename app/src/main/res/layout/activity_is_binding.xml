@@ -48,7 +48,6 @@
 
         <ImageView
             android:scaleType="centerCrop"
-            android:src="@mipmap/yibangding"
             android:layout_width="match_parent"
             android:layout_height="234dp" />
 

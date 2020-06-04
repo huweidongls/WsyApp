@@ -1,6 +1,7 @@
 package com.jiufang.wsyapp.ui;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,9 @@ import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
+import com.jiufang.wsyapp.utils.UtilsDevicePic;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.vise.xsnow.permission.OnPermissionCallback;
 import com.vise.xsnow.permission.PermissionManager;
 
@@ -43,10 +46,15 @@ public class AddDeviceTongdianActivity extends BaseActivity {
     TextView tv;
     @BindView(R.id.tv_bottom)
     TextView tvBottom;
+    @BindView(R.id.iv_title)
+    ImageView ivTitle;
 
     private String type = "";//1乐橙 2萤石
     private String xlh = "";
     private String anquan = "";
+    private String xinghao = "";//设备型号
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
         type = getIntent().getStringExtra("type");
         xlh = getIntent().getStringExtra("xlh");
         anquan = getIntent().getStringExtra("anquan");
+        xinghao = getIntent().getStringExtra("xinghao");
         StatusBarUtils.setStatusBar(AddDeviceTongdianActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(AddDeviceTongdianActivity.this);
         initData();
@@ -64,6 +73,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
 
     private void initData() {
 
+        ivTitle.setImageResource(UtilsDevicePic.getDevicePic(xinghao));
         if(type.equals("1")){
             tv.setText("请将设备连通电源，耐心等待1分钟，直到指示灯变绿色");
             tvBottom.setText("指示灯已经变绿色");
@@ -90,10 +100,11 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                 PermissionManager.instance().request(AddDeviceTongdianActivity.this, new OnPermissionCallback() {
                     @Override
                     public void onRequestAllow(String permissionName) {
+                        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
                         Map<String, String> map = new LinkedHashMap<>();
                         map.put("snCode", xlh);
                         map.put("userId", SpUtils.getUserId(context));
-                        ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, new ViseUtil.ViseListener() {
+                        ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, dialog, new ViseUtil.ViseListener() {
                             @Override
                             public void onReturn(String s) {
                                 try {
@@ -107,6 +118,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                                         intent.putExtra("type", type);
                                         intent.putExtra("xlh", xlh);
                                         intent.putExtra("anquan", anquan);
+                                        intent.putExtra("xinghao", xinghao);
                                         startActivity(intent);
                                     }else {
                                         //设备没网
@@ -114,6 +126,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                                         intent.putExtra("type", type);
                                         intent.putExtra("xlh", xlh);
                                         intent.putExtra("anquan", anquan);
+                                        intent.putExtra("xinghao", xinghao);
                                         startActivity(intent);
                                     }
                                 } catch (JSONException e) {
@@ -135,10 +148,11 @@ public class AddDeviceTongdianActivity extends BaseActivity {
 
                     @Override
                     public void onRequestNoAsk(String permissionName) {
+                        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
                         Map<String, String> map = new LinkedHashMap<>();
                         map.put("snCode", xlh);
                         map.put("userId", SpUtils.getUserId(context));
-                        ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, new ViseUtil.ViseListener() {
+                        ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, dialog, new ViseUtil.ViseListener() {
                             @Override
                             public void onReturn(String s) {
                                 try {
@@ -152,6 +166,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                                         intent.putExtra("type", type);
                                         intent.putExtra("xlh", xlh);
                                         intent.putExtra("anquan", anquan);
+                                        intent.putExtra("xinghao", xinghao);
                                         startActivity(intent);
                                     }else {
                                         //设备没网
@@ -159,6 +174,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                                         intent.putExtra("type", type);
                                         intent.putExtra("xlh", xlh);
                                         intent.putExtra("anquan", anquan);
+                                        intent.putExtra("xinghao", xinghao);
                                         startActivity(intent);
                                     }
                                 } catch (JSONException e) {

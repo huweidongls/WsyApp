@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +26,8 @@ import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,8 +67,37 @@ public class AddDeviceAddressActivity extends BaseActivity {
 
     private void initData() {
 
+        setEditTextInhibitInputSpaChat(etDeviceName);
+        setEditTextInhibitInputSpaChat(etName);
 
+    }
 
+    /**
+     * 禁止EditText输入空格
+     *
+     * @param editText
+     */
+    public void setEditTextInhibitInputSpaChat(EditText editText) {
+        InputFilter filter_space = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                if (source.equals(" "))
+                    return "";
+                else
+                    return null;
+            }
+        };
+        InputFilter filter_speChat = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+                String speChat = "[`~!@#_$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）— +|{}【】‘；：”“’。，、？]";
+                Pattern pattern = Pattern.compile(speChat);
+                Matcher matcher = pattern.matcher(charSequence.toString());
+                if (matcher.find()) return "";
+                else return null;
+            }
+        };
+        editText.setFilters(new InputFilter[]{filter_space, filter_speChat});
     }
 
     @OnClick({R.id.rl_back, R.id.btn_complete, R.id.tv_map, R.id.ll_map})

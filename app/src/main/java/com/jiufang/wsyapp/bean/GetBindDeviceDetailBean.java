@@ -12,8 +12,8 @@ public class GetBindDeviceDetailBean implements Serializable {
      * code : 200
      * success : true
      * message : 操作成功
-     * data : {"deviceId":5,"userId":2,"brandId":1,"productCategoryId":1,"productCategoryName":"云台摄像机","deviceName":"乐橙摄像机","productImage":"202005022100276117296.png","snapImage":null,"snCode":"2F0476DPAL01070","securityCode":null,"userToken":"Ut_0000550580bebeba4291bf179e1dbe01","channelId":"0","bateMode":1,"isOpt":true,"deviceStatus":1,"cloudStorageStatus":0,"audioTalk":1,"deviceAbilitySet":"AlarmMD,LocalStorage,FrameReverse,AudioEncode,AudioTalk,WLAN,DHP2P,HSEncrypt,CloudStorage,DPS,PlaybackByFilename","channelAbilitySet":""}
-     * time : 2020-05-20 16:15:37
+     * data : {"deviceId":1,"userId":2,"brandId":1,"productCategoryId":1,"productCategoryName":"摄像机","deviceName":"萤石带云台","deviceModal":null,"deviceAccessToken":"Ut_0000c76b0e76d8334a18a5849f815641","haveCloudConsole":1,"productImage":"202005022100276117296.png","snapImage":null,"snCode":"5K05D84PAU69A7C","securityCode":"L25C2542","channelId":"0","bateMode":1,"isOpt":true,"deviceStatus":1,"cloudStorageStatus":null,"audioTalk":1,"deviceAbilitySet":"WLAN,MT,HSEncrypt,CloudStorage,LocalStorage,PlaybackByFilename,BreathingLight,RD,CK,LocalRecord,XUpgrade,Auth,ModifyPassword,LocalStorageEnable,RTSV1,PBSV1,ESV1,PlaySound,Reboot,InfraredLight,LinkDevAlarm,AbAlarmSound,SCCode,AlarmMD,PT,AudioEncodeControlV2,FrameReverse,MDW,MDS,HeaderDetect,SmartTrack,CloseCamera,CheckAbDecible,PT1,AudioTalk","channelAbilitySet":""}
+     * time : 2020-06-04 14:08:52
      */
 
     private int code;
@@ -64,24 +64,26 @@ public class GetBindDeviceDetailBean implements Serializable {
 
     public static class DataBean implements Serializable {
         /**
-         * deviceId : 5
+         * deviceId : 1
          * userId : 2
          * brandId : 1
          * productCategoryId : 1
-         * productCategoryName : 云台摄像机
-         * deviceName : 乐橙摄像机
+         * productCategoryName : 摄像机
+         * deviceName : 萤石带云台
+         * deviceModal : null
+         * deviceAccessToken : Ut_0000c76b0e76d8334a18a5849f815641
+         * haveCloudConsole : 1
          * productImage : 202005022100276117296.png
          * snapImage : null
-         * snCode : 2F0476DPAL01070
-         * securityCode : null
-         * userToken : Ut_0000550580bebeba4291bf179e1dbe01
+         * snCode : 5K05D84PAU69A7C
+         * securityCode : L25C2542
          * channelId : 0
          * bateMode : 1
          * isOpt : true
          * deviceStatus : 1
-         * cloudStorageStatus : 0
+         * cloudStorageStatus : null
          * audioTalk : 1
-         * deviceAbilitySet : AlarmMD,LocalStorage,FrameReverse,AudioEncode,AudioTalk,WLAN,DHP2P,HSEncrypt,CloudStorage,DPS,PlaybackByFilename
+         * deviceAbilitySet : WLAN,MT,HSEncrypt,CloudStorage,LocalStorage,PlaybackByFilename,BreathingLight,RD,CK,LocalRecord,XUpgrade,Auth,ModifyPassword,LocalStorageEnable,RTSV1,PBSV1,ESV1,PlaySound,Reboot,InfraredLight,LinkDevAlarm,AbAlarmSound,SCCode,AlarmMD,PT,AudioEncodeControlV2,FrameReverse,MDW,MDS,HeaderDetect,SmartTrack,CloseCamera,CheckAbDecible,PT1,AudioTalk
          * channelAbilitySet :
          */
 
@@ -91,16 +93,18 @@ public class GetBindDeviceDetailBean implements Serializable {
         private int productCategoryId;
         private String productCategoryName;
         private String deviceName;
+        private Object deviceModal;
+        private String deviceAccessToken;
+        private int haveCloudConsole;
         private String productImage;
         private Object snapImage;
         private String snCode;
-        private Object securityCode;
-        private String userToken;
+        private String securityCode;
         private String channelId;
         private int bateMode;
         private boolean isOpt;
         private int deviceStatus;
-        private int cloudStorageStatus;
+        private Object cloudStorageStatus;
         private int audioTalk;
         private String deviceAbilitySet;
         private String channelAbilitySet;
@@ -153,6 +157,30 @@ public class GetBindDeviceDetailBean implements Serializable {
             this.deviceName = deviceName;
         }
 
+        public Object getDeviceModal() {
+            return deviceModal;
+        }
+
+        public void setDeviceModal(Object deviceModal) {
+            this.deviceModal = deviceModal;
+        }
+
+        public String getDeviceAccessToken() {
+            return deviceAccessToken;
+        }
+
+        public void setDeviceAccessToken(String deviceAccessToken) {
+            this.deviceAccessToken = deviceAccessToken;
+        }
+
+        public int getHaveCloudConsole() {
+            return haveCloudConsole;
+        }
+
+        public void setHaveCloudConsole(int haveCloudConsole) {
+            this.haveCloudConsole = haveCloudConsole;
+        }
+
         public String getProductImage() {
             return productImage;
         }
@@ -177,20 +205,12 @@ public class GetBindDeviceDetailBean implements Serializable {
             this.snCode = snCode;
         }
 
-        public Object getSecurityCode() {
+        public String getSecurityCode() {
             return securityCode;
         }
 
-        public void setSecurityCode(Object securityCode) {
+        public void setSecurityCode(String securityCode) {
             this.securityCode = securityCode;
-        }
-
-        public String getUserToken() {
-            return userToken;
-        }
-
-        public void setUserToken(String userToken) {
-            this.userToken = userToken;
         }
 
         public String getChannelId() {
@@ -225,11 +245,11 @@ public class GetBindDeviceDetailBean implements Serializable {
             this.deviceStatus = deviceStatus;
         }
 
-        public int getCloudStorageStatus() {
+        public Object getCloudStorageStatus() {
             return cloudStorageStatus;
         }
 
-        public void setCloudStorageStatus(int cloudStorageStatus) {
+        public void setCloudStorageStatus(Object cloudStorageStatus) {
             this.cloudStorageStatus = cloudStorageStatus;
         }
 

@@ -38,6 +38,7 @@ public class AddDeviceAnquanActivity extends BaseActivity {
 
     private String type = "";
     private String xlh = "";
+    private String xinghao = "";
 
     private Dialog dialog;
 
@@ -48,6 +49,7 @@ public class AddDeviceAnquanActivity extends BaseActivity {
 
         type = getIntent().getStringExtra("type");
         xlh = getIntent().getStringExtra("xlh");
+        xinghao = getIntent().getStringExtra("xinghao");
         StatusBarUtils.setStatusBar(AddDeviceAnquanActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(AddDeviceAnquanActivity.this);
         initData();
@@ -92,6 +94,7 @@ public class AddDeviceAnquanActivity extends BaseActivity {
                     Intent intent = new Intent();
                     intent.setClass(context, AddDeviceSuccessActivity.class);
                     intent.putExtra("id", bean.getData().getId()+"");
+                    intent.putExtra("xinghao", xinghao);
                     startActivity(intent);
                 }
 

@@ -133,12 +133,32 @@ public class AddShebeiActivity extends BaseActivity {
         ViseUtil.Post(context, NetUrl.checkDeviceBindStatus, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
-                Intent intent = new Intent();
-                intent.setClass(context, AddDeviceTongdianActivity.class);
-                intent.putExtra("type", type);
-                intent.putExtra("xlh", xlh);
-                intent.putExtra("anquan", anquan);
-                startActivity(intent);
+                Map<String, String> map1 = new LinkedHashMap<>();
+                map1.put("sn", xlh);
+                ViseUtil.Post(context, NetUrl.getDeviceModal, map1, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        Logger.e("123123", s);
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            String xinghao = jsonObject.optString("data");
+                            Intent intent = new Intent();
+                            intent.setClass(context, AddDeviceTongdianActivity.class);
+                            intent.putExtra("type", type);
+                            intent.putExtra("xlh", xlh);
+                            intent.putExtra("anquan", anquan);
+                            intent.putExtra("xinghao", xinghao);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
             }
 
             @Override
@@ -147,12 +167,32 @@ public class AddShebeiActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     if(jsonObject.optString("code").equals("1101")){
-                        Intent intent = new Intent();
-                        intent.setClass(context, AddDeviceTongdianActivity.class);
-                        intent.putExtra("type", type);
-                        intent.putExtra("xlh", xlh);
-                        intent.putExtra("anquan", anquan);
-                        startActivity(intent);
+                        Map<String, String> map1 = new LinkedHashMap<>();
+                        map1.put("sn", xlh);
+                        ViseUtil.Post(context, NetUrl.getDeviceModal, map1, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                Logger.e("123123", s);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    String xinghao = jsonObject.optString("data");
+                                    Intent intent = new Intent();
+                                    intent.setClass(context, AddDeviceTongdianActivity.class);
+                                    intent.putExtra("type", type);
+                                    intent.putExtra("xlh", xlh);
+                                    intent.putExtra("anquan", anquan);
+                                    intent.putExtra("xinghao", xinghao);
+                                    startActivity(intent);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onElse(String s) {
+
+                            }
+                        });
                     }else {
                         Intent intent = new Intent();
                         intent.setClass(context, IsBindingActivity.class);
