@@ -18,6 +18,7 @@ import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.UtilsDevicePic;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
@@ -99,7 +100,37 @@ public class AddDeviceSureActivity extends BaseActivity {
                 btnNext.setEnabled(true);
                 break;
             case R.id.btn_next:
-                bind();
+                if(type.equals("1")){
+                    bind();
+                }else {
+                    dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+                    Map<String, String> map = new LinkedHashMap<>();
+                    map.put("snCode", xlh);
+                    map.put("userId", SpUtils.getUserId(context));
+                    ViseUtil.Post(context, NetUrl.checkDeviceOnlineStatus, map, dialog, new ViseUtil.ViseListener() {
+                        @Override
+                        public void onReturn(String s) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                boolean b = jsonObject.optBoolean("data");
+                                if(b){
+                                    //设备有网
+                                    bind();
+                                }else {
+                                    //设备没网
+                                    ToastUtil.showShort(context, "配网中，请等待...");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onElse(String s) {
+                            Logger.e("123123", "fail"+s);
+                        }
+                    });
+                }
                 break;
         }
     }
@@ -129,12 +160,14 @@ public class AddDeviceSureActivity extends BaseActivity {
             public void onElse(String s) {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
-                    Intent intent = new Intent();
-                    intent.setClass(context, AddDeviceAnquanActivity.class);
-                    intent.putExtra("type", type);
-                    intent.putExtra("xlh", xlh);
-                    intent.putExtra("xinghao", xinghao);
-                    startActivity(intent);
+                    if(jsonObject.optInt("code") == 1007){
+                        Intent intent = new Intent();
+                        intent.setClass(context, AddDeviceAnquanActivity.class);
+                        intent.putExtra("type", type);
+                        intent.putExtra("xlh", xlh);
+                        intent.putExtra("xinghao", xinghao);
+                        startActivity(intent);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

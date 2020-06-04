@@ -471,12 +471,31 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     if(jsonObject.optString("code").equals("1101")){
-                        Intent intent = new Intent();
-                        intent.setClass(context, AddDeviceTongdianActivity.class);
-                        intent.putExtra("type", "2");
-                        intent.putExtra("xlh", finalDevSn);
-                        intent.putExtra("anquan", finalMSerialVeryCodeStr);
-                        startActivity(intent);
+                        Map<String, String> map1 = new LinkedHashMap<>();
+                        map1.put("sn", finalDevSn);
+                        ViseUtil.Post(context, NetUrl.getDeviceModal, map1, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    String xinghao = jsonObject.optString("data");
+                                    Intent intent = new Intent();
+                                    intent.setClass(context, AddDeviceTongdianActivity.class);
+                                    intent.putExtra("type", "2");
+                                    intent.putExtra("xlh", finalDevSn);
+                                    intent.putExtra("anquan", finalMSerialVeryCodeStr);
+                                    intent.putExtra("xinghao", xinghao);
+                                    startActivity(intent);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onElse(String s) {
+
+                            }
+                        });
                     }else {
                         Intent intent = new Intent();
                         intent.setClass(context, IsBindingActivity.class);

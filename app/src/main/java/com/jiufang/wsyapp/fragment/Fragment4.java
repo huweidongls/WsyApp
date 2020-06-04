@@ -15,6 +15,7 @@ import com.jiufang.wsyapp.ui.GoumaiJiluActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.MainActivity;
 import com.jiufang.wsyapp.ui.MyDeviceActivity;
+import com.jiufang.wsyapp.ui.PersonInformationActivity;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -80,10 +81,19 @@ public class Fragment4 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.iv_avatar, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu})
+    @OnClick({R.id.iv_avatar, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu, R.id.rl_person})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_person:
+                if(SpUtils.getUserId(getContext()).equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), PersonInformationActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.rl_goumaijilu:
                 if(SpUtils.getUserId(getContext()).equals("0")){
                     intent.setClass(getContext(), LoginActivity.class);

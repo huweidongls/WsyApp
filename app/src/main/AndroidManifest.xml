@@ -155,7 +155,8 @@
         <activity android:name=".ui.SearchActivity" />
         <activity android:name=".ui.CloudVideoActivity" />
         <activity android:name=".ui.MyDeviceActivity" />
-        <activity android:name=".ui.GoumaiJiluActivity"></activity>
+        <activity android:name=".ui.GoumaiJiluActivity" />
+        <activity android:name=".ui.PersonInformationActivity"></activity>
     </application>
 
 </manifest>

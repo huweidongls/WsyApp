@@ -70,6 +70,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
     private String type = "";//1乐橙 2萤石
     private String xlh = "";
     private String anquan = "";
+    private String xinghao = "";
 
     private boolean isShowPwd = false;
     private boolean isJizhu = true;
@@ -92,6 +93,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
                     intent.putExtra("type", type);
                     intent.putExtra("xlh", xlh);
                     intent.putExtra("anquan", anquan);
+                    intent.putExtra("xinghao", xinghao);
                     startActivity(intent);
                     break;
                 case DEVICE_SEARCH_FAILED:
@@ -130,6 +132,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
         type = getIntent().getStringExtra("type");
         xlh = getIntent().getStringExtra("xlh");
         anquan = getIntent().getStringExtra("anquan");
+        xinghao = getIntent().getStringExtra("xinghao");
         StatusBarUtils.setStatusBar(AddDeviceWifiActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(AddDeviceWifiActivity.this);
         initData();
@@ -293,7 +296,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
         param.deviceVerifyCode /*设备验证码*/= anquan;
         param.deviceHotspotSsid /*设备热点名称*/= "ezviz";
         param.deviceHotspotPwd /*设备热点密码*/= "123456";
-        param.autoConnect /*是否自动连接到设备热点*/= true;
+        param.autoConnect /*是否自动连接到设备热点*/= false;
 
         // step2.开始配网
         EZWiFiConfigManager.startAPConfig(getApplication(), param, new EZConfigWifiCallback(){
@@ -317,6 +320,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
                             intent.putExtra("type", type);
                             intent.putExtra("xlh", xlh);
                             intent.putExtra("anquan", anquan);
+                            intent.putExtra("xinghao", xinghao);
                             startActivity(intent);
                         }
                     });

@@ -137,6 +137,20 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                             @Override
                             public void onElse(String s) {
                                 Logger.e("123123", "fail"+s);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    if(jsonObject.optInt("code") == 1203||jsonObject.optInt("code") == 1103){
+                                        Intent intent = new Intent();
+                                        intent.setClass(context, AddDeviceWifiActivity.class);
+                                        intent.putExtra("type", type);
+                                        intent.putExtra("xlh", xlh);
+                                        intent.putExtra("anquan", anquan);
+                                        intent.putExtra("xinghao", xinghao);
+                                        startActivity(intent);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
                     }
