@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -33,6 +34,8 @@ import com.ezviz.sdk.configwifi.common.EZConfigWifiCallback;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.mediaplay.Business;
+import com.jiufang.wsyapp.utils.NetUtil;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
@@ -43,7 +46,9 @@ import com.lechange.opensdk.configwifi.LCOpenSDK_ConfigWifi;
 import com.vise.xsnow.permission.OnPermissionCallback;
 import com.vise.xsnow.permission.PermissionManager;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,12 +64,15 @@ public class AddDeviceWifiActivity extends BaseActivity {
     EditText etPwd;
     @BindView(R.id.tv_ssid)
     TextView tvSsid;
+    @BindView(R.id.iv_jizhu)
+    ImageView ivJizhu;
 
     private String type = "";//1乐橙 2萤石
     private String xlh = "";
     private String anquan = "";
 
     private boolean isShowPwd = false;
+    private boolean isJizhu = true;
 
     private final int DEVICE_SEARCH_SUCCESS = 0x1B;
     private final int DEVICE_SEARCH_FAILED = 0x1C;
@@ -135,13 +143,54 @@ public class AddDeviceWifiActivity extends BaseActivity {
         if (mWifiInfo != null) {
             tvSsid.setText(mWifiInfo.getSSID().replaceAll("\"", ""));
             ssid=mWifiInfo.getSSID().replaceAll("\"", "");
+            Map<String, String> map = SpUtils.getWifi(context);
+            if(map != null){
+                String pwd = map.get(ssid);
+                etPwd.setText(pwd);
+            }else {
+                etPwd.setText(null);
+            }
         }
 
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_eye, R.id.btn_sure})
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 10001){
+            WifiManager mWifiManager = (WifiManager) getApplicationContext().getSystemService(Activity.WIFI_SERVICE);
+            mWifiInfo = mWifiManager.getConnectionInfo();
+            if (mWifiInfo != null) {
+                tvSsid.setText(mWifiInfo.getSSID().replaceAll("\"", ""));
+                ssid=mWifiInfo.getSSID().replaceAll("\"", "");
+                Map<String, String> map = SpUtils.getWifi(context);
+                if(map != null){
+                    String pwd = map.get(ssid);
+                    etPwd.setText(pwd);
+                }else {
+                    etPwd.setText(null);
+                }
+            }
+        }
+    }
+
+    @OnClick({R.id.rl_back, R.id.rl_eye, R.id.btn_sure, R.id.rl_wifi, R.id.ll_jizhu})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.ll_jizhu:
+                if(isJizhu){
+                    isJizhu = false;
+                    ivJizhu.setImageResource(R.mipmap.duihao_null);
+                }else {
+                    isJizhu = true;
+                    ivJizhu.setImageResource(R.mipmap.duihao_blue);
+                }
+                break;
+            case R.id.rl_wifi:
+                Intent intent = new Intent();
+                intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
+                startActivityForResult(intent, 10001);
+                break;
             case R.id.btn_sure:
                 PermissionManager.instance().request(AddDeviceWifiActivity.this, new OnPermissionCallback() {
                     @Override
@@ -150,12 +199,37 @@ public class AddDeviceWifiActivity extends BaseActivity {
                         if(StringUtils.isEmpty(pwd)){
                             ToastUtil.showShort(context, "密码不能为空");
                         }else {
-                            if(type.equals("1")){
-                                showWifiConfig();
-                            }else if(type.equals("2")){
-                                Logger.e("123123", "type--"+type+"--xlh--"+xlh+"--anquan--"+anquan);
-                                dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
-                                YsWifiConfig();
+                            if(NetUtil.isWifi5G(context)){
+                                //提示去切换wifi
+                                toDialog(context, "提示", "当前连接wifi为5G，是否切换到非5G网络", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent();
+                                        intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
+                                        startActivityForResult(intent, 10001);
+                                    }
+                                }, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                });
+                            }else{
+                                if(isJizhu){
+                                    Map<String, String> map = SpUtils.getWifi(context);
+                                    if(map == null){
+                                        map = new LinkedHashMap<>();
+                                    }
+                                    map.put(ssid, pwd);
+                                    SpUtils.setWifi(context, map);
+                                }
+                                if(type.equals("1")){
+                                    showWifiConfig();
+                                }else if(type.equals("2")){
+                                    Logger.e("123123", "type--"+type+"--xlh--"+xlh+"--anquan--"+anquan);
+                                    dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+                                    YsWifiConfig();
+                                }
                             }
                         }
 //                configWifi();

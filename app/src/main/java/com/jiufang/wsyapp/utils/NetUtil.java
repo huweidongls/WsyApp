@@ -3,6 +3,11 @@ package com.jiufang.wsyapp.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
+import java.util.List;
 
 /**
  *
@@ -42,5 +47,36 @@ public class NetUtil {
         }
         return NETWORK_NONE;
     }
+
+    /**
+     * 判断 wifi 是否是 5G 频段.
+     * 需要权限:
+     * <uses-permission android:name="android.permission.INTERNET" />
+     * <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+     * <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+     * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+     */
+    public static boolean isWifi5G(Context context) {
+        int freq = 0;
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.LOLLIPOP) {
+            freq = wifiInfo.getFrequency();
+        } else {
+            String ssid = wifiInfo.getSSID();
+            if (ssid != null && ssid.length() > 2) {
+                String ssidTemp = ssid.substring(1, ssid.length() - 1);
+                List<ScanResult> scanResults = wifiManager.getScanResults();
+                for (ScanResult scanResult : scanResults) {
+                    if (scanResult.SSID.equals(ssidTemp)) {
+                        freq = scanResult.frequency;
+                        break;
+                    }
+                }
+            }
+        }
+        return freq > 4900 && freq < 5900;
+    }
+
 }
 

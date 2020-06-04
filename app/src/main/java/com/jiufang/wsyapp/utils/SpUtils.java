@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.vise.xsnow.cache.SpCache;
 
+import java.util.Map;
+
 /**
  * Created by Administrator on 2018/10/26.
  */
@@ -15,6 +17,17 @@ public class SpUtils {
     public static String PHONENUM = "phonenum";
     public static String TOKEN = "token";
     public static String SEARCH_HISTORY = "search_history";
+    public static String WIFI = "wifi";
+
+    public static void setWifi(Context context, Map<String, String> token){
+        spCache = new SpCache(context, "user_info");
+        spCache.put(WIFI, token);
+    }
+
+    public static Map<String, String> getWifi(Context context){
+        spCache = new SpCache(context, "user_info");
+        return (Map<String, String>) spCache.get(WIFI);
+    }
 
     public static void setSearchHistory(Context context, String token){
         spCache = new SpCache(context, "user_info");

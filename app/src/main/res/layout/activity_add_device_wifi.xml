@@ -116,6 +116,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_wifi"
             android:background="@drawable/bg_d2d2d3_bord"
             android:layout_marginTop="26dp"
             android:layout_width="match_parent"
@@ -201,12 +202,14 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/ll_jizhu"
                 android:layout_centerVertical="true"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/iv_jizhu"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/duihao_blue"
                     android:layout_width="17dp"
