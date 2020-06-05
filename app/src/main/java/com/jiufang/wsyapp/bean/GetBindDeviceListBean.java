@@ -128,13 +128,49 @@ public class GetBindDeviceListBean {
             private int productCategoryId;
             private String productCategoryName;
             private String productImage;
-            private Object snapImage;
+            private String snapImage;
             private String snCode;
             private String securityCode;
             private String deviceName;
             private String deviceModel;
             private int haveCloudConsole;
             private Object offlineTime;
+            private int deviceStatus = 0;//设备在线状态  0不在线  1在线
+            private int cloudStorageStatus = 0;//云存储状态：0 未开启 1已开启 2即将到期 3已过期
+            private int isHaveNewMessage = 0;//是否有新消息：0没有 1有
+            private int nativeStorageStatus = 0;//本地存储状态：0 没有 1有
+
+            public int getDeviceStatus() {
+                return deviceStatus;
+            }
+
+            public void setDeviceStatus(int deviceStatus) {
+                this.deviceStatus = deviceStatus;
+            }
+
+            public int getCloudStorageStatus() {
+                return cloudStorageStatus;
+            }
+
+            public void setCloudStorageStatus(int cloudStorageStatus) {
+                this.cloudStorageStatus = cloudStorageStatus;
+            }
+
+            public int getIsHaveNewMessage() {
+                return isHaveNewMessage;
+            }
+
+            public void setIsHaveNewMessage(int isHaveNewMessage) {
+                this.isHaveNewMessage = isHaveNewMessage;
+            }
+
+            public int getNativeStorageStatus() {
+                return nativeStorageStatus;
+            }
+
+            public void setNativeStorageStatus(int nativeStorageStatus) {
+                this.nativeStorageStatus = nativeStorageStatus;
+            }
 
             public int getId() {
                 return id;
@@ -176,11 +212,11 @@ public class GetBindDeviceListBean {
                 this.productImage = productImage;
             }
 
-            public Object getSnapImage() {
+            public String getSnapImage() {
                 return snapImage;
             }
 
-            public void setSnapImage(Object snapImage) {
+            public void setSnapImage(String snapImage) {
                 this.snapImage = snapImage;
             }
 

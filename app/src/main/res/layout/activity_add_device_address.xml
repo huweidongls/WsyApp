@@ -47,6 +47,8 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:visibility="gone"
+            android:id="@+id/tv"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="33dp"
             android:textColor="#000000"
@@ -56,6 +58,8 @@
             android:layout_height="wrap_content" />
 
         <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl"
             android:background="@drawable/bg_dcdada_2dp_bord"
             android:layout_marginTop="16dp"
             android:layout_marginRight="14dp"

@@ -53,6 +53,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/iv_yuncunchu"
                     android:src="@mipmap/index_iv1"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="6dp"
@@ -60,6 +61,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:id="@+id/iv_sd"
                     android:src="@mipmap/index_iv2"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="6dp"
@@ -67,6 +69,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:id="@+id/iv_shengji"
                     android:src="@mipmap/index_iv3"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
@@ -74,6 +77,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:id="@+id/iv_share"
                     android:src="@mipmap/index_iv4"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="7dp"
@@ -81,6 +85,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:id="@+id/iv_msg"
                     android:src="@mipmap/index_iv5"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="14dp"
@@ -209,12 +214,12 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_marginRight="12dp"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/iv_yuncunchu2"
                     android:src="@mipmap/index_iv1_gray"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="6dp"
@@ -222,6 +227,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:id="@+id/iv_sd2"
                     android:src="@mipmap/index_iv2_gray"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="6dp"
@@ -229,6 +235,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:id="@+id/iv_shengji2"
                     android:src="@mipmap/index_iv3_gray"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
@@ -236,6 +243,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:id="@+id/iv_share2"
                     android:src="@mipmap/index_iv4_gray"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="7dp"
@@ -243,6 +251,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:id="@+id/iv_msg2"
                     android:src="@mipmap/index_iv5_gray"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="14dp"
@@ -269,6 +278,7 @@
                         android:layout_height="3dp" />
 
                     <ImageView
+                        android:layout_marginRight="12dp"
                         android:layout_gravity="center_vertical"
                         android:src="@mipmap/heidian"
                         android:layout_width="3dp"

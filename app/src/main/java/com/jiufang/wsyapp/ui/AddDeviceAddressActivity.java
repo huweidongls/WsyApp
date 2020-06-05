@@ -9,6 +9,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.search.core.PoiInfo;
@@ -47,9 +48,14 @@ public class AddDeviceAddressActivity extends BaseActivity {
     TextView etMap;
     @BindView(R.id.et_address)
     EditText etAddress;
+    @BindView(R.id.tv)
+    TextView tv;
+    @BindView(R.id.rl)
+    RelativeLayout rl;
 
     private String id = "";
     private String area = "";
+    private String type = "";//0为绑定设备跳过来        1为播放详情一键报警跳过来
 
     private Dialog dialog;
 
@@ -59,6 +65,7 @@ public class AddDeviceAddressActivity extends BaseActivity {
         setContentView(R.layout.activity_add_device_address);
 
         id = getIntent().getStringExtra("id");
+        type = getIntent().getStringExtra("type");
         StatusBarUtils.setStatusBar(AddDeviceAddressActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(AddDeviceAddressActivity.this);
         initData();
@@ -67,6 +74,13 @@ public class AddDeviceAddressActivity extends BaseActivity {
 
     private void initData() {
 
+        if(type.equals("0")){
+            tv.setVisibility(View.VISIBLE);
+            rl.setVisibility(View.VISIBLE);
+        }else if(type.equals("1")){
+            tv.setVisibility(View.GONE);
+            rl.setVisibility(View.GONE);
+        }
         setEditTextInhibitInputSpaChat(etDeviceName);
         setEditTextInhibitInputSpaChat(etName);
 
@@ -160,7 +174,9 @@ public class AddDeviceAddressActivity extends BaseActivity {
                     map2.put("address", map);
                     map2.put("areaId", areaId+"");
                     map2.put("bindDeviceId", id);
-                    map2.put("bindDeviceName", deviceName);
+                    if(!StringUtils.isEmpty(deviceName)){
+                        map2.put("bindDeviceName", deviceName);
+                    }
                     map2.put("houseNumber", address);
                     map2.put("personName", name);
                     map2.put("personPhone", phone);
@@ -169,11 +185,16 @@ public class AddDeviceAddressActivity extends BaseActivity {
                     ViseUtil.Post(context, NetUrl.updateBindDeviceUsePerson, map2, dialog, new ViseUtil.ViseListener() {
                         @Override
                         public void onReturn(String s) {
-                            ToastUtil.showShort(context, "设置成功");
-                            Intent intent = new Intent();
-                            intent.setClass(context, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            if(type.equals("0")){
+                                ToastUtil.showShort(context, "设置成功");
+                                Intent intent = new Intent();
+                                intent.setClass(context, MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }else if(type.equals("1")){
+                                ToastUtil.showShort(context, "设置成功");
+                                finish();
+                            }
                         }
 
                         @Override

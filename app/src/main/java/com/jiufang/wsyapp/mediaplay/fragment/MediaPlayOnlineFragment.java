@@ -32,8 +32,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
+import com.jiufang.wsyapp.bean.GetBindDeviceUserInfoBean;
 import com.jiufang.wsyapp.dialog.DialogBaojing;
 import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
 import com.jiufang.wsyapp.dialog.ProgressDialog;
@@ -41,13 +43,19 @@ import com.jiufang.wsyapp.mediaplay.Business;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelPTZInfo;
 import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
+import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
 import com.jiufang.wsyapp.ui.CloudVideoActivity;
+import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ViseUtil;
 import com.lechange.common.log.Logger;
 import com.lechange.opensdk.listener.LCOpenSDK_EventListener;
 import com.lechange.opensdk.listener.LCOpenSDK_TalkerListener;
 import com.lechange.opensdk.media.LCOpenSDK_Talk;
 
 import java.io.FileOutputStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -102,6 +110,8 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     private RelativeLayout rlBaojing;
     private RelativeLayout rlCloudVideo;
 
+    private String id = "";
+
     /**
      * 描述：
      *
@@ -115,6 +125,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
 //			String channelId = b.getString("bean");
 //			channelInfo = Business.getInstance().getChannel(channelId);
             bean = (GetBindDeviceDetailBean) b.getSerializable("bean");
+            id = b.getString("id");
             com.jiufang.wsyapp.utils.Logger.e("123123", bean.getData().getDeviceAccessToken());
         }
         if (bean == null) {
@@ -834,14 +845,39 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
                 break;
             case R.id.rl_baojing:
                 //一键报警
-                DialogBaojing dialogBaojing = new DialogBaojing(getContext(), new DialogBaojing.ClickListener() {
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("bindDeviceId", id);
+                ViseUtil.Post(getContext(), NetUrl.getBindDeviceUserInfo, map, new ViseUtil.ViseListener() {
                     @Override
-                    public void onClick() {
-                        DialogBaojingSuccess dialogBaojingSuccess = new DialogBaojingSuccess(getContext());
-                        dialogBaojingSuccess.show();
+                    public void onReturn(String s) {
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                        Gson gson = new Gson();
+                        GetBindDeviceUserInfoBean bean = gson.fromJson(s, GetBindDeviceUserInfoBean.class);
+                        String areaName = bean.getData().getAreaName();
+                        if(StringUtils.isEmpty(areaName)){
+                            Intent intent1 = new Intent();
+                            intent1.setClass(getContext(), AddDeviceAddressActivity.class);
+                            intent1.putExtra("id", id);
+                            intent1.putExtra("type", "1");
+                            startActivity(intent1);
+                        }else {
+                            DialogBaojing dialogBaojing = new DialogBaojing(getContext(), id, bean.getData().getPersonName(),
+                                    bean.getData().getPersonPhone(), bean.getData().getAddress(), bean.getData().getHouseNumber(), new DialogBaojing.ClickListener() {
+                                @Override
+                                public void onClick() {
+                                    DialogBaojingSuccess dialogBaojingSuccess = new DialogBaojingSuccess(getContext());
+                                    dialogBaojingSuccess.show();
+                                }
+                            });
+                            dialogBaojing.show();
+                        }
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
                     }
                 });
-                dialogBaojing.show();
                 break;
             case R.id.live_ptz:
                 if (!isPlaying) {

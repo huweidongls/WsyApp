@@ -65,12 +65,18 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.app.MyApplication;
+import com.jiufang.wsyapp.bean.GetBindDeviceUserInfoBean;
 import com.jiufang.wsyapp.dialog.DialogBaojing;
 import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
+import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
 import com.jiufang.wsyapp.ui.CloudVideoActivity;
 import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.ysmediaplay.loading.LoadingTextView;
 import com.jiufang.wsyapp.ysmediaplay.loading.WaitDialog;
 import com.jiufang.wsyapp.ysmediaplay.util.ActivityUtils;
@@ -118,6 +124,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -307,6 +315,8 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
     private RelativeLayout rlBaojing;
     private RelativeLayout rlCloudVideo;
 
+    private String id = "";
+
     //    private GoogleApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -488,6 +498,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         mRealPlaySquareInfo = new RealPlaySquareInfo();
         Intent intent = getIntent();
         if (intent != null) {
+            id = intent.getStringExtra("id");
             mVerifyCode = intent.getStringExtra("code");
             mCameraInfo = intent.getParcelableExtra(IntentConsts.EXTRA_CAMERA_INFO);
             mDeviceInfo = intent.getParcelableExtra(IntentConsts.EXTRA_DEVICE_INFO);
@@ -1269,14 +1280,39 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
                 break;
             case R.id.rl_baojing:
                 //一键报警
-                DialogBaojing dialogBaojing = new DialogBaojing(context, new DialogBaojing.ClickListener() {
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("bindDeviceId", id);
+                ViseUtil.Post(context, NetUrl.getBindDeviceUserInfo, map, new ViseUtil.ViseListener() {
                     @Override
-                    public void onClick() {
-                        DialogBaojingSuccess dialogBaojingSuccess = new DialogBaojingSuccess(context);
-                        dialogBaojingSuccess.show();
+                    public void onReturn(String s) {
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                        Gson gson = new Gson();
+                        GetBindDeviceUserInfoBean bean = gson.fromJson(s, GetBindDeviceUserInfoBean.class);
+                        String areaName = bean.getData().getAreaName();
+                        if(StringUtils.isEmpty(areaName)){
+                            Intent intent1 = new Intent();
+                            intent1.setClass(context, AddDeviceAddressActivity.class);
+                            intent1.putExtra("id", id);
+                            intent1.putExtra("type", "1");
+                            startActivity(intent1);
+                        }else {
+                            DialogBaojing dialogBaojing = new DialogBaojing(context, id, bean.getData().getPersonName(),
+                                    bean.getData().getPersonPhone(), bean.getData().getAddress(), bean.getData().getHouseNumber(), new DialogBaojing.ClickListener() {
+                                @Override
+                                public void onClick() {
+                                    DialogBaojingSuccess dialogBaojingSuccess = new DialogBaojingSuccess(context);
+                                    dialogBaojingSuccess.show();
+                                }
+                            });
+                            dialogBaojing.show();
+                        }
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
                     }
                 });
-                dialogBaojing.show();
                 break;
             case R.id.realplay_play_btn:
             case R.id.realplay_full_play_btn:

@@ -24,6 +24,22 @@
         <TextView
             android:text="账号信息"
             style="@style/tv_top_title" />
+
+        <RelativeLayout
+            android:id="@+id/rl_save"
+            android:layout_alignParentRight="true"
+            android:layout_width="56dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="#FF9966"
+                android:textSize="12sp"
+                android:text="保存"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
         
     </RelativeLayout>
 
@@ -47,12 +63,14 @@
                 android:layout_height="184dp">
 
                 <RelativeLayout
+                    android:id="@+id/rl_avatar"
                     android:layout_marginTop="32dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="83dp"
                     android:layout_height="83dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_avatar"
                         android:src="@color/black_333333"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
@@ -82,6 +100,7 @@
                 android:layout_height="1dp"/>
 
             <RelativeLayout
+                android:id="@+id/rl_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="42dp">
 
@@ -90,17 +109,19 @@
                     android:layout_marginLeft="14dp"
                     android:textColor="#444343"
                     android:textSize="14sp"
-                    android:text="用户名"
+                    android:text="昵称"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:layout_marginRight="20dp"
+                    android:hint="请输入昵称"
+                    android:id="@+id/tv_nickname"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="107dp"
-                    android:textColor="#A8A8A8"
+                    android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="乘风破浪"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
@@ -124,11 +145,11 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_phone"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="107dp"
-                    android:textColor="#A8A8A8"
+                    android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="182****6640"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -164,13 +185,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/et_realname"
+                    android:layout_marginRight="20dp"
+                    android:background="@null"
+                    android:hint="请输入真实姓名"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="107dp"
-                    android:textColor="#A8A8A8"
+                    android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="张三"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
@@ -181,6 +205,7 @@
                 android:layout_height="1dp"/>
 
             <RelativeLayout
+                android:id="@+id/rl_map"
                 android:layout_width="match_parent"
                 android:layout_height="42dp">
 
@@ -194,12 +219,12 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_marginRight="80dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="107dp"
-                    android:textColor="#A8A8A8"
+                    android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="哈尔滨道里区新阳路158号"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -240,13 +265,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/et_men"
+                    android:hint="请输入门牌号"
+                    android:background="@null"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="107dp"
-                    android:textColor="#A8A8A8"
+                    android:textColor="#333333"
                     android:textSize="14sp"
-                    android:text="1号楼2单元302室"
-                    android:layout_width="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>

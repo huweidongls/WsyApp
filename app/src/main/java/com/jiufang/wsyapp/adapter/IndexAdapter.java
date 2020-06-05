@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -89,19 +90,19 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        int deviceStatus = data.get(position).getDeviceStatus();
+        int deviceStatus = data.get(position).getDeviceStatus();
         int brandId = data.get(position).getBrandId();
-//        if(deviceStatus == 0){
-//            //不在线
-//            holder.ll1.setVisibility(View.GONE);
-//            holder.ll2.setVisibility(View.VISIBLE);
-//            holder.tvDeviceName2.setText(data.get(position).getDeviceName());
-//        }else {
-//            //在线
-        holder.ll1.setVisibility(View.VISIBLE);
-        holder.ll2.setVisibility(View.GONE);
-        holder.tvDeviceName.setText(data.get(position).getDeviceName());
-//        }
+        if(deviceStatus == 0){
+            //不在线
+            holder.ll1.setVisibility(View.GONE);
+            holder.ll2.setVisibility(View.VISIBLE);
+            holder.tvDeviceName2.setText(data.get(position).getDeviceName());
+        }else {
+            //在线
+            holder.ll1.setVisibility(View.VISIBLE);
+            holder.ll2.setVisibility(View.GONE);
+            holder.tvDeviceName.setText(data.get(position).getDeviceName());
+        }
         holder.llMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +131,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                             GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
                             Intent intent = new Intent(context, MediaPlayActivity.class);
                             intent.putExtra("bean", bean);
+                            intent.putExtra("id", data.get(position).getId()+"");
                             intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_ONLINE);
                             intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
                             context.startActivity(intent);
@@ -187,6 +189,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                                     intent = new Intent(context, EZRealPlayActivity.class);
                                     intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
                                     intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
+                                    intent.putExtra("id", data.get(position).getId()+"");
                                     intent.putExtra("code", bean.getData().getSecurityCode());
                                     context.startActivity(intent);
                                     WeiboDialogUtils.closeDialog(dialog);
@@ -261,6 +264,16 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         private TextView tvDeviceName;
         private TextView tvDeviceName2;
         private LinearLayout llMore;
+        private ImageView ivYuncunchu;
+        private ImageView ivSd;
+        private ImageView ivShengji;
+        private ImageView ivShare;
+        private ImageView ivMsg;
+        private ImageView ivYuncunchu2;
+        private ImageView ivSd2;
+        private ImageView ivShengji2;
+        private ImageView ivShare2;
+        private ImageView ivMsg2;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -269,6 +282,16 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             tvDeviceName = itemView.findViewById(R.id.tv_device_name);
             tvDeviceName2 = itemView.findViewById(R.id.tv_device_name2);
             llMore = itemView.findViewById(R.id.ll_more);
+            ivYuncunchu = itemView.findViewById(R.id.iv_yuncunchu);
+            ivSd = itemView.findViewById(R.id.iv_sd);
+            ivShengji = itemView.findViewById(R.id.iv_shengji);
+            ivShare = itemView.findViewById(R.id.iv_share);
+            ivMsg = itemView.findViewById(R.id.iv_msg);
+            ivYuncunchu2 = itemView.findViewById(R.id.iv_yuncunchu2);
+            ivSd2 = itemView.findViewById(R.id.iv_sd2);
+            ivShengji2 = itemView.findViewById(R.id.iv_shengji2);
+            ivShare2 = itemView.findViewById(R.id.iv_share2);
+            ivMsg2 = itemView.findViewById(R.id.iv_msg2);
         }
     }
 

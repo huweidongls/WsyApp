@@ -78,8 +78,10 @@ public class MediaPlayActivity extends FragmentActivity implements
             case IS_VIDEO_ONLINE:
                 mediaPlayFragment = new MediaPlayOnlineFragment();
                 GetBindDeviceDetailBean bean = (GetBindDeviceDetailBean) getIntent().getSerializableExtra("bean");
+                String deviceId = getIntent().getStringExtra("id");
                 tvTitle.setText(bean.getData().getDeviceName());
                 b.putSerializable("bean", bean);
+                b.putString("id", deviceId);
                 mediaPlayFragment.setArguments(b);
                 changeFragment(mediaPlayFragment, false);
                 break;

@@ -54,6 +54,7 @@ public class AddDeviceSuccessActivity extends BaseActivity {
             case R.id.btn_next:
                 intent.setClass(context, AddDeviceAddressActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("type", "0");
                 startActivity(intent);
                 break;
         }

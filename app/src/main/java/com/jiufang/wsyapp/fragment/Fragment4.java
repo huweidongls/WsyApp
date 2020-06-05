@@ -8,14 +8,19 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.LazyFragment;
+import com.jiufang.wsyapp.bean.GetUserInfoBean;
+import com.jiufang.wsyapp.dialog.DialogShiming;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.GoumaiJiluActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.MainActivity;
 import com.jiufang.wsyapp.ui.MyDeviceActivity;
 import com.jiufang.wsyapp.ui.PersonInformationActivity;
+import com.jiufang.wsyapp.utils.GlideUtils;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -49,8 +54,6 @@ public class Fragment4 extends LazyFragment {
     @BindView(R.id.tv_login)
     TextView tvLogin;
 
-    private int REQUEST_CODE = 101;
-
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment4;
@@ -64,7 +67,6 @@ public class Fragment4 extends LazyFragment {
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-        initData();
     }
 
     private void initData() {
@@ -77,14 +79,47 @@ public class Fragment4 extends LazyFragment {
             tvLogin.setVisibility(View.GONE);
             tvName.setVisibility(View.VISIBLE);
             tvHy.setVisibility(View.VISIBLE);
+            Map<String, String> map = new LinkedHashMap<>();
+            map.put("userId", SpUtils.getUserId(getContext()));
+            ViseUtil.Post(getContext(), NetUrl.getUserInfo, map, new ViseUtil.ViseListener() {
+                @Override
+                public void onReturn(String s) {
+                    Logger.e("123123", s);
+                    Gson gson = new Gson();
+                    GetUserInfoBean bean = gson.fromJson(s, GetUserInfoBean.class);
+                    GlideUtils.into(getContext(), NetUrl.BASE_IMG_URL+bean.getData().getHeadPicture(), ivAvatar);
+                    tvName.setText(bean.getData().getNickName());
+                    int shiming = bean.getData().getAuthentication();
+                    if(shiming == 0){
+                        DialogShiming dialogShiming = new DialogShiming(getContext(), new DialogShiming.ClickListener() {
+                            @Override
+                            public void onSure() {
+                                Intent intent = new Intent();
+                                intent.setClass(getContext(), PersonInformationActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        dialogShiming.show();
+                    }
+                }
+
+                @Override
+                public void onElse(String s) {
+
+                }
+            });
         }
 
     }
 
-    @OnClick({R.id.iv_avatar, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu, R.id.rl_person})
+    @OnClick({R.id.tv_login, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu, R.id.rl_person})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.tv_login:
+                intent.setClass(getContext(), LoginActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_person:
                 if(SpUtils.getUserId(getContext()).equals("0")){
                     intent.setClass(getContext(), LoginActivity.class);
@@ -111,15 +146,6 @@ public class Fragment4 extends LazyFragment {
                     intent.setClass(getContext(), MyDeviceActivity.class);
                     startActivity(intent);
                 }
-                break;
-            case R.id.iv_avatar:
-                //单选并剪裁
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setCrop(true)  // 设置是否使用图片剪切功能。
-                        .setSingle(true)  //设置是否单选
-                        .setViewImage(true) //是否点击放大图片查看,，默认为true
-                        .start(this, REQUEST_CODE); // 打开相册
                 break;
             case R.id.rl1:
 
@@ -150,53 +176,12 @@ public class Fragment4 extends LazyFragment {
     @Override
     protected void onFragmentVisible() {
         super.onFragmentVisible();
+        initData();
     }
 
     @Override
     protected void onFragmentHide() {
         super.onFragmentHide();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && data != null) {
-            //获取选择器返回的数据
-            final ArrayList<String> images = data.getStringArrayListExtra(
-                    ImageSelectorUtils.SELECT_RESULT);
-
-            File file = new File(images.get(0));
-
-            ViseHttp.UPLOAD(NetUrl.upload)
-                    .addParam("userId", SpUtils.getUserId(getContext()))
-                    .addFile("file", file)
-                    .request(new ACallback<String>() {
-                        @Override
-                        public void onSuccess(String data) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(data);
-                                if(jsonObject.optInt("code") == 200){
-                                    ToastUtil.showShort(getContext(), "头像上传成功");
-                                    Glide.with(getContext()).load(jsonObject.optString("data")).into(ivAvatar);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFail(int errCode, String errMsg) {
-
-                        }
-                    });
-
-            /**
-             * 是否是来自于相机拍照的图片，
-             * 只有本次调用相机拍出来的照片，返回时才为true。
-             * 当为true时，图片返回的结果有且只有一张图片。
-             */
-            boolean isCameraImage = data.getBooleanExtra(ImageSelector.IS_CAMERA_IMAGE, false);
-        }
     }
 
 }

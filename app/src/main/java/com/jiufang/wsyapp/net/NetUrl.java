@@ -61,5 +61,17 @@ public class NetUrl {
     public static final String logout = "/v1.0.0/logout";
     //获取设备型号
     public static final String getDeviceModal = "/device/v1.0.0/getDeviceModal";
+    //获取用户信息
+    public static final String getUserInfo = "/user/v1.0.0/getUserInfo";
+    //更新用户实名信息
+    public static final String updateUserRealInfo = "/user/v1.0.0/updateUserRealInfo";
+    //更新昵称
+    public static final String updateNickname = "/user/v1.0.0/updateNickname";
+    //获取设备使用者信息
+    public static final String getBindDeviceUserInfo = "/device/v1.0.0/getBindDeviceUserInfo";
+    //一键报警
+    public static final String createUserAlarm = "/alarm/v1.0.0/createUserAlarm";
+    //获取设备状态
+    public static final String getBindDeviceStatusInfo = "/device/v1.0.0/getBindDeviceStatusInfo";
 
 }
