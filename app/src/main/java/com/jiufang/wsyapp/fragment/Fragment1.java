@@ -18,8 +18,8 @@ import com.jiufang.wsyapp.adapter.IndexAdapter;
 import com.jiufang.wsyapp.adapter.IndexGridAdapter;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
+import com.jiufang.wsyapp.bean.GetBindDeviceStatusInfoBean;
 import com.jiufang.wsyapp.net.NetUrl;
-import com.jiufang.wsyapp.ui.CloudVideoActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.SearchActivity;
 import com.jiufang.wsyapp.utils.Logger;
@@ -32,14 +32,12 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.videogo.exception.BaseException;
 import com.videogo.util.LocalValidate;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +130,7 @@ public class Fragment1 extends LazyFragment {
                         mListGrid.addAll(bean.getData().getRecords());
                         adapterGrid.notifyDataSetChanged();
                         page = 2;
+                        lazyDeviceInfo();
                     }
 
                     @Override
@@ -158,6 +157,7 @@ public class Fragment1 extends LazyFragment {
                         mListGrid.addAll(bean.getData().getRecords());
                         adapterGrid.notifyDataSetChanged();
                         page = page+1;
+                        lazyDeviceInfo();
                     }
 
                     @Override
@@ -200,6 +200,7 @@ public class Fragment1 extends LazyFragment {
                 rvGrid.setLayoutManager(manager1);
                 rvGrid.setAdapter(adapterGrid);
                 page = 2;
+                lazyDeviceInfo();
             }
 
             @Override
@@ -208,6 +209,34 @@ public class Fragment1 extends LazyFragment {
             }
         });
 
+    }
+
+    private void lazyDeviceInfo(){
+        for (int i = 0; i<mList.size(); i++){
+            Map<String, String> map1 = new LinkedHashMap<>();
+            map1.put("bindDeviceId", mList.get(i).getId()+"");
+            map1.put("userId", SpUtils.getUserId(getContext()));
+            int finalI = i;
+            ViseUtil.Post(getContext(), NetUrl.getBindDeviceStatusInfo, map1, new ViseUtil.ViseListener() {
+                @Override
+                public void onReturn(String s) {
+                    Gson gson1 = new Gson();
+                    GetBindDeviceStatusInfoBean bean1 = gson1.fromJson(s, GetBindDeviceStatusInfoBean.class);
+                    mList.get(finalI).setDeviceStatus(bean1.getData().getDeviceStatus());
+                    mList.get(finalI).setCloudStorageStatus(bean1.getData().getCloudStorageStatus());
+                    mList.get(finalI).setNativeStorageStatus(bean1.getData().getNativeStorageStatus());
+                    mList.get(finalI).setIsHaveNewMessage(bean1.getData().getIsHaveNewMessage());
+                    adapter.notifyDataSetChanged();
+                    mListGrid.get(finalI).setDeviceStatus(bean1.getData().getDeviceStatus());
+                    adapterGrid.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onElse(String s) {
+                    Logger.e("getBindDeviceStatusInfo", s);
+                }
+            });
+        }
     }
 
     /**

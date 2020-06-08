@@ -73,5 +73,13 @@ public class NetUrl {
     public static final String createUserAlarm = "/alarm/v1.0.0/createUserAlarm";
     //获取设备状态
     public static final String getBindDeviceStatusInfo = "/device/v1.0.0/getBindDeviceStatusInfo";
+    //萤石云存储
+    public static final String getYSCloudStorageRecordList = "/device/storage/v1.0.0/getYSCloudStorageRecordList";
+    //萤石本地存储
+    public static final String getYSLocalStorageRecordList = "/device/storage/v1.0.0/getYSLocalStorageRecordList";
+    //乐橙云存储
+    public static final String getLcCloudStorageRecordList = "/device/storage/v1.0.0/getLcCloudStorageRecordList";
+    //乐橙本地存储
+    public static final String getLcLocalStorageRecordList = "/device/storage/v1.0.0/getLcLocalStorageRecordList";
 
 }

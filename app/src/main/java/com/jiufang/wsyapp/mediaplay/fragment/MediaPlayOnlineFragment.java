@@ -40,12 +40,13 @@ import com.jiufang.wsyapp.dialog.DialogBaojing;
 import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
 import com.jiufang.wsyapp.dialog.ProgressDialog;
 import com.jiufang.wsyapp.mediaplay.Business;
-import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelPTZInfo;
 import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
-import com.jiufang.wsyapp.ui.CloudVideoActivity;
+import com.jiufang.wsyapp.ui.CloudLcVideoActivity;
+import com.jiufang.wsyapp.ui.CloudYsVideoActivity;
+import com.jiufang.wsyapp.ui.LocalLcVideoActivity;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.lechange.common.log.Logger;
@@ -56,9 +57,6 @@ import com.lechange.opensdk.media.LCOpenSDK_Talk;
 import java.io.FileOutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 描述：实时视频监控 作者： lc
@@ -109,6 +107,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
 
     private RelativeLayout rlBaojing;
     private RelativeLayout rlCloudVideo;
+    private RelativeLayout rlLocalVideo;
 
     private String id = "";
 
@@ -181,6 +180,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         llBottom = mView.findViewById(R.id.ll_bottom);
         rlBaojing = mView.findViewById(R.id.rl_baojing);
         rlCloudVideo = mView.findViewById(R.id.rl_cloud_video);
+        rlLocalVideo = mView.findViewById(R.id.rl_local_video);
 
         mReplayTip.setOnClickListener(this);
         mLiveMode.setOnClickListener(this);
@@ -193,6 +193,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         mLiveRecord.setOnClickListener(this);
         rlBaojing.setOnClickListener(this);
         rlCloudVideo.setOnClickListener(this);
+        rlLocalVideo.setOnClickListener(this);
 
         return mView;
 
@@ -837,10 +838,16 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     @Override
     public void onClick(View view) {
         // TODO Auto-generated method stub
+        Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.rl_local_video:
+                intent.setClass(getContext(), LocalLcVideoActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                break;
             case R.id.rl_cloud_video:
-                Intent intent = new Intent();
-                intent.setClass(getContext(), CloudVideoActivity.class);
+                intent.setClass(getContext(), CloudLcVideoActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
                 break;
             case R.id.rl_baojing:

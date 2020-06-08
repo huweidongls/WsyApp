@@ -92,6 +92,13 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 
         int deviceStatus = data.get(position).getDeviceStatus();
         int brandId = data.get(position).getBrandId();
+        if(brandId == 1){
+            holder.tvBrand.setText("乐橙");
+            holder.tvBrand2.setText("乐橙");
+        }else {
+            holder.tvBrand.setText("萤石");
+            holder.tvBrand2.setText("萤石");
+        }
         if(deviceStatus == 0){
             //不在线
             holder.ll1.setVisibility(View.GONE);
@@ -103,6 +110,50 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             holder.ll2.setVisibility(View.GONE);
             holder.tvDeviceName.setText(data.get(position).getDeviceName());
         }
+        //云存储状态
+        int cloudStorageStatus = data.get(position).getCloudStorageStatus();
+        if(cloudStorageStatus == 0){
+            //未开启
+            holder.ivYuncunchu.setVisibility(View.GONE);
+            holder.ivYuncunchu2.setVisibility(View.GONE);
+        }else if(cloudStorageStatus == 1){
+            //1已开启
+            holder.ivYuncunchu.setImageResource(R.mipmap.index_iv1);
+            holder.ivYuncunchu2.setImageResource(R.mipmap.index_iv1);
+            holder.ivYuncunchu.setVisibility(View.VISIBLE);
+            holder.ivYuncunchu2.setVisibility(View.VISIBLE);
+        }else if(cloudStorageStatus == 2){
+            //2即将到期
+            holder.ivYuncunchu.setImageResource(R.mipmap.index_iv1_red1);
+            holder.ivYuncunchu2.setImageResource(R.mipmap.index_iv1_red1);
+            holder.ivYuncunchu.setVisibility(View.VISIBLE);
+            holder.ivYuncunchu2.setVisibility(View.VISIBLE);
+        }else if(cloudStorageStatus == 3){
+            //3已过期
+            holder.ivYuncunchu.setImageResource(R.mipmap.index_iv1_red2);
+            holder.ivYuncunchu2.setImageResource(R.mipmap.index_iv1_red2);
+            holder.ivYuncunchu.setVisibility(View.VISIBLE);
+            holder.ivYuncunchu2.setVisibility(View.VISIBLE);
+        }
+        int nativeStorageStatus = data.get(position).getNativeStorageStatus();//本地存储状态：0 没有 1有
+        if(nativeStorageStatus == 0){
+            holder.ivSd.setVisibility(View.GONE);
+            holder.ivSd2.setVisibility(View.GONE);
+        }else {
+            holder.ivSd.setImageResource(R.mipmap.index_iv2);
+            holder.ivSd2.setImageResource(R.mipmap.index_iv2);
+            holder.ivSd.setVisibility(View.VISIBLE);
+            holder.ivSd2.setVisibility(View.VISIBLE);
+        }
+        int isHaveNewMessage = data.get(position).getIsHaveNewMessage();//是否有新消息：0没有 1有
+        if(isHaveNewMessage == 0){
+            holder.ivMsg.setVisibility(View.GONE);
+            holder.ivMsg2.setVisibility(View.GONE);
+        }else {
+            holder.ivMsg.setVisibility(View.VISIBLE);
+            holder.ivMsg2.setVisibility(View.VISIBLE);
+        }
+
         holder.llMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,110 +163,114 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = WeiboDialogUtils.createLoadingDialog(context, "正在跳转...");
-                if (brandId == 1) {
-                    //乐橙
+                if(deviceStatus == 0){
+                    ToastUtil.showShort(context, "设备不在线");
+                }else {
+                    dialog = WeiboDialogUtils.createLoadingDialog(context, "正在跳转...");
+                    if (brandId == 1) {
+                        //乐橙
 //                    Intent intent = new Intent();
 //                    intent.setClass(context, LcPlayActivity.class);
 //                    intent.putExtra("id", data.get(position).getId()+"");
 //                    context.startActivity(intent);
 
-                    Map<String, String> map = new LinkedHashMap<>();
-                    map.put("bindDeviceId", data.get(position).getId() + "");
-                    map.put("userId", SpUtils.getUserId(context));
-                    ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, dialog, new ViseUtil.ViseListener() {
-                        @Override
-                        public void onReturn(String s) {
-                            Logger.e("123123", s);
-                            Gson gson = new Gson();
-                            GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
-                            Intent intent = new Intent(context, MediaPlayActivity.class);
-                            intent.putExtra("bean", bean);
-                            intent.putExtra("id", data.get(position).getId()+"");
-                            intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_ONLINE);
-                            intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
-                            context.startActivity(intent);
-                        }
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put("bindDeviceId", data.get(position).getId() + "");
+                        map.put("userId", SpUtils.getUserId(context));
+                        ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, dialog, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                Logger.e("123123", s);
+                                Gson gson = new Gson();
+                                GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
+                                Intent intent = new Intent(context, MediaPlayActivity.class);
+                                intent.putExtra("bean", bean);
+                                intent.putExtra("id", data.get(position).getId()+"");
+                                intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_ONLINE);
+                                intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
+                                context.startActivity(intent);
+                            }
 
-                        @Override
-                        public void onElse(String s) {
+                            @Override
+                            public void onElse(String s) {
 
-                        }
-                    });
-                } else {
-                    //萤石
+                            }
+                        });
+                    } else {
+                        //萤石
 
-                    Map<String, String> map = new LinkedHashMap<>();
-                    map.put("bindDeviceId", data.get(position).getId() + "");
-                    map.put("userId", SpUtils.getUserId(context));
-                    ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, new ViseUtil.ViseListener() {
-                        @Override
-                        public void onReturn(String s) {
-                            Logger.e("123123", s);
-                            Gson gson = new Gson();
-                            GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
-                            Timer timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    Message msg = Message.obtain();
-                                    msg.what = 1;
-                                    handler.sendMessage(msg);
-                                }
-                            }, 120000);
-                            MyApplication.getOpenSDK().setAccessToken(bean.getData().getDeviceAccessToken());
-                            Observable<EZDeviceInfo> observable = Observable.create(new ObservableOnSubscribe<EZDeviceInfo>() {
-                                @Override
-                                public void subscribe(ObservableEmitter<EZDeviceInfo> e) throws Exception {
-                                    Logger.e("123123", "1");
-                                    EZDeviceInfo mDeviceInfo = MyApplication.getOpenSDK().getDeviceInfo(bean.getData().getSnCode());
-                                    e.onNext(mDeviceInfo);
-                                    Logger.e("123123", "2");
-                                }
-                            });
-                            Observer<EZDeviceInfo> observer = new Observer<EZDeviceInfo>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put("bindDeviceId", data.get(position).getId() + "");
+                        map.put("userId", SpUtils.getUserId(context));
+                        ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                Logger.e("123123", s);
+                                Gson gson = new Gson();
+                                GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
+                                Timer timer = new Timer();
+                                timer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        Message msg = Message.obtain();
+                                        msg.what = 1;
+                                        handler.sendMessage(msg);
+                                    }
+                                }, 120000);
+                                MyApplication.getOpenSDK().setAccessToken(bean.getData().getDeviceAccessToken());
+                                Observable<EZDeviceInfo> observable = Observable.create(new ObservableOnSubscribe<EZDeviceInfo>() {
+                                    @Override
+                                    public void subscribe(ObservableEmitter<EZDeviceInfo> e) throws Exception {
+                                        Logger.e("123123", "1");
+                                        EZDeviceInfo mDeviceInfo = MyApplication.getOpenSDK().getDeviceInfo(bean.getData().getSnCode());
+                                        e.onNext(mDeviceInfo);
+                                        Logger.e("123123", "2");
+                                    }
+                                });
+                                Observer<EZDeviceInfo> observer = new Observer<EZDeviceInfo>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void onNext(EZDeviceInfo value) {
-                                    Logger.e("123123", "3");
-                                    EZCameraInfo mCameraInfo = EZUtils.getCameraInfoFromDevice(value, 0);
-                                    Intent intent;
-                                    Logger.e("123123", "4");
-                                    timer.cancel();
-                                    intent = new Intent(context, EZRealPlayActivity.class);
-                                    intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
-                                    intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
-                                    intent.putExtra("id", data.get(position).getId()+"");
-                                    intent.putExtra("code", bean.getData().getSecurityCode());
-                                    context.startActivity(intent);
-                                    WeiboDialogUtils.closeDialog(dialog);
-                                    Logger.e("123123", "5");
-                                }
+                                    @Override
+                                    public void onNext(EZDeviceInfo value) {
+                                        Logger.e("123123", "3");
+                                        EZCameraInfo mCameraInfo = EZUtils.getCameraInfoFromDevice(value, 0);
+                                        Intent intent;
+                                        Logger.e("123123", "4");
+                                        timer.cancel();
+                                        intent = new Intent(context, EZRealPlayActivity.class);
+                                        intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
+                                        intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
+                                        intent.putExtra("id", data.get(position).getId()+"");
+                                        intent.putExtra("code", bean.getData().getSecurityCode());
+                                        context.startActivity(intent);
+                                        WeiboDialogUtils.closeDialog(dialog);
+                                        Logger.e("123123", "5");
+                                    }
 
-                                @Override
-                                public void onError(Throwable e) {
+                                    @Override
+                                    public void onError(Throwable e) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void onComplete() {
+                                    @Override
+                                    public void onComplete() {
 
-                                }
-                            };
-                            observable.subscribeOn(Schedulers.newThread())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(observer);
-                        }
+                                    }
+                                };
+                                observable.subscribeOn(Schedulers.newThread())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(observer);
+                            }
 
-                        @Override
-                        public void onElse(String s) {
-                            Logger.e("123123", s);
-                        }
-                    });
+                            @Override
+                            public void onElse(String s) {
+                                Logger.e("123123", s);
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -274,6 +329,8 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         private ImageView ivShengji2;
         private ImageView ivShare2;
         private ImageView ivMsg2;
+        private TextView tvBrand;
+        private TextView tvBrand2;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -292,6 +349,8 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             ivShengji2 = itemView.findViewById(R.id.iv_shengji2);
             ivShare2 = itemView.findViewById(R.id.iv_share2);
             ivMsg2 = itemView.findViewById(R.id.iv_msg2);
+            tvBrand = itemView.findViewById(R.id.tv_brand);
+            tvBrand2 = itemView.findViewById(R.id.tv_brand2);
         }
     }
 

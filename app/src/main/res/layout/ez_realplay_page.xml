@@ -391,6 +391,8 @@
 			android:layout_height="1dp"/>
 
 		<RelativeLayout
+			android:onClick="onClick"
+			android:id="@+id/rl_local_video"
 			android:layout_width="match_parent"
 			android:layout_height="40dp">
 

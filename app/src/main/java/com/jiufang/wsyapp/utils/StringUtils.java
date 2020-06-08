@@ -30,6 +30,18 @@ public class StringUtils {
 	public static int sysVersion = Integer.parseInt(VERSION.SDK);
 
 	/**
+	 * 不足10补0
+	 * @param num
+	 * @return
+	 */
+	public static String getBuling(int num){
+		if(num < 10){
+			return "0"+num;
+		}
+		return num+"";
+	}
+
+	/**
 	 * 获取前n天日期、后n天日期
 	 *
 	 * @param distanceDay 前几天 如获取前7天日期则传-7即可；如果后7天则传7

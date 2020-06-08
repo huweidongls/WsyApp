@@ -97,6 +97,7 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/tv_brand"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
@@ -224,6 +225,7 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/tv_brand2"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"

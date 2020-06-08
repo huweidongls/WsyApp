@@ -11,8 +11,8 @@
         android:layout_height="108dp">
 
         <ImageView
+            android:id="@+id/iv_title"
             android:scaleType="centerCrop"
-            android:src="@mipmap/video_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -23,6 +23,7 @@
             android:layout_height="31dp" />
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="7dp"
             android:textColor="#3C3C3C"

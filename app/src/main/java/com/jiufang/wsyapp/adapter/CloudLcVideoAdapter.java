@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.bean.GetYSLocalStorageRecordListBean;
 
 import java.util.List;
 
@@ -16,13 +17,13 @@ import java.util.List;
  * Created by Administrator on 2020/6/1.
  */
 
-public class CloudVideoAdapter extends RecyclerView.Adapter<CloudVideoAdapter.ViewHolder> {
+public class CloudLcVideoAdapter extends RecyclerView.Adapter<CloudLcVideoAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<GetYSLocalStorageRecordListBean.DataBean> data;
     private boolean isEdit = false;
 
-    public CloudVideoAdapter(List<String> data) {
+    public CloudLcVideoAdapter(List<GetYSLocalStorageRecordListBean.DataBean> data) {
         this.data = data;
     }
 

@@ -54,7 +54,6 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,7 +72,8 @@ import com.jiufang.wsyapp.dialog.DialogBaojing;
 import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
-import com.jiufang.wsyapp.ui.CloudVideoActivity;
+import com.jiufang.wsyapp.ui.CloudYsVideoActivity;
+import com.jiufang.wsyapp.ui.LocalYsVideoActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -129,14 +129,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.videogo.openapi.EZConstants.MSG_GOT_STREAM_TYPE;
 import static com.videogo.openapi.EZConstants.MSG_VIDEO_SIZE_CHANGED;
@@ -1272,10 +1264,17 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
      */
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.rl_local_video:
+                intent.setClass(context, LocalYsVideoActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                break;
             case R.id.rl_cloud_video:
-                Intent intent = new Intent();
-                intent.setClass(context, CloudVideoActivity.class);
+                intent.setClass(context, CloudYsVideoActivity.class);
+                intent.putExtra("code", mCameraInfo.getDeviceSerial());
+                intent.putExtra("id", id);
                 startActivity(intent);
                 break;
             case R.id.rl_baojing:
@@ -3299,7 +3298,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
 
     private void showType() {
         if (Config.LOGGING && mEZPlayer != null) {
-            Utils.showLog(EZRealPlayActivity.this, "getType " + ",time：" + (mStopTime - mStartTime));
+//            Utils.showLog(EZRealPlayActivity.this, "getType " + ",time：" + (mStopTime - mStartTime));
         }
     }
 
