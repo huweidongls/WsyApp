@@ -10,10 +10,13 @@
 package com.jiufang.wsyapp.mediaplay.fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,13 +24,16 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,12 +53,17 @@ import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
 import com.jiufang.wsyapp.ui.CloudLcVideoActivity;
 import com.jiufang.wsyapp.ui.CloudYsVideoActivity;
 import com.jiufang.wsyapp.ui.LocalLcVideoActivity;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.lechange.common.log.Logger;
 import com.lechange.opensdk.listener.LCOpenSDK_EventListener;
 import com.lechange.opensdk.listener.LCOpenSDK_TalkerListener;
 import com.lechange.opensdk.media.LCOpenSDK_Talk;
+import com.videogo.util.LogUtil;
+import com.zyyoona7.popup.EasyPopup;
+import com.zyyoona7.popup.XGravity;
+import com.zyyoona7.popup.YGravity;
 
 import java.io.FileOutputStream;
 import java.util.LinkedHashMap;
@@ -108,6 +119,11 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     private RelativeLayout rlBaojing;
     private RelativeLayout rlCloudVideo;
     private RelativeLayout rlLocalVideo;
+    private RelativeLayout rlPtz;
+
+    private EasyPopup easyPopup;
+
+    private boolean mIsOnPtz = false;
 
     private String id = "";
 
@@ -181,6 +197,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         rlBaojing = mView.findViewById(R.id.rl_baojing);
         rlCloudVideo = mView.findViewById(R.id.rl_cloud_video);
         rlLocalVideo = mView.findViewById(R.id.rl_local_video);
+        rlPtz = mView.findViewById(R.id.rl_ptz);
 
         mReplayTip.setOnClickListener(this);
         mLiveMode.setOnClickListener(this);
@@ -194,6 +211,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         rlBaojing.setOnClickListener(this);
         rlCloudVideo.setOnClickListener(this);
         rlLocalVideo.setOnClickListener(this);
+        rlPtz.setOnClickListener(this);
 
         return mView;
 
@@ -835,11 +853,53 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
 
     }
 
+    private void openPtzPopupWindow() {
+
+        easyPopup = EasyPopup.create(getContext())
+                .setContentView(R.layout.realplay_ptz_wnd)
+                .setFocusAndOutsideEnable(true)
+                //允许背景变暗
+                .setBackgroundDimEnable(true)
+                //变暗的透明度(0-1)，0为完全透明
+                .setDimValue(0.5f)
+                //变暗的背景颜色
+                .setDimColor(Color.BLACK)
+                .apply();
+        easyPopup.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+
+        ImageButton ibTop = easyPopup.findViewById(R.id.ptz_top_btn);
+        ibTop.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("userId", SpUtils.getUserId(getContext()));
+                map.put("deviceId", id);
+                map.put("operation", "0");
+                map.put("duration", "2000");
+                ViseUtil.Post(getContext(), NetUrl.controlLcDeviceMovePTZ, map, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                    }
+                });
+            }
+        });
+
+    }
+
     @Override
     public void onClick(View view) {
         // TODO Auto-generated method stub
         Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.rl_ptz:
+                openPtzPopupWindow();
+                break;
             case R.id.rl_local_video:
                 intent.setClass(getContext(), LocalLcVideoActivity.class);
                 intent.putExtra("id", id);

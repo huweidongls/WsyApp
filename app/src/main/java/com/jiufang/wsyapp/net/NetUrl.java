@@ -81,5 +81,7 @@ public class NetUrl {
     public static final String getLcCloudStorageRecordList = "/device/storage/v1.0.0/getLcCloudStorageRecordList";
     //乐橙本地存储
     public static final String getLcLocalStorageRecordList = "/device/storage/v1.0.0/getLcLocalStorageRecordList";
+    //乐橙云台控制
+    public static final String controlLcDeviceMovePTZ = "/device/console/v1.0.0/controlLcDeviceMovePTZ";
 
 }
