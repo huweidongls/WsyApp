@@ -93,6 +93,7 @@ public class MyDeviceAdapter extends RecyclerView.Adapter<MyDeviceAdapter.ViewHo
         }else if(brandId == 2){
             GlideUtils.into(context, R.mipmap.ys, viewHolder.iv);
         }
+        int haveCloud = data.get(i).getHaveCloudConsole();
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +111,8 @@ public class MyDeviceAdapter extends RecyclerView.Adapter<MyDeviceAdapter.ViewHo
                             GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
                             Intent intent = new Intent(context, MediaPlayActivity.class);
                             intent.putExtra("bean", bean);
+                            intent.putExtra("cloud", haveCloud);
+                            intent.putExtra("id", data.get(i).getId()+"");
                             intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_ONLINE);
                             intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
                             context.startActivity(intent);
@@ -166,6 +169,8 @@ public class MyDeviceAdapter extends RecyclerView.Adapter<MyDeviceAdapter.ViewHo
                                     intent = new Intent(context, EZRealPlayActivity.class);
                                     intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
                                     intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
+                                    intent.putExtra("cloud", haveCloud);
+                                    intent.putExtra("id", data.get(i).getId()+"");
                                     intent.putExtra("code", bean.getData().getSecurityCode());
                                     context.startActivity(intent);
                                     WeiboDialogUtils.closeDialog(dialog);

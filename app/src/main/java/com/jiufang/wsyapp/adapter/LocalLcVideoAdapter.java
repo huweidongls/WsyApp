@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.bean.GetLcLocalStorageRecordListBean;
 import com.jiufang.wsyapp.bean.GetYSLocalStorageRecordListBean;
 
 import java.util.List;
@@ -20,11 +21,13 @@ import java.util.List;
 public class LocalLcVideoAdapter extends RecyclerView.Adapter<LocalLcVideoAdapter.ViewHolder> {
 
     private Context context;
-    private List<GetYSLocalStorageRecordListBean.DataBean> data;
+    private List<GetLcLocalStorageRecordListBean.DataBean> data;
+    private ClickListener listener;
     private boolean isEdit = false;
 
-    public LocalLcVideoAdapter(List<GetYSLocalStorageRecordListBean.DataBean> data) {
+    public LocalLcVideoAdapter(List<GetLcLocalStorageRecordListBean.DataBean> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @NonNull
@@ -53,6 +56,8 @@ public class LocalLcVideoAdapter extends RecyclerView.Adapter<LocalLcVideoAdapte
             public void onClick(View view) {
                 if(isEdit){
                     viewHolder.ivSelect.setImageResource(R.mipmap.duihao);
+                }else {
+                    listener.onClick(i);
                 }
             }
         });
@@ -71,6 +76,10 @@ public class LocalLcVideoAdapter extends RecyclerView.Adapter<LocalLcVideoAdapte
             super(itemView);
             ivSelect = itemView.findViewById(R.id.iv_select);
         }
+    }
+
+    public interface ClickListener{
+        void onClick(int pos);
     }
 
 }

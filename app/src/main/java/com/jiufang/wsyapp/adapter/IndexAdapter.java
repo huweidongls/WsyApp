@@ -160,6 +160,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                 listener.onMore(position);
             }
         });
+        int haveCloud = data.get(position).getHaveCloudConsole();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,6 +186,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                                 GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
                                 Intent intent = new Intent(context, MediaPlayActivity.class);
                                 intent.putExtra("bean", bean);
+                                intent.putExtra("cloud", haveCloud);
                                 intent.putExtra("id", data.get(position).getId()+"");
                                 intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_ONLINE);
                                 intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
@@ -244,6 +246,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                                         intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
                                         intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
                                         intent.putExtra("id", data.get(position).getId()+"");
+                                        intent.putExtra("cloud", haveCloud);
                                         intent.putExtra("code", bean.getData().getSecurityCode());
                                         context.startActivity(intent);
                                         WeiboDialogUtils.closeDialog(dialog);

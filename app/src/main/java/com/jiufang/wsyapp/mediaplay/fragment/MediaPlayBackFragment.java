@@ -26,12 +26,14 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
+import com.jiufang.wsyapp.bean.GetLcCloudStorageRecordListBean;
+import com.jiufang.wsyapp.bean.GetLcLocalStorageRecordListBean;
 import com.jiufang.wsyapp.dialog.ProgressDialog;
 import com.jiufang.wsyapp.mediaplay.Business;
 import com.jiufang.wsyapp.mediaplay.RecoderSeekBar;
-import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
-import com.jiufang.wsyapp.mediaplay.entity.RecordInfo;
 import com.jiufang.wsyapp.mediaplay.util.TimeHelper;
+import com.jiufang.wsyapp.utils.StringUtils;
 import com.lechange.common.log.Logger;
 import com.lechange.opensdk.listener.LCOpenSDK_EventListener;
 
@@ -45,8 +47,8 @@ import java.util.Queue;
  */
 public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickListener {
 	private final String tag = "LCopen_MediaPlayBackFragment";
-	private RecordInfo recordInfo;
-	private ChannelInfo channelInfo;
+//	private RecordInfo recordInfo;
+//	private ChannelInfo channelInfo;
 	
 	//SeekBar使用
 	private int progress;
@@ -66,6 +68,11 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 	private enum PlayStatus{play_close, play_open, play_opening, play_pause};
 	private PlayStatus mOpenPlay = PlayStatus.play_close; //语音对讲状态
     int currentPlaySpeed=1;
+
+    private GetBindDeviceDetailBean mBean;
+    private GetLcCloudStorageRecordListBean.DataBean bean;
+	private GetLcLocalStorageRecordListBean.DataBean bean1;
+    private String playType = "";//0云录像  1本地录像
 	
 	/**
 	 *
@@ -77,20 +84,15 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 		super.onCreate(savedInstanceState);
 		Bundle b = getArguments();
 		if (b != null) {
-			String id = b.getString("RESID");
-			//不判空存在闪退问题
-			recordInfo = Business.getInstance().getRecord(id);
-			if (recordInfo == null){
-				toast(getString(R.string.toast_playback_no_records));
-				getActivity().finish();
-				return;
+
+			playType = b.getString("type");
+			mBean = (GetBindDeviceDetailBean) b.getSerializable("mbean");
+			if(playType.equals("0")){
+				bean = (GetLcCloudStorageRecordListBean.DataBean) b.getSerializable("bean");
+			}else {
+				bean1 = (GetLcLocalStorageRecordListBean.DataBean) b.getSerializable("bean");
 			}
-			channelInfo = Business.getInstance().getChannel(recordInfo.getChnlUuid());
-			if (channelInfo == null){
-				toast(getString(R.string.toast_playback_no_records));
-				getActivity().finish();
-				return;
-			}
+
 		}
 
 	}
@@ -183,13 +185,22 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 			
 	}
 	
-	private void initSeekBarAndTime() {		
-		String mStartTime = TimeHelper.getTimeHMS(recordInfo.getStartTime());
-		String mEndTime = TimeHelper.getTimeHMS(recordInfo.getEndTime());
-		mRecordSeekbar.setMax((int) ((recordInfo.getEndTime() - recordInfo.getStartTime()) / 1000));
-		mRecordSeekbar.setProgress(0);			
-		mRecordStartTime.setText(mStartTime);
-		mRecordEndTime.setText(mEndTime);
+	private void initSeekBarAndTime() {
+		if(playType.equals("0")){
+			String mStartTime = TimeHelper.getTimeHMS(StringUtils.dateFormatToLong(bean.getStartTime()));
+			String mEndTime = TimeHelper.getTimeHMS(StringUtils.dateFormatToLong(bean.getEndTime()));
+			mRecordSeekbar.setMax((int) ((StringUtils.dateFormatToLong(bean.getEndTime()) - StringUtils.dateFormatToLong(bean.getStartTime())) / 1000));
+			mRecordSeekbar.setProgress(0);
+			mRecordStartTime.setText(mStartTime);
+			mRecordEndTime.setText(mEndTime);
+		}else {
+			String mStartTime = TimeHelper.getTimeHMS(StringUtils.dateFormatToLong(bean1.getStartTime()));
+			String mEndTime = TimeHelper.getTimeHMS(StringUtils.dateFormatToLong(bean1.getEndTime()));
+			mRecordSeekbar.setMax((int) ((StringUtils.dateFormatToLong(bean1.getEndTime()) - StringUtils.dateFormatToLong(bean1.getStartTime())) / 1000));
+			mRecordSeekbar.setProgress(0);
+			mRecordStartTime.setText(mStartTime);
+			mRecordEndTime.setText(mEndTime);
+		}
 	}
 
 	private void setSeekBarListener() {
@@ -234,7 +245,7 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 						}
 					});
 				}
-			}else if (recordInfo != null && recordInfo.getType() == RecordInfo.RecordType.PublicCloud) {
+			}else if (playType.equals("0")) {
 				if (code.equals(Business.CloudStorageCode.HLS_DOWNLOAD_FAILD) ||
 						code.equals(Business.CloudStorageCode.HLS_KEY_ERROR)) {
 					if (mHander != null) {
@@ -311,7 +322,7 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 		@Override
 		public void onPlayBegan(int index) {
 			// TODO Auto-generated method stub
-			if (recordInfo.getType() == RecordInfo.RecordType.PublicCloud){
+			if (playType.equals("0")){
 				//if(code.equals(CloudStorageCode.HLS_DOWNLOAD_BEGIN)){
 				// 云录像播放第二步
 				System.out.println(tag+ "*****+play pulic cloud video from CloudStorageCode.HLS_DOWNLOAD_BEGIN");
@@ -370,7 +381,11 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 			if (sthls){
 				startTime = 0;
 			}else{
-				startTime = recordInfo.getStartTime() / 1000;
+				if(playType.equals("0")){
+					startTime = StringUtils.dateFormatToLong(bean.getStartTime()) / 1000;
+				}else {
+					startTime = StringUtils.dateFormatToLong(bean1.getStartTime()) / 1000;
+				}
 			}
 			MediaPlayBackFragment.this.progress = (int) (current - startTime);
 			if (mHander != null) {
@@ -463,25 +478,26 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 	public void seek(int index) {
 		System.out.println("index:"+index);
 		
-		long seekTime = recordInfo.getStartTime() / 1000 + index;
-		//先暂存时间记录
-		MediaPlayBackFragment.this.beginTime = TimeHelper.getTimeHMS(seekTime*1000);
-		MediaPlayBackFragment.this.progress = index;
-		mRecordSeekbar.setProgress(index);
-		mRecordStartTime.setText(MediaPlayBackFragment.this.beginTime);
+		if(playType.equals("0")){
+			long seekTime = StringUtils.dateFormatToLong(bean.getStartTime()) / 1000 + index;
+			//先暂存时间记录
+			MediaPlayBackFragment.this.beginTime = TimeHelper.getTimeHMS(seekTime*1000);
+			MediaPlayBackFragment.this.progress = index;
+			mRecordSeekbar.setProgress(index);
+			mRecordStartTime.setText(MediaPlayBackFragment.this.beginTime);
+
+			mPlayWin.seek(index);
+		}else {
+			long seekTime = StringUtils.dateFormatToLong(bean1.getStartTime()) / 1000 + index;
+			//先暂存时间记录
+			MediaPlayBackFragment.this.beginTime = TimeHelper.getTimeHMS(seekTime*1000);
+			MediaPlayBackFragment.this.progress = index;
+			mRecordSeekbar.setProgress(index);
+			mRecordStartTime.setText(MediaPlayBackFragment.this.beginTime);
+
+			mPlayWin.seek(index);
+		}
 		
-		mPlayWin.seek(index);
-		
-//		if (recordInfo != null&& (recordInfo.getType() == RecordInfo.RecordType.PublicCloud)) {
-//			if (mOpenPlay == PlayStatus.play_pause) {
-//				resume();
-//			}
-//			mPlayWin.seek(index);
-//			System.out.println(tag + "tag-publicClound Seek to: " + index);
-//		}else{
-//			playSeek(seekTime * 1000, recordInfo.getEndTime());
-//			System.out.println(tag + "tag-deviceRecord Seek to: " + index);
-//		}
 	}
 	
 //	private void playSeek(long startTime, long endTime) {
@@ -509,17 +525,17 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 		mOpenPlay = PlayStatus.play_opening;
 		mRecordPlayPause.setImageResource(R.drawable.record_btn_pause);
 		mPlayWin.setStreamCallback(1); //启用标准流回调，测试代码
-		if (recordInfo.getType() == RecordInfo.RecordType.PublicCloud){
+		if (playType.equals("0")){
 			//播放起始时间默认设为0，开发者自行
-			Logger.d(tag, "recordInfo.getRecordRegionId():" + recordInfo.getRecordRegionId());
-			mPlayWin.playCloud(Business.getInstance().getToken(), channelInfo.getDeviceCode(), 
-					String.valueOf(channelInfo.getIndex()),
-					channelInfo.getEncryptKey() != null ? channelInfo.getEncryptKey() : channelInfo.getDeviceCode(), 
-							recordInfo.getRecordRegionId(), 1000, 0, 24 * 3600);
+			Logger.d(tag, "recordInfo.getRecordRegionId():" + bean.getRecordRegionId());
+			mPlayWin.playCloud(mBean.getData().getDeviceAccessToken(), mBean.getData().getSnCode(),
+					bean.getChannelId(),
+					mBean.getData().getSnCode(),
+					bean.getRecordRegionId(), 1000, 0, 24 * 3600);
 		}else{
-			mPlayWin.playRtspPlayback(Business.getInstance().getToken(), channelInfo.getDeviceCode(), channelInfo.getIndex(),
-					channelInfo.getEncryptKey() != null ? channelInfo.getEncryptKey() : channelInfo.getDeviceCode(), recordInfo.getRecordID(),
-					recordInfo.getStartTime(), recordInfo.getEndTime(), 0, 0, true);
+			mPlayWin.playRtspPlayback(mBean.getData().getDeviceAccessToken(), mBean.getData().getSnCode(), Integer.valueOf(mBean.getData().getChannelId()),
+					mBean.getData().getSnCode(), bean1.getRecordId(),
+					StringUtils.dateFormatToLong(bean1.getStartTime()), StringUtils.dateFormatToLong(bean1.getEndTime()), 0, 0, true);
 			//按时间回放
 //			mPlayWin.playRtspPlaybackByUtcTime(Business.getInstance().getToken(), channelInfo.getDeviceCode(), channelInfo.getEncryptKey() != null ? channelInfo.getEncryptKey() : channelInfo.getDeviceCode(),
 //					channelInfo.getIndex(), recordInfo.getStartTime(), recordInfo.getEndTime());
@@ -558,7 +574,7 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 	 */
 	public void stopPlayWindow() {
 		closeAudio();// 关闭音频
-		if(recordInfo.getType() == RecordInfo.RecordType.PublicCloud)
+		if(playType.equals("0"))
 			mPlayWin.stopCloud();
 		else
 			mPlayWin.stopRtspPlayback();// 关闭视频

@@ -23,6 +23,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
+import com.jiufang.wsyapp.bean.GetLcCloudStorageRecordListBean;
+import com.jiufang.wsyapp.bean.GetLcLocalStorageRecordListBean;
 import com.jiufang.wsyapp.mediaplay.fragment.MediaPlayBackFragment;
 import com.jiufang.wsyapp.mediaplay.fragment.MediaPlayFragment;
 import com.jiufang.wsyapp.mediaplay.fragment.MediaPlayOnlineFragment;
@@ -79,23 +81,37 @@ public class MediaPlayActivity extends FragmentActivity implements
                 mediaPlayFragment = new MediaPlayOnlineFragment();
                 GetBindDeviceDetailBean bean = (GetBindDeviceDetailBean) getIntent().getSerializableExtra("bean");
                 String deviceId = getIntent().getStringExtra("id");
+                int haveCloud = getIntent().getIntExtra("cloud", 0);
                 tvTitle.setText(bean.getData().getDeviceName());
                 b.putSerializable("bean", bean);
                 b.putString("id", deviceId);
+                b.putInt("cloud", haveCloud);
                 mediaPlayFragment.setArguments(b);
                 changeFragment(mediaPlayFragment, false);
                 break;
             case IS_VIDEO_REMOTE_RECORD:
                 mediaPlayFragment = new MediaPlayBackFragment();
-                id = getIntent().getStringExtra("ID");
-                b.putString("RESID", id);
+
+                GetBindDeviceDetailBean mBean1 = (GetBindDeviceDetailBean) getIntent().getSerializableExtra("mbean");
+                GetLcLocalStorageRecordListBean.DataBean bean2 = (GetLcLocalStorageRecordListBean.DataBean) getIntent().getSerializableExtra("bean");
+                String type1 = getIntent().getStringExtra("type");
+                b.putSerializable("mbean", mBean1);
+                b.putSerializable("bean", bean2);
+                b.putString("type", type1);
+
                 mediaPlayFragment.setArguments(b);
                 changeFragment(mediaPlayFragment, false);
                 break;
             case IS_VIDEO_REMOTE_CLOUD_RECORD://云录像播放
                 mediaPlayFragment = new MediaPlayBackFragment();
-                id = getIntent().getStringExtra("ID");
-                b.putString("RESID", id);
+
+                GetBindDeviceDetailBean mBean = (GetBindDeviceDetailBean) getIntent().getSerializableExtra("mbean");
+                GetLcCloudStorageRecordListBean.DataBean bean1 = (GetLcCloudStorageRecordListBean.DataBean) getIntent().getSerializableExtra("bean");
+                String type = getIntent().getStringExtra("type");
+                b.putSerializable("mbean", mBean);
+                b.putSerializable("bean", bean1);
+                b.putString("type", type);
+
                 mediaPlayFragment.setArguments(b);
                 changeFragment(mediaPlayFragment, false);
                 break;

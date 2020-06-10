@@ -19,13 +19,6 @@
             android:layout_height="90dp"
             app:corner_radius="5dp"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginLeft="2dp"
-            android:layout_gravity="center_vertical"
-            android:src="#FF4E4E"
-            android:layout_width="4dp"
-            android:layout_height="4dp" />
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_gravity="center_vertical"

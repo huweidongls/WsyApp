@@ -30,6 +30,23 @@ public class StringUtils {
 	public static int sysVersion = Integer.parseInt(VERSION.SDK);
 
 	/**
+	 * 时间字符串转long类型
+	 * @param time
+	 * @return
+	 */
+	public static long dateFormatToLong(String time){
+		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = null;
+		try {
+			date = format.parse(time);
+			return date.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	/**
 	 * 不足10补0
 	 * @param num
 	 * @return

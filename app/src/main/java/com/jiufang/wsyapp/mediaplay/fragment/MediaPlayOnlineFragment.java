@@ -53,6 +53,7 @@ import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
 import com.jiufang.wsyapp.ui.CloudLcVideoActivity;
 import com.jiufang.wsyapp.ui.CloudYsVideoActivity;
 import com.jiufang.wsyapp.ui.LocalLcVideoActivity;
+import com.jiufang.wsyapp.utils.DensityTool;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -126,6 +127,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     private boolean mIsOnPtz = false;
 
     private String id = "";
+    private int haveCloud = 0;
 
     /**
      * 描述：
@@ -141,6 +143,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
 //			channelInfo = Business.getInstance().getChannel(channelId);
             bean = (GetBindDeviceDetailBean) b.getSerializable("bean");
             id = b.getString("id");
+            haveCloud = b.getInt("cloud", 0);
             com.jiufang.wsyapp.utils.Logger.e("123123", bean.getData().getDeviceAccessToken());
         }
         if (bean == null) {
@@ -198,6 +201,11 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         rlCloudVideo = mView.findViewById(R.id.rl_cloud_video);
         rlLocalVideo = mView.findViewById(R.id.rl_local_video);
         rlPtz = mView.findViewById(R.id.rl_ptz);
+        if(haveCloud == 0){
+            rlPtz.setVisibility(View.GONE);
+        }else if(haveCloud == 1){
+            rlPtz.setVisibility(View.VISIBLE);
+        }
 
         mReplayTip.setOnClickListener(this);
         mLiveMode.setOnClickListener(this);
@@ -856,7 +864,9 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     private void openPtzPopupWindow() {
 
         easyPopup = EasyPopup.create(getContext())
-                .setContentView(R.layout.realplay_ptz_wnd)
+                .setContentView(getContext(), R.layout.realplay_ptz_wnd)
+                .setWidth(RelativeLayout.LayoutParams.MATCH_PARENT)
+                .setHeight(DensityTool.dp2px(getContext(), 300))
                 .setFocusAndOutsideEnable(true)
                 //允许背景变暗
                 .setBackgroundDimEnable(true)
@@ -867,18 +877,105 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
                 .apply();
         easyPopup.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
 
+        LinearLayout mPtzControlLy = easyPopup.findViewById(R.id.ptz_control_ly);
+        ImageButton ibClose = easyPopup.findViewById(R.id.ptz_close_btn);
         ImageButton ibTop = easyPopup.findViewById(R.id.ptz_top_btn);
+        ImageButton ibLeft = easyPopup.findViewById(R.id.ptz_left_btn);
+        ImageButton ibRight = easyPopup.findViewById(R.id.ptz_right_btn);
+        ImageButton ibBottom = easyPopup.findViewById(R.id.ptz_bottom_btn);
+
+        ibClose.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                easyPopup.dismiss();
+            }
+        });
+
         ibTop.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                mPtzControlLy.setBackgroundResource(R.drawable.ptz_up_sel);
                 Map<String, String> map = new LinkedHashMap<>();
                 map.put("userId", SpUtils.getUserId(getContext()));
                 map.put("deviceId", id);
                 map.put("operation", "0");
-                map.put("duration", "2000");
+                map.put("duration", "1000");
                 ViseUtil.Post(getContext(), NetUrl.controlLcDeviceMovePTZ, map, new ViseUtil.ViseListener() {
                     @Override
                     public void onReturn(String s) {
+                        mPtzControlLy.setBackgroundResource(R.drawable.ptz_bg);
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                    }
+                });
+            }
+        });
+
+        ibLeft.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPtzControlLy.setBackgroundResource(R.drawable.ptz_left_sel);
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("userId", SpUtils.getUserId(getContext()));
+                map.put("deviceId", id);
+                map.put("operation", "2");
+                map.put("duration", "1000");
+                ViseUtil.Post(getContext(), NetUrl.controlLcDeviceMovePTZ, map, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        mPtzControlLy.setBackgroundResource(R.drawable.ptz_bg);
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                    }
+                });
+            }
+        });
+
+        ibRight.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPtzControlLy.setBackgroundResource(R.drawable.ptz_right_sel);
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("userId", SpUtils.getUserId(getContext()));
+                map.put("deviceId", id);
+                map.put("operation", "3");
+                map.put("duration", "1000");
+                ViseUtil.Post(getContext(), NetUrl.controlLcDeviceMovePTZ, map, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        mPtzControlLy.setBackgroundResource(R.drawable.ptz_bg);
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                    }
+                });
+            }
+        });
+
+        ibBottom.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPtzControlLy.setBackgroundResource(R.drawable.ptz_bottom_sel);
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("userId", SpUtils.getUserId(getContext()));
+                map.put("deviceId", id);
+                map.put("operation", "1");
+                map.put("duration", "1000");
+                ViseUtil.Post(getContext(), NetUrl.controlLcDeviceMovePTZ, map, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        mPtzControlLy.setBackgroundResource(R.drawable.ptz_bg);
                         com.jiufang.wsyapp.utils.Logger.e("123123", s);
                     }
 
@@ -903,11 +1000,13 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
             case R.id.rl_local_video:
                 intent.setClass(getContext(), LocalLcVideoActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("bean", bean);
                 startActivity(intent);
                 break;
             case R.id.rl_cloud_video:
                 intent.setClass(getContext(), CloudLcVideoActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("bean", bean);
                 startActivity(intent);
                 break;
             case R.id.rl_baojing:

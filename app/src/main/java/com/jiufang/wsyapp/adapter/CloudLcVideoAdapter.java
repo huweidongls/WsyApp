@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jiufang.wsyapp.R;
-import com.jiufang.wsyapp.bean.GetYSLocalStorageRecordListBean;
+import com.jiufang.wsyapp.bean.GetLcCloudStorageRecordListBean;
 
 import java.util.List;
 
@@ -20,11 +20,13 @@ import java.util.List;
 public class CloudLcVideoAdapter extends RecyclerView.Adapter<CloudLcVideoAdapter.ViewHolder> {
 
     private Context context;
-    private List<GetYSLocalStorageRecordListBean.DataBean> data;
+    private List<GetLcCloudStorageRecordListBean.DataBean> data;
+    private ClickListener listener;
     private boolean isEdit = false;
 
-    public CloudLcVideoAdapter(List<GetYSLocalStorageRecordListBean.DataBean> data) {
+    public CloudLcVideoAdapter(List<GetLcCloudStorageRecordListBean.DataBean> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @NonNull
@@ -53,6 +55,8 @@ public class CloudLcVideoAdapter extends RecyclerView.Adapter<CloudLcVideoAdapte
             public void onClick(View view) {
                 if(isEdit){
                     viewHolder.ivSelect.setImageResource(R.mipmap.duihao);
+                }else {
+                    listener.onClick(i);
                 }
             }
         });
@@ -71,6 +75,10 @@ public class CloudLcVideoAdapter extends RecyclerView.Adapter<CloudLcVideoAdapte
             super(itemView);
             ivSelect = itemView.findViewById(R.id.iv_select);
         }
+    }
+
+    public interface ClickListener{
+        void onClick(int pos);
     }
 
 }

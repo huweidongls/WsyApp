@@ -2,6 +2,7 @@ package com.jiufang.wsyapp.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,11 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.adapter.CloudLcVideoAdapter;
 import com.jiufang.wsyapp.adapter.LocalYsVideoAdapter;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
+import com.jiufang.wsyapp.bean.GetLcCloudStorageRecordListBean;
 import com.jiufang.wsyapp.dialog.DialogMsgDelete;
+import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -70,7 +75,7 @@ public class CloudLcVideoActivity extends BaseActivity {
     LinearLayout llBottom;
 
     private CloudLcVideoAdapter adapter;
-    private List<String> mList;
+    private List<GetLcCloudStorageRecordListBean.DataBean> mList;
 
     private int mYear;
     private int mMonth;
@@ -83,12 +88,15 @@ public class CloudLcVideoActivity extends BaseActivity {
     private String startTime = "";
     private String endTime = "";
 
+    private GetBindDeviceDetailBean mBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cloud_lc_video);
 
         id = getIntent().getStringExtra("id");
+        mBean = (GetBindDeviceDetailBean) getIntent().getSerializableExtra("bean");
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
@@ -116,6 +124,24 @@ public class CloudLcVideoActivity extends BaseActivity {
             @Override
             public void onReturn(String s) {
                 Logger.e("123123", s);
+                Gson gson = new Gson();
+                GetLcCloudStorageRecordListBean bean = gson.fromJson(s, GetLcCloudStorageRecordListBean.class);
+                mList = bean.getData();
+                adapter = new CloudLcVideoAdapter(mList, new CloudLcVideoAdapter.ClickListener() {
+                    @Override
+                    public void onClick(int pos) {
+                        Intent intent = new Intent(context, MediaPlayActivity.class);
+                        intent.putExtra("type", "0");
+                        intent.putExtra("mbean", mBean);
+                        intent.putExtra("bean", mList.get(pos));
+                        intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_REMOTE_CLOUD_RECORD);
+                        intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
+                        context.startActivity(intent);
+                    }
+                });
+                GridLayoutManager manager = new GridLayoutManager(context, 3);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override

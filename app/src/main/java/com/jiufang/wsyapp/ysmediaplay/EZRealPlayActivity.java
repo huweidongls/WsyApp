@@ -308,6 +308,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
     private RelativeLayout rlCloudVideo;
 
     private String id = "";
+    private int haveCloud = 0;
 
     //    private GoogleApiClient client;
     @Override
@@ -491,6 +492,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         Intent intent = getIntent();
         if (intent != null) {
             id = intent.getStringExtra("id");
+            haveCloud = intent.getIntExtra("cloud", 0);
             mVerifyCode = intent.getStringExtra("code");
             mCameraInfo = intent.getParcelableExtra(IntentConsts.EXTRA_CAMERA_INFO);
             mDeviceInfo = intent.getParcelableExtra(IntentConsts.EXTRA_DEVICE_INFO);
@@ -985,6 +987,11 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         }
         mRealPlayTalkBtn.setEnabled(false);
         mRealPlayOperateBar.setVisibility(View.VISIBLE);
+        if(haveCloud == 0){
+            mRealPlayPtzBtnLy.setVisibility(View.GONE);
+        }else if(haveCloud == 1){
+            mRealPlayPtzBtnLy.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setBigScreenOperateBtnLayout() {
