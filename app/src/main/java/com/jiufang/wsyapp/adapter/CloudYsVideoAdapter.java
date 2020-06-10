@@ -9,13 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jiufang.wsyapp.R;
-import com.jiufang.wsyapp.bean.GetYSCloudStorageRecordListBean;
-import com.jiufang.wsyapp.bean.GetYSLocalStorageRecordListBean;
-import com.jiufang.wsyapp.utils.GlideUtils;
-import com.jiufang.wsyapp.utils.Logger;
-import com.videogo.openapi.bean.EZAlarmInfo;
+import com.videogo.openapi.bean.EZCloudRecordFile;
 
 import java.util.List;
 
@@ -27,10 +22,10 @@ public class CloudYsVideoAdapter extends RecyclerView.Adapter<CloudYsVideoAdapte
 
     private Context context;
 //    private List<GetYSCloudStorageRecordListBean.DataBean> data;
-    private List<EZAlarmInfo> data;
+    private List<EZCloudRecordFile> data;
     private boolean isEdit = false;
 
-    public CloudYsVideoAdapter(List<EZAlarmInfo> data) {
+    public CloudYsVideoAdapter(List<EZCloudRecordFile> data) {
         this.data = data;
     }
 

@@ -113,7 +113,7 @@ public class LocalLcVideoActivity extends BaseActivity {
         tvTime.setText(time);
 
         startTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 00:00:00";
-        endTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 08:59:59";
+        endTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 23:59:59";
 
         Map<String, String> map = new LinkedHashMap<>();
         map.put("userId", SpUtils.getUserId(context));

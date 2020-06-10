@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,46 +12,37 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.adapter.CloudYsVideoAdapter;
-import com.jiufang.wsyapp.adapter.LocalYsVideoAdapter;
 import com.jiufang.wsyapp.app.MyApplication;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetYSCloudStorageRecordListBean;
 import com.jiufang.wsyapp.dialog.DialogMsgDelete;
-import com.jiufang.wsyapp.net.NetUrl;
-import com.jiufang.wsyapp.utils.Logger;
-import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
-import com.jiufang.wsyapp.utils.ViseUtil;
-import com.scwang.smartrefresh.header.MaterialHeader;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.videogo.errorlayer.ErrorInfo;
 import com.videogo.exception.BaseException;
-import com.videogo.openapi.bean.EZAlarmInfo;
+import com.videogo.openapi.bean.EZCloudRecordFile;
 import com.videogo.util.LogUtil;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class CloudYsVideoActivity extends BaseActivity {
 
@@ -88,6 +78,7 @@ public class CloudYsVideoActivity extends BaseActivity {
 
     private String id = "";
     private String code = "";
+    private int cameraNo;
 
     private String startTime = "";
     private String endTime = "";
@@ -99,6 +90,7 @@ public class CloudYsVideoActivity extends BaseActivity {
 
         id = getIntent().getStringExtra("id");
         code = getIntent().getStringExtra("code");
+        cameraNo = getIntent().getIntExtra("cameraNo", 0);
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
@@ -115,7 +107,6 @@ public class CloudYsVideoActivity extends BaseActivity {
         startTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 00:00:00";
         endTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 23:59:59";
 
-        List<EZAlarmInfo> result = null;
         Calendar mStartTime = Calendar.getInstance();
         Calendar mEndTime = Calendar.getInstance();
 
@@ -125,19 +116,41 @@ public class CloudYsVideoActivity extends BaseActivity {
         int pageSize = 10;
         int pageStart = 1;
 
-        try {
-            result = MyApplication.getOpenSDK().getAlarmList(code, pageStart, pageSize,mStartTime,
-                    mEndTime);
-            adapter = new CloudYsVideoAdapter(result);
-        }
-        catch (BaseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        Observable<List<EZCloudRecordFile>> observable = Observable.create(new ObservableOnSubscribe<List<EZCloudRecordFile>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<EZCloudRecordFile>> e) throws Exception {
+                List<EZCloudRecordFile> result = MyApplication.getOpenSDK().searchRecordFileFromCloud(code, cameraNo, mStartTime,
+                        mEndTime);
+                e.onNext(result);
+            }
+        });
+        Observer<List<EZCloudRecordFile>> observer = new Observer<List<EZCloudRecordFile>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
 
-            ErrorInfo errorInfo = (ErrorInfo) e.getObject();
-            int mErrorCode = errorInfo.errorCode;
-            LogUtil.debugLog("EM", errorInfo.toString());
-        }
+            }
+
+            @Override
+            public void onNext(List<EZCloudRecordFile> value) {
+                adapter = new CloudYsVideoAdapter(value);
+                GridLayoutManager manager = new GridLayoutManager(context, 3);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
     }
 

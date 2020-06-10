@@ -1276,10 +1276,12 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
             case R.id.rl_local_video:
                 intent.setClass(context, LocalYsVideoActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("cameraNo", mCameraInfo.getCameraNo());
                 startActivity(intent);
                 break;
             case R.id.rl_cloud_video:
                 intent.setClass(context, CloudYsVideoActivity.class);
+                intent.putExtra("cameraNo", mCameraInfo.getCameraNo());
                 intent.putExtra("code", mCameraInfo.getDeviceSerial());
                 intent.putExtra("id", id);
                 startActivity(intent);
