@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jiufang.wsyapp.ui.YsPlayActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="萤石回放"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/vg_play_window"
+        android:layout_width="match_parent"
+        android:layout_height="222dp">
+
+        <SurfaceView
+            android:id="@+id/remote_playback_wnd_sv"
+            android:layout_width="match_parent"
+            android:layout_height="222dp"
+            android:background="@android:color/transparent" />
+
+    </RelativeLayout>
+
+</LinearLayout>

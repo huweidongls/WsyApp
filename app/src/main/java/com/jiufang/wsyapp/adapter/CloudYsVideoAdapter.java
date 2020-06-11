@@ -23,10 +23,12 @@ public class CloudYsVideoAdapter extends RecyclerView.Adapter<CloudYsVideoAdapte
     private Context context;
 //    private List<GetYSCloudStorageRecordListBean.DataBean> data;
     private List<EZCloudRecordFile> data;
+    private ClickListener listener;
     private boolean isEdit = false;
 
-    public CloudYsVideoAdapter(List<EZCloudRecordFile> data) {
+    public CloudYsVideoAdapter(List<EZCloudRecordFile> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @NonNull
@@ -61,6 +63,8 @@ public class CloudYsVideoAdapter extends RecyclerView.Adapter<CloudYsVideoAdapte
             public void onClick(View view) {
                 if(isEdit){
                     viewHolder.ivSelect.setImageResource(R.mipmap.duihao);
+                }else {
+                    listener.onClick(i);
                 }
             }
         });
@@ -83,6 +87,10 @@ public class CloudYsVideoAdapter extends RecyclerView.Adapter<CloudYsVideoAdapte
             ivTitle = itemView.findViewById(R.id.iv_title);
             tvTime = itemView.findViewById(R.id.tv_time);
         }
+    }
+
+    public interface ClickListener{
+        void onClick(int pos);
     }
 
 }

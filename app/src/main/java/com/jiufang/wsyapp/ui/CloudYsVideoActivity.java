@@ -2,6 +2,7 @@ package com.jiufang.wsyapp.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -79,6 +80,7 @@ public class CloudYsVideoActivity extends BaseActivity {
     private String id = "";
     private String code = "";
     private int cameraNo;
+    private String yanzheng = "";
 
     private String startTime = "";
     private String endTime = "";
@@ -91,6 +93,7 @@ public class CloudYsVideoActivity extends BaseActivity {
         id = getIntent().getStringExtra("id");
         code = getIntent().getStringExtra("code");
         cameraNo = getIntent().getIntExtra("cameraNo", 0);
+        yanzheng = getIntent().getStringExtra("yanzheng");
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
@@ -103,6 +106,8 @@ public class CloudYsVideoActivity extends BaseActivity {
     }
 
     private void init() {
+        String time = mYear+"-"+ StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
+        tvTime.setText(time);
 
         startTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 00:00:00";
         endTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 23:59:59";
@@ -112,9 +117,6 @@ public class CloudYsVideoActivity extends BaseActivity {
 
         mStartTime.setTime(StringUtils.toDate(startTime));
         mEndTime.setTime(StringUtils.toDate(endTime));
-
-        int pageSize = 10;
-        int pageStart = 1;
 
         Observable<List<EZCloudRecordFile>> observable = Observable.create(new ObservableOnSubscribe<List<EZCloudRecordFile>>() {
             @Override
@@ -132,7 +134,18 @@ public class CloudYsVideoActivity extends BaseActivity {
 
             @Override
             public void onNext(List<EZCloudRecordFile> value) {
-                adapter = new CloudYsVideoAdapter(value);
+                adapter = new CloudYsVideoAdapter(value, new CloudYsVideoAdapter.ClickListener() {
+                    @Override
+                    public void onClick(int pos) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, YsPlayActivity.class);
+                        intent.putExtra("code", code);
+                        intent.putExtra("cameraNo", cameraNo);
+                        intent.putExtra("yanzheng", yanzheng);
+                        intent.putExtra("bean", value.get(pos));
+                        startActivity(intent);
+                    }
+                });
                 GridLayoutManager manager = new GridLayoutManager(context, 3);
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setAdapter(adapter);
