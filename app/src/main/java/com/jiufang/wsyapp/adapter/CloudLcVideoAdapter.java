@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetLcCloudStorageRecordListBean;
+import com.jiufang.wsyapp.utils.GlideUtils;
+import com.jiufang.wsyapp.utils.StringUtils;
 
 import java.util.List;
 
@@ -50,6 +53,12 @@ public class CloudLcVideoAdapter extends RecyclerView.Adapter<CloudLcVideoAdapte
         }else {
             viewHolder.ivSelect.setVisibility(View.GONE);
         }
+        GlideUtils.into(context, data.get(i).getCoverPic().replaceAll("&amp;", "&"), viewHolder.ivTitle);
+        String time = data.get(i).getStartTime();
+        if(time.contains(" ")){
+            viewHolder.tvTime.setText(time.split(" ")[1]);
+        }
+        viewHolder.tvTimeLength.setText(StringUtils.subDateTime(data.get(i).getStartTime(), data.get(i).getEndTime()));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,10 +79,16 @@ public class CloudLcVideoAdapter extends RecyclerView.Adapter<CloudLcVideoAdapte
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView ivSelect;
+        private ImageView ivTitle;
+        private TextView tvTime;
+        private TextView tvTimeLength;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivSelect = itemView.findViewById(R.id.iv_select);
+            ivTitle = itemView.findViewById(R.id.iv_title);
+            tvTime = itemView.findViewById(R.id.tv_time);
+            tvTimeLength = itemView.findViewById(R.id.tv_time_length);
         }
     }
 

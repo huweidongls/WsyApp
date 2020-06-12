@@ -95,7 +95,7 @@ public class GetLcLocalStorageRecordListBean implements Serializable {
         private String startTime;
         private String endTime;
         private String fileSize;
-        private Object coverPic;
+        private String coverPic;
         private Object fileIndex;
         private Object locked;
         private Object keyChecksum;
@@ -190,11 +190,11 @@ public class GetLcLocalStorageRecordListBean implements Serializable {
             this.fileSize = fileSize;
         }
 
-        public Object getCoverPic() {
+        public String getCoverPic() {
             return coverPic;
         }
 
-        public void setCoverPic(Object coverPic) {
+        public void setCoverPic(String coverPic) {
             this.coverPic = coverPic;
         }
 

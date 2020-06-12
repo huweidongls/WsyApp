@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.utils.GlideUtils;
+import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.StringUtils;
 import com.videogo.openapi.bean.EZCloudRecordFile;
 
 import java.util.List;
@@ -47,17 +50,19 @@ public class CloudYsVideoAdapter extends RecyclerView.Adapter<CloudYsVideoAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-//        Logger.e("CloudYsVideoAdapter", data.get(i).getCoverPic().replaceAll("&amp;", "&"));
-//        GlideUtils.into(context, data.get(i).getCoverPic().replaceAll("&amp;", "&"), viewHolder.ivTitle);
-//        String time = data.get(i).getStartTime();
-//        if(time.contains(" ")){
-//            viewHolder.tvTime.setText(time.split(" ")[1]);
-//        }
         if(isEdit){
             viewHolder.ivSelect.setVisibility(View.VISIBLE);
         }else {
             viewHolder.ivSelect.setVisibility(View.GONE);
         }
+        Logger.e("context", data.get(i).getCoverPic());
+        GlideUtils.into(context, data.get(i).getCoverPic(), viewHolder.ivTitle);
+        String startTime = StringUtils.calendar2string(data.get(i).getStartTime());
+        String endTime = StringUtils.calendar2string(data.get(i).getStopTime());
+        if(startTime.contains(" ")){
+            viewHolder.tvTime.setText(startTime.split(" ")[1]);
+        }
+        viewHolder.tvTimeLength.setText(StringUtils.subDateTime(startTime, endTime));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,12 +85,14 @@ public class CloudYsVideoAdapter extends RecyclerView.Adapter<CloudYsVideoAdapte
         private ImageView ivSelect;
         private ImageView ivTitle;
         private TextView tvTime;
+        private TextView tvTimeLength;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivSelect = itemView.findViewById(R.id.iv_select);
             ivTitle = itemView.findViewById(R.id.iv_title);
             tvTime = itemView.findViewById(R.id.tv_time);
+            tvTimeLength = itemView.findViewById(R.id.tv_time_length);
         }
     }
 

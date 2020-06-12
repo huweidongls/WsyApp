@@ -1,6 +1,7 @@
 package com.jiufang.wsyapp.ui;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -30,6 +31,7 @@ import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -89,6 +91,8 @@ public class CloudLcVideoActivity extends BaseActivity {
     private String endTime = "";
 
     private GetBindDeviceDetailBean mBean;
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -273,6 +277,45 @@ public class CloudLcVideoActivity extends BaseActivity {
 
             }
             tvTime.setText(days);
+
+            startTime = days+" 00:00:00";
+            endTime = days+" 23:59:59";
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+            Map<String, String> map = new LinkedHashMap<>();
+            map.put("userId", SpUtils.getUserId(context));
+            map.put("deviceId", id);
+            map.put("startTime", StringUtils.dateTimeFormat(startTime));
+            map.put("endTime", StringUtils.dateTimeFormat(endTime));
+            ViseUtil.Post(context, NetUrl.getLcCloudStorageRecordList, map, dialog, new ViseUtil.ViseListener() {
+                @Override
+                public void onReturn(String s) {
+                    Logger.e("123123", s);
+                    Gson gson = new Gson();
+                    GetLcCloudStorageRecordListBean bean = gson.fromJson(s, GetLcCloudStorageRecordListBean.class);
+                    mList = bean.getData();
+                    adapter = new CloudLcVideoAdapter(mList, new CloudLcVideoAdapter.ClickListener() {
+                        @Override
+                        public void onClick(int pos) {
+                            Intent intent = new Intent(context, MediaPlayActivity.class);
+                            intent.putExtra("type", "0");
+                            intent.putExtra("mbean", mBean);
+                            intent.putExtra("bean", mList.get(pos));
+                            intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_REMOTE_CLOUD_RECORD);
+                            intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
+                            context.startActivity(intent);
+                        }
+                    });
+                    GridLayoutManager manager = new GridLayoutManager(context, 3);
+                    recyclerView.setLayoutManager(manager);
+                    recyclerView.setAdapter(adapter);
+                }
+
+                @Override
+                public void onElse(String s) {
+                    Logger.e("123123", s);
+                }
+            });
+
         }
     };
 
