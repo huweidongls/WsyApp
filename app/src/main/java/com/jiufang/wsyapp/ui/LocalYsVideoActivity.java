@@ -1,7 +1,9 @@
 package com.jiufang.wsyapp.ui;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +17,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.adapter.CloudYsVideoAdapter;
 import com.jiufang.wsyapp.adapter.LocalYsVideoAdapter;
+import com.jiufang.wsyapp.app.MyApplication;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetYSLocalStorageRecordListBean;
 import com.jiufang.wsyapp.dialog.DialogMsgDelete;
@@ -26,6 +30,7 @@ import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -33,6 +38,8 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.videogo.openapi.bean.EZCloudRecordFile;
+import com.videogo.openapi.bean.EZDeviceRecordFile;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
@@ -46,6 +53,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class LocalYsVideoActivity extends BaseActivity {
 
@@ -71,7 +85,7 @@ public class LocalYsVideoActivity extends BaseActivity {
     LinearLayout llBottom;
 
     private LocalYsVideoAdapter adapter;
-    private List<GetYSLocalStorageRecordListBean.DataBean> mList;
+    private List<EZDeviceRecordFile> mList;
 
     private int mYear;
     private int mMonth;
@@ -80,9 +94,14 @@ public class LocalYsVideoActivity extends BaseActivity {
     private EasyPopup easyPopup;
 
     private String id = "";
+    private String code = "";
+    private int cameraNo;
+    private String yanzheng = "";
 
     private String startTime = "";
     private String endTime = "";
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,49 +109,117 @@ public class LocalYsVideoActivity extends BaseActivity {
         setContentView(R.layout.activity_local_ys_video);
 
         id = getIntent().getStringExtra("id");
+        code = getIntent().getStringExtra("code");
+        cameraNo = getIntent().getIntExtra("cameraNo", 0);
+        yanzheng = getIntent().getStringExtra("yanzheng");
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
         StatusBarUtils.setStatusBar(LocalYsVideoActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(LocalYsVideoActivity.this);
-        initData();
+        init();
+//        initData();
 
     }
 
-    private void initData() {
+    private void init() {
 
-        String time = mYear+"-"+StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
+        String time = mYear+"-"+ StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
         tvTime.setText(time);
 
         startTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 00:00:00";
         endTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 23:59:59";
 
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("userId", SpUtils.getUserId(context));
-        map.put("deviceId", id);
-        map.put("startTime", StringUtils.dateTimeFormat(startTime));
-        map.put("endTime", StringUtils.dateTimeFormat(endTime));
-        ViseUtil.Post(context, NetUrl.getYSLocalStorageRecordList, map, new ViseUtil.ViseListener() {
+        Calendar mStartTime = Calendar.getInstance();
+        Calendar mEndTime = Calendar.getInstance();
+
+        mStartTime.setTime(StringUtils.toDate(startTime));
+        mEndTime.setTime(StringUtils.toDate(endTime));
+
+        Observable<List<EZDeviceRecordFile>> observable = Observable.create(new ObservableOnSubscribe<List<EZDeviceRecordFile>>() {
             @Override
-            public void onReturn(String s) {
-                Logger.e("123123", s);
-                Gson gson = new Gson();
-                GetYSLocalStorageRecordListBean bean = gson.fromJson(s, GetYSLocalStorageRecordListBean.class);
-                mList = bean.getData();
-                adapter = new LocalYsVideoAdapter(mList);
+            public void subscribe(ObservableEmitter<List<EZDeviceRecordFile>> e) throws Exception {
+                List<EZDeviceRecordFile> result = MyApplication.getOpenSDK().searchRecordFileFromDevice(code, cameraNo, mStartTime,
+                        mEndTime);
+                e.onNext(result);
+            }
+        });
+        Observer<List<EZDeviceRecordFile>> observer = new Observer<List<EZDeviceRecordFile>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(List<EZDeviceRecordFile> value) {
+                adapter = new LocalYsVideoAdapter(value, new LocalYsVideoAdapter.ClickListener() {
+                    @Override
+                    public void onClick(int pos) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, YsPlayActivity.class);
+                        intent.putExtra("code", code);
+                        intent.putExtra("cameraNo", cameraNo);
+                        intent.putExtra("yanzheng", yanzheng);
+                        intent.putExtra("bean", value.get(pos));
+                        intent.putExtra("type", "1");
+                        startActivity(intent);
+                    }
+                });
                 GridLayoutManager manager = new GridLayoutManager(context, 3);
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setAdapter(adapter);
             }
 
             @Override
-            public void onElse(String s) {
-                Logger.e("123123", s);
+            public void onError(Throwable e) {
+
             }
-        });
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
     }
+
+//    private void initData() {
+//
+//        String time = mYear+"-"+StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
+//        tvTime.setText(time);
+//
+//        startTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 00:00:00";
+//        endTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 23:59:59";
+//
+//        Map<String, String> map = new LinkedHashMap<>();
+//        map.put("userId", SpUtils.getUserId(context));
+//        map.put("deviceId", id);
+//        map.put("startTime", StringUtils.dateTimeFormat(startTime));
+//        map.put("endTime", StringUtils.dateTimeFormat(endTime));
+//        ViseUtil.Post(context, NetUrl.getYSLocalStorageRecordList, map, new ViseUtil.ViseListener() {
+//            @Override
+//            public void onReturn(String s) {
+//                Logger.e("123123", s);
+//                Gson gson = new Gson();
+//                GetYSLocalStorageRecordListBean bean = gson.fromJson(s, GetYSLocalStorageRecordListBean.class);
+//                mList = bean.getData();
+//                adapter = new LocalYsVideoAdapter(mList);
+//                GridLayoutManager manager = new GridLayoutManager(context, 3);
+//                recyclerView.setLayoutManager(manager);
+//                recyclerView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onElse(String s) {
+//                Logger.e("123123", s);
+//            }
+//        });
+//
+//    }
 
     @OnClick({R.id.rl_back, R.id.ll_calendar, R.id.ll_type, R.id.rl_edit, R.id.rl_sure, R.id.rl_all, R.id.tv_delete})
     public void onClick(View view){
@@ -256,32 +343,64 @@ public class LocalYsVideoActivity extends BaseActivity {
             }
             tvTime.setText(days);
 
-            startTime = days+" 00:00:00";
-            endTime = days+" 23:59:59";
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+            startTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 00:00:00";
+            endTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 23:59:59";
 
-            Map<String, String> map = new LinkedHashMap<>();
-            map.put("userId", SpUtils.getUserId(context));
-            map.put("deviceId", id);
-            map.put("startTime", StringUtils.dateTimeFormat(startTime));
-            map.put("endTime", StringUtils.dateTimeFormat(endTime));
-            ViseUtil.Post(context, NetUrl.getYSLocalStorageRecordList, map, new ViseUtil.ViseListener() {
+            Calendar mStartTime = Calendar.getInstance();
+            Calendar mEndTime = Calendar.getInstance();
+
+            mStartTime.setTime(StringUtils.toDate(startTime));
+            mEndTime.setTime(StringUtils.toDate(endTime));
+
+            Observable<List<EZDeviceRecordFile>> observable = Observable.create(new ObservableOnSubscribe<List<EZDeviceRecordFile>>() {
                 @Override
-                public void onReturn(String s) {
-                    Logger.e("123123", s);
-                    Gson gson = new Gson();
-                    GetYSLocalStorageRecordListBean bean = gson.fromJson(s, GetYSLocalStorageRecordListBean.class);
-                    mList = bean.getData();
-                    adapter = new LocalYsVideoAdapter(mList);
+                public void subscribe(ObservableEmitter<List<EZDeviceRecordFile>> e) throws Exception {
+                    List<EZDeviceRecordFile> result = MyApplication.getOpenSDK().searchRecordFileFromDevice(code, cameraNo, mStartTime,
+                            mEndTime);
+                    e.onNext(result);
+                }
+            });
+            Observer<List<EZDeviceRecordFile>> observer = new Observer<List<EZDeviceRecordFile>>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(List<EZDeviceRecordFile> value) {
+                    adapter = new LocalYsVideoAdapter(value, new LocalYsVideoAdapter.ClickListener() {
+                        @Override
+                        public void onClick(int pos) {
+                            Intent intent = new Intent();
+                            intent.setClass(context, YsPlayActivity.class);
+                            intent.putExtra("code", code);
+                            intent.putExtra("cameraNo", cameraNo);
+                            intent.putExtra("yanzheng", yanzheng);
+                            intent.putExtra("bean", value.get(pos));
+                            intent.putExtra("type", "1");
+                            startActivity(intent);
+                        }
+                    });
                     GridLayoutManager manager = new GridLayoutManager(context, 3);
                     recyclerView.setLayoutManager(manager);
                     recyclerView.setAdapter(adapter);
+                    WeiboDialogUtils.closeDialog(dialog);
                 }
 
                 @Override
-                public void onElse(String s) {
-                    Logger.e("123123", s);
+                public void onError(Throwable e) {
+
                 }
-            });
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            observable.subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(observer);
 
         }
     };

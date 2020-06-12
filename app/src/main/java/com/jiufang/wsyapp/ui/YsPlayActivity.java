@@ -1,11 +1,12 @@
 package com.jiufang.wsyapp.ui;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.OrientationEventListener;
 import android.view.SurfaceHolder;
@@ -14,22 +15,36 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.app.MyApplication;
 import com.jiufang.wsyapp.base.BaseActivity;
-import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
+import com.jiufang.wsyapp.mediaplay.RecoderSeekBar;
 import com.jiufang.wsyapp.mediaplay.fragment.MediaPlayFragment;
 import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
+import com.jiufang.wsyapp.mediaplay.util.TimeHelper;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
+import com.jiufang.wsyapp.utils.StringUtils;
+import com.videogo.exception.ErrorCode;
+import com.videogo.openapi.EZConstants;
 import com.videogo.openapi.EZPlayer;
 import com.videogo.openapi.bean.EZCloudRecordFile;
+import com.videogo.openapi.bean.EZDeviceRecordFile;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callback {
+
+    private Context context = YsPlayActivity.this;
 
     @BindView(R.id.remote_playback_wnd_sv)
     SurfaceView surfaceView;
@@ -41,22 +56,152 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
     RelativeLayout rlPlayWindow;
     @BindView(R.id.record_scale)
     ImageView mRecordScale;
+    @BindView(R.id.record_seekbar)
+    RecoderSeekBar mRecordSeekbar;
+    @BindView(R.id.record_startTime)
+    TextView mRecordStartTime;
+    @BindView(R.id.record_endTime)
+    TextView mRecordEndTime;
 
     private EZPlayer mPlaybackPlayer = null;
-    private Handler mHandler = null;
 
     private String code = "";
     private int cameraNo;
     private String yanzheng = "";
     private EZCloudRecordFile cloudRecordFile;
+    private EZDeviceRecordFile deviceRecordFile;
 
     private boolean isPlay = true;
+    private boolean isPlayEnd = false;
+    private boolean isFirst = true;
 
     public enum ORIENTATION {isPortRait, isLandScape, isNone}
     protected MediaPlayFragment.ORIENTATION mOrientation = MediaPlayFragment.ORIENTATION.isNone;
 
     // 屏幕方向改变监听器
     private OrientationEventListener mOrientationListener;
+
+    private String playType = "";//0云录像  1本地录像
+
+    public static final int UPDATA_UI = 101010;
+    private Timer timer;
+
+    private Handler playBackHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            // showDownLoad();
+            switch (msg.what) {
+                // 片段播放完毕
+                // 380061即开始时间>=结束时间，播放完成
+                case ErrorCode.ERROR_CAS_RECORD_SEARCH_START_TIME_ERROR:
+
+                    break;
+                case EZConstants.EZPlaybackConstants.MSG_REMOTEPLAYBACK_PLAY_FINISH:
+                    isPlay = false;
+                    ivPlayOrPause.setImageResource(R.drawable.record_btn_play);
+                    timer.cancel();
+                    progress = 0;
+                    mRecordSeekbar.setProgress(progress);
+                    mRecordSeekbar.setCanTouchAble(false);
+                    isPlayEnd = true;
+                    break;
+                // 画面显示第一帧
+                case EZConstants.EZPlaybackConstants.MSG_REMOTEPLAYBACK_PLAY_SUCCUSS:
+                    if(isFirst){
+                        isFirst = false;
+                        initSeekBar();
+                    }
+                    isPlayEnd = false;
+                    mRecordSeekbar.setCanTouchAble(true);
+                    break;
+                case EZConstants.EZPlaybackConstants.MSG_REMOTEPLAYBACK_STOP_SUCCESS:
+
+                    break;
+                case EZConstants.EZPlaybackConstants.MSG_REMOTEPLAYBACK_PLAY_FAIL:
+
+                    break;
+                case UPDATA_UI:
+                    if(progress<=max){
+                        mRecordStartTime.setText(TimeHelper.getTimeHMS(beginTime+(progress*1000)));
+                        mRecordSeekbar.setProgress(progress);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
+
+    private long beginTime;
+    private int max;
+    private int progress = 0;
+
+    /**
+     * 初始化seekbar
+     */
+    private void initSeekBar() {
+
+        String startTime;
+        String endTime;
+        if(playType.equals("0")){
+            startTime = StringUtils.calendar2string(cloudRecordFile.getStartTime());
+            endTime = StringUtils.calendar2string(cloudRecordFile.getStopTime());
+            beginTime = TimeHelper.getTimeStamp(StringUtils.calendar2string(cloudRecordFile.getStartTime()));
+        }else {
+            startTime = StringUtils.calendar2string(deviceRecordFile.getStartTime());
+            endTime = StringUtils.calendar2string(deviceRecordFile.getStopTime());
+            beginTime = TimeHelper.getTimeStamp(StringUtils.calendar2string(deviceRecordFile.getStartTime()));
+        }
+        max = (int)(StringUtils.dateFormatToLong(endTime)-StringUtils.dateFormatToLong(startTime))/1000;
+        mRecordSeekbar.setMax(max);
+        mRecordSeekbar.setProgress(progress);
+        timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if(isPlay){
+                    progress = progress+1;
+                    Message message = Message.obtain();
+                    message.what = UPDATA_UI;
+                    playBackHandler.sendMessage(message);
+                }
+            }
+        };
+        timer.schedule(timerTask, 1000, 1000);
+
+        mRecordSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(b){
+                    long trackTime = beginTime+(i*1000);
+                    if (mPlaybackPlayer != null) {
+                        Calendar seekTime = Calendar.getInstance();
+                        seekTime.setTime(new Date(trackTime));
+                        if(mPlaybackPlayer.seekPlayback(seekTime)){
+                            mRecordStartTime.setText(TimeHelper.getTimeHMS(beginTime+(i*1000)));
+                            mRecordSeekbar.setProgress(i);
+                            progress = i;
+                            isPlay = true;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +211,10 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
         code = getIntent().getStringExtra("code");
         cameraNo = getIntent().getIntExtra("cameraNo", 0);
         yanzheng = getIntent().getStringExtra("yanzheng");
-        cloudRecordFile = getIntent().getParcelableExtra("bean");
+        playType = getIntent().getStringExtra("type");
         StatusBarUtils.setStatusBar(YsPlayActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(YsPlayActivity.this);
+        mRecordSeekbar.setCanTouchAble(false);
         startListener();
         initData();
 
@@ -76,12 +222,36 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
 
     private void initData() {
 
+        if(playType.equals("0")){
+            cloudRecordFile = getIntent().getParcelableExtra("bean");
+        }else {
+            deviceRecordFile = getIntent().getParcelableExtra("bean");
+        }
+
+        String startTime;
+        String endTime;
+        if(playType.equals("0")){
+            startTime = StringUtils.calendar2string(cloudRecordFile.getStartTime());
+            endTime = StringUtils.calendar2string(cloudRecordFile.getStopTime());
+        }else {
+            startTime = StringUtils.calendar2string(deviceRecordFile.getStartTime());
+            endTime = StringUtils.calendar2string(deviceRecordFile.getStopTime());
+        }
+        if(startTime.contains(" ")&&endTime.contains(" ")){
+            mRecordStartTime.setText(startTime.split(" ")[1]);
+            mRecordEndTime.setText(endTime.split(" ")[1]);
+        }
+
         surfaceView.getHolder().addCallback(this);
         mPlaybackPlayer = MyApplication.getOpenSDK().createPlayer(code, cameraNo);
-        mPlaybackPlayer.setHandler(mHandler);
+        mPlaybackPlayer.setHandler(playBackHandler);
         mPlaybackPlayer.setSurfaceHold(surfaceView.getHolder());
         mPlaybackPlayer.setPlayVerifyCode(yanzheng);
-        mPlaybackPlayer.startPlayback(cloudRecordFile);
+        if(playType.equals("0")){
+            mPlaybackPlayer.startPlayback(cloudRecordFile);
+        }else {
+            mPlaybackPlayer.startPlayback(deviceRecordFile);
+        }
 
     }
 
@@ -92,15 +262,31 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
                 finish();
                 break;
             case R.id.record_play_pause:
-                if(isPlay){
-                    if(mPlaybackPlayer.pausePlayback()){
-                        isPlay = false;
-                        ivPlayOrPause.setImageResource(R.drawable.record_btn_play);
+                if(isPlayEnd){
+                    if(playType.equals("0")){
+                        if(mPlaybackPlayer.startPlayback(cloudRecordFile)){
+                            isPlay = true;
+                            ivPlayOrPause.setImageResource(R.drawable.record_btn_pause);
+                            initSeekBar();
+                        }
+                    }else {
+                        if(mPlaybackPlayer.startPlayback(deviceRecordFile)){
+                            isPlay = true;
+                            ivPlayOrPause.setImageResource(R.drawable.record_btn_pause);
+                            initSeekBar();
+                        }
                     }
                 }else {
-                    if(mPlaybackPlayer.resumePlayback()){
-                        isPlay = true;
-                        ivPlayOrPause.setImageResource(R.drawable.record_btn_pause);
+                    if(isPlay){
+                        if(mPlaybackPlayer.pausePlayback()){
+                            isPlay = false;
+                            ivPlayOrPause.setImageResource(R.drawable.record_btn_play);
+                        }
+                    }else {
+                        if(mPlaybackPlayer.resumePlayback()){
+                            isPlay = true;
+                            ivPlayOrPause.setImageResource(R.drawable.record_btn_pause);
+                        }
                     }
                 }
                 break;

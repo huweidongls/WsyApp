@@ -11,6 +11,7 @@
         android:layout_height="108dp">
 
         <ImageView
+            android:src="@mipmap/banner_default"
             android:id="@+id/iv_title"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"

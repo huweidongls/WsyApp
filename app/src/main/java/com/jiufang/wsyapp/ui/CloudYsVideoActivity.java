@@ -1,6 +1,7 @@
 package com.jiufang.wsyapp.ui;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
+import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.videogo.errorlayer.ErrorInfo;
 import com.videogo.exception.BaseException;
@@ -85,6 +87,8 @@ public class CloudYsVideoActivity extends BaseActivity {
     private String startTime = "";
     private String endTime = "";
 
+    private Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +147,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                         intent.putExtra("cameraNo", cameraNo);
                         intent.putExtra("yanzheng", yanzheng);
                         intent.putExtra("bean", value.get(pos));
+                        intent.putExtra("type", "0");
                         startActivity(intent);
                     }
                 });
@@ -322,6 +327,66 @@ public class CloudYsVideoActivity extends BaseActivity {
 
             }
             tvTime.setText(days);
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+
+            startTime = days+" 00:00:00";
+            endTime = days+" 23:59:59";
+
+            Calendar mStartTime = Calendar.getInstance();
+            Calendar mEndTime = Calendar.getInstance();
+
+            mStartTime.setTime(StringUtils.toDate(startTime));
+            mEndTime.setTime(StringUtils.toDate(endTime));
+
+            Observable<List<EZCloudRecordFile>> observable = Observable.create(new ObservableOnSubscribe<List<EZCloudRecordFile>>() {
+                @Override
+                public void subscribe(ObservableEmitter<List<EZCloudRecordFile>> e) throws Exception {
+                    List<EZCloudRecordFile> result = MyApplication.getOpenSDK().searchRecordFileFromCloud(code, cameraNo, mStartTime,
+                            mEndTime);
+                    e.onNext(result);
+                }
+            });
+            Observer<List<EZCloudRecordFile>> observer = new Observer<List<EZCloudRecordFile>>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(List<EZCloudRecordFile> value) {
+                    adapter = new CloudYsVideoAdapter(value, new CloudYsVideoAdapter.ClickListener() {
+                        @Override
+                        public void onClick(int pos) {
+                            Intent intent = new Intent();
+                            intent.setClass(context, YsPlayActivity.class);
+                            intent.putExtra("code", code);
+                            intent.putExtra("cameraNo", cameraNo);
+                            intent.putExtra("yanzheng", yanzheng);
+                            intent.putExtra("bean", value.get(pos));
+                            intent.putExtra("type", "0");
+                            startActivity(intent);
+                        }
+                    });
+                    GridLayoutManager manager = new GridLayoutManager(context, 3);
+                    recyclerView.setLayoutManager(manager);
+                    recyclerView.setAdapter(adapter);
+                    WeiboDialogUtils.closeDialog(dialog);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            observable.subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(observer);
+
         }
     };
 
