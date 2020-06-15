@@ -5,9 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.donkingliang.imageselector.utils.ImageSelector;
-import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.LazyFragment;
@@ -18,20 +15,14 @@ import com.jiufang.wsyapp.ui.GoumaiJiluActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.MainActivity;
 import com.jiufang.wsyapp.ui.MyDeviceActivity;
+import com.jiufang.wsyapp.ui.MyFileActivity;
 import com.jiufang.wsyapp.ui.PersonInformationActivity;
 import com.jiufang.wsyapp.utils.GlideUtils;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
-import com.vise.xsnow.http.ViseHttp;
-import com.vise.xsnow.http.callback.ACallback;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -112,10 +103,19 @@ public class Fragment4 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.tv_login, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu, R.id.rl_person})
+    @OnClick({R.id.tv_login, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu, R.id.rl_person, R.id.rl_my_file})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_my_file:
+                if(SpUtils.getUserId(getContext()).equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), MyFileActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.tv_login:
                 intent.setClass(getContext(), LoginActivity.class);
                 startActivity(intent);
