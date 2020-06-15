@@ -226,36 +226,36 @@ public class IndexGridAdapter extends RecyclerView.Adapter<IndexGridAdapter.View
                 }
             }
         });
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(context, "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
-                    @Override
-                    public void onSure() {
-                        Map<String, String> map = new LinkedHashMap<>();
-                        map.put("bindDeviceId", data.get(position).getId()+"");
-                        ViseUtil.Post(context, NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
-                            @Override
-                            public void onReturn(String s) {
-                                ToastUtil.showShort(context, "设备解绑成功");
-                            }
-
-                            @Override
-                            public void onElse(String s) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                });
-                dialogMsgDelete.show();
-                return false;
-            }
-        });
+//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(context, "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
+//                    @Override
+//                    public void onSure() {
+//                        Map<String, String> map = new LinkedHashMap<>();
+//                        map.put("bindDeviceId", data.get(position).getId()+"");
+//                        ViseUtil.Post(context, NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
+//                            @Override
+//                            public void onReturn(String s) {
+//                                ToastUtil.showShort(context, "设备解绑成功");
+//                            }
+//
+//                            @Override
+//                            public void onElse(String s) {
+//
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onCancel() {
+//
+//                    }
+//                });
+//                dialogMsgDelete.show();
+//                return false;
+//            }
+//        });
 
     }
 

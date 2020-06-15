@@ -23,6 +23,9 @@ allprojects {
         mavenCentral()
         maven {url 'http://developer.huawei.com/repo'}
         maven { url 'https://fabric-artifacts.s3.amazonaws.com/public' }
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
     }
 }
 

@@ -80,11 +80,11 @@ public class MediaPlayHelper {
 		String sdPath = Environment.getExternalStorageDirectory().getPath();
 		if(type == DHFilesType.DHImage){
 			picType = "image";
-			path = sdPath + "/" + ProjectName + "/" + tf.format(now) + "_" + picType + "_"
+			path = sdPath + "/" + ProjectName + "/" + "Captures" + "/" + tf.format(now) + "_" + picType + "_"
 					+ cameraName + ".jpg";
 		} else{
 			picType = "video";
-			path = sdPath + "/" + ProjectName + "/" + tf.format(now) + "_" + picType + "_"
+			path = sdPath + "/" + ProjectName + "/" + "Records" + "/" + tf.format(now) + "_" + picType + "_"
 					+ cameraName + ".mp4";
 		}
 		createFilePath(null, path);

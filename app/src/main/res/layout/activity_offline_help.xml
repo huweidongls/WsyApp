@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_ffffff"
+    tools:context="com.jiufang.wsyapp.ui.OfflineHelpActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="离线帮助"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:lineSpacingMultiplier="1.5"
+        android:textColor="#171F24"
+        android:textSize="14sp"
+        android:layout_marginRight="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="31dp"
+        android:text="当设备离线时，你可以一次排查以下情况：
+1、设备电源是否正常供电。
+2、无线连接情况WIFI账号密码是否被修改，如修改请
+重新配置网络。
+3、有线连接情况下，网线是否正常插入。
+4、设备连接的路由器是否正常工作。
+5、如未能查明原因，可尝试reset设置，并重新添加设备。"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

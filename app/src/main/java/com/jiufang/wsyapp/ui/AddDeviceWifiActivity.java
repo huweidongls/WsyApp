@@ -99,6 +99,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
                 case DEVICE_SEARCH_FAILED:
                     Logger.d("123123", "deviceSearchFailed:" + msg.obj);
                     ToastUtil.showShort(context, "WiFi配置失败");
+                    WeiboDialogUtils.closeDialog(dialog);
                     stopConfig();
                     break;
                 default:
@@ -116,7 +117,6 @@ public class AddDeviceWifiActivity extends BaseActivity {
         public void run() {
             com.jiufang.wsyapp.utils.Logger.e("123123", "WiFi配置超时");
             stopConfig();
-            WeiboDialogUtils.closeDialog(dialog);
         }
     };
 

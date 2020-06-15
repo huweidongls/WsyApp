@@ -19,11 +19,13 @@ import com.jiufang.wsyapp.adapter.IndexGridAdapter;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.bean.GetBindDeviceStatusInfoBean;
+import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.SearchActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
+import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.zxing.activity.CaptureActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -182,7 +184,7 @@ public class Fragment1 extends LazyFragment {
                 adapter = new IndexAdapter(mList, new IndexAdapter.ClickListener() {
                     @Override
                     public void onMore(int pos) {
-                        showMorePop();
+                        showMorePop(pos);
                     }
                 });
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -193,7 +195,7 @@ public class Fragment1 extends LazyFragment {
                 adapterGrid = new IndexGridAdapter(mListGrid, new IndexGridAdapter.ClickListener() {
                     @Override
                     public void onMore(int pos) {
-                        showMorePop();
+                        showMorePop(pos);
                     }
                 });
                 GridLayoutManager manager1 = new GridLayoutManager(getContext(), 2);
@@ -242,7 +244,7 @@ public class Fragment1 extends LazyFragment {
     /**
      * 显示更多操作pop
      */
-    private void showMorePop() {
+    private void showMorePop(int pos) {
 
         easyPopup = EasyPopup.create(getContext())
                 .setContentView(R.layout.popupwindow_index_more)
@@ -257,6 +259,39 @@ public class Fragment1 extends LazyFragment {
         easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.ALIGN_BOTTOM, XGravity.CENTER, 0, 0);
 
         TextView tvCancel = easyPopup.findViewById(R.id.tv_cancel);
+        TextView tvJiebang = easyPopup.findViewById(R.id.tv_jiebang);
+
+        tvJiebang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                easyPopup.dismiss();
+                DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(getContext(), "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
+                    @Override
+                    public void onSure() {
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put("bindDeviceId", mList.get(pos).getId() + "");
+                        ViseUtil.Post(getContext(), NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                ToastUtil.showShort(getContext(), "设备解绑成功");
+                                initData();
+                            }
+
+                            @Override
+                            public void onElse(String s) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+                dialogMsgDelete.show();
+            }
+        });
 
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override

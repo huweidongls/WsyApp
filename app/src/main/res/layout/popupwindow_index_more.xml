@@ -60,6 +60,20 @@
             android:layout_height="1dp"/>
 
         <TextView
+            android:id="@+id/tv_jiebang"
+            android:gravity="center"
+            android:textColor="#FFA16F"
+            android:textSize="15sp"
+            android:text="设备解绑"
+            android:layout_width="match_parent"
+            android:layout_height="39dp" />
+
+        <View
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
             android:gravity="center"
             android:textColor="#FFA16F"
             android:textSize="15sp"

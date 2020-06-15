@@ -75,6 +75,7 @@ import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
 import com.jiufang.wsyapp.ui.CloudYsVideoActivity;
 import com.jiufang.wsyapp.ui.LocalYsVideoActivity;
 import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.ysmediaplay.loading.LoadingTextView;
@@ -315,6 +316,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        StatusBarUtils.setStatusBar(EZRealPlayActivity.this, getResources().getColor(R.color.white_ffffff));
         initData();
         initView();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -572,6 +574,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
 
     private void initTitleBar() {
         mPortraitTitleBar = (TitleBar) findViewById(R.id.title_bar_portrait);
+        mPortraitTitleBar.setBackgroundColor(Color.WHITE);
         mPortraitTitleBar.addBackButton(new OnClickListener() {
 
             @Override

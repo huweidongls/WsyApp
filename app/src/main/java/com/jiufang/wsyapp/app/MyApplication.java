@@ -2,7 +2,12 @@ package com.jiufang.wsyapp.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.util.Log;
 
+import com.alibaba.sdk.android.push.CloudPushService;
+import com.alibaba.sdk.android.push.CommonCallback;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.jiufang.wsyapp.net.NetUrl;
@@ -47,6 +52,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initCloudChannel(this);
         Map<String, String> map = new LinkedHashMap<>();
 //        map.put("Content-Type", "application/x-www-form-urlencoded");
         map.put("token", SpUtils.getToken(getApplicationContext()));
@@ -92,6 +98,25 @@ public class MyApplication extends Application {
             System.err.println("loadLibrary Exception"+var2.toString());
         }
 
+    }
+
+    /**
+     * 初始化云推送通道
+     * @param applicationContext
+     */
+    private void initCloudChannel(Context applicationContext) {
+        PushServiceFactory.init(applicationContext);
+        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        pushService.register(applicationContext, new CommonCallback() {
+            @Override
+            public void onSuccess(String response) {
+                Log.d("cloudchannel", "init cloudchannel success");
+            }
+            @Override
+            public void onFailed(String errorCode, String errorMessage) {
+                Log.d("cloudchannel", "init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
+            }
+        });
     }
 
     public synchronized static MyApplication getInstance() {
