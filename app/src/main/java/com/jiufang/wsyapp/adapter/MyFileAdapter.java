@@ -2,6 +2,7 @@ package com.jiufang.wsyapp.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
-import com.jiufang.wsyapp.utils.GetFilesUtils;
+import com.jiufang.wsyapp.bean.FileBean;
 
 import java.util.List;
 import java.util.Map;
@@ -21,9 +22,9 @@ import java.util.Map;
 public class MyFileAdapter extends RecyclerView.Adapter<MyFileAdapter.ViewHolder> {
 
     private Context context;
-    private List<Map<String, Object>> data;
+    private List<FileBean> data;
 
-    public MyFileAdapter(List<Map<String, Object>> data) {
+    public MyFileAdapter(List<FileBean> data) {
         this.data = data;
     }
 
@@ -38,7 +39,14 @@ public class MyFileAdapter extends RecyclerView.Adapter<MyFileAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.tv.setText(String.valueOf(data.get(i).get(GetFilesUtils.FILE_INFO_NAME)));
+
+        viewHolder.tv.setText(data.get(i).getTime());
+        List<Map<String, Object>> list = data.get(i).getMaps();
+        MyFileItemAdapter itemAdapter = new MyFileItemAdapter(list);
+        GridLayoutManager manager = new GridLayoutManager(context, 3);
+        viewHolder.rv.setLayoutManager(manager);
+        viewHolder.rv.setAdapter(itemAdapter);
+
     }
 
     @Override
@@ -49,10 +57,12 @@ public class MyFileAdapter extends RecyclerView.Adapter<MyFileAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tv;
+        private RecyclerView rv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
+            rv = itemView.findViewById(R.id.rv);
         }
     }
 

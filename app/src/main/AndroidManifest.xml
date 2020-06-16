@@ -259,8 +259,10 @@
         <activity
             android:name=".ui.OfflineHelpActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.MyFileActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.MyFileActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.PreviewActivity"></activity>
     </application>
 
 </manifest>

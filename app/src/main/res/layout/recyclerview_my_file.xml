@@ -4,25 +4,37 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+    <LinearLayout
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_gravity="center_vertical"
+            android:background="@color/theme"
+            android:layout_width="2dp"
+            android:layout_height="12dp"/>
 
         <TextView
             android:id="@+id/tv"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textSize="13sp"
-            android:textColor="@color/black_333333"
-            android:text="asd"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:textColor="#1A1A1A"
+            android:textSize="14sp"
+            android:text="2020-05-12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <View
-        android:background="@color/line"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

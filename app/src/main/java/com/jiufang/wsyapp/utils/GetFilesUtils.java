@@ -7,7 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,7 @@ public class GetFilesUtils {
     public static final String FILE_TYPE_FOLDER = "wFl2d";
 
     public static final String FILE_INFO_NAME = "fName";
+    public static final String FILE_INFO_TIME = "fTime";
     public static final String FILE_INFO_ISFOLDER = "fIsDir";
     public static final String FILE_INFO_TYPE = "fFileType";
     public static final String FILE_INFO_NUM_SONDIRS = "fSonDirs";
@@ -53,6 +56,8 @@ public class GetFilesUtils {
         return gfu;
     }
 
+    Calendar cal = Calendar.getInstance();
+
     /**
      * 获取文件path文件夹下的文件列表
      *
@@ -75,6 +80,11 @@ public class GetFilesUtils {
                 for (int i = 0; i < files.length; i++) {
                     Map<String, Object> fileInfo = new HashMap<String, Object>();
                     fileInfo.put(FILE_INFO_NAME, files[i].getName());
+                    String mformatType = "yyyy-MM-dd";
+                    long time = files[i].lastModified();
+                    SimpleDateFormat formatter = new SimpleDateFormat(mformatType);
+                    cal.setTimeInMillis(time);
+                    fileInfo.put(FILE_INFO_TIME, formatter.format(cal.getTime()));
                     if (files[i].isDirectory()) {
                         fileInfo.put(FILE_INFO_ISFOLDER, true);
                         File[] bFiles = files[i].listFiles();
@@ -170,7 +180,6 @@ public class GetFilesUtils {
     /**
      * 获取文件或文件夹的父路径
      *
-     * @param File path文件或者文件夹
      * @return String path的父路径
      **/
     public String getParentPath(File path) {
@@ -184,7 +193,6 @@ public class GetFilesUtils {
     /**
      * 获取文件或文件的父路径
      *
-     * @param String pathStr文件或者文件夹路径
      * @return String pathStr的父路径
      **/
     public String getParentPath(String pathStr) {

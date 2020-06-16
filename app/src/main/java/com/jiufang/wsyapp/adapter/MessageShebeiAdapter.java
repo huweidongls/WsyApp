@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.ui.MsgShebeiListActivity;
 
 import java.util.List;
@@ -20,9 +22,9 @@ import java.util.List;
 public class MessageShebeiAdapter extends RecyclerView.Adapter<MessageShebeiAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<GetBindDeviceListBean.DataBean.RecordsBean> data;
 
-    public MessageShebeiAdapter(List<String> data) {
+    public MessageShebeiAdapter(List<GetBindDeviceListBean.DataBean.RecordsBean> data) {
         this.data = data;
     }
 
@@ -37,6 +39,7 @@ public class MessageShebeiAdapter extends RecyclerView.Adapter<MessageShebeiAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        viewHolder.tvName.setText(data.get(i).getDeviceName());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,8 +57,11 @@ public class MessageShebeiAdapter extends RecyclerView.Adapter<MessageShebeiAdap
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        private TextView tvName;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvName = itemView.findViewById(R.id.tv_name);
         }
     }
 
