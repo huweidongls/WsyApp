@@ -103,7 +103,7 @@ public class MediaPlayHelper {
 
 			java.util.Date now = new java.util.Date(startTime);
 			SimpleDateFormat tf = new SimpleDateFormat("yyyyMMddHHmmss");
-			path = sdPath + "/" + ProjectName + "/" + tf.format(now) + "_" + picType + "_"
+			path = sdPath + "/" + ProjectName + "/download/" + tf.format(now) + "_" + picType + "_"
 					+ recordID + ".mp4";
 		createFilePath(null, path);
 		return path;

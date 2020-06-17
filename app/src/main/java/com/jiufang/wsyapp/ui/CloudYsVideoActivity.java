@@ -288,15 +288,6 @@ public class CloudYsVideoActivity extends BaseActivity {
                 .apply();
         easyPopup.showAtAnchorView(llType, YGravity.BELOW, XGravity.ALIGN_RIGHT, 0, DensityUtil.dp2px(1));
 
-        LinearLayout llAll = easyPopup.findViewById(R.id.ll_all);
-        llAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showShort(context, "11");
-                easyPopup.dismiss();
-            }
-        });
-
     }
 
     private DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {

@@ -11,6 +11,7 @@ package com.jiufang.wsyapp.mediaplay.fragment;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
@@ -18,12 +19,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
@@ -32,10 +35,13 @@ import com.jiufang.wsyapp.bean.GetLcLocalStorageRecordListBean;
 import com.jiufang.wsyapp.dialog.ProgressDialog;
 import com.jiufang.wsyapp.mediaplay.Business;
 import com.jiufang.wsyapp.mediaplay.RecoderSeekBar;
+import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
 import com.jiufang.wsyapp.mediaplay.util.TimeHelper;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.lechange.common.log.Logger;
+import com.lechange.opensdk.listener.LCOpenSDK_DownloadListener;
 import com.lechange.opensdk.listener.LCOpenSDK_EventListener;
+import com.lechange.opensdk.media.LCOpenSDK_Download;
 
 import java.io.FileOutputStream;
 import java.util.LinkedList;
@@ -73,6 +79,8 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
     private GetLcCloudStorageRecordListBean.DataBean bean;
 	private GetLcLocalStorageRecordListBean.DataBean bean1;
     private String playType = "";//0云录像  1本地录像
+
+	private Button btnDownload;
 	
 	/**
 	 *
@@ -122,11 +130,19 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 		mRecordSeekbar = (RecoderSeekBar) mView.findViewById(R.id.record_seekbar);
 		mRecordEndTime = (TextView) mView.findViewById(R.id.record_endTime);
 		mRecordScale = (ImageView) mView.findViewById(R.id.record_scale);
+		btnDownload = mView.findViewById(R.id.btn_download);
 //		mSetSpeed=(ImageView) mView.findViewById(R.id.change_speed);
 		mReplayTip.setOnClickListener(this);
 		mRecordPlayPause.setOnClickListener(this);
 		mRecordScale.setOnClickListener(this);
+		btnDownload.setOnClickListener(this);
 //		mSetSpeed.setOnClickListener(this);
+		//设置云录像下载监听
+		if (playType.equals("0")) {
+			LCOpenSDK_Download.setListener(new CloudDownloadListener());
+		} else {//本地录像下载监听
+			LCOpenSDK_Download.setListener(new LocalDownloadListener());
+		}
 		return mView;
 	}
 
@@ -591,6 +607,9 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
 		switch (view.getId()) {
+		case R.id.btn_download:
+			download();
+			break;
 		case R.id.record_play_pause:
 			switch(mOpenPlay){
 			case play_open:
@@ -660,4 +679,151 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 			break;
 		}
 	}
+
+	private class CloudDownloadListener extends LCOpenSDK_DownloadListener {
+		@Override
+		public void onDownloadReceiveData(int index, int dataLen) {
+			// TODO Auto-generated method stub
+//			if (mRecordList.size() != 0) {
+//				RecordInfo info = mRecordList.get((int) index);
+//				info.setDownLength(info.getDownLength() + dataLen);
+//				Logger.e(tag, "downLen:" + info.getDownLength());
+//			}
+		}
+
+		@Override
+		public void onDownloadState(final int index, String code, int Type) {
+			// TODO Auto-generated method stub
+			if (Type == Business.RESULT_SOURCE_OPENAPI
+					|| code.equals(Business.CloudStorageCode.HLS_DOWNLOAD_FAILD)
+					|| code.equals(Business.CloudStorageCode.HLS_SEEK_FAILD)
+					|| code.equals(Business.CloudStorageCode.HLS_KEY_ERROR)) {
+				com.jiufang.wsyapp.utils.Logger.e("download", "下载失败");
+				//重置为可以下载状态
+//				mRecordList.get((int) index).setDownLength(-1);
+//				if (mHandler != null) {
+//					mHandler.post(new Runnable() {
+//						public void run() {
+//							Toast.makeText(RecordListActivity.this, getString(R.string.toast_recordlist_download_failed) + ",index : " + index, Toast.LENGTH_SHORT).show();
+//						}
+//					});
+//				}
+				//删除下载到一半的文件
+				MediaPlayHelper.deleteDownloadVideo(String.valueOf(0), StringUtils.dateFormatToLong(bean.getStartTime()));
+				//屏蔽操作
+//				mIndex = -1;
+
+			}
+			if (code.equals(Business.CloudStorageCode.HLS_DOWNLOAD_END)) {
+//				Toast.makeText(RecordListActivity.this, getString(R.string.toast_recordlist_download_end) + ",index : " + index, Toast.LENGTH_SHORT).show();
+				//重置为可以下载状态
+//				mRecordList.get((int) index).setDownLength(-1);
+//				if (mHandler != null) {
+//					mHandler.post(new Runnable() {
+//						public void run() {
+//							Toast.makeText(RecordListActivity.this, getString(R.string.toast_recordlist_download_end) + ",index : " + index, Toast.LENGTH_SHORT).show();
+//						}
+//					});
+//				}
+				//通知图库刷新
+//				MediaScannerConnection.scanFile(getContext(),
+//						new String[]{MediaPlayHelper.getDownloadVideoPath(0, String.valueOf(index), StringUtils.dateFormatToLong(bean.getStartTime()))}, null, null);
+//				Toast.makeText(getContext(), "下载成功", Toast.LENGTH_SHORT).show();
+				com.jiufang.wsyapp.utils.Logger.e("download", "下载成功");
+				//屏蔽操作
+//				mIndex = -1;
+			}
+		}
+	}
+
+	private class LocalDownloadListener extends LCOpenSDK_DownloadListener {
+		@Override
+		public void onDownloadReceiveData(int index, int dataLen) {
+			// TODO Auto-generated method stub
+			com.jiufang.wsyapp.utils.Logger.e("download", "正在下载"+dataLen);
+//			if (mRecordList.size() != 0) {
+//				RecordInfo info = mRecordList.get((int) index);
+//				info.setDownLength(info.getDownLength() + dataLen);
+//
+//				Logger.e(tag, " downLen: " + info.getDownLength());
+//			}
+		}
+
+		@Override
+		public void onDownloadState(final int index, String code, int Type) {
+			// TODO Auto-generated method stub
+			if (Type == Business.RESULT_SOURCE_OPENAPI
+					|| code.equals(Business.LocalDownloadCode.RTSP_DOWNLOAD_FRAME_ERROR)
+					|| code.equals(Business.LocalDownloadCode.RTSP_DOWNLOAD_TEARDOWN)
+					|| code.equals(Business.LocalDownloadCode.RTSP_DOWNLOAD_AUTHORIZATION_FAIL)
+					|| code.equals(Business.LocalDownloadCode.RTSP_DOWNLOAD_KEY_MISMATH)) {
+				Logger.e("download", " Type or code= "+code+"----index--"+index+"---type---"+Type);
+				com.jiufang.wsyapp.utils.Logger.e("download", "下载失败");
+				//重置为可以下载状态
+//				mRecordList.get((int) index).setDownLength(-1);
+//				if (mHandler != null) {
+//					mHandler.post(new Runnable() {
+//						public void run() {
+//							Toast.makeText(RecordListActivity.this, getString(R.string.toast_recordlist_download_failed) + ",index : " + index, Toast.LENGTH_SHORT).show();
+//						}
+//					});
+//				}
+				//删除下载到一半的文件
+//				MediaPlayHelper.deleteDownloadVideo(String.valueOf(11), StringUtils.dateFormatToLong(bean1.getStartTime()));
+				//屏蔽操作
+//				mIndex = -1;
+
+			}
+			if (code.equals(Business.LocalDownloadCode.RTSP_DOWNLOAD_OVER)) {
+//				Toast.makeText(RecordListActivity.this, getString(R.string.toast_recordlist_download_end) + ",index : " + index, Toast.LENGTH_SHORT).show();
+				//重置为可以下载状态
+//				mRecordList.get((int) index).setDownLength(-1);
+//				LCOpenSDK_Download.stopDownload(index);
+//				if (mHandler != null) {
+//					mHandler.post(new Runnable() {
+//						public void run() {
+//							Toast.makeText(RecordListActivity.this, getString(R.string.toast_recordlist_download_end) + ",index : " + index, Toast.LENGTH_SHORT).show();
+//						}
+//					});
+//				}
+				//通知图库刷新
+//				MediaScannerConnection.scanFile(getContext(),
+//						new String[]{MediaPlayHelper.getDownloadVideoPath(1, String.valueOf(index), StringUtils.dateFormatToLong(bean1.getStartTime()))}, null, null);
+//				Toast.makeText(getContext(), "下载成功", Toast.LENGTH_SHORT).show();
+				com.jiufang.wsyapp.utils.Logger.e("download", "下载成功");
+				//屏蔽操作
+//				mIndex = -1;
+			}
+		}
+	}
+
+	private void download() {
+
+		if (playType.equals("0")) {
+			//云录像
+			LCOpenSDK_Download.startDownload(0,
+					MediaPlayHelper.getDownloadVideoPath(0, String.valueOf(0), StringUtils.dateFormatToLong(bean.getStartTime())),
+					mBean.getData().getDeviceAccessToken(),
+					bean.getRecordRegionId(),
+					mBean.getData().getSnCode(),
+					String.valueOf(0),
+					mBean.getData().getSnCode(),
+					1000,
+					5000);
+		} else {
+			//本地录像
+			LCOpenSDK_Download.startDownload(mBean.getData().getDeviceAccessToken(),
+					mBean.getData().getSnCode(),
+					120,
+					MediaPlayHelper.getDownloadVideoPath(1, String.valueOf(120), StringUtils.dateFormatToLong(bean1.getStartTime())),
+					bean1.getRecordId(),
+					mBean.getData().getSnCode(),
+					0, //默认偏移为0
+					1, //mp4格式
+					16.0f);
+			com.jiufang.wsyapp.utils.Logger.e("download", "开始下载");
+		}
+
+	}
+
 }

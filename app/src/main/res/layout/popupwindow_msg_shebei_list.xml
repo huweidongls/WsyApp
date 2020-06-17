@@ -16,13 +16,13 @@
             android:layout_height="6dp" />
 
         <LinearLayout
-            android:id="@+id/ll_all"
             android:background="@color/white_ffffff"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/ll_all"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
@@ -53,6 +53,7 @@
                 android:layout_height="1dp"/>
 
             <LinearLayout
+                android:id="@+id/ll_time"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
@@ -69,7 +70,7 @@
                     android:layout_gravity="center_vertical"
                     android:textColor="#272727"
                     android:textSize="12sp"
-                    android:text="动检"
+                    android:text="时间段"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

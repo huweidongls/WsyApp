@@ -472,6 +472,11 @@ public class StringUtils {
         return isValid;
     }
 
+    public static String dateToString(Date data) {
+        String s = new SimpleDateFormat("HH:mm:ss").format(data);
+        return dateTimeFormat(s);
+    }
+
     /**
      * 描述：标准化日期时间类型的数据，不足两位的补0.
      *

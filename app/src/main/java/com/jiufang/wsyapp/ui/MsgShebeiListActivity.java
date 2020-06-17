@@ -205,15 +205,6 @@ public class MsgShebeiListActivity extends BaseActivity {
                 .apply();
         easyPopup.showAtAnchorView(llType, YGravity.BELOW, XGravity.ALIGN_RIGHT, 0, DensityUtil.dp2px(1));
 
-        LinearLayout llAll = easyPopup.findViewById(R.id.ll_all);
-        llAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showShort(context, "11");
-                easyPopup.dismiss();
-            }
-        });
-
 //        View view = LayoutInflater.from(MsgShebeiListActivity.this).inflate(R.layout.popupwindow_msg_shebei_list, null);
 //
 //        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
