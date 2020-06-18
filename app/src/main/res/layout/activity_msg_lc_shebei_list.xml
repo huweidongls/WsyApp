@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_ffffff"
     android:orientation="vertical"
-    tools:context="com.jiufang.wsyapp.ui.MsgYsShebeiListActivity">
+    tools:context="com.jiufang.wsyapp.ui.MsgLcShebeiListActivity">
 
     <RelativeLayout
         style="@style/rl_top_bar">
@@ -112,7 +112,6 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="#949494"
                 android:textSize="10sp"
-                android:text="2020-05-09"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

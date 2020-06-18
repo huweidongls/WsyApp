@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
@@ -265,31 +266,35 @@ public class Fragment1 extends LazyFragment {
             @Override
             public void onClick(View view) {
                 easyPopup.dismiss();
-                DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(getContext(), "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
-                    @Override
-                    public void onSure() {
-                        Map<String, String> map = new LinkedHashMap<>();
-                        map.put("bindDeviceId", mList.get(pos).getId() + "");
-                        ViseUtil.Post(getContext(), NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
-                            @Override
-                            public void onReturn(String s) {
-                                ToastUtil.showShort(getContext(), "设备解绑成功");
-                                initData();
-                            }
+                if(mList.get(pos).getDeviceStatus() == 0){
+                    Toast.makeText(getContext(), "设备不在线，无法解绑", Toast.LENGTH_SHORT).show();
+                }else {
+                    DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(getContext(), "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
+                        @Override
+                        public void onSure() {
+                            Map<String, String> map = new LinkedHashMap<>();
+                            map.put("bindDeviceId", mList.get(pos).getId() + "");
+                            ViseUtil.Post(getContext(), NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
+                                @Override
+                                public void onReturn(String s) {
+                                    ToastUtil.showShort(getContext(), "设备解绑成功");
+                                    initData();
+                                }
 
-                            @Override
-                            public void onElse(String s) {
+                                @Override
+                                public void onElse(String s) {
 
-                            }
-                        });
-                    }
+                                }
+                            });
+                        }
 
-                    @Override
-                    public void onCancel() {
+                        @Override
+                        public void onCancel() {
 
-                    }
-                });
-                dialogMsgDelete.show();
+                        }
+                    });
+                    dialogMsgDelete.show();
+                }
             }
         });
 

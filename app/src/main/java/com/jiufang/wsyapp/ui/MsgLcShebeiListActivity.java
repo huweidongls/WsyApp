@@ -1,30 +1,35 @@
 package com.jiufang.wsyapp.ui;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
-import com.jiufang.wsyapp.adapter.MsgShebeiListAdapter;
+import com.jiufang.wsyapp.adapter.MsgLcShebeiListAdapter;
+import com.jiufang.wsyapp.adapter.MsgYsShebeiListAdapter;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
+import com.jiufang.wsyapp.bean.GetDeviceAlarmLcPageBean;
 import com.jiufang.wsyapp.dialog.DialogMsgDelete;
-import com.jiufang.wsyapp.utils.DensityTool;
+import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
-import com.jiufang.wsyapp.utils.ToastUtil;
+import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ViseUtil;
+import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -38,15 +43,17 @@ import com.zyyoona7.popup.YGravity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MsgShebeiListActivity extends BaseActivity {
+public class MsgLcShebeiListActivity extends BaseActivity {
 
-    private Context context = MsgShebeiListActivity.this;
+    private Context context = MsgLcShebeiListActivity.this;
 
     @BindView(R.id.refresh)
     SmartRefreshLayout smartRefreshLayout;
@@ -68,58 +75,146 @@ public class MsgShebeiListActivity extends BaseActivity {
     RelativeLayout rlAll;
     @BindView(R.id.ll_bottom)
     LinearLayout llBottom;
+    @BindView(R.id.ll_msg)
+    LinearLayout llMsg;
 
-    private MsgShebeiListAdapter adapter;
-    private List<String> mList;
+    private MsgLcShebeiListAdapter adapter;
+    private List<GetDeviceAlarmLcPageBean.DataBean.AlarmsBean> mList;
 
     private int mYear;
     private int mMonth;
     private int mDay;
 
-    private PopupWindow popupWindow;
+    private String days = "";
+
+    private String startTime = "";
+    private String endTime = "";
+
     private EasyPopup easyPopup;
+
+    private GetBindDeviceListBean.DataBean.RecordsBean bean;
+
+    private String page = "";
+
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_msg_shebei_list);
+        setContentView(R.layout.activity_msg_lc_shebei_list);
 
+        bean = (GetBindDeviceListBean.DataBean.RecordsBean) getIntent().getSerializableExtra("bean");
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
-        StatusBarUtils.setStatusBar(MsgShebeiListActivity.this, getResources().getColor(R.color.white_ffffff));
-        ButterKnife.bind(MsgShebeiListActivity.this);
+        StatusBarUtils.setStatusBar(MsgLcShebeiListActivity.this, getResources().getColor(R.color.white_ffffff));
+        ButterKnife.bind(MsgLcShebeiListActivity.this);
         initData();
 
     }
 
     private void initData() {
 
+        String time = mYear+"-"+ StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
+        tvTime.setText(time);
+
+        startTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 00:00:00";
+        endTime = mYear+"-"+(mMonth+1)+"-"+mDay+" 23:59:59";
+
+        days = mYear+"-"+StringUtils.getBuling((mMonth+1))+"-"+StringUtils.getBuling(mDay);
+
         smartRefreshLayout.setRefreshHeader(new MaterialHeader(context));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(context));
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(500);
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("userId", SpUtils.getUserId(context));
+                map.put("deviceId", bean.getId()+"");
+                map.put("startTime", startTime);
+                map.put("endTime", endTime);
+                map.put("nextAlarmId", "-1");
+                ViseUtil.Post(context, NetUrl.getDeviceAlarmLcPage, map, refreshLayout, 0, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        Logger.e("123123", s);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        llMsg.setVisibility(View.GONE);
+                        Gson gson = new Gson();
+                        GetDeviceAlarmLcPageBean lcPageBean = gson.fromJson(s, GetDeviceAlarmLcPageBean.class);
+                        mList.clear();
+                        mList.addAll(lcPageBean.getData().getAlarms());
+                        adapter.notifyDataSetChanged();
+                        page = lcPageBean.getData().getNextAlarmId();
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+                        Logger.e("123123", s);
+                        recyclerView.setVisibility(View.GONE);
+                        llMsg.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         });
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishLoadMore(500);
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("userId", SpUtils.getUserId(context));
+                map.put("deviceId", bean.getId()+"");
+                map.put("startTime", startTime);
+                map.put("endTime", endTime);
+                map.put("nextAlarmId", page);
+                ViseUtil.Post(context, NetUrl.getDeviceAlarmLcPage, map, refreshLayout, 1, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        Logger.e("123123", s);
+                        Gson gson = new Gson();
+                        GetDeviceAlarmLcPageBean lcPageBean = gson.fromJson(s, GetDeviceAlarmLcPageBean.class);
+                        mList.addAll(lcPageBean.getData().getAlarms());
+                        adapter.notifyDataSetChanged();
+                        page = lcPageBean.getData().getNextAlarmId();
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+                        Logger.e("123123", s);
+                    }
+                });
             }
         });
 
-        mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new MsgShebeiListAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(context);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("userId", SpUtils.getUserId(context));
+        map.put("deviceId", bean.getId()+"");
+        map.put("startTime", startTime);
+        map.put("endTime", endTime);
+        ViseUtil.Post(context, NetUrl.getDeviceAlarmLcPage, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                Logger.e("123123", s);
+                recyclerView.setVisibility(View.VISIBLE);
+                llMsg.setVisibility(View.GONE);
+                Gson gson = new Gson();
+                GetDeviceAlarmLcPageBean lcPageBean = gson.fromJson(s, GetDeviceAlarmLcPageBean.class);
+                mList = lcPageBean.getData().getAlarms();
+                adapter = new MsgLcShebeiListAdapter(mList);
+                LinearLayoutManager manager = new LinearLayoutManager(context);
+                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setAdapter(adapter);
+                page = lcPageBean.getData().getNextAlarmId();
+            }
+
+            @Override
+            public void onElse(String s) {
+                Logger.e("123123", s);
+                recyclerView.setVisibility(View.GONE);
+                llMsg.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
 
@@ -193,7 +288,7 @@ public class MsgShebeiListActivity extends BaseActivity {
 
     private void showPop() {
 
-        easyPopup = EasyPopup.create(MsgShebeiListActivity.this)
+        easyPopup = EasyPopup.create(MsgLcShebeiListActivity.this)
                 .setContentView(R.layout.popupwindow_msg_shebei_list)
                 .setFocusAndOutsideEnable(true)
                 //允许背景变暗
@@ -205,7 +300,7 @@ public class MsgShebeiListActivity extends BaseActivity {
                 .apply();
         easyPopup.showAtAnchorView(llType, YGravity.BELOW, XGravity.ALIGN_RIGHT, 0, DensityUtil.dp2px(1));
 
-//        View view = LayoutInflater.from(MsgShebeiListActivity.this).inflate(R.layout.popupwindow_msg_shebei_list, null);
+//        View view = LayoutInflater.from(MsgYsShebeiListActivity.this).inflate(R.layout.popupwindow_msg_shebei_list, null);
 //
 //        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
 //        popupWindow.setTouchable(true);
@@ -241,7 +336,7 @@ public class MsgShebeiListActivity extends BaseActivity {
             mYear = year;
             mMonth = monthOfYear;
             mDay = dayOfMonth;
-            final String days;
+//            final String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
                     days = new StringBuffer().append(mYear).append("-").append("0").
@@ -262,6 +357,40 @@ public class MsgShebeiListActivity extends BaseActivity {
 
             }
             tvTime.setText(days);
+
+            startTime = days+" 00:00:00";
+            endTime = days+" 23:59:59";
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+            Map<String, String> map = new LinkedHashMap<>();
+            map.put("userId", SpUtils.getUserId(context));
+            map.put("deviceId", bean.getId()+"");
+            map.put("startTime", startTime);
+            map.put("endTime", endTime);
+            ViseUtil.Post(context, NetUrl.getDeviceAlarmLcPage, map, dialog, new ViseUtil.ViseListener() {
+                @Override
+                public void onReturn(String s) {
+                    Logger.e("123123", s);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    llMsg.setVisibility(View.GONE);
+                    Gson gson = new Gson();
+                    GetDeviceAlarmLcPageBean lcPageBean = gson.fromJson(s, GetDeviceAlarmLcPageBean.class);
+                    mList = lcPageBean.getData().getAlarms();
+                    adapter = new MsgLcShebeiListAdapter(mList);
+                    LinearLayoutManager manager = new LinearLayoutManager(context);
+                    manager.setOrientation(LinearLayoutManager.VERTICAL);
+                    recyclerView.setLayoutManager(manager);
+                    recyclerView.setAdapter(adapter);
+                    page = lcPageBean.getData().getNextAlarmId();
+                }
+
+                @Override
+                public void onElse(String s) {
+                    Logger.e("123123", s);
+                    recyclerView.setVisibility(View.GONE);
+                    llMsg.setVisibility(View.VISIBLE);
+                }
+            });
+
         }
     };
 

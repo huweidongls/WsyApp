@@ -1310,7 +1310,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
                             intent1.putExtra("type", "1");
                             startActivity(intent1);
                         }else {
-                            DialogBaojing dialogBaojing = new DialogBaojing(context, id, bean.getData().getPersonName(),
+                            DialogBaojing dialogBaojing = new DialogBaojing(context, "2", id, bean.getData().getPersonName(),
                                     bean.getData().getPersonPhone(), bean.getData().getAddress(), bean.getData().getHouseNumber(), new DialogBaojing.ClickListener() {
                                 @Override
                                 public void onClick() {
@@ -2463,7 +2463,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
                 if (playInfoVg != null){
                     playInfoVg.setVisibility(View.VISIBLE);
                 }
-                showDecodeType();
+//                showDecodeType();
                 handlePlaySuccess(msg);
                 break;
             case EZRealPlayConstants.MSG_REALPLAY_PLAY_FAIL:
@@ -2513,7 +2513,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
                 startRealPlay();
                 break;
             case MSG_GOT_STREAM_TYPE:
-                showStreamType(msg.arg1);
+//                showStreamType(msg.arg1);
                 break;
             default:
                 // do nothing

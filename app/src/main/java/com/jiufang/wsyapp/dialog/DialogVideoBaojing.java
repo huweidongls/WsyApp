@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by Administrator on 2020/6/1.
  */
 
-public class DialogBaojing extends Dialog {
+public class DialogVideoBaojing extends Dialog {
 
     private Context context;
     private TextView tvCancel;
@@ -37,8 +37,11 @@ public class DialogBaojing extends Dialog {
     private String men;
     private String id;
     private String type;//1乐橙  2萤石
+    private String startTime;
+    private String endTime;
+    private String playType;//true本地视频 false 云视频
 
-    public DialogBaojing(@NonNull Context context, String type, String id, String name, String phone, String address, String men, ClickListener listener) {
+    public DialogVideoBaojing(@NonNull Context context, String type, String playType, String startTime, String endTime, String id, String name, String phone, String address, String men, ClickListener listener) {
         super(context, R.style.RoundCornerDialog);
         this.context = context;
         this.id = id;
@@ -48,6 +51,9 @@ public class DialogBaojing extends Dialog {
         this.men = men;
         this.listener = listener;
         this.type = type;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.playType = playType;
     }
 
     @Override
@@ -85,8 +91,10 @@ public class DialogBaojing extends Dialog {
                 }else {
                     Map<String, String> map = new LinkedHashMap<>();
                     map.put("deviceId", id);
-                    map.put("isNative", "false");
+                    map.put("isNative", playType);
                     map.put("userId", SpUtils.getUserId(context));
+                    map.put("beginTime", startTime);
+                    map.put("endTime", endTime);
                     ViseUtil.Post(context, NetUrl.createYsAlarm, map, new ViseUtil.ViseListener() {
                         @Override
                         public void onReturn(String s) {

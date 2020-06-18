@@ -172,6 +172,7 @@ public class LocalYsVideoActivity extends BaseActivity {
                     public void onClick(int pos) {
                         Intent intent = new Intent();
                         intent.setClass(context, YsPlayActivity.class);
+                        intent.putExtra("id", id);
                         intent.putExtra("code", code);
                         intent.putExtra("cameraNo", cameraNo);
                         intent.putExtra("yanzheng", yanzheng);
@@ -270,6 +271,7 @@ public class LocalYsVideoActivity extends BaseActivity {
                                 public void onClick(int pos) {
                                     Intent intent = new Intent();
                                     intent.setClass(context, YsPlayActivity.class);
+                                    intent.putExtra("id", id);
                                     intent.putExtra("code", code);
                                     intent.putExtra("cameraNo", cameraNo);
                                     intent.putExtra("yanzheng", yanzheng);
@@ -466,6 +468,7 @@ public class LocalYsVideoActivity extends BaseActivity {
                             public void onClick(int pos) {
                                 Intent intent = new Intent();
                                 intent.setClass(context, YsPlayActivity.class);
+                                intent.putExtra("id", id);
                                 intent.putExtra("code", code);
                                 intent.putExtra("cameraNo", cameraNo);
                                 intent.putExtra("yanzheng", yanzheng);
@@ -565,6 +568,7 @@ public class LocalYsVideoActivity extends BaseActivity {
                         public void onClick(int pos) {
                             Intent intent = new Intent();
                             intent.setClass(context, YsPlayActivity.class);
+                            intent.putExtra("id", id);
                             intent.putExtra("code", code);
                             intent.putExtra("cameraNo", cameraNo);
                             intent.putExtra("yanzheng", yanzheng);

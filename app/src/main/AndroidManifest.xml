@@ -147,7 +147,7 @@
             android:name=".ui.MsgSystemDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.MsgShebeiListActivity"
+            android:name=".ui.MsgYsShebeiListActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".service.DownloadService" />
@@ -262,7 +262,8 @@
         <activity
             android:name=".ui.MyFileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.PreviewActivity"></activity>
+        <activity android:name=".ui.PreviewActivity" />
+        <activity android:name=".ui.MsgLcShebeiListActivity"></activity>
     </application>
 
 </manifest>

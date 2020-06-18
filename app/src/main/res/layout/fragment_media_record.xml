@@ -107,4 +107,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:id="@+id/live_use_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_baojing"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:src="@mipmap/play_baojing"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp" />
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="11dp"
+                    android:textSize="13sp"
+                    android:textColor="#666666"
+                    android:text="一键报警"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

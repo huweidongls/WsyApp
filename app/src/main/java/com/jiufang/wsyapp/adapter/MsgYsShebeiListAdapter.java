@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jiufang.wsyapp.R;
-import com.jiufang.wsyapp.utils.GlideUtils;
 
 import java.util.List;
 
@@ -17,13 +16,13 @@ import java.util.List;
  * Created by Administrator on 2020/5/12.
  */
 
-public class MsgShebeiListAdapter extends RecyclerView.Adapter<MsgShebeiListAdapter.ViewHolder> {
+public class MsgYsShebeiListAdapter extends RecyclerView.Adapter<MsgYsShebeiListAdapter.ViewHolder> {
 
     private Context context;
     private List<String> data;
     private boolean isEdit = false;
 
-    public MsgShebeiListAdapter(List<String> data) {
+    public MsgYsShebeiListAdapter(List<String> data) {
         this.data = data;
     }
 

@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
-import com.jiufang.wsyapp.ui.MsgShebeiListActivity;
+import com.jiufang.wsyapp.ui.MsgLcShebeiListActivity;
+import com.jiufang.wsyapp.ui.MsgYsShebeiListActivity;
 
 import java.util.List;
 
@@ -40,12 +41,21 @@ public class MessageShebeiAdapter extends RecyclerView.Adapter<MessageShebeiAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.tvName.setText(data.get(i).getDeviceName());
+        int brandId = data.get(i).getBrandId();
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, MsgShebeiListActivity.class);
-                context.startActivity(intent);
+                if(brandId == 1){
+                    Intent intent = new Intent();
+                    intent.setClass(context, MsgLcShebeiListActivity.class);
+                    intent.putExtra("bean", data.get(i));
+                    context.startActivity(intent);
+                }else {
+                    Intent intent = new Intent();
+                    intent.setClass(context, MsgYsShebeiListActivity.class);
+                    intent.putExtra("bean", data.get(i));
+                    context.startActivity(intent);
+                }
             }
         });
     }

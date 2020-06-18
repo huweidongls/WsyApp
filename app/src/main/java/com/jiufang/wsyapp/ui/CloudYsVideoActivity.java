@@ -167,6 +167,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                     public void onClick(int pos) {
                         Intent intent = new Intent();
                         intent.setClass(context, YsPlayActivity.class);
+                        intent.putExtra("id", id);
                         intent.putExtra("code", code);
                         intent.putExtra("cameraNo", cameraNo);
                         intent.putExtra("yanzheng", yanzheng);
@@ -265,6 +266,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                                 public void onClick(int pos) {
                                     Intent intent = new Intent();
                                     intent.setClass(context, YsPlayActivity.class);
+                                    intent.putExtra("id", id);
                                     intent.putExtra("code", code);
                                     intent.putExtra("cameraNo", cameraNo);
                                     intent.putExtra("yanzheng", yanzheng);
@@ -462,6 +464,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                                 Intent intent = new Intent();
                                 intent.setClass(context, YsPlayActivity.class);
                                 intent.putExtra("code", code);
+                                intent.putExtra("id", id);
                                 intent.putExtra("cameraNo", cameraNo);
                                 intent.putExtra("yanzheng", yanzheng);
                                 intent.putExtra("bean", value.get(pos));
@@ -561,6 +564,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                             Intent intent = new Intent();
                             intent.setClass(context, YsPlayActivity.class);
                             intent.putExtra("code", code);
+                            intent.putExtra("id", id);
                             intent.putExtra("cameraNo", cameraNo);
                             intent.putExtra("yanzheng", yanzheng);
                             intent.putExtra("bean", value.get(pos));

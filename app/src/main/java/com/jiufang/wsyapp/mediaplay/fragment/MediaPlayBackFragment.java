@@ -9,6 +9,7 @@
  */
 package com.jiufang.wsyapp.mediaplay.fragment;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.MediaScannerConnection;
@@ -23,28 +24,38 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
+import com.jiufang.wsyapp.bean.GetBindDeviceUserInfoBean;
 import com.jiufang.wsyapp.bean.GetLcCloudStorageRecordListBean;
 import com.jiufang.wsyapp.bean.GetLcLocalStorageRecordListBean;
+import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
+import com.jiufang.wsyapp.dialog.DialogVideoBaojing;
 import com.jiufang.wsyapp.dialog.ProgressDialog;
 import com.jiufang.wsyapp.mediaplay.Business;
 import com.jiufang.wsyapp.mediaplay.RecoderSeekBar;
 import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
 import com.jiufang.wsyapp.mediaplay.util.TimeHelper;
+import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
 import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ViseUtil;
 import com.lechange.common.log.Logger;
 import com.lechange.opensdk.listener.LCOpenSDK_DownloadListener;
 import com.lechange.opensdk.listener.LCOpenSDK_EventListener;
 import com.lechange.opensdk.media.LCOpenSDK_Download;
 
 import java.io.FileOutputStream;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 
@@ -81,6 +92,7 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
     private String playType = "";//0云录像  1本地录像
 
 	private Button btnDownload;
+	private RelativeLayout rlBaojing;
 	
 	/**
 	 *
@@ -131,11 +143,13 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 		mRecordEndTime = (TextView) mView.findViewById(R.id.record_endTime);
 		mRecordScale = (ImageView) mView.findViewById(R.id.record_scale);
 		btnDownload = mView.findViewById(R.id.btn_download);
+		rlBaojing = mView.findViewById(R.id.rl_baojing);
 //		mSetSpeed=(ImageView) mView.findViewById(R.id.change_speed);
 		mReplayTip.setOnClickListener(this);
 		mRecordPlayPause.setOnClickListener(this);
 		mRecordScale.setOnClickListener(this);
 		btnDownload.setOnClickListener(this);
+		rlBaojing.setOnClickListener(this);
 //		mSetSpeed.setOnClickListener(this);
 		//设置云录像下载监听
 		if (playType.equals("0")) {
@@ -607,6 +621,54 @@ public class MediaPlayBackFragment extends MediaPlayFragment implements OnClickL
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
 		switch (view.getId()) {
+		case R.id.rl_baojing:
+			//一键报警
+			Map<String, String> map = new LinkedHashMap<>();
+			map.put("bindDeviceId", mBean.getData().getDeviceId()+"");
+			ViseUtil.Post(getContext(), NetUrl.getBindDeviceUserInfo, map, new ViseUtil.ViseListener() {
+				@Override
+				public void onReturn(String s) {
+					com.jiufang.wsyapp.utils.Logger.e("123123", s);
+					Gson gson = new Gson();
+					GetBindDeviceUserInfoBean infoBean = gson.fromJson(s, GetBindDeviceUserInfoBean.class);
+					String areaName = infoBean.getData().getAreaName();
+					if(StringUtils.isEmpty(areaName)){
+						Intent intent1 = new Intent();
+						intent1.setClass(getContext(), AddDeviceAddressActivity.class);
+						intent1.putExtra("id", mBean.getData().getDeviceId()+"");
+						intent1.putExtra("type", "1");
+						startActivity(intent1);
+					}else {
+						String startTime = "";
+						String endTime = "";
+						String type = "";
+						if(playType.equals("0")){
+							type = "false";
+							startTime = bean.getStartTime();
+							endTime = bean.getEndTime();
+						}else {
+							type = "true";
+							startTime = bean1.getStartTime();
+							endTime = bean1.getEndTime();
+						}
+						DialogVideoBaojing dialogBaojing = new DialogVideoBaojing(getContext(), "1", type, startTime, endTime, mBean.getData().getDeviceId()+"", infoBean.getData().getPersonName(),
+								infoBean.getData().getPersonPhone(), infoBean.getData().getAddress(), infoBean.getData().getHouseNumber(), new DialogVideoBaojing.ClickListener() {
+							@Override
+							public void onClick() {
+								DialogBaojingSuccess dialogBaojingSuccess = new DialogBaojingSuccess(getContext());
+								dialogBaojingSuccess.show();
+							}
+						});
+						dialogBaojing.show();
+					}
+				}
+
+				@Override
+				public void onElse(String s) {
+
+				}
+			});
+			break;
 		case R.id.btn_download:
 			download();
 			break;

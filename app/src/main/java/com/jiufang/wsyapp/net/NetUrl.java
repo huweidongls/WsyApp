@@ -69,8 +69,6 @@ public class NetUrl {
     public static final String updateNickname = "/user/v1.0.0/updateNickname";
     //获取设备使用者信息
     public static final String getBindDeviceUserInfo = "/device/v1.0.0/getBindDeviceUserInfo";
-    //一键报警
-    public static final String createUserAlarm = "/alarm/v1.0.0/createUserAlarm";
     //获取设备状态
     public static final String getBindDeviceStatusInfo = "/device/v1.0.0/getBindDeviceStatusInfo";
     //萤石云存储
@@ -83,5 +81,13 @@ public class NetUrl {
     public static final String getLcLocalStorageRecordList = "/device/storage/v1.0.0/getLcLocalStorageRecordList";
     //乐橙云台控制
     public static final String controlLcDeviceMovePTZ = "/device/console/v1.0.0/controlLcDeviceMovePTZ";
+    //获取萤石设备报警信息
+    public static final String getDeviceAlarmYsPage = "/device/alarm/v1.0.0/getDeviceAlarmYsPage";
+    //获取乐橙设备报警信息
+    public static final String getDeviceAlarmLcPage = "/device/alarm/v1.0.0/getDeviceAlarmLcPage";
+    //一键报警-乐橙
+    public static final String createLcAlarm = "/alarm/v1.0.0/createLcAlarm";
+    //一键报警-萤石
+    public static final String createYsAlarm = "/alarm/v1.0.0/createYsAlarm";
 
 }

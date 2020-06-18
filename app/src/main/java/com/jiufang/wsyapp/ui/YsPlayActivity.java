@@ -1,6 +1,7 @@
 package com.jiufang.wsyapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
@@ -18,15 +19,22 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.app.MyApplication;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.GetBindDeviceUserInfoBean;
+import com.jiufang.wsyapp.dialog.DialogBaojing;
+import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
+import com.jiufang.wsyapp.dialog.DialogVideoBaojing;
 import com.jiufang.wsyapp.mediaplay.RecoderSeekBar;
 import com.jiufang.wsyapp.mediaplay.fragment.MediaPlayFragment;
 import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
 import com.jiufang.wsyapp.mediaplay.util.TimeHelper;
+import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ViseUtil;
 import com.videogo.exception.ErrorCode;
 import com.videogo.openapi.EZConstants;
 import com.videogo.openapi.EZPlayer;
@@ -35,6 +43,8 @@ import com.videogo.openapi.bean.EZDeviceRecordFile;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -82,6 +92,7 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
     private OrientationEventListener mOrientationListener;
 
     private String playType = "";//0云录像  1本地录像
+    private String id = "";
 
     public static final int UPDATA_UI = 101010;
     private Timer timer;
@@ -208,6 +219,7 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ys_play);
 
+        id = getIntent().getStringExtra("id");
         code = getIntent().getStringExtra("code");
         cameraNo = getIntent().getIntExtra("cameraNo", 0);
         yanzheng = getIntent().getStringExtra("yanzheng");
@@ -255,9 +267,57 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
 
     }
 
-    @OnClick({R.id.rl_back, R.id.record_play_pause, R.id.record_scale})
+    @OnClick({R.id.rl_back, R.id.record_play_pause, R.id.record_scale, R.id.rl_baojing})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.rl_baojing:
+                //一键报警
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("bindDeviceId", id);
+                ViseUtil.Post(context, NetUrl.getBindDeviceUserInfo, map, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                        Gson gson = new Gson();
+                        GetBindDeviceUserInfoBean bean = gson.fromJson(s, GetBindDeviceUserInfoBean.class);
+                        String areaName = bean.getData().getAreaName();
+                        if(StringUtils.isEmpty(areaName)){
+                            Intent intent1 = new Intent();
+                            intent1.setClass(context, AddDeviceAddressActivity.class);
+                            intent1.putExtra("id", id);
+                            intent1.putExtra("type", "1");
+                            startActivity(intent1);
+                        }else {
+                            String startTime = "";
+                            String endTime = "";
+                            String type = "";
+                            if(playType.equals("0")){
+                                type = "false";
+                                startTime = StringUtils.calendar2string(cloudRecordFile.getStartTime());
+                                endTime = StringUtils.calendar2string(cloudRecordFile.getStopTime());
+                            }else {
+                                type = "true";
+                                startTime = StringUtils.calendar2string(deviceRecordFile.getStartTime());
+                                endTime = StringUtils.calendar2string(deviceRecordFile.getStopTime());
+                            }
+                            DialogVideoBaojing dialogBaojing = new DialogVideoBaojing(context, "2", type, startTime, endTime, id, bean.getData().getPersonName(),
+                                    bean.getData().getPersonPhone(), bean.getData().getAddress(), bean.getData().getHouseNumber(), new DialogVideoBaojing.ClickListener() {
+                                @Override
+                                public void onClick() {
+                                    DialogBaojingSuccess dialogBaojingSuccess = new DialogBaojingSuccess(context);
+                                    dialogBaojingSuccess.show();
+                                }
+                            });
+                            dialogBaojing.show();
+                        }
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
+                break;
             case R.id.rl_back:
                 finish();
                 break;

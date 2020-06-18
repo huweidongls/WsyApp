@@ -1,12 +1,13 @@
 package com.jiufang.wsyapp.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2020/5/18.
  */
 
-public class GetBindDeviceListBean {
+public class GetBindDeviceListBean implements Serializable {
 
     /**
      * code : 200
@@ -62,7 +63,7 @@ public class GetBindDeviceListBean {
         this.time = time;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * total : 1
          * records : [{"id":1,"brandId":1,"productCategoryId":1,"productCategoryName":"摄像机","productImage":"202005022100276117296.png","snapImage":null,"snCode":"5K05D84PAU69A7C","securityCode":"L25C2542","deviceName":"萤石带云台","deviceModel":"CS-C1HC-1D1WFR","haveCloudConsole":1,"offlineTime":null}]
@@ -107,7 +108,7 @@ public class GetBindDeviceListBean {
             this.records = records;
         }
 
-        public static class RecordsBean {
+        public static class RecordsBean implements Serializable {
             /**
              * id : 1
              * brandId : 1

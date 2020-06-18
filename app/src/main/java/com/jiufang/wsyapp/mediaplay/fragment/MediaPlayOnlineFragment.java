@@ -10,13 +10,11 @@
 package com.jiufang.wsyapp.mediaplay.fragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,7 +31,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +48,6 @@ import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
 import com.jiufang.wsyapp.ui.CloudLcVideoActivity;
-import com.jiufang.wsyapp.ui.CloudYsVideoActivity;
 import com.jiufang.wsyapp.ui.LocalLcVideoActivity;
 import com.jiufang.wsyapp.utils.DensityTool;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -61,10 +57,7 @@ import com.lechange.common.log.Logger;
 import com.lechange.opensdk.listener.LCOpenSDK_EventListener;
 import com.lechange.opensdk.listener.LCOpenSDK_TalkerListener;
 import com.lechange.opensdk.media.LCOpenSDK_Talk;
-import com.videogo.util.LogUtil;
 import com.zyyoona7.popup.EasyPopup;
-import com.zyyoona7.popup.XGravity;
-import com.zyyoona7.popup.YGravity;
 
 import java.io.FileOutputStream;
 import java.util.LinkedHashMap;
@@ -1027,7 +1020,7 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
                             intent1.putExtra("type", "1");
                             startActivity(intent1);
                         }else {
-                            DialogBaojing dialogBaojing = new DialogBaojing(getContext(), id, bean.getData().getPersonName(),
+                            DialogBaojing dialogBaojing = new DialogBaojing(getContext(), "1", id, bean.getData().getPersonName(),
                                     bean.getData().getPersonPhone(), bean.getData().getAddress(), bean.getData().getHouseNumber(), new DialogBaojing.ClickListener() {
                                 @Override
                                 public void onClick() {
