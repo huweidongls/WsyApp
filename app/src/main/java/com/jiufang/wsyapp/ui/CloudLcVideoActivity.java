@@ -107,9 +107,6 @@ public class CloudLcVideoActivity extends BaseActivity {
 
     private Dialog dialog;
 
-    private String selectStartTime = "";
-    private String selectEndTime = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
