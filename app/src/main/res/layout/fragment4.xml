@@ -216,6 +216,7 @@
                     android:layout_height="1dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_changjian"
                     android:layout_width="match_parent"
                     android:layout_height="51dp">
 
@@ -254,6 +255,7 @@
                     android:layout_height="1dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_wifi"
                     android:layout_width="match_parent"
                     android:layout_height="51dp">
 
@@ -282,6 +284,7 @@
                     android:layout_height="1dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_set"
                     android:layout_width="match_parent"
                     android:layout_height="51dp">
 

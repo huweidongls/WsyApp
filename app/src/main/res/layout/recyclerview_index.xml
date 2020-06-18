@@ -69,6 +69,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_shengji"
                     android:src="@mipmap/index_iv3"
                     android:layout_gravity="center_vertical"
@@ -77,6 +78,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_share"
                     android:src="@mipmap/index_iv4"
                     android:layout_gravity="center_vertical"
@@ -236,6 +238,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_shengji2"
                     android:src="@mipmap/index_iv3_gray"
                     android:layout_gravity="center_vertical"
@@ -244,6 +247,7 @@
                     android:layout_height="14dp" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_share2"
                     android:src="@mipmap/index_iv4_gray"
                     android:layout_gravity="center_vertical"
@@ -260,6 +264,7 @@
                     android:layout_height="14dp" />
 
                 <LinearLayout
+                    android:id="@+id/ll_more1"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">

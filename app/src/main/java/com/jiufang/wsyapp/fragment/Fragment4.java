@@ -1,6 +1,7 @@
 package com.jiufang.wsyapp.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.bean.GetUserInfoBean;
+import com.jiufang.wsyapp.dialog.DialogBohao;
 import com.jiufang.wsyapp.dialog.DialogShiming;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.GoumaiJiluActivity;
@@ -103,10 +105,30 @@ public class Fragment4 extends LazyFragment {
 
     }
 
-    @OnClick({R.id.tv_login, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu, R.id.rl_person, R.id.rl_my_file})
+    @OnClick({R.id.tv_login, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu, R.id.rl_person, R.id.rl_my_file,
+    R.id.rl_wifi, R.id.rl_set, R.id.rl_changjian})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_changjian:
+                DialogBohao dialogBohao = new DialogBohao(getContext(), new DialogBohao.ClickListener() {
+                    @Override
+                    public void onSure() {
+                        String phone = "0451-88886666";
+                        Intent intent1 = new Intent(Intent.ACTION_DIAL);
+                        Uri data = Uri.parse("tel:" + phone);
+                        intent1.setData(data);
+                        startActivity(intent1);
+                    }
+                });
+                dialogBohao.show();
+                break;
+            case R.id.rl_wifi:
+                ToastUtil.showShort(getContext(), "功能开发中...");
+                break;
+            case R.id.rl_set:
+                ToastUtil.showShort(getContext(), "功能开发中...");
+                break;
             case R.id.rl_my_file:
                 if(SpUtils.getUserId(getContext()).equals("0")){
                     intent.setClass(getContext(), LoginActivity.class);
@@ -148,7 +170,7 @@ public class Fragment4 extends LazyFragment {
                 }
                 break;
             case R.id.rl1:
-
+                ToastUtil.showShort(getContext(), "功能开发中...");
                 break;
             case R.id.rl_exit:
                 Map<String, String> map = new LinkedHashMap<>();

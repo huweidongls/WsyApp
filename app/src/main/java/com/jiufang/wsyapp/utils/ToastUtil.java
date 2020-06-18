@@ -48,14 +48,15 @@ public class ToastUtil {
      * @param message
      */
     public static void showShort(Context context, CharSequence message) {
-        if (isShow){
-            if (mToast == null) {
-                mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-            } else {
-                mToast.setText(message);
-            }
-            mToast.show();
-        }
+//        if (isShow){
+//            if (mToast == null) {
+//                mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+//            } else {
+//                mToast.setText(message);
+//            }
+//            mToast.show();
+//        }
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     /**

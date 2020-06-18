@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@drawable/bg_ffffff_3dp"
+        android:orientation="vertical"
+        android:layout_width="239dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="17sp"
+            android:textColor="#373737"
+            android:text="提示"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="15sp"
+            android:textColor="#373737"
+            android:text="联系销售经理购买，"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_gravity="center_horizontal"
+            android:textSize="15sp"
+            android:textColor="#373737"
+            android:text="电话：18245026640"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginBottom="28dp"
+            android:layout_marginTop="23dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_sure"
+                android:layout_marginLeft="31dp"
+                android:background="@drawable/bg_fb9660_7dp"
+                android:textColor="@color/white_ffffff"
+                android:textSize="9sp"
+                android:text="拨号"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="27dp" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_marginRight="31dp"
+                android:layout_marginLeft="18dp"
+                android:background="@drawable/bg_e9e7e7_7dp_bord"
+                android:textColor="#373737"
+                android:textSize="9sp"
+                android:text="取消"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="27dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

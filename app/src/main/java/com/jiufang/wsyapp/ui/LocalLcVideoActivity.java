@@ -76,6 +76,8 @@ public class LocalLcVideoActivity extends BaseActivity {
     TextView tvStart;
     @BindView(R.id.tv_end)
     TextView tvEnd;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private LocalLcVideoAdapter adapter;
     private List<GetLcLocalStorageRecordListBean.DataBean> mList;
@@ -115,6 +117,8 @@ public class LocalLcVideoActivity extends BaseActivity {
     }
 
     private void initData() {
+
+        tvTitle.setText(mBean.getData().getDeviceName());
 
         String time = mYear+"-"+ StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
         tvTime.setText(time);

@@ -89,6 +89,8 @@ public class CloudYsVideoActivity extends BaseActivity {
     TextView tvStart;
     @BindView(R.id.tv_end)
     TextView tvEnd;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private CloudYsVideoAdapter adapter;
     private List<GetYSCloudStorageRecordListBean.DataBean> mList;
@@ -111,11 +113,14 @@ public class CloudYsVideoActivity extends BaseActivity {
 
     private String days = "";
 
+    private String title = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cloud_video);
 
+        title = getIntent().getStringExtra("title");
         id = getIntent().getStringExtra("id");
         code = getIntent().getStringExtra("code");
         cameraNo = getIntent().getIntExtra("cameraNo", 0);
@@ -132,6 +137,9 @@ public class CloudYsVideoActivity extends BaseActivity {
     }
 
     private void init() {
+
+        tvTitle.setText(title);
+
         String time = mYear+"-"+ StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
         tvTime.setText(time);
 
@@ -173,6 +181,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                         intent.putExtra("yanzheng", yanzheng);
                         intent.putExtra("bean", value.get(pos));
                         intent.putExtra("type", "0");
+                        intent.putExtra("title", title);
                         startActivity(intent);
                     }
                 });
@@ -272,6 +281,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                                     intent.putExtra("yanzheng", yanzheng);
                                     intent.putExtra("bean", value.get(pos));
                                     intent.putExtra("type", "0");
+                                    intent.putExtra("title", title);
                                     startActivity(intent);
                                 }
                             });
@@ -469,6 +479,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                                 intent.putExtra("yanzheng", yanzheng);
                                 intent.putExtra("bean", value.get(pos));
                                 intent.putExtra("type", "0");
+                                intent.putExtra("title", title);
                                 startActivity(intent);
                             }
                         });
@@ -569,6 +580,7 @@ public class CloudYsVideoActivity extends BaseActivity {
                             intent.putExtra("yanzheng", yanzheng);
                             intent.putExtra("bean", value.get(pos));
                             intent.putExtra("type", "0");
+                            intent.putExtra("title", title);
                             startActivity(intent);
                         }
                     });

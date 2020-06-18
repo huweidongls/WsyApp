@@ -46,10 +46,11 @@
         </RelativeLayout>
 
         <TextView
-            android:text="TC2E"
+            android:id="@+id/tv_title"
             style="@style/tv_top_title" />
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rl_edit"
             android:layout_alignParentRight="true"
             android:layout_width="42dp"

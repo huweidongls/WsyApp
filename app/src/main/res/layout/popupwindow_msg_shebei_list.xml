@@ -76,65 +76,65 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_marginRight="7dp"
-                android:layout_marginLeft="7dp"
-                android:background="#E7E7E7"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+            <!--<View-->
+                <!--android:layout_marginRight="7dp"-->
+                <!--android:layout_marginLeft="7dp"-->
+                <!--android:background="#E7E7E7"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"/>-->
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="36dp">
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="36dp">-->
 
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="12dp"
-                    android:src="@mipmap/msg_shebei_pop_renxing"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp" />
+                <!--<ImageView-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="12dp"-->
+                    <!--android:src="@mipmap/msg_shebei_pop_renxing"-->
+                    <!--android:layout_width="14dp"-->
+                    <!--android:layout_height="14dp" />-->
 
-                <TextView
-                    android:layout_marginLeft="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="#272727"
-                    android:textSize="12sp"
-                    android:text="人形"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <!--<TextView-->
+                    <!--android:layout_marginLeft="12dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:textColor="#272727"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:text="人形"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
-            <View
-                android:layout_marginRight="7dp"
-                android:layout_marginLeft="7dp"
-                android:background="#E7E7E7"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+            <!--<View-->
+                <!--android:layout_marginRight="7dp"-->
+                <!--android:layout_marginLeft="7dp"-->
+                <!--android:background="#E7E7E7"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"/>-->
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="36dp">
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="36dp">-->
 
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="12dp"
-                    android:src="@mipmap/msg_shebei_pop_yichangyin"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp" />
+                <!--<ImageView-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="12dp"-->
+                    <!--android:src="@mipmap/msg_shebei_pop_yichangyin"-->
+                    <!--android:layout_width="14dp"-->
+                    <!--android:layout_height="14dp" />-->
 
-                <TextView
-                    android:layout_marginLeft="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="#272727"
-                    android:textSize="12sp"
-                    android:text="异常音"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <!--<TextView-->
+                    <!--android:layout_marginLeft="12dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:textColor="#272727"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:text="异常音"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
         </LinearLayout>
 

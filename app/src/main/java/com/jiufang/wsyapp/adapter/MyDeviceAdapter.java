@@ -172,6 +172,7 @@ public class MyDeviceAdapter extends RecyclerView.Adapter<MyDeviceAdapter.ViewHo
                                     intent.putExtra("cloud", haveCloud);
                                     intent.putExtra("id", data.get(i).getId()+"");
                                     intent.putExtra("code", bean.getData().getSecurityCode());
+                                    intent.putExtra("title", bean.getData().getDeviceName());
                                     context.startActivity(intent);
                                     WeiboDialogUtils.closeDialog(dialog);
                                     Logger.e("123123", "5");

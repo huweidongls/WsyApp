@@ -311,6 +311,8 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
     private String id = "";
     private int haveCloud = 0;
 
+    private String title = "";
+
     //    private GoogleApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -499,6 +501,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
             mCameraInfo = intent.getParcelableExtra(IntentConsts.EXTRA_CAMERA_INFO);
             mDeviceInfo = intent.getParcelableExtra(IntentConsts.EXTRA_DEVICE_INFO);
             mRtspUrl = intent.getStringExtra(IntentConsts.EXTRA_RTSP_URL);
+            title = intent.getStringExtra("title");
             if (mCameraInfo != null) {
                 mCurrentQulityMode = (mCameraInfo.getVideoLevel());
             }
@@ -912,8 +915,10 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         mPageAnimDrawable = null;
         mRealPlaySoundBtn.setVisibility(View.VISIBLE);
         if (mCameraInfo != null) {
-            mPortraitTitleBar.setTitle(mCameraInfo.getCameraName());
-            mLandscapeTitleBar.setTitle(mCameraInfo.getCameraName());
+//            mPortraitTitleBar.setTitle(mCameraInfo.getCameraName());
+//            mLandscapeTitleBar.setTitle(mCameraInfo.getCameraName());
+            mPortraitTitleBar.setTitle(title);
+            mLandscapeTitleBar.setTitle(title);
             setCameraInfoTiletRightBtn();
             if (mLocalInfo.isSoundOpen()) {
                 mRealPlaySoundBtn.setBackgroundResource(R.drawable.ezopen_vertical_preview_sound_selector);
@@ -1282,6 +1287,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
                 intent.putExtra("cameraNo", mCameraInfo.getCameraNo());
                 intent.putExtra("code", mCameraInfo.getDeviceSerial());
                 intent.putExtra("yanzheng", mVerifyCode);
+                intent.putExtra("title", title);
                 startActivity(intent);
                 break;
             case R.id.rl_cloud_video:
@@ -1289,6 +1295,7 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
                 intent.putExtra("cameraNo", mCameraInfo.getCameraNo());
                 intent.putExtra("code", mCameraInfo.getDeviceSerial());
                 intent.putExtra("yanzheng", mVerifyCode);
+                intent.putExtra("title", title);
                 intent.putExtra("id", id);
                 startActivity(intent);
                 break;

@@ -86,6 +86,8 @@ public class CloudLcVideoActivity extends BaseActivity {
     TextView tvStart;
     @BindView(R.id.tv_end)
     TextView tvEnd;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private CloudLcVideoAdapter adapter;
     private List<GetLcCloudStorageRecordListBean.DataBean> mList;
@@ -125,6 +127,8 @@ public class CloudLcVideoActivity extends BaseActivity {
     }
 
     private void initData() {
+
+        tvTitle.setText(mBean.getData().getDeviceName());
 
         String time = mYear+"-"+ StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
         tvTime.setText(time);

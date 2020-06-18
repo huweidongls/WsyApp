@@ -177,6 +177,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:id="@+id/ll_more1"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">

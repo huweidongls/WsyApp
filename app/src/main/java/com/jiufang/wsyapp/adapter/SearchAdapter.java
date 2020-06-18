@@ -173,6 +173,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                                     intent.putExtra("id", data.get(i).getId()+"");
                                     intent.putExtra("cloud", haveCloud);
                                     intent.putExtra("code", bean.getData().getSecurityCode());
+                                    intent.putExtra("title", bean.getData().getDeviceName());
                                     context.startActivity(intent);
                                     WeiboDialogUtils.closeDialog(dialog);
                                     Logger.e("123123", "5");

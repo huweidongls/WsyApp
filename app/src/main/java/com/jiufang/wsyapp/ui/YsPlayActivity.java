@@ -72,10 +72,13 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
     TextView mRecordStartTime;
     @BindView(R.id.record_endTime)
     TextView mRecordEndTime;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private EZPlayer mPlaybackPlayer = null;
 
     private String code = "";
+    private String title = "";
     private int cameraNo;
     private String yanzheng = "";
     private EZCloudRecordFile cloudRecordFile;
@@ -219,6 +222,7 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ys_play);
 
+        title = getIntent().getStringExtra("title");
         id = getIntent().getStringExtra("id");
         code = getIntent().getStringExtra("code");
         cameraNo = getIntent().getIntExtra("cameraNo", 0);
@@ -233,6 +237,8 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
     }
 
     private void initData() {
+
+        tvTitle.setText(title);
 
         if(playType.equals("0")){
             cloudRecordFile = getIntent().getParcelableExtra("bean");

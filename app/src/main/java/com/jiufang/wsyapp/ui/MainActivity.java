@@ -66,7 +66,8 @@ public class MainActivity extends BaseActivity {
 //                        getString(R.string.permission_noAsk) + "\n" + permissionName);
                     }
                 }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION);
+                Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION
+        , Manifest.permission.CALL_PHONE);
         MyApplication.getInstance().addActivity(MainActivity.this);
         ButterKnife.bind(MainActivity.this);
         init();

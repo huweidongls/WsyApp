@@ -22,7 +22,7 @@
         </RelativeLayout>
 
         <TextView
-            android:text="萤石回放"
+            android:id="@+id/tv_title"
             style="@style/tv_top_title" />
 
     </RelativeLayout>

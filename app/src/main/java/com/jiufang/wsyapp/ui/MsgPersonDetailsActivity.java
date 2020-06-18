@@ -10,6 +10,7 @@ import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetPersonalMessageByIdBean;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 
@@ -56,13 +57,14 @@ public class MsgPersonDetailsActivity extends BaseActivity {
         ViseUtil.Post(context, NetUrl.getPersonalMessageById, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
+                Logger.e("123123", s);
                 Gson gson = new Gson();
                 GetPersonalMessageByIdBean bean = gson.fromJson(s, GetPersonalMessageByIdBean.class);
                 tvTitle.setText(bean.getData().getMessageTitle());
                 tvTime.setText(bean.getData().getMessageTime());
                 tvContent.setText(bean.getData().getMessageContent());
-                tvXinghao.setText(bean.getData().getDeviceModel());
-                tvXlh.setText(bean.getData().getDeviceSn());
+                tvXinghao.setText("设备型号："+bean.getData().getDeviceModel());
+                tvXlh.setText("设备序列号："+bean.getData().getDeviceSn());
             }
 
             @Override

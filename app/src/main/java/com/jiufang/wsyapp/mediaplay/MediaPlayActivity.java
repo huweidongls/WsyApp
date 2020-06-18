@@ -98,7 +98,7 @@ public class MediaPlayActivity extends FragmentActivity implements
                 b.putSerializable("mbean", mBean1);
                 b.putSerializable("bean", bean2);
                 b.putString("type", type1);
-
+                tvTitle.setText(mBean1.getData().getDeviceName());
                 mediaPlayFragment.setArguments(b);
                 changeFragment(mediaPlayFragment, false);
                 break;
@@ -111,7 +111,7 @@ public class MediaPlayActivity extends FragmentActivity implements
                 b.putSerializable("mbean", mBean);
                 b.putSerializable("bean", bean1);
                 b.putString("type", type);
-
+                tvTitle.setText(mBean.getData().getDeviceName());
                 mediaPlayFragment.setArguments(b);
                 changeFragment(mediaPlayFragment, false);
                 break;

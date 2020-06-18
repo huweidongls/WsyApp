@@ -160,6 +160,14 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                 listener.onMore(position);
             }
         });
+
+        holder.llMore1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onMore(position);
+            }
+        });
+
         int haveCloud = data.get(position).getHaveCloudConsole();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,6 +256,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
                                         intent.putExtra("id", data.get(position).getId()+"");
                                         intent.putExtra("cloud", haveCloud);
                                         intent.putExtra("code", bean.getData().getSecurityCode());
+                                        intent.putExtra("title", bean.getData().getDeviceName());
                                         context.startActivity(intent);
                                         WeiboDialogUtils.closeDialog(dialog);
                                         Logger.e("123123", "5");
@@ -334,6 +343,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         private ImageView ivMsg2;
         private TextView tvBrand;
         private TextView tvBrand2;
+        private LinearLayout llMore1;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -354,6 +364,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             ivMsg2 = itemView.findViewById(R.id.iv_msg2);
             tvBrand = itemView.findViewById(R.id.tv_brand);
             tvBrand2 = itemView.findViewById(R.id.tv_brand2);
+            llMore1 = itemView.findViewById(R.id.ll_more1);
         }
     }
 
