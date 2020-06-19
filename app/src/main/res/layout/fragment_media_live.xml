@@ -304,11 +304,11 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_cloud_num"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
                 android:textColor="#FFA16F"
                 android:textSize="13sp"
-                android:text="11条"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -352,11 +352,11 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_bendi_num"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="76dp"
                 android:textColor="#FFA16F"
                 android:textSize="13sp"
-                android:text="无录像"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -411,9 +411,9 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/tv_ishave"
                         android:textColor="#CDCDCD"
                         android:textSize="16sp"
-                        android:text="(未开通)"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -425,9 +425,9 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_shengyu"
                         android:textColor="@color/white_ffffff"
                         android:textSize="10sp"
-                        android:text="（剩余152天/已过期/剩余01:23)"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

@@ -89,5 +89,7 @@ public class NetUrl {
     public static final String createLcAlarm = "/alarm/v1.0.0/createLcAlarm";
     //一键报警-萤石
     public static final String createYsAlarm = "/alarm/v1.0.0/createYsAlarm";
+    //读取云存储和本地存储信息获取数量、剩余天数等
+    public static final String getStorageDetailInfo = "/device/storage/v1.0.0/getStorageDetailInfo";
 
 }

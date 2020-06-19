@@ -39,6 +39,7 @@ import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
 import com.jiufang.wsyapp.bean.GetBindDeviceUserInfoBean;
+import com.jiufang.wsyapp.bean.GetStorageDetailInfoBean;
 import com.jiufang.wsyapp.dialog.DialogBaojing;
 import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
 import com.jiufang.wsyapp.dialog.ProgressDialog;
@@ -122,6 +123,11 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
     private String id = "";
     private int haveCloud = 0;
 
+    private TextView tvCloudNum;
+    private TextView tvBendiNum;
+    private TextView tvIsHave;
+    private TextView tvShengyu;
+
     /**
      * 描述：
      *
@@ -194,6 +200,10 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         rlCloudVideo = mView.findViewById(R.id.rl_cloud_video);
         rlLocalVideo = mView.findViewById(R.id.rl_local_video);
         rlPtz = mView.findViewById(R.id.rl_ptz);
+        tvCloudNum = mView.findViewById(R.id.tv_cloud_num);
+        tvBendiNum = mView.findViewById(R.id.tv_bendi_num);
+        tvIsHave = mView.findViewById(R.id.tv_ishave);
+        tvShengyu = mView.findViewById(R.id.tv_shengyu);
         if(haveCloud == 0){
             rlPtz.setVisibility(View.GONE);
         }else if(haveCloud == 1){
@@ -213,8 +223,47 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
         rlCloudVideo.setOnClickListener(this);
         rlLocalVideo.setOnClickListener(this);
         rlPtz.setOnClickListener(this);
+        initCloud();
 
         return mView;
+
+    }
+
+    /**
+     * 加载云存储信息
+     */
+    private void initCloud() {
+
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("userId", SpUtils.getUserId(getContext()));
+        map.put("deviceId", id);
+        ViseUtil.Post(getContext(), NetUrl.getStorageDetailInfo, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                Gson gson = new Gson();
+                GetStorageDetailInfoBean storageDetailInfoBean = gson.fromJson(s, GetStorageDetailInfoBean.class);
+                tvCloudNum.setText(storageDetailInfoBean.getData().getCloudCount()+"条");
+                tvBendiNum.setText(storageDetailInfoBean.getData().getNativeCount()+"条");
+                int isHaveCloud = storageDetailInfoBean.getData().getIsHaveCloud();
+                if(isHaveCloud == 0){
+                    tvIsHave.setText("(未开通)");
+                }else {
+                    tvIsHave.setText("(已开通)");
+                }
+                int day = storageDetailInfoBean.getData().getDays();
+                if(day == -1){
+                    tvShengyu.setText("(已过期)");
+                }else {
+                    tvShengyu.setText("(剩余"+day+"天)");
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
 
     }
 

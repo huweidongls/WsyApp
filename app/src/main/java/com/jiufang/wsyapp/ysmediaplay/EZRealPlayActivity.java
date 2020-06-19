@@ -68,6 +68,7 @@ import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.app.MyApplication;
 import com.jiufang.wsyapp.bean.GetBindDeviceUserInfoBean;
+import com.jiufang.wsyapp.bean.GetStorageDetailInfoBean;
 import com.jiufang.wsyapp.dialog.DialogBaojing;
 import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
 import com.jiufang.wsyapp.net.NetUrl;
@@ -75,6 +76,7 @@ import com.jiufang.wsyapp.ui.AddDeviceAddressActivity;
 import com.jiufang.wsyapp.ui.CloudYsVideoActivity;
 import com.jiufang.wsyapp.ui.LocalYsVideoActivity;
 import com.jiufang.wsyapp.utils.Logger;
+import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -130,6 +132,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.videogo.openapi.EZConstants.MSG_GOT_STREAM_TYPE;
 import static com.videogo.openapi.EZConstants.MSG_VIDEO_SIZE_CHANGED;
@@ -313,12 +318,22 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
 
     private String title = "";
 
+    @BindView(R.id.tv_cloud_num)
+    TextView tvCloudNum;
+    @BindView(R.id.tv_bendi_num)
+    TextView tvBendiNum;
+    @BindView(R.id.tv_ishave)
+    TextView tvIsHave;
+    @BindView(R.id.tv_shengyu)
+    TextView tvShengyu;
+
     //    private GoogleApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         StatusBarUtils.setStatusBar(EZRealPlayActivity.this, getResources().getColor(R.color.white_ffffff));
+        ButterKnife.bind(EZRealPlayActivity.this);
         initData();
         initView();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -512,6 +527,45 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
 //        if (mDeviceInfo != null && mDeviceInfo.getIsEncrypt() == 1) {
 //            mVerifyCode = DataManager.getInstance().getDeviceSerialVerifyCode(mCameraInfo.getDeviceSerial());
 //        }
+        initCloud();
+    }
+
+    /**
+     * 加载云存储信息
+     */
+    private void initCloud() {
+
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("userId", SpUtils.getUserId(context));
+        map.put("deviceId", id);
+        ViseUtil.Post(context, NetUrl.getStorageDetailInfo, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                Gson gson = new Gson();
+                GetStorageDetailInfoBean storageDetailInfoBean = gson.fromJson(s, GetStorageDetailInfoBean.class);
+                tvCloudNum.setText(storageDetailInfoBean.getData().getCloudCount()+"条");
+                tvBendiNum.setText(storageDetailInfoBean.getData().getNativeCount()+"条");
+                int isHaveCloud = storageDetailInfoBean.getData().getIsHaveCloud();
+                if(isHaveCloud == 0){
+                    tvIsHave.setText("(未开通)");
+                }else {
+                    tvIsHave.setText("(已开通)");
+                }
+                int day = storageDetailInfoBean.getData().getDays();
+                if(day == -1){
+                    tvShengyu.setText("(已过期)");
+                }else {
+                    tvShengyu.setText("(剩余"+day+"天)");
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
+
     }
 
     private void getRealPlaySquareInfo() {

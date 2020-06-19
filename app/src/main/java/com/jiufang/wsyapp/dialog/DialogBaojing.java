@@ -81,7 +81,22 @@ public class DialogBaojing extends Dialog {
             @Override
             public void onClick(View view) {
                 if(type.equals("1")){
+                    Map<String, String> map = new LinkedHashMap<>();
+                    map.put("deviceId", id);
+                    map.put("isNative", "false");
+                    map.put("userId", SpUtils.getUserId(context));
+                    ViseUtil.Post(context, NetUrl.createLcAlarm, map, new ViseUtil.ViseListener() {
+                        @Override
+                        public void onReturn(String s) {
+                            listener.onClick();
+                            dismiss();
+                        }
 
+                        @Override
+                        public void onElse(String s) {
+
+                        }
+                    });
                 }else {
                     Map<String, String> map = new LinkedHashMap<>();
                     map.put("deviceId", id);

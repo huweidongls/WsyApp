@@ -55,7 +55,7 @@
                 android:background="@color/line"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"/>
-    
+
             <TextView
                 android:id="@+id/tv_sure"
                 android:gravity="center"
