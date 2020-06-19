@@ -264,7 +264,8 @@
             android:name=".ui.MyFileActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.PreviewActivity" />
-        <activity android:name=".ui.MsgLcShebeiListActivity"></activity>
+        <activity android:name=".ui.MsgLcShebeiListActivity" />
+        <activity android:name=".ui.AboutActivity"></activity>
     </application>
 
 </manifest>

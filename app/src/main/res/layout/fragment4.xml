@@ -321,6 +321,7 @@
                     android:layout_height="1dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_about"
                     android:layout_width="match_parent"
                     android:layout_height="51dp">
 

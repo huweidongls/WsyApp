@@ -82,12 +82,12 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_marginRight="14dp"
+                android:id="@+id/tv_time_bottom"
+                android:layout_marginRight="30dp"
                 android:layout_gravity="end"
                 android:layout_marginTop="12dp"
                 android:textColor="#171F24"
                 android:textSize="14sp"
-                android:text="2020年05月09日"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

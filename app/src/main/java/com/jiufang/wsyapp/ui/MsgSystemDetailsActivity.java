@@ -30,6 +30,8 @@ public class MsgSystemDetailsActivity extends BaseActivity {
     TextView tvTime;
     @BindView(R.id.tv_content)
     TextView tvContent;
+    @BindView(R.id.tv_time_bottom)
+    TextView tvTimeBottom;
 
     private String id = "";
 
@@ -62,6 +64,10 @@ public class MsgSystemDetailsActivity extends BaseActivity {
                 }
                 tvTime.setText(bean.getData().getMessageTime());
                 tvContent.setText(bean.getData().getMessageContent());
+                String time = bean.getData().getMessageTime();
+                if(time.contains(" ")){
+                    tvTimeBottom.setText(time.split(" ")[0]);
+                }
             }
 
             @Override

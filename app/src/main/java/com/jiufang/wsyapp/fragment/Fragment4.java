@@ -13,6 +13,7 @@ import com.jiufang.wsyapp.bean.GetUserInfoBean;
 import com.jiufang.wsyapp.dialog.DialogBohao;
 import com.jiufang.wsyapp.dialog.DialogShiming;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.AboutActivity;
 import com.jiufang.wsyapp.ui.GoumaiJiluActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.MainActivity;
@@ -106,10 +107,14 @@ public class Fragment4 extends LazyFragment {
     }
 
     @OnClick({R.id.tv_login, R.id.rl1, R.id.rl_exit, R.id.rl_my_device, R.id.rl_goumaijilu, R.id.rl_person, R.id.rl_my_file,
-    R.id.rl_wifi, R.id.rl_set, R.id.rl_changjian})
+    R.id.rl_wifi, R.id.rl_set, R.id.rl_changjian, R.id.rl_about})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_about:
+                intent.setClass(getContext(), AboutActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_changjian:
                 DialogBohao dialogBohao = new DialogBohao(getContext(), new DialogBohao.ClickListener() {
                     @Override

@@ -318,13 +318,9 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
 
     private String title = "";
 
-    @BindView(R.id.tv_cloud_num)
     TextView tvCloudNum;
-    @BindView(R.id.tv_bendi_num)
     TextView tvBendiNum;
-    @BindView(R.id.tv_ishave)
     TextView tvIsHave;
-    @BindView(R.id.tv_shengyu)
     TextView tvShengyu;
 
     //    private GoogleApiClient client;
@@ -333,7 +329,6 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
         super.onCreate(savedInstanceState);
 
         StatusBarUtils.setStatusBar(EZRealPlayActivity.this, getResources().getColor(R.color.white_ffffff));
-        ButterKnife.bind(EZRealPlayActivity.this);
         initData();
         initView();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -800,6 +795,10 @@ public class EZRealPlayActivity extends RootActivity implements OnClickListener,
 
         rlBaojing = findViewById(R.id.rl_baojing);
         rlCloudVideo = findViewById(R.id.rl_cloud_video);
+        tvCloudNum = findViewById(R.id.tv_cloud_num);
+        tvBendiNum = findViewById(R.id.tv_bendi_num);
+        tvIsHave = findViewById(R.id.tv_ishave);
+        tvShengyu = findViewById(R.id.tv_shengyu);
 
         if (mRtspUrl == null) {
             initOperateBarUI(false);

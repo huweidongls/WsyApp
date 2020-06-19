@@ -36,7 +36,7 @@ public class DialogBohao extends Dialog {
 
     private void init() {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_shiming, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_bohao, null);
         setContentView(view);
 
         tvCancel = view.findViewById(R.id.tv_cancel);
