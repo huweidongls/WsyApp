@@ -110,7 +110,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
 
     private Dialog dialog;
 
-    private int page = 1;
+    private int page = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +150,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                 map.put("deviceId", bean.getId()+"");
                 map.put("startTime", startTime);
                 map.put("endTime", endTime);
-                map.put("pageStart", "1");
+                map.put("pageStart", "0");
                 map.put("pageSize", "10");
                 ViseUtil.Post(context, NetUrl.getDeviceAlarmYsPage, map, refreshLayout, 0, new ViseUtil.ViseListener() {
                     @Override
@@ -163,7 +163,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                         mList.clear();
                         mList.addAll(ysPageBean.getData().getAlrams());
                         adapter.notifyDataSetChanged();
-                        page = 2;
+                        page = 1;
                     }
 
                     @Override
@@ -208,7 +208,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
         map.put("deviceId", bean.getId()+"");
         map.put("startTime", startTime);
         map.put("endTime", endTime);
-        map.put("pageStart", "1");
+        map.put("pageStart", "0");
         map.put("pageSize", "10");
         ViseUtil.Post(context, NetUrl.getDeviceAlarmYsPage, map, new ViseUtil.ViseListener() {
             @Override
@@ -224,7 +224,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setAdapter(adapter);
-                page = 2;
+                page = 1;
             }
 
             @Override
@@ -252,7 +252,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                     map.put("deviceId", bean.getId()+"");
                     map.put("startTime", startTime);
                     map.put("endTime", endTime);
-                    map.put("pageStart", "1");
+                    map.put("pageStart", "0");
                     map.put("pageSize", "10");
                     ViseUtil.Post(context, NetUrl.getDeviceAlarmYsPage, map, dialog, new ViseUtil.ViseListener() {
                         @Override
@@ -268,7 +268,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                             manager.setOrientation(LinearLayoutManager.VERTICAL);
                             recyclerView.setLayoutManager(manager);
                             recyclerView.setAdapter(adapter);
-                            page = 2;
+                            page = 1;
                         }
 
                         @Override
@@ -427,7 +427,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                 map.put("deviceId", bean.getId()+"");
                 map.put("startTime", startTime);
                 map.put("endTime", endTime);
-                map.put("pageStart", "1");
+                map.put("pageStart", "0");
                 map.put("pageSize", "10");
                 ViseUtil.Post(context, NetUrl.getDeviceAlarmYsPage, map, dialog, new ViseUtil.ViseListener() {
                     @Override
@@ -443,7 +443,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                         manager.setOrientation(LinearLayoutManager.VERTICAL);
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(adapter);
-                        page = 2;
+                        page = 1;
                     }
 
                     @Override
@@ -529,7 +529,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
             map.put("deviceId", bean.getId()+"");
             map.put("startTime", startTime);
             map.put("endTime", endTime);
-            map.put("pageStart", "1");
+            map.put("pageStart", "0");
             map.put("pageSize", "10");
             ViseUtil.Post(context, NetUrl.getDeviceAlarmYsPage, map, dialog, new ViseUtil.ViseListener() {
                 @Override
@@ -545,7 +545,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                     manager.setOrientation(LinearLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(manager);
                     recyclerView.setAdapter(adapter);
-                    page = 2;
+                    page = 1;
                 }
 
                 @Override
