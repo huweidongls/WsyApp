@@ -74,6 +74,7 @@
             android:layout_height="1dp"/>
 
         <TextView
+            android:id="@+id/tv_set"
             android:gravity="center"
             android:textColor="#FFA16F"
             android:textSize="15sp"

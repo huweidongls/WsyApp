@@ -57,4 +57,7 @@
     <color name="black_text">#333333</color>
     <color name="application_bg">@color/common_bg</color>
 
+    <color name="text1">#000000</color>
+    <color name="text2">#333333</color>
+
 </resources>

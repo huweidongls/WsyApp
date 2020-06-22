@@ -42,6 +42,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/ll_device_info"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="115dp">
@@ -237,6 +238,7 @@
                 android:layout_height="1dp"/>
 
             <RelativeLayout
+                android:id="@+id/rl_zhence"
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
 
@@ -350,6 +352,7 @@
                 android:layout_height="1dp"/>
 
             <RelativeLayout
+                android:id="@+id/rl_set_more_lc"
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
 
@@ -437,6 +440,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:layout_marginRight="14dp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="103dp"
                     android:layout_height="58dp">

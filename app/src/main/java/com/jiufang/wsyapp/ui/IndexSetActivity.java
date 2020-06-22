@@ -1,6 +1,7 @@
 package com.jiufang.wsyapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -32,9 +33,22 @@ public class IndexSetActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back})
+    @OnClick({R.id.rl_back, R.id.ll_device_info, R.id.rl_zhence, R.id.rl_set_more_lc})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_set_more_lc:
+                intent.setClass(context, IndexSetMoreLcActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_zhence:
+                intent.setClass(context, ZhencebufangActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_device_info:
+                intent.setClass(context, IndexSetDeviceInfoActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_back:
                 finish();
                 break;

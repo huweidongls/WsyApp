@@ -272,7 +272,10 @@
         <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.IndexSetActivity"></activity>
+        <activity android:name=".ui.IndexSetActivity" />
+        <activity android:name=".ui.IndexSetDeviceInfoActivity" />
+        <activity android:name=".ui.ZhencebufangActivity" />
+        <activity android:name=".ui.IndexSetMoreLcActivity"></activity>
     </application>
 
 </manifest>

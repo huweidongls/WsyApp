@@ -22,6 +22,7 @@ import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.bean.GetBindDeviceStatusInfoBean;
 import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.IndexSetActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.SearchActivity;
 import com.jiufang.wsyapp.utils.Logger;
@@ -247,89 +248,100 @@ public class Fragment1 extends LazyFragment {
      */
     private void showMorePop(int pos) {
 
-        DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(getContext(), "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
+//        DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(getContext(), "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
+//            @Override
+//            public void onSure() {
+//                Map<String, String> map = new LinkedHashMap<>();
+//                map.put("bindDeviceId", mList.get(pos).getId() + "");
+//                ViseUtil.Post(getContext(), NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
+//                    @Override
+//                    public void onReturn(String s) {
+//                        ToastUtil.showShort(getContext(), "设备解绑成功");
+//                        initData();
+//                    }
+//
+//                    @Override
+//                    public void onElse(String s) {
+//
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//        });
+//        dialogMsgDelete.show();
+
+        easyPopup = EasyPopup.create(getContext())
+                .setContentView(R.layout.popupwindow_index_more)
+                .setFocusAndOutsideEnable(true)
+                //允许背景变暗
+                .setBackgroundDimEnable(true)
+                //变暗的透明度(0-1)，0为完全透明
+                .setDimValue(0.5f)
+                //变暗的背景颜色
+                .setDimColor(Color.BLACK)
+                .apply();
+        easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.ALIGN_BOTTOM, XGravity.CENTER, 0, 0);
+
+        TextView tvCancel = easyPopup.findViewById(R.id.tv_cancel);
+        TextView tvJiebang = easyPopup.findViewById(R.id.tv_jiebang);
+        TextView tvSet = easyPopup.findViewById(R.id.tv_set);
+
+        tvSet.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSure() {
-                Map<String, String> map = new LinkedHashMap<>();
-                map.put("bindDeviceId", mList.get(pos).getId() + "");
-                ViseUtil.Post(getContext(), NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
-                    @Override
-                    public void onReturn(String s) {
-                        ToastUtil.showShort(getContext(), "设备解绑成功");
-                        initData();
-                    }
-
-                    @Override
-                    public void onElse(String s) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCancel() {
-
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), IndexSetActivity.class);
+                startActivity(intent);
+                easyPopup.dismiss();
             }
         });
-        dialogMsgDelete.show();
 
-//        easyPopup = EasyPopup.create(getContext())
-//                .setContentView(R.layout.popupwindow_index_more)
-//                .setFocusAndOutsideEnable(true)
-//                //允许背景变暗
-//                .setBackgroundDimEnable(true)
-//                //变暗的透明度(0-1)，0为完全透明
-//                .setDimValue(0.5f)
-//                //变暗的背景颜色
-//                .setDimColor(Color.BLACK)
-//                .apply();
-//        easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.ALIGN_BOTTOM, XGravity.CENTER, 0, 0);
-//
-//        TextView tvCancel = easyPopup.findViewById(R.id.tv_cancel);
-//        TextView tvJiebang = easyPopup.findViewById(R.id.tv_jiebang);
-//
-//        tvJiebang.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                easyPopup.dismiss();
-//                if(mList.get(pos).getDeviceStatus() == 0){
-//                    Toast.makeText(getContext(), "设备不在线，无法解绑", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(getContext(), "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
-//                        @Override
-//                        public void onSure() {
-//                            Map<String, String> map = new LinkedHashMap<>();
-//                            map.put("bindDeviceId", mList.get(pos).getId() + "");
-//                            ViseUtil.Post(getContext(), NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
-//                                @Override
-//                                public void onReturn(String s) {
-//                                    ToastUtil.showShort(getContext(), "设备解绑成功");
-//                                    initData();
-//                                }
-//
-//                                @Override
-//                                public void onElse(String s) {
-//
-//                                }
-//                            });
-//                        }
-//
-//                        @Override
-//                        public void onCancel() {
-//
-//                        }
-//                    });
-//                    dialogMsgDelete.show();
-//                }
-//            }
-//        });
-//
-//        tvCancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                easyPopup.dismiss();
-//            }
-//        });
+        tvJiebang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                easyPopup.dismiss();
+                if(mList.get(pos).getDeviceStatus() == 0){
+                    Toast.makeText(getContext(), "设备不在线，无法解绑", Toast.LENGTH_SHORT).show();
+                }else {
+                    DialogMsgDelete dialogMsgDelete = new DialogMsgDelete(getContext(), "确定解绑设备吗？", R.mipmap.lajitong, new DialogMsgDelete.ClickListener() {
+                        @Override
+                        public void onSure() {
+                            Map<String, String> map = new LinkedHashMap<>();
+                            map.put("bindDeviceId", mList.get(pos).getId() + "");
+                            ViseUtil.Post(getContext(), NetUrl.unBindDevice, map, new ViseUtil.ViseListener() {
+                                @Override
+                                public void onReturn(String s) {
+                                    ToastUtil.showShort(getContext(), "设备解绑成功");
+                                    initData();
+                                }
+
+                                @Override
+                                public void onElse(String s) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+                    dialogMsgDelete.show();
+                }
+            }
+        });
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                easyPopup.dismiss();
+            }
+        });
 
     }
 
