@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_ffffff"
+    tools:context="com.jiufang.wsyapp.ui.IndexSetActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="设备详情"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="115dp">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ceshi"
+                    android:layout_width="113dp"
+                    android:layout_height="82dp" />
+
+                <LinearLayout
+                    android:layout_marginRight="17dp"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="17dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="#4A4B4C"
+                        android:textSize="16sp"
+                        android:text="CS_XP1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:textColor="#838383"
+                        android:textSize="14sp"
+                        android:text="5K05D84PAU69A7C"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/right_gray"
+                    android:layout_width="5dp"
+                    android:layout_height="9dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="#F3F4F5"
+                android:layout_width="match_parent"
+                android:layout_height="31dp">
+
+                <ImageView
+                    android:layout_marginLeft="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@color/theme"
+                    android:layout_width="1dp"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:text="储存设置"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#171F24"
+                    android:textSize="14sp"
+                    android:text="云储存"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/right_gray"
+                    android:layout_width="5dp"
+                    android:layout_height="9dp" />
+
+                <TextView
+                    android:layout_marginRight="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/theme"
+                    android:textSize="12sp"
+                    android:text="即将过期"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#171F24"
+                    android:textSize="14sp"
+                    android:text="本地存储"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/right_gray"
+                    android:layout_width="5dp"
+                    android:layout_height="9dp" />
+
+                <TextView
+                    android:layout_marginRight="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#838383"
+                    android:textSize="12sp"
+                    android:text="未检测到储存介质"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="#F3F4F5"
+                android:layout_width="match_parent"
+                android:layout_height="31dp">
+
+                <ImageView
+                    android:layout_marginLeft="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@color/theme"
+                    android:layout_width="1dp"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:text="警报设置"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#171F24"
+                    android:textSize="14sp"
+                    android:text="警报消息提醒"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/turn_on"
+                    android:layout_width="32dp"
+                    android:layout_height="19dp" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#171F24"
+                    android:textSize="14sp"
+                    android:text="侦测布防"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/right_gray"
+                    android:layout_width="5dp"
+                    android:layout_height="9dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="#F3F4F5"
+                android:layout_width="match_parent"
+                android:layout_height="31dp">
+
+                <ImageView
+                    android:layout_marginLeft="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@color/theme"
+                    android:layout_width="1dp"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:text="设备设置"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#171F24"
+                    android:textSize="14sp"
+                    android:text="网络配置"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/right_gray"
+                    android:layout_width="5dp"
+                    android:layout_height="9dp" />
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32dp"
+                    android:textColor="#838383"
+                    android:textSize="12sp"
+                    android:text="空/WIFI名称"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#171F24"
+                    android:textSize="14sp"
+                    android:text="设备音频采集(仅乐橙显示)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/turn_off"
+                    android:layout_width="32dp"
+                    android:layout_height="19dp" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#171F24"
+                    android:textSize="14sp"
+                    android:text="更多设置(乐橙)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/right_gray"
+                    android:layout_width="5dp"
+                    android:layout_height="9dp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="#F3F4F5"
+                android:layout_width="match_parent"
+                android:layout_height="31dp">
+
+                <ImageView
+                    android:layout_marginLeft="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@color/theme"
+                    android:layout_width="1dp"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:text="一键报警(设备地址)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="#171F24"
+                        android:textSize="14sp"
+                        android:text="御景商座(嵩山路)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textColor="#171F24"
+                        android:textSize="14sp"
+                        android:layout_marginTop="7dp"
+                        android:text="御景商座203室"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textColor="#8D8D8D"
+                        android:textSize="14sp"
+                        android:layout_marginTop="7dp"
+                        android:text="吴雪球(女士)  183****5893"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="103dp"
+                    android:layout_height="58dp">
+
+                    <ImageView
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/set_address_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:background="@drawable/bg_ffffff_6dp_bord"
+                        android:textSize="10sp"
+                        android:textColor="@color/white_ffffff"
+                        android:text="编辑"
+                        android:layout_width="33dp"
+                        android:layout_height="15dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginBottom="33dp"
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

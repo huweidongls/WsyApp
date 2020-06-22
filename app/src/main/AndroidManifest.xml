@@ -263,9 +263,16 @@
         <activity
             android:name=".ui.MyFileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.PreviewActivity" />
-        <activity android:name=".ui.MsgLcShebeiListActivity" />
-        <activity android:name=".ui.AboutActivity"></activity>
+        <activity
+            android:name=".ui.PreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MsgLcShebeiListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.IndexSetActivity"></activity>
     </application>
 
 </manifest>
