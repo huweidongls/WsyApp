@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jiufang.wsyapp">
 
+    <uses-permission android:name="android.permission.GET_TASKS" /><!-- 获取近期运行任务，用于应用是否活跃的判断 -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" /><!-- 获取近期运行任务，用于应用是否活跃的判断 -->
+
     <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -231,7 +234,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".ysmediaplay.RootActivity$NotificationReceiver" />
+        <!--<receiver android:name=".ysmediaplay.RootActivity$NotificationReceiver" />-->
 
         <activity
             android:name=".ui.SearchActivity"
@@ -272,10 +275,14 @@
         <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.IndexSetActivity" />
-        <activity android:name=".ui.IndexSetDeviceInfoActivity" />
-        <activity android:name=".ui.ZhencebufangActivity" />
-        <activity android:name=".ui.IndexSetMoreLcActivity"></activity>
+        <activity android:name=".ui.IndexSetActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.IndexSetDeviceInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.ZhencebufangActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.IndexSetMoreLcActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

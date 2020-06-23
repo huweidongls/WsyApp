@@ -363,57 +363,57 @@ public class RootActivity extends Activity {
         return mTaskManager;
     }
 
-    private static int mNotificationId = 1;
-    protected static int getUniqueNotificationId(){
-        return mNotificationId++;
-    }
+//    private static int mNotificationId = 1;
+//    protected static int getUniqueNotificationId(){
+//        return mNotificationId++;
+//    }
 
-    /**
-     * 显示指定内容的通知
-     * @param title 通知标题
-     * @param content 通知内容
-     */
-    protected void showSimpleNotification(int notificationId, String title, String content, boolean clickToCancel){
-        LogUtil.d(TAG, "show notification " + notificationId);
-        Intent intent = new Intent(mContext, NotificationReceiver.class)
-                .putExtra(ReceiverKeys.NOTIFICATION_ID, notificationId);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext)
-                .setContentTitle(title)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setContentIntent(clickToCancel ? PendingIntent.getBroadcast(mContext, notificationId, intent, 0) : null);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        if (notificationManager != null) {
-            notificationManager.notify(notificationId, notificationBuilder.build());
-        }
-    }
+//    /**
+//     * 显示指定内容的通知
+//     * @param title 通知标题
+//     * @param content 通知内容
+//     */
+//    protected void showSimpleNotification(int notificationId, String title, String content, boolean clickToCancel){
+//        LogUtil.d(TAG, "show notification " + notificationId);
+//        Intent intent = new Intent(mContext, NotificationReceiver.class)
+//                .putExtra(ReceiverKeys.NOTIFICATION_ID, notificationId);
+//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext)
+//                .setContentTitle(title)
+//                .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
+//                .setWhen(System.currentTimeMillis())
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+//                .setPriority(NotificationCompat.PRIORITY_MAX)
+//                .setContentIntent(clickToCancel ? PendingIntent.getBroadcast(mContext, notificationId, intent, 0) : null);
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        if (notificationManager != null) {
+//            notificationManager.notify(notificationId, notificationBuilder.build());
+//        }
+//    }
 
-    public static class NotificationReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int notificationId = intent.getIntExtra(ReceiverKeys.NOTIFICATION_ID, -1);
-            LogUtil.d(TAG, "onClick, notificationId is " + notificationId);
-            DownLoadTaskRecordAbstract downLoadTaskRecord = null;
-            for (DownLoadTaskRecordAbstract downLoadTaskRecordAbstract : mDownloadTaskRecordListAbstract){
-                if (downLoadTaskRecordAbstract.getNotificationId() == notificationId){
-                    LogUtil.d(TAG, "stopped download task which related to notificationId " + notificationId);
-                    downLoadTaskRecord = downLoadTaskRecordAbstract;
-                    downLoadTaskRecord.stopDownloader();
-                }
-            }
-            if (downLoadTaskRecord != null){
-                mDownloadTaskRecordListAbstract.remove(downLoadTaskRecord);
-            }
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-            if (notificationManager != null){
-                notificationManager.cancel(notificationId);
-                RootActivity.toastMsg("canceled to downloaded!");
-            }
-        }
-    }
+//    public static class NotificationReceiver extends BroadcastReceiver {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            int notificationId = intent.getIntExtra(ReceiverKeys.NOTIFICATION_ID, -1);
+//            LogUtil.d(TAG, "onClick, notificationId is " + notificationId);
+//            DownLoadTaskRecordAbstract downLoadTaskRecord = null;
+//            for (DownLoadTaskRecordAbstract downLoadTaskRecordAbstract : mDownloadTaskRecordListAbstract){
+//                if (downLoadTaskRecordAbstract.getNotificationId() == notificationId){
+//                    LogUtil.d(TAG, "stopped download task which related to notificationId " + notificationId);
+//                    downLoadTaskRecord = downLoadTaskRecordAbstract;
+//                    downLoadTaskRecord.stopDownloader();
+//                }
+//            }
+//            if (downLoadTaskRecord != null){
+//                mDownloadTaskRecordListAbstract.remove(downLoadTaskRecord);
+//            }
+//            NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+//            if (notificationManager != null){
+//                notificationManager.cancel(notificationId);
+//                RootActivity.toastMsg("canceled to downloaded!");
+//            }
+//        }
+//    }
 
     public static EZOpenSDK getOpenSDK(){
         return MyApplication.getOpenSDK();

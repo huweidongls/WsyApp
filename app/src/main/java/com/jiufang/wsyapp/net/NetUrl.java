@@ -91,5 +91,9 @@ public class NetUrl {
     public static final String createYsAlarm = "/alarm/v1.0.0/createYsAlarm";
     //读取云存储和本地存储信息获取数量、剩余天数等
     public static final String getStorageDetailInfo = "/device/storage/v1.0.0/getStorageDetailInfo";
+    //测试阿里云推送通知
+    public static final String testAliyunPushNotice = "/callback/testAliyunPushNotice";
+    //测试阿里云推送消息
+    public static final String testAliyunPushMessage = "/callback/testAliyunPushMessage";
 
 }

@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.app.MyApplication;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -84,7 +85,7 @@ public class RegisterSetPwdActivity extends BaseActivity {
                     map1.put("token", token);
                     map1.put("app-version", "1.0.0");
                     map1.put("device-type", "1");
-                    map1.put("device-unique-id", "123");
+                    map1.put("device-unique-id", MyApplication.deviceId);
                     map1.put("device-name", "");
                     ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL)
                             .globalHeaders(map1);
