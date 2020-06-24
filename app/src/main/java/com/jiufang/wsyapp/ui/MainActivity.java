@@ -87,6 +87,10 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    public void selectFragment(int index){
+        mViewPger.setCurrentItem(index);
+    }
+
     private class MainAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
 
         private List<Fragment> fragments = new ArrayList<>();

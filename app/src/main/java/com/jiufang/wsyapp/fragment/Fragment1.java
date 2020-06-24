@@ -24,6 +24,7 @@ import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.IndexSetActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
+import com.jiufang.wsyapp.ui.MainActivity;
 import com.jiufang.wsyapp.ui.SearchActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -289,6 +290,16 @@ public class Fragment1 extends LazyFragment {
         TextView tvCancel = easyPopup.findViewById(R.id.tv_cancel);
         TextView tvJiebang = easyPopup.findViewById(R.id.tv_jiebang);
         TextView tvSet = easyPopup.findViewById(R.id.tv_set);
+        TextView tvMsg = easyPopup.findViewById(R.id.tv_msg);
+
+        tvMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                easyPopup.dismiss();
+                MainActivity activity = (MainActivity) getActivity();
+                activity.selectFragment(1);
+            }
+        });
 
         tvSet.setOnClickListener(new View.OnClickListener() {
             @Override

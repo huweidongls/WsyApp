@@ -55,8 +55,8 @@ public class CloudYsVideoAdapter extends RecyclerView.Adapter<CloudYsVideoAdapte
         }else {
             viewHolder.ivSelect.setVisibility(View.GONE);
         }
-        Logger.e("123123", data.get(i).getCoverPic());
-        GlideUtils.into(context, data.get(i).getCoverPic(), viewHolder.ivTitle);
+//        Logger.e("123123", data.get(i).getCoverPic());
+//        GlideUtils.into(context, data.get(i).getCoverPic(), viewHolder.ivTitle);
         String startTime = StringUtils.calendar2string(data.get(i).getStartTime());
         String endTime = StringUtils.calendar2string(data.get(i).getStopTime());
         if(startTime.contains(" ")){

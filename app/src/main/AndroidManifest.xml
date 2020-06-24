@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jiufang.wsyapp">
 
-    <uses-permission android:name="android.permission.GET_TASKS" /><!-- 获取近期运行任务，用于应用是否活跃的判断 -->
-    <uses-permission android:name="android.permission.REORDER_TASKS" /><!-- 获取近期运行任务，用于应用是否活跃的判断 -->
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 获取近期运行任务，用于应用是否活跃的判断 -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" /> <!-- 获取近期运行任务，用于应用是否活跃的判断 -->
+
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -67,12 +68,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- 九方 -->
         <meta-data
             android:name="com.alibaba.app.appkey"
             android:value="30245485" /> <!-- 请填写你自己的- appKey -->
         <meta-data
             android:name="com.alibaba.app.appsecret"
             android:value="c9e0871f89ad9cec1dda133cd4933521" /> <!-- 请填写你自己的appSecret -->
+        <!-- &lt;!&ndash;测试&ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="com.alibaba.app.appkey" -->
+        <!-- android:value="30358494" /> &lt;!&ndash; 请填写你自己的- appKey &ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="com.alibaba.app.appsecret" -->
+        <!-- android:value="3ae575636c07ddde2621bd9bffc97a45" /> &lt;!&ndash; 请填写你自己的appSecret &ndash;&gt; -->
 
 
         <!-- 消息接收监听器 （用户可自主扩展） -->
@@ -234,7 +244,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
-        <!--<receiver android:name=".ysmediaplay.RootActivity$NotificationReceiver" />-->
+        <!-- <receiver android:name=".ysmediaplay.RootActivity$NotificationReceiver" /> -->
 
         <activity
             android:name=".ui.SearchActivity"
@@ -275,14 +285,20 @@
         <activity
             android:name=".ui.AboutActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.IndexSetActivity"
+        <activity
+            android:name=".ui.IndexSetActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.IndexSetDeviceInfoActivity"
+        <activity
+            android:name=".ui.IndexSetDeviceInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.ZhencebufangActivity"
+        <activity
+            android:name=".ui.ZhencebufangActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.IndexSetMoreLcActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.IndexSetMoreLcActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.CloudActivity" />
+        <activity android:name=".ui.CloudDetailsActivity"></activity>
     </application>
 
 </manifest>

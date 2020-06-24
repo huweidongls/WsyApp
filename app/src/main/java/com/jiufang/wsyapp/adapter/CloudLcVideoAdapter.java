@@ -54,10 +54,10 @@ public class CloudLcVideoAdapter extends RecyclerView.Adapter<CloudLcVideoAdapte
         }else {
             viewHolder.ivSelect.setVisibility(View.GONE);
         }
-        if(data.get(i).getCoverPic()!=null){
-            Logger.e("123123", data.get(i).getCoverPic().replaceAll("&amp;", "&"));
-            GlideUtils.into(context, data.get(i).getCoverPic().replaceAll("&amp;", "&"), viewHolder.ivTitle);
-        }
+//        if(data.get(i).getCoverPic()!=null){
+//            Logger.e("123123", data.get(i).getCoverPic().replaceAll("&amp;", "&"));
+//            GlideUtils.into(context, data.get(i).getCoverPic().replaceAll("&amp;", "&"), viewHolder.ivTitle);
+//        }
         String time = data.get(i).getStartTime();
         if(time.contains(" ")){
             viewHolder.tvTime.setText(time.split(" ")[1]);

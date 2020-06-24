@@ -14,6 +14,7 @@ import com.jiufang.wsyapp.dialog.DialogBohao;
 import com.jiufang.wsyapp.dialog.DialogShiming;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.AboutActivity;
+import com.jiufang.wsyapp.ui.CloudActivity;
 import com.jiufang.wsyapp.ui.GoumaiJiluActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.MainActivity;
@@ -207,7 +208,9 @@ public class Fragment4 extends LazyFragment {
                 }
                 break;
             case R.id.rl1:
-                ToastUtil.showShort(getContext(), "功能开发中...");
+//                ToastUtil.showShort(getContext(), "功能开发中...");
+                intent.setClass(getContext(), CloudActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rl_exit:
                 Map<String, String> map = new LinkedHashMap<>();
