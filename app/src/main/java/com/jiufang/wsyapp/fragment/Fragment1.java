@@ -306,6 +306,7 @@ public class Fragment1 extends LazyFragment {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), IndexSetActivity.class);
+                intent.putExtra("id", mList.get(pos).getId()+"");
                 startActivity(intent);
                 easyPopup.dismiss();
             }

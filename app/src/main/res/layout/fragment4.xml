@@ -344,35 +344,6 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:background="#F4F4F4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-                <RelativeLayout
-                    android:id="@+id/rl_exit"
-                    android:layout_width="match_parent"
-                    android:layout_height="51dp">
-
-                    <TextView
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="23dp"
-                        android:textColor="#444343"
-                        android:textSize="13sp"
-                        android:text="退出登录"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@mipmap/right_gray"
-                        android:layout_width="8dp"
-                        android:layout_height="12dp" />
-
-                </RelativeLayout>
-
             </LinearLayout>
 
         </LinearLayout>

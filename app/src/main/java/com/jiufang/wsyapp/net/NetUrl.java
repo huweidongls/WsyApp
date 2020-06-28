@@ -95,5 +95,7 @@ public class NetUrl {
     public static final String testAliyunPushNotice = "/callback/testAliyunPushNotice";
     //测试阿里云推送消息
     public static final String testAliyunPushMessage = "/callback/testAliyunPushMessage";
+    //获取设备侦测布防信息(通用)
+    public static final String getDeviceCapability = "/device/capability/v1.0.0/getDeviceCapability";
 
 }

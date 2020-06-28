@@ -297,8 +297,16 @@
         <activity
             android:name=".ui.IndexSetMoreLcActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.CloudActivity" />
-        <activity android:name=".ui.CloudDetailsActivity"></activity>
+        <activity
+            android:name=".ui.CloudActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.CloudDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SetActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.ZhanghaoSafeActivity"></activity>
     </application>
 
 </manifest>
