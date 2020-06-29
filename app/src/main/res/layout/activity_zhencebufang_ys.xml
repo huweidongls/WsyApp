@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white_ffffff"
-    tools:context="com.jiufang.wsyapp.ui.ZhencebufangLcActivity">
+    tools:context="com.jiufang.wsyapp.ui.ZhencebufangYsActivity">
 
     <RelativeLayout
         style="@style/rl_top_bar">

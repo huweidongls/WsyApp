@@ -32,6 +32,7 @@ import com.jiufang.wsyapp.mediaplay.fragment.MediaPlayFragment;
 import com.jiufang.wsyapp.mediaplay.util.MediaPlayHelper;
 import com.jiufang.wsyapp.mediaplay.util.TimeHelper;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -306,6 +307,7 @@ public class YsPlayActivity extends BaseActivity implements SurfaceHolder.Callba
                                 startTime = StringUtils.calendar2string(deviceRecordFile.getStartTime());
                                 endTime = StringUtils.calendar2string(deviceRecordFile.getStopTime());
                             }
+                            Logger.e("123123", startTime+"--"+endTime);
                             DialogVideoBaojing dialogBaojing = new DialogVideoBaojing(context, "2", type, startTime, endTime, id, bean.getData().getPersonName(),
                                     bean.getData().getPersonPhone(), bean.getData().getAddress(), bean.getData().getHouseNumber(), new DialogVideoBaojing.ClickListener() {
                                 @Override

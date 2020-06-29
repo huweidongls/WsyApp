@@ -45,7 +45,7 @@ public class IndexSetActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.rl_zhence:
-                intent.setClass(context, ZhencebufangActivity.class);
+                intent.setClass(context, ZhencebufangLcActivity.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
                 break;

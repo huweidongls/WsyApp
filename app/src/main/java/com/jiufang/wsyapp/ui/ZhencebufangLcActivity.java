@@ -18,9 +18,9 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ZhencebufangActivity extends BaseActivity {
+public class ZhencebufangLcActivity extends BaseActivity {
 
-    private Context context = ZhencebufangActivity.this;
+    private Context context = ZhencebufangLcActivity.this;
 
     private String id = "";
 
@@ -30,8 +30,8 @@ public class ZhencebufangActivity extends BaseActivity {
         setContentView(R.layout.activity_zhencebufang);
 
         id = getIntent().getStringExtra("id");
-        StatusBarUtils.setStatusBar(ZhencebufangActivity.this, getResources().getColor(R.color.white_ffffff));
-        ButterKnife.bind(ZhencebufangActivity.this);
+        StatusBarUtils.setStatusBar(ZhencebufangLcActivity.this, getResources().getColor(R.color.white_ffffff));
+        ButterKnife.bind(ZhencebufangLcActivity.this);
         initData();
 
     }
