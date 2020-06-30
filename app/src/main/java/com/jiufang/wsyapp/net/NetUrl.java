@@ -95,7 +95,13 @@ public class NetUrl {
     public static final String testAliyunPushNotice = "/callback/testAliyunPushNotice";
     //测试阿里云推送消息
     public static final String testAliyunPushMessage = "/callback/testAliyunPushMessage";
-    //获取设备侦测布防信息(通用)
-    public static final String getDeviceCapability = "/device/capability/v1.0.0/getDeviceCapability";
+    //获取设备详情信息
+    public static final String getDeviceDetailInfo = "/device/v1.0.0/getDeviceDetailInfo";
+    //设置设备报警消息提醒
+    public static final String setDeviceNoticeStatus = "/device/v1.0.0/setDeviceNoticeStatus";
+    //获取乐橙设备动检参数信息
+    public static final String getLcDeviceCapability = "/device/capability/v1.0.0/getLcDeviceCapability";
+    //获取萤石设备动检参数信息
+    public static final String getYsDeviceCapability = "/device/capability/v1.0.0/getYsDeviceCapability";
 
 }

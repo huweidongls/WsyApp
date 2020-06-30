@@ -65,6 +65,7 @@
                 android:layout_height="37dp">
 
                 <TextView
+                    android:id="@+id/tv_huamian"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
@@ -74,10 +75,10 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_huamian"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_on"
                     android:layout_width="32dp"
                     android:layout_height="19dp" />
 
@@ -93,19 +94,20 @@
                 android:layout_height="37dp">
 
                 <TextView
+                    android:id="@+id/tv_yidong"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
                     android:textSize="14sp"
-                    android:text="人形检测"
+                    android:text="移动追踪"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_yidong"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_on"
                     android:layout_width="32dp"
                     android:layout_height="19dp" />
 
@@ -121,59 +123,22 @@
                 android:layout_height="37dp">
 
                 <TextView
+                    android:id="@+id/tv_intell"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
                     android:textSize="14sp"
-                    android:text="智能追踪 （该设备不支持）"
+                    android:text="智能检测"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_intell"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_on"
                     android:layout_width="32dp"
                     android:layout_height="19dp" />
-
-            </RelativeLayout>
-
-            <View
-                android:background="@color/line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="37dp">
-
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="14dp"
-                    android:textColor="#171F24"
-                    android:textSize="14sp"
-                    android:text="侦测区域"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="14dp"
-                    android:src="@mipmap/right_gray"
-                    android:layout_width="5dp"
-                    android:layout_height="9dp" />
-
-                <TextView
-                    android:layout_marginRight="32dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:textSize="12sp"
-                    android:textColor="#838383"
-                    android:text="部分/全部区域"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
             </RelativeLayout>
 
@@ -204,12 +169,50 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_zhence_lingmie"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="乐橙1-5/萤石低中高"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="37dp">
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="#171F24"
+                    android:textSize="14sp"
+                    android:text="侦测周期"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="14dp"
+                    android:src="@mipmap/right_gray"
+                    android:layout_width="5dp"
+                    android:layout_height="9dp" />
+
+                <TextView
+                    android:id="@+id/tv_zhence_zhouqi"
+                    android:layout_marginRight="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="12sp"
+                    android:textColor="#838383"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -242,18 +245,19 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="全天/每天18:00~次日07:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:background="#F3F4F5"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -278,6 +282,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="37dp">
 
@@ -301,11 +306,13 @@
             </RelativeLayout>
 
             <View
+                android:visibility="gone"
                 android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="37dp">
 
@@ -384,12 +391,12 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_baojing"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="静音/大声警告音/小声提示音"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

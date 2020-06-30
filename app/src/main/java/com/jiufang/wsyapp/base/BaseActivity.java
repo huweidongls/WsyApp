@@ -44,6 +44,11 @@ public class BaseActivity extends AppCompatActivity {
         return false;
     }
 
+    public String toPhone(String phone){
+        phone = phone.substring(0, 3) + "****" + phone.substring(7, phone.length());
+        return phone;
+    }
+
     public void toDialog(Context context, String title, String message, DialogInterface.OnClickListener listener, DialogInterface.OnClickListener listener1){
         AlertDialog.Builder normalDialog = new AlertDialog.Builder(context);
 //        normalDialog.setIcon(R.mipmap.ic_launcher);

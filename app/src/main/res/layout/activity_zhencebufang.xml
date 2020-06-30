@@ -153,7 +153,7 @@
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
                     android:textSize="14sp"
-                    android:text="侦测区域"
+                    android:text="侦测灵敏度"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -171,7 +171,7 @@
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="部分/全部区域"
+                    android:text="乐橙1-5级"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -191,7 +191,7 @@
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
                     android:textSize="14sp"
-                    android:text="侦测灵敏度"
+                    android:text="侦测周期"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -209,7 +209,7 @@
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="乐橙1-5/萤石低中高"
+                    android:text="每天/周一"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -339,6 +339,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:background="#F3F4F5"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -363,6 +364,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="37dp">
 

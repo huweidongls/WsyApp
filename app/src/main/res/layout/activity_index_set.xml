@@ -65,17 +65,17 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_device_name"
                         android:textColor="#4A4B4C"
                         android:textSize="16sp"
-                        android:text="CS_XP1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/tv_sncode"
                         android:layout_marginTop="5dp"
                         android:textColor="#838383"
                         android:textSize="14sp"
-                        android:text="5K05D84PAU69A7C"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -136,12 +136,12 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_cloud"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/theme"
                     android:textSize="12sp"
-                    android:text="即将过期"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -174,12 +174,12 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_na"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textColor="#838383"
                     android:textSize="12sp"
-                    android:text="未检测到储存介质"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -223,10 +223,10 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_jingbao"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_on"
                     android:layout_width="32dp"
                     android:layout_height="19dp" />
 
@@ -318,40 +318,50 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_yinpin"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:background="@color/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:textColor="#171F24"
+                        android:textSize="14sp"
+                        android:text="设备音频采集"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="14dp"
+                        android:src="@mipmap/turn_off"
+                        android:layout_width="32dp"
+                        android:layout_height="19dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
             <View
                 android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="36dp">
-
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="14dp"
-                    android:textColor="#171F24"
-                    android:textSize="14sp"
-                    android:text="设备音频采集(仅乐橙显示)"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_off"
-                    android:layout_width="32dp"
-                    android:layout_height="19dp" />
-
-            </RelativeLayout>
-
-            <View
-                android:background="@color/line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-
-            <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_set_more_lc"
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
@@ -361,7 +371,7 @@
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
                     android:textSize="14sp"
-                    android:text="更多设置(乐橙)"
+                    android:text="更多设置"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -415,31 +425,32 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_areaname"
                         android:textColor="#171F24"
                         android:textSize="14sp"
-                        android:text="御景商座(嵩山路)"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/tv_address"
                         android:textColor="#171F24"
                         android:textSize="14sp"
                         android:layout_marginTop="7dp"
-                        android:text="御景商座203室"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/tv_name"
                         android:textColor="#8D8D8D"
                         android:textSize="14sp"
                         android:layout_marginTop="7dp"
-                        android:text="吴雪球(女士)  183****5893"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_edit"
                     android:layout_marginRight="14dp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="103dp"

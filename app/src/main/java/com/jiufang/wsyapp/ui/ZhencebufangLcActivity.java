@@ -41,7 +41,7 @@ public class ZhencebufangLcActivity extends BaseActivity {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("userId", SpUtils.getUserId(context));
         map.put("deviceId", id);
-        ViseUtil.Post(context, NetUrl.getDeviceCapability, map, new ViseUtil.ViseListener() {
+        ViseUtil.Post(context, NetUrl.getLcDeviceCapability, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
                 Logger.e("123123", s);

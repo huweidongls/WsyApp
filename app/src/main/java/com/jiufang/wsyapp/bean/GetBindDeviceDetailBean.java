@@ -93,7 +93,7 @@ public class GetBindDeviceDetailBean implements Serializable {
         private int productCategoryId;
         private String productCategoryName;
         private String deviceName;
-        private Object deviceModal;
+        private String deviceModal;
         private String deviceAccessToken;
         private int haveCloudConsole;
         private String productImage;
@@ -157,11 +157,11 @@ public class GetBindDeviceDetailBean implements Serializable {
             this.deviceName = deviceName;
         }
 
-        public Object getDeviceModal() {
+        public String getDeviceModal() {
             return deviceModal;
         }
 
-        public void setDeviceModal(Object deviceModal) {
+        public void setDeviceModal(String deviceModal) {
             this.deviceModal = deviceModal;
         }
 
