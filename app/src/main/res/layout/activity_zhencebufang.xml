@@ -65,6 +65,7 @@
                 android:layout_height="37dp">
 
                 <TextView
+                    android:id="@+id/tv_huamian"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
@@ -74,10 +75,10 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_huamian"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_on"
                     android:layout_width="32dp"
                     android:layout_height="19dp" />
 
@@ -93,6 +94,7 @@
                 android:layout_height="37dp">
 
                 <TextView
+                    android:id="@+id/tv_renxing"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
@@ -102,10 +104,10 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_renxing"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_on"
                     android:layout_width="32dp"
                     android:layout_height="19dp" />
 
@@ -121,19 +123,20 @@
                 android:layout_height="37dp">
 
                 <TextView
+                    android:id="@+id/tv_zhuizong"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
                     android:textSize="14sp"
-                    android:text="智能追踪 （该设备不支持）"
+                    android:text="智能追踪"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_zhuizong"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_on"
                     android:layout_width="32dp"
                     android:layout_height="19dp" />
 
@@ -166,12 +169,12 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_lingmindu"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="乐橙1-5级"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -204,12 +207,12 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_zhence_zhouqi"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="每天/周一"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -242,12 +245,12 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="全天/每天18:00~次日07:00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -282,6 +285,7 @@
                 android:layout_height="37dp">
 
                 <TextView
+                    android:id="@+id/tv_yichang"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
@@ -291,10 +295,10 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/iv_yichang"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="14dp"
-                    android:src="@mipmap/turn_on"
                     android:layout_width="32dp"
                     android:layout_height="19dp" />
 
@@ -327,12 +331,12 @@
                     android:layout_height="9dp" />
 
                 <TextView
+                    android:id="@+id/tv_fenbei"
                     android:layout_marginRight="32dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="12sp"
                     android:textColor="#838383"
-                    android:text="乐橙/50-90分贝/萤石不清楚"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

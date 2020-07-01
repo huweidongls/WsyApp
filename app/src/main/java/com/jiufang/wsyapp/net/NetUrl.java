@@ -103,5 +103,15 @@ public class NetUrl {
     public static final String getLcDeviceCapability = "/device/capability/v1.0.0/getLcDeviceCapability";
     //获取萤石设备动检参数信息
     public static final String getYsDeviceCapability = "/device/capability/v1.0.0/getYsDeviceCapability";
+    //监控状态设置(通用)
+    public static final String setMonitoringStatus = "/device/capability/v1.0.0/setMonitoringStatus";
+    //设置萤石移动追踪状态
+    public static final String setYsDeviceMobileStatus = "/device/capability/v1.0.0/setYsDeviceMobileStatus";
+    //设置萤石智能检测追踪状态
+    public static final String setYsIntelligentDetectionStatus = "/device/capability/v1.0.0/setYsIntelligentDetectionStatus";
+    //灵敏度设置(通用)
+    public static final String setSensitivity = "/device/capability/v1.0.0/setSensitivity";
+    //设置萤石报警音模式
+    public static final String setYsAlarmSoundMode = "/device/capability/v1.0.0/setYsAlarmSoundMode";
 
 }
