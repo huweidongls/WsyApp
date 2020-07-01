@@ -148,6 +148,7 @@
                 android:layout_height="1dp"/>
 
             <RelativeLayout
+                android:id="@+id/rl_lingmindu"
                 android:layout_width="match_parent"
                 android:layout_height="37dp">
 
@@ -310,6 +311,7 @@
                 android:layout_height="1dp"/>
 
             <RelativeLayout
+                android:id="@+id/rl_fenbei"
                 android:layout_width="match_parent"
                 android:layout_height="37dp">
 

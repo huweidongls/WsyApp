@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetLcDeviceCapabilityBean;
+import com.jiufang.wsyapp.dialog.DialogLcFenbei;
+import com.jiufang.wsyapp.dialog.DialogLcLingmindu;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -158,13 +160,193 @@ public class ZhencebufangLcActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back})
+    @OnClick({R.id.rl_back, R.id.iv_huamian, R.id.iv_zhuizong, R.id.rl_lingmindu, R.id.iv_yichang, R.id.rl_fenbei})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.rl_fenbei:
+                setFenbei();
+                break;
+            case R.id.iv_yichang:
+                if(yichangyin == 0){
+                    setYichangyin(1);
+                }else if(yichangyin == 1){
+                    setYichangyin(0);
+                }
+                break;
+            case R.id.rl_lingmindu:
+                setLingmindu();
+                break;
+            case R.id.iv_zhuizong:
+                if(zhuizong == 0){
+                    setZhuizong(1);
+                }else if(zhuizong == 1){
+                    setZhuizong(0);
+                }
+                break;
+            case R.id.iv_huamian:
+                if(mon == 0){
+                    setHuamian(1);
+                }else if(mon == 1){
+                    setHuamian(0);
+                }
+                break;
             case R.id.rl_back:
                 finish();
                 break;
         }
+    }
+
+    /**
+     * 设置声音分贝
+     */
+    private void setFenbei() {
+
+        DialogLcFenbei dialogLcFenbei = new DialogLcFenbei(context, new DialogLcFenbei.ClickListener() {
+            @Override
+            public void onClick(String value) {
+                dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("deviceId", id);
+                map.put("userId", SpUtils.getUserId(context));
+                map.put("value", value);
+                ViseUtil.Post(context, NetUrl.setLcSoundVolumeSize, map, dialog, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        tvFenbei.setText(value+"分贝");
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
+            }
+        });
+        dialogLcFenbei.show();
+
+    }
+
+    /**
+     * 设置异常音警报
+     * @param i
+     */
+    private void setYichangyin(int i) {
+
+        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("deviceId", id);
+        map.put("status", i+"");
+        map.put("userId", SpUtils.getUserId(context));
+        ViseUtil.Post(context, NetUrl.setLcAlarmSound, map, dialog, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                if(i == 0){
+                    yichangyin = 0;
+                    ivYichang.setImageResource(R.mipmap.turn_off);
+                }else if(i == 1){
+                    yichangyin = 1;
+                    ivYichang.setImageResource(R.mipmap.turn_on);
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
+
+    }
+
+    /**
+     * 设置侦测灵敏度
+     */
+    private void setLingmindu() {
+
+        DialogLcLingmindu dialogLcLingmindu = new DialogLcLingmindu(context, new DialogLcLingmindu.ClickListener() {
+            @Override
+            public void onClick(String value) {
+                dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("deviceId", id);
+                map.put("userId", SpUtils.getUserId(context));
+                map.put("value", value);
+                ViseUtil.Post(context, NetUrl.setSensitivity, map, dialog, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        tvLingmindu.setText(value);
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
+            }
+        });
+        dialogLcLingmindu.show();
+
+    }
+
+    /**
+     * 设置智能追踪
+     * @param i
+     */
+    private void setZhuizong(int i) {
+
+        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("deviceId", id);
+        map.put("status", i+"");
+        map.put("userId", SpUtils.getUserId(context));
+        ViseUtil.Post(context, NetUrl.setLcSmartTracking, map, dialog, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                if(i == 0){
+                    zhuizong = 0;
+                    ivZhuizong.setImageResource(R.mipmap.turn_off);
+                }else if(i == 1){
+                    zhuizong = 1;
+                    ivZhuizong.setImageResource(R.mipmap.turn_on);
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
+
+    }
+
+    /**
+     * 设置画面变化检测
+     * @param i
+     */
+    private void setHuamian(int i) {
+
+        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("deviceId", id);
+        map.put("status", i+"");
+        map.put("userId", SpUtils.getUserId(context));
+        ViseUtil.Post(context, NetUrl.setMonitoringStatus, map, dialog, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                if(i == 0){
+                    mon = 0;
+                    ivHuamian.setImageResource(R.mipmap.turn_off);
+                }else if(i == 1){
+                    mon = 1;
+                    ivHuamian.setImageResource(R.mipmap.turn_on);
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
+
     }
 
     private String getZhouqi(String zq){

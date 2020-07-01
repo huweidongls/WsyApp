@@ -34,6 +34,13 @@ public class IndexSetMoreLcActivity extends BaseActivity {
 
         StatusBarUtils.setStatusBar(IndexSetMoreLcActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(IndexSetMoreLcActivity.this);
+        initData();
+
+    }
+
+    private void initData() {
+
+
 
     }
 

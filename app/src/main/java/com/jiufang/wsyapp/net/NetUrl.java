@@ -113,5 +113,15 @@ public class NetUrl {
     public static final String setSensitivity = "/device/capability/v1.0.0/setSensitivity";
     //设置萤石报警音模式
     public static final String setYsAlarmSoundMode = "/device/capability/v1.0.0/setYsAlarmSoundMode";
+    //设置乐橙智能检测(需设备支持)
+    public static final String setLcSmartTracking = "/device/capability/v1.0.0/setLcSmartTracking";
+    //设置乐橙异常音警报
+    public static final String setLcAlarmSound = "/device/capability/v1.0.0/setLcAlarmSound";
+    //设置乐橙异常音音量分贝
+    public static final String setLcSoundVolumeSize = "/device/capability/v1.0.0/setLcSoundVolumeSize";
+    //获取乐橙设备使能(测试用)
+    public static final String getLcDeviceCapabilityStatus = "/device/capability/v1.0.0/getLcDeviceCapabilityStatus";
+    //设置乐橙设备使能(测试用)
+    public static final String setLcDeviceCapabilityStatus = "/device/capability/v1.0.0/setLcDeviceCapabilityStatus";
 
 }

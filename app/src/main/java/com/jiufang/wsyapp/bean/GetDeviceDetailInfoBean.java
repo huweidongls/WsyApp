@@ -102,6 +102,15 @@ public class GetDeviceDetailInfoBean {
         private String houseNumber;
         private String personName;
         private String personPhone;
+        private String securityCode;
+
+        public String getSecurityCode() {
+            return securityCode;
+        }
+
+        public void setSecurityCode(String securityCode) {
+            this.securityCode = securityCode;
+        }
 
         public int getDeviceId() {
             return deviceId;

@@ -67,6 +67,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
     @BindView(R.id.iv_jizhu)
     ImageView ivJizhu;
 
+    private String tiaozhuanType = "";//1绑定 2设备设置
     private String type = "";//1乐橙 2萤石
     private String xlh = "";
     private String anquan = "";
@@ -88,13 +89,17 @@ public class AddDeviceWifiActivity extends BaseActivity {
                     ToastUtil.showShort(context, "WiFi配置成功");
                     stopConfig();
                     WeiboDialogUtils.closeDialog(dialog);
-                    Intent intent = new Intent();
-                    intent.setClass(context, AddDeviceSureActivity.class);
-                    intent.putExtra("type", type);
-                    intent.putExtra("xlh", xlh);
-                    intent.putExtra("anquan", anquan);
-                    intent.putExtra("xinghao", xinghao);
-                    startActivity(intent);
+                    if(tiaozhuanType.equals("1")){
+                        Intent intent = new Intent();
+                        intent.setClass(context, AddDeviceSureActivity.class);
+                        intent.putExtra("type", type);
+                        intent.putExtra("xlh", xlh);
+                        intent.putExtra("anquan", anquan);
+                        intent.putExtra("xinghao", xinghao);
+                        startActivity(intent);
+                    }else {
+                        AddDeviceWifiActivity.this.finish();
+                    }
                     break;
                 case DEVICE_SEARCH_FAILED:
                     Logger.d("123123", "deviceSearchFailed:" + msg.obj);
@@ -129,6 +134,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device_wifi);
 
+        tiaozhuanType = getIntent().getStringExtra("tiaozhuan");
         type = getIntent().getStringExtra("type");
         xlh = getIntent().getStringExtra("xlh");
         anquan = getIntent().getStringExtra("anquan");
@@ -315,13 +321,17 @@ public class AddDeviceWifiActivity extends BaseActivity {
                             Logger.e("123123", "设备配网成功");
                             ToastUtil.showShort(context, "设备配网成功");
                             EZWiFiConfigManager.stopAPConfig();
-                            Intent intent = new Intent();
-                            intent.setClass(context, AddDeviceSureActivity.class);
-                            intent.putExtra("type", type);
-                            intent.putExtra("xlh", xlh);
-                            intent.putExtra("anquan", anquan);
-                            intent.putExtra("xinghao", xinghao);
-                            startActivity(intent);
+                            if(tiaozhuanType.equals("1")){
+                                Intent intent = new Intent();
+                                intent.setClass(context, AddDeviceSureActivity.class);
+                                intent.putExtra("type", type);
+                                intent.putExtra("xlh", xlh);
+                                intent.putExtra("anquan", anquan);
+                                intent.putExtra("xinghao", xinghao);
+                                startActivity(intent);
+                            }else {
+                                AddDeviceWifiActivity.this.finish();
+                            }
                         }
                     });
                 }

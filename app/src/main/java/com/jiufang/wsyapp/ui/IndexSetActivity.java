@@ -14,12 +14,16 @@ import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetDeviceDetailInfoBean;
+import com.jiufang.wsyapp.dialog.DialogCustom;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -52,10 +56,15 @@ public class IndexSetActivity extends BaseActivity {
     LinearLayout llYinpin;
     @BindView(R.id.rl_set_more_lc)
     RelativeLayout rlSetMoreLc;
+    @BindView(R.id.iv_yinpin)
+    ImageView ivYinpin;
 
     private String id = "";
     private int brandId = 0;
     private int isNotice = 0;
+    private int yinpin = 0;
+    private String xlh = "";
+    private String anquan = "";
 
     private Dialog dialog;
 
@@ -89,9 +98,37 @@ public class IndexSetActivity extends BaseActivity {
                 Gson gson = new Gson();
                 GetDeviceDetailInfoBean bean = gson.fromJson(s, GetDeviceDetailInfoBean.class);
                 brandId = bean.getData().getBrandId();
+                xlh = bean.getData().getSnCode();
+                anquan = bean.getData().getSecurityCode();
                 if(brandId == 1){
                     llYinpin.setVisibility(View.VISIBLE);
                     rlSetMoreLc.setVisibility(View.VISIBLE);
+                    Map<String, String> map1 = new LinkedHashMap<>();
+                    map1.put("deviceId", id);
+                    map1.put("enableType", "audioEncodeControl");
+                    map1.put("userId", SpUtils.getUserId(context));
+                    ViseUtil.Post(context, NetUrl.getLcDeviceCapabilityStatus, map1, new ViseUtil.ViseListener() {
+                        @Override
+                        public void onReturn(String s) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                if(jsonObject.optString("data").equals("on")){
+                                    yinpin = 1;
+                                    ivYinpin.setImageResource(R.mipmap.turn_on);
+                                }else if(jsonObject.optString("data").equals("off")){
+                                    yinpin = 0;
+                                    ivYinpin.setImageResource(R.mipmap.turn_off);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onElse(String s) {
+
+                        }
+                    });
                 }
                 tvDeviceName.setText(bean.getData().getDeviceName());
                 tvSncode.setText(bean.getData().getSnCode());
@@ -130,10 +167,33 @@ public class IndexSetActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.ll_device_info, R.id.rl_zhence, R.id.rl_set_more_lc, R.id.iv_jingbao, R.id.rl_edit})
+    @OnClick({R.id.rl_back, R.id.ll_device_info, R.id.rl_zhence, R.id.rl_set_more_lc, R.id.iv_jingbao, R.id.rl_edit, R.id.iv_yinpin,
+    R.id.rl_wifi})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_wifi:
+                DialogCustom dialogCustom = new DialogCustom(context, "为设备配置网络需要重置设备，听到设备重置提示音请点击确定去配置网络！", new DialogCustom.ClickListener() {
+                    @Override
+                    public void onSure() {
+                        Intent intent1 = new Intent();
+                        intent1.setClass(context, AddDeviceWifiActivity.class);
+                        intent1.putExtra("tiaozhuan", "2");
+                        intent1.putExtra("type", brandId);
+                        intent1.putExtra("xlh", xlh);
+                        intent1.putExtra("anquan", anquan);
+                        startActivity(intent1);
+                    }
+                });
+                dialogCustom.show();
+                break;
+            case R.id.iv_yinpin:
+                if(yinpin == 0){
+                    setYinpin(1);
+                }else if(yinpin == 1){
+                    setYinpin(0);
+                }
+                break;
             case R.id.rl_edit:
                 intent.setClass(context, AddDeviceAddressActivity.class);
                 intent.putExtra("id", id);
@@ -171,6 +231,42 @@ public class IndexSetActivity extends BaseActivity {
                 finish();
                 break;
         }
+    }
+
+    /**
+     * 设置设备音频
+     * @param i
+     */
+    private void setYinpin(int i) {
+
+        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("deviceId", id);
+        if(i == 1){
+            map.put("enable", "true");
+        }else if(i == 0){
+            map.put("enable", "false");
+        }
+        map.put("enableType", "audioEncodeControl");
+        map.put("userId", SpUtils.getUserId(context));
+        ViseUtil.Post(context, NetUrl.setLcDeviceCapabilityStatus, map, dialog, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                if(i == 0){
+                    yinpin = 0;
+                    ivYinpin.setImageResource(R.mipmap.turn_off);
+                }else if(i == 1){
+                    yinpin = 1;
+                    ivYinpin.setImageResource(R.mipmap.turn_on);
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
+
     }
 
     private void setNotice(int isNo){

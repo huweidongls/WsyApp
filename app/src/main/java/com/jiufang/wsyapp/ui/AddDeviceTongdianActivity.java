@@ -123,6 +123,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                                     }else {
                                         //设备没网
                                         intent.setClass(context, AddDeviceWifiActivity.class);
+                                        intent.putExtra("tiaozhuan", "1");
                                         intent.putExtra("type", type);
                                         intent.putExtra("xlh", xlh);
                                         intent.putExtra("anquan", anquan);
@@ -142,6 +143,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                                     if(jsonObject.optInt("code") == 1203||jsonObject.optInt("code") == 1103){
                                         Intent intent = new Intent();
                                         intent.setClass(context, AddDeviceWifiActivity.class);
+                                        intent.putExtra("tiaozhuan", "1");
                                         intent.putExtra("type", type);
                                         intent.putExtra("xlh", xlh);
                                         intent.putExtra("anquan", anquan);
@@ -185,6 +187,7 @@ public class AddDeviceTongdianActivity extends BaseActivity {
                                     }else {
                                         //设备没网
                                         intent.setClass(context, AddDeviceWifiActivity.class);
+                                        intent.putExtra("tiaozhuan", "1");
                                         intent.putExtra("type", type);
                                         intent.putExtra("xlh", xlh);
                                         intent.putExtra("anquan", anquan);
