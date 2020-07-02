@@ -2,6 +2,7 @@ package com.jiufang.wsyapp.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,6 +64,9 @@ public class ZhencebufangLcActivity extends BaseActivity {
     private int isHave = 0;
     private int zhuizong = 0;
     private int yichangyin = 0;
+    private String mStart = "";
+    private String mEnd = "";
+    private String zhouqi = "";
 
     private Dialog dialog;
 
@@ -74,8 +78,13 @@ public class ZhencebufangLcActivity extends BaseActivity {
         id = getIntent().getStringExtra("id");
         StatusBarUtils.setStatusBar(ZhencebufangLcActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(ZhencebufangLcActivity.this);
-        initData();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
     }
 
     private void initData() {
@@ -124,17 +133,21 @@ public class ZhencebufangLcActivity extends BaseActivity {
                 }else {
                     tvLingmindu.setText(lingmin+"");
                 }
-                String zhouqi = bean.getData().getDetectPeriod();
-                zhouqi = zhouqi.replaceAll(",", "/");
-                zhouqi = getZhouqi(zhouqi);
-                String[] zq = zhouqi.split("/");
-                if(zq.length == 7){
-                    tvZhenceZhouqi.setText("每天");
-                }else {
-                    tvZhenceZhouqi.setText(zhouqi);
+                if(bean.getData().getDetectPeriod()!=null){
+                    zhouqi = bean.getData().getDetectPeriod();
+                    zhouqi = zhouqi.replaceAll(",", "/");
+                    zhouqi = getZhouqi(zhouqi);
+                    String[] zq = zhouqi.split("/");
+                    if(zq.length == 7){
+                        tvZhenceZhouqi.setText("每天");
+                    }else {
+                        tvZhenceZhouqi.setText(zhouqi);
+                    }
                 }
                 String startTime = "2020-01-01 "+bean.getData().getScheduleStartTime();
                 String endTime = "2020-01-01 "+bean.getData().getScheduleEndTime();
+                mStart = bean.getData().getScheduleStartTime();
+                mEnd = bean.getData().getScheduleEndTime();
                 int i = StringUtils.getTimeCompareSize(startTime, endTime);
                 if(i == 3){
                     tvTime.setText("每天"+bean.getData().getScheduleStartTime()+"~"+bean.getData().getScheduleEndTime());
@@ -160,9 +173,26 @@ public class ZhencebufangLcActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.iv_huamian, R.id.iv_zhuizong, R.id.rl_lingmindu, R.id.iv_yichang, R.id.rl_fenbei})
+    @OnClick({R.id.rl_back, R.id.iv_huamian, R.id.iv_zhuizong, R.id.rl_lingmindu, R.id.iv_yichang, R.id.rl_fenbei, R.id.rl_zhence_zhouqi
+    , R.id.rl_zhence_time})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_zhence_time:
+                intent.setClass(context, ZhenceTimeActivity.class);
+                intent.putExtra("type", "1");
+                intent.putExtra("id", id);
+                intent.putExtra("zhouqi", zhouqi);
+                startActivity(intent);
+                break;
+            case R.id.rl_zhence_zhouqi:
+                intent.setClass(context, ZhenceZhouqiActivity.class);
+                intent.putExtra("type", "1");
+                intent.putExtra("id", id);
+                intent.putExtra("start", mStart);
+                intent.putExtra("end", mEnd);
+                startActivity(intent);
+                break;
             case R.id.rl_fenbei:
                 setFenbei();
                 break;

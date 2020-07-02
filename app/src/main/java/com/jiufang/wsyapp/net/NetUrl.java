@@ -123,5 +123,25 @@ public class NetUrl {
     public static final String getLcDeviceCapabilityStatus = "/device/capability/v1.0.0/getLcDeviceCapabilityStatus";
     //设置乐橙设备使能(测试用)
     public static final String setLcDeviceCapabilityStatus = "/device/capability/v1.0.0/setLcDeviceCapabilityStatus";
+    //获取乐橙设备更多设置
+    public static final String getLcDeviceMoreCapability = "/device/capability/v1.0.0/getLcDeviceMoreCapability";
+    //设置乐橙设备指示灯(更多)
+    public static final String setLcBreathingLampStatus = "/device/capability/v1.0.0/setLcBreathingLampStatus";
+    //设置乐橙设备翻转状态(更多)
+    public static final String setLcReverseStatus = "/device/capability/v1.0.0/setLcReverseStatus";
+    //重启乐橙设备(更多)
+    public static final String restartLcDevice = "/device/capability/v1.0.0/restartLcDevice";
+    //设置萤石布防计划
+    public static final String setYsSchedule = "/device/capability/v1.0.0/setYsSchedule";
+    //设置乐橙动检计划
+    public static final String setLcSchedule = "/device/capability/v1.0.0/setLcSchedule";
+    //获取设备信息
+    public static final String getDeviceInfo = "/device/v1.0.0/getDeviceInfo";
+    //上传设备封面
+    public static final String uploadDeviceCoverImage = "/device/v1.0.0/uploadDeviceCoverImage";
+    //获取设备升级信息
+    public static final String getDeviceUpdateInfo = "/device/update/v1.0.0/getDeviceUpdateInfo";
+    //设备升级
+    public static final String upgradeDevice = "/device/update/v1.0.0/upgradeDevice";
 
 }

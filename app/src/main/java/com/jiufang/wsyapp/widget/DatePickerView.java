@@ -89,7 +89,7 @@ public class DatePickerView extends View {
 
     private void performSelect() {
         if (mSelectListener != null) {
-            mSelectListener.onSelect(mDataList.get(mCurrentSelected));
+            mSelectListener.onSelect(mCurrentSelected);
         }
     }
 
@@ -317,7 +317,7 @@ public class DatePickerView extends View {
     }
 
     public interface onSelectListener {
-        void onSelect(String text);
+        void onSelect(int pos);
     }
 
     public void setCanScroll(boolean canScroll) {

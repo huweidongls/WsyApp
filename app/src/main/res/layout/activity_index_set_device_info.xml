@@ -33,11 +33,13 @@
         android:layout_height="1dp"/>
 
     <LinearLayout
+        android:id="@+id/ll_fengmian"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="119dp">
 
         <ImageView
+            android:id="@+id/iv_fengmian"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="14dp"
             android:scaleType="fitXY"
@@ -198,15 +200,17 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_version"
             android:layout_centerVertical="true"
             android:textColor="#171F24"
             android:textSize="14sp"
             android:layout_marginLeft="90dp"
-            android:text="XXXXXXXXXXXXXXXXX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_shengji"
             android:background="@drawable/bg_f3f3f3_8dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="14dp"

@@ -2,6 +2,7 @@ package com.jiufang.wsyapp.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -58,6 +59,10 @@ public class ZhencebufangYsActivity extends BaseActivity {
     private int track = 0;//移动追踪
     private int intell = 0;//智能检测
 
+    private String mStart = "";
+    private String mEnd = "";
+    private String zhouqi = "";
+
     private Dialog dialog;
 
     @Override
@@ -68,8 +73,13 @@ public class ZhencebufangYsActivity extends BaseActivity {
         id = getIntent().getStringExtra("id");
         StatusBarUtils.setStatusBar(ZhencebufangYsActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(ZhencebufangYsActivity.this);
-        initData();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
     }
 
     private void initData() {
@@ -109,7 +119,7 @@ public class ZhencebufangYsActivity extends BaseActivity {
                     tvIntell.setText("智能检测（该设备不支持）");
                 }
                 tvZhenceLingmie.setText(bean.getData().getSensitivity());
-                String zhouqi = bean.getData().getDetectPeriod();
+                zhouqi = bean.getData().getDetectPeriod();
                 zhouqi = zhouqi.replaceAll(",", "/");
                 zhouqi = getZhouqi(zhouqi);
                 String[] zq = zhouqi.split("/");
@@ -128,11 +138,13 @@ public class ZhencebufangYsActivity extends BaseActivity {
                 }
                 String startTime = "2020-01-01 "+bean.getData().getScheduleStartTime()+":00";
                 String endTime = "2020-01-01 "+bean.getData().getScheduleEndTime()+":00";
+                mStart = bean.getData().getScheduleStartTime();
+                mEnd = bean.getData().getScheduleEndTime();
                 int i = StringUtils.getTimeCompareSize(startTime, endTime);
                 if(i == 3){
                     tvTime.setText("每天"+bean.getData().getScheduleStartTime()+"~"+bean.getData().getScheduleEndTime());
                 }else {
-                    tvTime.setText("每天"+bean.getData().getScheduleStartTime()+"~次日"+bean.getData().getScheduleEndTime());
+                    tvTime.setText("每天"+bean.getData().getScheduleStartTime()+"~次日"+bean.getData().getScheduleEndTime().replace("n", ""));
                 }
 
             }
@@ -145,9 +157,26 @@ public class ZhencebufangYsActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.iv_huamian, R.id.iv_yidong, R.id.iv_intell, R.id.rl_lingmindu, R.id.rl_baojing})
+    @OnClick({R.id.rl_back, R.id.iv_huamian, R.id.iv_yidong, R.id.iv_intell, R.id.rl_lingmindu, R.id.rl_baojing, R.id.rl_zhence_zhouqi
+    , R.id.rl_zhence_time})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_zhence_time:
+                intent.setClass(context, ZhenceTimeActivity.class);
+                intent.putExtra("type", "2");
+                intent.putExtra("id", id);
+                intent.putExtra("zhouqi", zhouqi);
+                startActivity(intent);
+                break;
+            case R.id.rl_zhence_zhouqi:
+                intent.setClass(context, ZhenceZhouqiActivity.class);
+                intent.putExtra("type", "2");
+                intent.putExtra("id", id);
+                intent.putExtra("start", mStart);
+                intent.putExtra("end", mEnd);
+                startActivity(intent);
+                break;
             case R.id.rl_baojing:
                 setBaojing();
                 break;

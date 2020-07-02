@@ -306,8 +306,18 @@
         <activity
             android:name=".ui.SetActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.ZhanghaoSafeActivity" />
-        <activity android:name=".ui.ZhencebufangYsActivity"></activity>
+        <activity
+            android:name=".ui.ZhanghaoSafeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ZhencebufangYsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ZhenceZhouqiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ZhenceTimeActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

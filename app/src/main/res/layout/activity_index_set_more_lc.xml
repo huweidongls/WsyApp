@@ -39,6 +39,7 @@
         android:layout_height="51dp">
 
         <TextView
+            android:id="@+id/tv_hongwaideng"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
             android:textColor="#444343"
@@ -56,12 +57,12 @@
             android:layout_height="11dp" />
 
         <TextView
+            android:id="@+id/tv_hwd"
             android:layout_marginRight="28dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textColor="#C2BDBD"
             android:textSize="10sp"
-            android:text="自动"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -78,6 +79,7 @@
         android:layout_height="51dp">
 
         <TextView
+            android:id="@+id/tv_zhishideng"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
             android:textColor="#444343"
@@ -87,10 +89,10 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/iv_zhishideng"
             android:layout_centerVertical="true"
             android:layout_marginRight="19dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/turn_on"
             android:layout_width="32dp"
             android:layout_height="19dp" />
 
@@ -107,6 +109,7 @@
         android:layout_height="51dp">
 
         <TextView
+            android:id="@+id/tv_tishiyin"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
             android:textColor="#444343"
@@ -116,10 +119,10 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/iv_tishiyin"
             android:layout_centerVertical="true"
             android:layout_marginRight="19dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/turn_on"
             android:layout_width="32dp"
             android:layout_height="19dp" />
 
@@ -136,6 +139,7 @@
         android:layout_height="51dp">
 
         <TextView
+            android:id="@+id/tv_fanzhuan"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
             android:textColor="#444343"
@@ -145,10 +149,10 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/iv_fanzhuan"
             android:layout_centerVertical="true"
             android:layout_marginRight="19dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/turn_off"
             android:layout_width="32dp"
             android:layout_height="19dp" />
 

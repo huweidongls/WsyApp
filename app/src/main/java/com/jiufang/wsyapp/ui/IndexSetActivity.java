@@ -209,6 +209,7 @@ public class IndexSetActivity extends BaseActivity {
                 break;
             case R.id.rl_set_more_lc:
                 intent.setClass(context, IndexSetMoreLcActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
                 break;
             case R.id.rl_zhence:
@@ -225,6 +226,7 @@ public class IndexSetActivity extends BaseActivity {
             case R.id.ll_device_info:
                 intent.setClass(context, IndexSetDeviceInfoActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("brandId", brandId);
                 startActivity(intent);
                 break;
             case R.id.rl_back:
