@@ -89,7 +89,7 @@ public class GetDeviceDetailInfoBean {
         private String deviceName;
         private String deviceModel;
         private String productImage;
-        private Object snapImage;
+        private String snapImage;
         private String snCode;
         private int deviceStatus;
         private int cloudStorageStatus;
@@ -160,11 +160,11 @@ public class GetDeviceDetailInfoBean {
             this.productImage = productImage;
         }
 
-        public Object getSnapImage() {
+        public String getSnapImage() {
             return snapImage;
         }
 
-        public void setSnapImage(Object snapImage) {
+        public void setSnapImage(String snapImage) {
             this.snapImage = snapImage;
         }
 

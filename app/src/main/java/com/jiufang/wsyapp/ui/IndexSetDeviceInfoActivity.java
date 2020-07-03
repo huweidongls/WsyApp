@@ -18,6 +18,8 @@ import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
 import com.jiufang.wsyapp.bean.GetDeviceInfoBean;
+import com.jiufang.wsyapp.bean.GetDeviceUpdateInfoBean;
+import com.jiufang.wsyapp.dialog.DialogCustom;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -95,6 +97,13 @@ public class IndexSetDeviceInfoActivity extends BaseActivity {
                 sncode = bean.getData().getDeviceSn();
                 tvSncode.setText(bean.getData().getDeviceSn());
                 tvVersion.setText(bean.getData().getCurrentVersion());
+                String pic = bean.getData().getSnapImage();
+                if(pic.length()>2){
+                    if(pic.substring(0, 1).equals("/")){
+                        pic = pic.substring(1, pic.length());
+                    }
+                    Glide.with(context).load(NetUrl.BASE_IMG_URL+pic).into(ivFengmian);
+                }
             }
 
             @Override
@@ -103,26 +112,64 @@ public class IndexSetDeviceInfoActivity extends BaseActivity {
             }
         });
 
-//        Map<String, String> map = new LinkedHashMap<>();
-//        map1.put("deviceId", id);
-//        map1.put("userId", SpUtils.getUserId(context));
-//        ViseUtil.Post(context, NetUrl.getDeviceUpdateInfo, map, new ViseUtil.ViseListener() {
-//            @Override
-//            public void onReturn(String s) {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("deviceId", id);
+        map.put("userId", SpUtils.getUserId(context));
+        ViseUtil.Post(context, NetUrl.getDeviceUpdateInfo, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
 //                Logger.e("123123", s);
-//            }
-//
-//            @Override
-//            public void onElse(String s) {
-//                Logger.e("123123", s);
-//            }
-//        });
+                Gson gson = new Gson();
+                GetDeviceUpdateInfoBean bean = gson.fromJson(s, GetDeviceUpdateInfoBean.class);
+                Logger.e("123123", brandId+"000");
+                if(brandId.equals("1")){
+                    int can = bean.getData().getCanBeUpgrade();
+                    if(can == 1){
+                        tvShengji.setVisibility(View.VISIBLE);
+                    }
+                }else if(brandId.equals("2")){
+                    int can = bean.getData().getIsNeedUpgrade();
+                    if(can == 1){
+                        tvShengji.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
 
     }
 
-    @OnClick({R.id.rl_back, R.id.tv_copy, R.id.ll_fengmian})
+    @OnClick({R.id.rl_back, R.id.tv_copy, R.id.ll_fengmian, R.id.tv_shengji})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.tv_shengji:
+                String title = "升级过程将持续几分钟，升级时不能退出应用程序和锁屏，不能断开设备、网络与电源，确定现在升级？";
+                DialogCustom dialogCustom = new DialogCustom(context, title, new DialogCustom.ClickListener() {
+                    @Override
+                    public void onSure() {
+                        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+                        Map<String, String> map = new LinkedHashMap<>();
+                        map.put("deviceId", id);
+                        map.put("userId", SpUtils.getUserId(context));
+                        ViseUtil.Post(context, NetUrl.upgradeDevice, map, dialog, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+
+                            }
+
+                            @Override
+                            public void onElse(String s) {
+
+                            }
+                        });
+                    }
+                });
+                dialogCustom.show();
+                break;
             case R.id.ll_fengmian:
                 //单选并剪裁
                 ImageSelector.builder()
@@ -167,10 +214,12 @@ public class IndexSetDeviceInfoActivity extends BaseActivity {
                                 if(jsonObject.optInt("code") == 200){
                                     ToastUtil.showShort(context, "封面上传成功");
                                     String pic = jsonObject.optString("data");
-                                    if(pic.substring(0, 1).equals("/")){
-                                        pic = pic.substring(1, pic.length());
+                                    if(pic.length()>2){
+                                        if(pic.substring(0, 1).equals("/")){
+                                            pic = pic.substring(1, pic.length());
+                                        }
+                                        Glide.with(context).load(NetUrl.BASE_IMG_URL+pic).into(ivFengmian);
                                     }
-                                    Glide.with(context).load(NetUrl.BASE_IMG_URL+pic).into(ivFengmian);
                                 }
                                 WeiboDialogUtils.closeDialog(dialog);
                             } catch (JSONException e) {

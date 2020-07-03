@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
@@ -58,6 +59,8 @@ public class IndexSetActivity extends BaseActivity {
     RelativeLayout rlSetMoreLc;
     @BindView(R.id.iv_yinpin)
     ImageView ivYinpin;
+    @BindView(R.id.iv_title)
+    ImageView ivTitle;
 
     private String id = "";
     private int brandId = 0;
@@ -157,6 +160,13 @@ public class IndexSetActivity extends BaseActivity {
                 tvAreaName.setText(bean.getData().getAreaFullName());
                 tvAddress.setText(bean.getData().getAddress());
                 tvName.setText(bean.getData().getPersonName()+"  "+toPhone(bean.getData().getPersonPhone()));
+                String pic = bean.getData().getSnapImage();
+                if(pic.length()>2){
+                    if(pic.substring(0, 1).equals("/")){
+                        pic = pic.substring(1, pic.length());
+                    }
+                    Glide.with(context).load(NetUrl.BASE_IMG_URL+pic).into(ivTitle);
+                }
             }
 
             @Override
@@ -179,7 +189,7 @@ public class IndexSetActivity extends BaseActivity {
                         Intent intent1 = new Intent();
                         intent1.setClass(context, AddDeviceWifiActivity.class);
                         intent1.putExtra("tiaozhuan", "2");
-                        intent1.putExtra("type", brandId);
+                        intent1.putExtra("type", brandId+"");
                         intent1.putExtra("xlh", xlh);
                         intent1.putExtra("anquan", anquan);
                         startActivity(intent1);
@@ -226,7 +236,7 @@ public class IndexSetActivity extends BaseActivity {
             case R.id.ll_device_info:
                 intent.setClass(context, IndexSetDeviceInfoActivity.class);
                 intent.putExtra("id", id);
-                intent.putExtra("brandId", brandId);
+                intent.putExtra("brandId", brandId+"");
                 startActivity(intent);
                 break;
             case R.id.rl_back:

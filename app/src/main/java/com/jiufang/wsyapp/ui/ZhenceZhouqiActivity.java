@@ -117,7 +117,7 @@ public class ZhenceZhouqiActivity extends BaseActivity {
         map.put("beginTime", start);
         map.put("endTime", end);
         map.put("userId", SpUtils.getUserId(context));
-        Logger.e("123123", start+"--"+end);
+        Logger.e("123123", start+"--"+end+"--"+zhouqi+"--"+id+"--"+SpUtils.getUserId(context));
         ViseUtil.Post(context, NetUrl.setLcSchedule, map, dialog, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
