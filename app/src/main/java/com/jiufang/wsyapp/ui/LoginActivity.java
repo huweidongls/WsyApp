@@ -22,6 +22,7 @@ import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
+import com.jiufang.wsyapp.utils.VersionUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.vise.xsnow.http.ViseHttp;
@@ -120,7 +121,7 @@ public class LoginActivity extends BaseActivity {
                             SpUtils.setToken(context, bean.getData().getToken());
                             Map<String, String> map1 = new LinkedHashMap<>();
                             map1.put("token", bean.getData().getToken());
-                            map1.put("app-version", "1.0.0");
+                            map1.put("app-version", VersionUtils.packageName(getApplicationContext()));
                             map1.put("device-type", "1");
                             map1.put("device-unique-id", MyApplication.deviceId);
                             map1.put("device-name", "");

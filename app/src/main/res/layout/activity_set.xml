@@ -79,6 +79,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_check_version"
         android:layout_marginTop="1dp"
         android:background="@color/white_ffffff"
         android:layout_width="match_parent"

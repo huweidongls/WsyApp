@@ -128,6 +128,8 @@ public class ViseUtil {
                                 Intent intent = new Intent();
                                 intent.setClass(context, LoginActivity.class);
                                 context.startActivity(intent);
+                            }else if(jsonObject.optString("code").equals("5109")){
+                                ToastUtil.showShort(context, "需要强制更新");
                             }else {
                                 ToastUtil.showShort(context, jsonObject.optString("message"));
                             }
@@ -169,6 +171,8 @@ public class ViseUtil {
                                 Intent intent = new Intent();
                                 intent.setClass(context, LoginActivity.class);
                                 context.startActivity(intent);
+                            }else if(jsonObject.optString("code").equals("5109")){
+                                ToastUtil.showShort(context, "需要强制更新");
                             }else {
                                 listener.onElse(data);
                                 ToastUtil.showShort(context, jsonObject.optString("message"));
@@ -201,6 +205,8 @@ public class ViseUtil {
                                 Intent intent = new Intent();
                                 intent.setClass(context, LoginActivity.class);
                                 context.startActivity(intent);
+                            }else if(jsonObject.optString("code").equals("5109")){
+                                ToastUtil.showShort(context, "需要强制更新");
                             }else {
                                 listener.onElse(data);
                                 ToastUtil.showShort(context, jsonObject.optString("message"));

@@ -147,5 +147,7 @@ public class NetUrl {
     public static final String getComboPurchasePageList = "/combo/v1.0.0/getComboPurchasePageList";
     //获取套餐订单详情
     public static final String getComboOrderDetail = "/combo/v1.0.0/getComboOrderDetail";
+    //获取Android更新信息
+    public static final String getAndroidUpdateInfo = "/app/getAndroidUpdateInfo";
 
 }

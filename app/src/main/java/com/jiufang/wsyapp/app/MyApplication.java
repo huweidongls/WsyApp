@@ -18,6 +18,7 @@ import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.ForgetTimeCount;
 import com.jiufang.wsyapp.utils.RegisterTimeCount;
 import com.jiufang.wsyapp.utils.SpUtils;
+import com.jiufang.wsyapp.utils.VersionUtils;
 import com.lechange.opensdk.api.LCOpenSDK_Api;
 import com.lechange.opensdk.utils.LogUtils;
 import com.videogo.openapi.EZGlobalSDK;
@@ -62,7 +63,7 @@ public class MyApplication extends Application {
         Map<String, String> map = new LinkedHashMap<>();
 //        map.put("Content-Type", "application/x-www-form-urlencoded");
         map.put("token", SpUtils.getToken(getApplicationContext()));
-        map.put("app-version", "1.0.0");
+        map.put("app-version", VersionUtils.packageName(getApplicationContext()));
         map.put("device-type", "1");
         map.put("device-unique-id", "123");
         map.put("device-name", "");
@@ -121,7 +122,7 @@ public class MyApplication extends Application {
                 Log.d("cloudchannel", "init cloudchannel success -- "+deviceId);
                 Map<String, String> map1 = new LinkedHashMap<>();
                 map1.put("token", SpUtils.getToken(getApplicationContext()));
-                map1.put("app-version", "1.0.0");
+                map1.put("app-version", VersionUtils.packageName(getApplicationContext()));
                 map1.put("device-type", "1");
                 map1.put("device-unique-id", deviceId);
                 map1.put("device-name", "");

@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.bean.GetAndroidUpdateInfoBean;
 import com.jiufang.wsyapp.dialog.DialogExit;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
@@ -50,10 +53,13 @@ public class SetActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_exit, R.id.rl_safe})
+    @OnClick({R.id.rl_back, R.id.btn_exit, R.id.rl_safe, R.id.rl_check_version})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_check_version:
+                checkVersion();
+                break;
             case R.id.rl_safe:
                 intent.setClass(context, ZhanghaoSafeActivity.class);
                 intent.putExtra("phone", phone);
@@ -88,6 +94,35 @@ public class SetActivity extends BaseActivity {
                 dialogExit.show();
                 break;
         }
+    }
+
+    /**
+     * 检查是否有新版本
+     */
+    private void checkVersion() {
+
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("userId", SpUtils.getUserId(context));
+        ViseUtil.Post(context, NetUrl.getAndroidUpdateInfo, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                Logger.e("123123", s);
+                Gson gson = new Gson();
+                GetAndroidUpdateInfoBean bean = gson.fromJson(s, GetAndroidUpdateInfoBean.class);
+                int versionCode = VersionUtils.packageCode(context);
+                if(bean.getData().getCode()>versionCode){
+                    ToastUtil.showShort(context, "当前有新版本");
+                }else {
+                    ToastUtil.showShort(context, "当前为最新版本");
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+                Logger.e("123123", s);
+            }
+        });
+
     }
 
 }
