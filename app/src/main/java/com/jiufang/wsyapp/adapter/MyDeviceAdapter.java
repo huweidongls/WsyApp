@@ -20,6 +20,7 @@ import com.jiufang.wsyapp.bean.GetBindDeviceDetailBean;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.IndexSetActivity;
 import com.jiufang.wsyapp.utils.GlideUtils;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -97,108 +98,114 @@ public class MyDeviceAdapter extends RecyclerView.Adapter<MyDeviceAdapter.ViewHo
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = WeiboDialogUtils.createLoadingDialog(context, "正在跳转...");
-                if(brandId == 1){
-                    //乐橙
-                    Map<String, String> map = new LinkedHashMap<>();
-                    map.put("bindDeviceId", data.get(i).getId() + "");
-                    map.put("userId", SpUtils.getUserId(context));
-                    ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, dialog, new ViseUtil.ViseListener() {
-                        @Override
-                        public void onReturn(String s) {
-                            Logger.e("123123", s);
-                            Gson gson = new Gson();
-                            GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
-                            Intent intent = new Intent(context, MediaPlayActivity.class);
-                            intent.putExtra("bean", bean);
-                            intent.putExtra("cloud", haveCloud);
-                            intent.putExtra("id", data.get(i).getId()+"");
-                            intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_ONLINE);
-                            intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
-                            context.startActivity(intent);
-                        }
 
-                        @Override
-                        public void onElse(String s) {
+                Intent intent = new Intent();
+                intent.setClass(context, IndexSetActivity.class);
+                intent.putExtra("id", data.get(i).getId() + "");
+                context.startActivity(intent);
 
-                        }
-                    });
-                }else {
-                    //萤石
-                    Map<String, String> map = new LinkedHashMap<>();
-                    map.put("bindDeviceId", data.get(i).getId() + "");
-                    map.put("userId", SpUtils.getUserId(context));
-                    ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, new ViseUtil.ViseListener() {
-                        @Override
-                        public void onReturn(String s) {
-                            Logger.e("123123", s);
-                            Gson gson = new Gson();
-                            GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
-                            Timer timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    Message msg = Message.obtain();
-                                    msg.what = 1;
-                                    handler.sendMessage(msg);
-                                }
-                            }, 120000);
-                            MyApplication.getOpenSDK().setAccessToken(bean.getData().getDeviceAccessToken());
-                            Observable<EZDeviceInfo> observable = Observable.create(new ObservableOnSubscribe<EZDeviceInfo>() {
-                                @Override
-                                public void subscribe(ObservableEmitter<EZDeviceInfo> e) throws Exception {
-                                    Logger.e("123123", "1");
-                                    EZDeviceInfo mDeviceInfo = MyApplication.getOpenSDK().getDeviceInfo(bean.getData().getSnCode());
-                                    e.onNext(mDeviceInfo);
-                                    Logger.e("123123", "2");
-                                }
-                            });
-                            Observer<EZDeviceInfo> observer = new Observer<EZDeviceInfo>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
-
-                                }
-
-                                @Override
-                                public void onNext(EZDeviceInfo value) {
-                                    Logger.e("123123", "3");
-                                    EZCameraInfo mCameraInfo = EZUtils.getCameraInfoFromDevice(value, 0);
-                                    Intent intent;
-                                    Logger.e("123123", "4");
-                                    timer.cancel();
-                                    intent = new Intent(context, EZRealPlayActivity.class);
-                                    intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
-                                    intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
-                                    intent.putExtra("cloud", haveCloud);
-                                    intent.putExtra("id", data.get(i).getId()+"");
-                                    intent.putExtra("code", bean.getData().getSecurityCode());
-                                    intent.putExtra("title", bean.getData().getDeviceName());
-                                    context.startActivity(intent);
-                                    WeiboDialogUtils.closeDialog(dialog);
-                                    Logger.e("123123", "5");
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-
-                                }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
-                            };
-                            observable.subscribeOn(Schedulers.newThread())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(observer);
-                        }
-
-                        @Override
-                        public void onElse(String s) {
-                            Logger.e("123123", s);
-                        }
-                    });
-                }
+//                dialog = WeiboDialogUtils.createLoadingDialog(context, "正在跳转...");
+//                if(brandId == 1){
+//                    //乐橙
+//                    Map<String, String> map = new LinkedHashMap<>();
+//                    map.put("bindDeviceId", data.get(i).getId() + "");
+//                    map.put("userId", SpUtils.getUserId(context));
+//                    ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, dialog, new ViseUtil.ViseListener() {
+//                        @Override
+//                        public void onReturn(String s) {
+//                            Logger.e("123123", s);
+//                            Gson gson = new Gson();
+//                            GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
+//                            Intent intent = new Intent(context, MediaPlayActivity.class);
+//                            intent.putExtra("bean", bean);
+//                            intent.putExtra("cloud", haveCloud);
+//                            intent.putExtra("id", data.get(i).getId()+"");
+//                            intent.putExtra("TYPE", MediaPlayActivity.IS_VIDEO_ONLINE);
+//                            intent.putExtra("MEDIA_TITLE", R.string.live_play_name);
+//                            context.startActivity(intent);
+//                        }
+//
+//                        @Override
+//                        public void onElse(String s) {
+//
+//                        }
+//                    });
+//                }else {
+//                    //萤石
+//                    Map<String, String> map = new LinkedHashMap<>();
+//                    map.put("bindDeviceId", data.get(i).getId() + "");
+//                    map.put("userId", SpUtils.getUserId(context));
+//                    ViseUtil.Post(context, NetUrl.getBindDeviceDetail, map, new ViseUtil.ViseListener() {
+//                        @Override
+//                        public void onReturn(String s) {
+//                            Logger.e("123123", s);
+//                            Gson gson = new Gson();
+//                            GetBindDeviceDetailBean bean = gson.fromJson(s, GetBindDeviceDetailBean.class);
+//                            Timer timer = new Timer();
+//                            timer.schedule(new TimerTask() {
+//                                @Override
+//                                public void run() {
+//                                    Message msg = Message.obtain();
+//                                    msg.what = 1;
+//                                    handler.sendMessage(msg);
+//                                }
+//                            }, 120000);
+//                            MyApplication.getOpenSDK().setAccessToken(bean.getData().getDeviceAccessToken());
+//                            Observable<EZDeviceInfo> observable = Observable.create(new ObservableOnSubscribe<EZDeviceInfo>() {
+//                                @Override
+//                                public void subscribe(ObservableEmitter<EZDeviceInfo> e) throws Exception {
+//                                    Logger.e("123123", "1");
+//                                    EZDeviceInfo mDeviceInfo = MyApplication.getOpenSDK().getDeviceInfo(bean.getData().getSnCode());
+//                                    e.onNext(mDeviceInfo);
+//                                    Logger.e("123123", "2");
+//                                }
+//                            });
+//                            Observer<EZDeviceInfo> observer = new Observer<EZDeviceInfo>() {
+//                                @Override
+//                                public void onSubscribe(Disposable d) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onNext(EZDeviceInfo value) {
+//                                    Logger.e("123123", "3");
+//                                    EZCameraInfo mCameraInfo = EZUtils.getCameraInfoFromDevice(value, 0);
+//                                    Intent intent;
+//                                    Logger.e("123123", "4");
+//                                    timer.cancel();
+//                                    intent = new Intent(context, EZRealPlayActivity.class);
+//                                    intent.putExtra(IntentConsts.EXTRA_CAMERA_INFO, mCameraInfo);
+//                                    intent.putExtra(IntentConsts.EXTRA_DEVICE_INFO, value);
+//                                    intent.putExtra("cloud", haveCloud);
+//                                    intent.putExtra("id", data.get(i).getId()+"");
+//                                    intent.putExtra("code", bean.getData().getSecurityCode());
+//                                    intent.putExtra("title", bean.getData().getDeviceName());
+//                                    context.startActivity(intent);
+//                                    WeiboDialogUtils.closeDialog(dialog);
+//                                    Logger.e("123123", "5");
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onComplete() {
+//
+//                                }
+//                            };
+//                            observable.subscribeOn(Schedulers.newThread())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .subscribe(observer);
+//                        }
+//
+//                        @Override
+//                        public void onElse(String s) {
+//                            Logger.e("123123", s);
+//                        }
+//                    });
+//                }
             }
         });
 

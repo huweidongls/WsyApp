@@ -143,5 +143,9 @@ public class NetUrl {
     public static final String getDeviceUpdateInfo = "/device/update/v1.0.0/getDeviceUpdateInfo";
     //设备升级
     public static final String upgradeDevice = "/device/update/v1.0.0/upgradeDevice";
+    //获取套餐购买记录
+    public static final String getComboPurchasePageList = "/combo/v1.0.0/getComboPurchasePageList";
+    //获取套餐订单详情
+    public static final String getComboOrderDetail = "/combo/v1.0.0/getComboOrderDetail";
 
 }

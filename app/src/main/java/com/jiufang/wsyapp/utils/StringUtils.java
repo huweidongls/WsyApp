@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,6 +35,28 @@ public class StringUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr = sdf.format(calendar.getTime());
         return dateStr;
+    }
+
+    /**
+     * 将double格式化为指定小数位的String，不足小数位用0补全
+     *
+     * @param v     需要格式化的数字
+     * @param scale 小数点后保留几位
+     * @return
+     */
+    public static String roundByScale(double v, int scale) {
+        if (scale < 0) {
+            throw new IllegalArgumentException(
+                    "The   scale   must   be   a   positive   integer   or   zero");
+        }
+        if(scale == 0){
+            return new DecimalFormat("0").format(v);
+        }
+        String formatStr = "0.";
+        for(int i=0;i<scale;i++){
+            formatStr = formatStr + "0";
+        }
+        return new DecimalFormat(formatStr).format(v);
     }
 
     /**
