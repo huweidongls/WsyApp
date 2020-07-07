@@ -25,6 +25,7 @@ import com.videogo.openapi.EZGlobalSDK;
 import com.videogo.openapi.EZOpenSDK;
 import com.videogo.openapi.EzvizAPI;
 import com.vise.xsnow.http.ViseHttp;
+import com.xuexiang.xupdate.XUpdate;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -58,6 +59,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        XUpdate.get().init(this);
         createNotificationChannel();
         initCloudChannel(this);
         Map<String, String> map = new LinkedHashMap<>();

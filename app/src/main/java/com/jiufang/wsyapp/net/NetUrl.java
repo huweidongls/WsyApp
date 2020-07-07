@@ -149,5 +149,7 @@ public class NetUrl {
     public static final String getComboOrderDetail = "/combo/v1.0.0/getComboOrderDetail";
     //获取Android更新信息
     public static final String getAndroidUpdateInfo = "/app/getAndroidUpdateInfo";
+    //获取更新信息
+    public static final String getAndroidDownloadUrl = "/app/getAndroidDownloadUrl";
 
 }

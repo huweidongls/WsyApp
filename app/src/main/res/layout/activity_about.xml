@@ -53,6 +53,7 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btn"
         android:background="@drawable/bg_ffa16f_3dp"
         android:textColor="@color/white_ffffff"
