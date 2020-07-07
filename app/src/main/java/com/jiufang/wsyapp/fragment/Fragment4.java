@@ -22,6 +22,7 @@ import com.jiufang.wsyapp.ui.MyDeviceActivity;
 import com.jiufang.wsyapp.ui.MyFileActivity;
 import com.jiufang.wsyapp.ui.PersonInformationActivity;
 import com.jiufang.wsyapp.ui.SetActivity;
+import com.jiufang.wsyapp.ui.WifiCheckActivity;
 import com.jiufang.wsyapp.utils.GlideUtils;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -134,23 +135,25 @@ public class Fragment4 extends LazyFragment {
                 dialogBohao.show();
                 break;
             case R.id.rl_wifi:
-                ToastUtil.showShort(getContext(), "功能开发中...");
-                Map<String, String> map1 = new LinkedHashMap<>();
-                map1.put("target", "DEVICE");
-                map1.put("targetValue", "094a5ef680b3481485b947e85f4c9e34");
-                map1.put("title", "测试");
-                map1.put("body", "测试body");
-                ViseUtil.Post(getContext(), NetUrl.testAliyunPushNotice, map1, new ViseUtil.ViseListener() {
-                    @Override
-                    public void onReturn(String s) {
-                        Logger.e("123123", s);
-                    }
-
-                    @Override
-                    public void onElse(String s) {
-                        Logger.e("123123", s);
-                    }
-                });
+                intent.setClass(getContext(), WifiCheckActivity.class);
+                startActivity(intent);
+//                ToastUtil.showShort(getContext(), "功能开发中...");
+//                Map<String, String> map1 = new LinkedHashMap<>();
+//                map1.put("target", "DEVICE");
+//                map1.put("targetValue", "094a5ef680b3481485b947e85f4c9e34");
+//                map1.put("title", "测试");
+//                map1.put("body", "测试body");
+//                ViseUtil.Post(getContext(), NetUrl.testAliyunPushNotice, map1, new ViseUtil.ViseListener() {
+//                    @Override
+//                    public void onReturn(String s) {
+//                        Logger.e("123123", s);
+//                    }
+//
+//                    @Override
+//                    public void onElse(String s) {
+//                        Logger.e("123123", s);
+//                    }
+//                });
                 break;
             case R.id.rl_set:
                 if(SpUtils.getUserId(getContext()).equals("0")){

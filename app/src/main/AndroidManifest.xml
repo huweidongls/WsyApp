@@ -318,7 +318,14 @@
         <activity
             android:name=".ui.ZhenceTimeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.GoumaijiluDetailsActivity"
+        <activity
+            android:name=".ui.GoumaijiluDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.WifiCheckActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.WifiCheckResultActivity"
             android:screenOrientation="portrait" />
     </application>
 
