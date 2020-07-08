@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.jiufang.wsyapp.Manifest;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.LazyFragment;
 import com.jiufang.wsyapp.bean.GetUserInfoBean;
@@ -28,6 +29,8 @@ import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.vise.xsnow.permission.OnPermissionCallback;
+import com.vise.xsnow.permission.PermissionManager;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -135,8 +138,24 @@ public class Fragment4 extends LazyFragment {
                 dialogBohao.show();
                 break;
             case R.id.rl_wifi:
-                intent.setClass(getContext(), WifiCheckActivity.class);
-                startActivity(intent);
+                PermissionManager.instance().request(getActivity(), new OnPermissionCallback() {
+                    @Override
+                    public void onRequestAllow(String permissionName) {
+                        intent.setClass(getContext(), WifiCheckActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onRequestRefuse(String permissionName) {
+                        ToastUtil.showShort(getContext(), "请打开文件读写权限");
+                    }
+
+                    @Override
+                    public void onRequestNoAsk(String permissionName) {
+                        intent.setClass(getContext(), WifiCheckActivity.class);
+                        startActivity(intent);
+                    }
+                }, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
 //                ToastUtil.showShort(getContext(), "功能开发中...");
 //                Map<String, String> map1 = new LinkedHashMap<>();
 //                map1.put("target", "DEVICE");
