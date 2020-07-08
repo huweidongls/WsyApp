@@ -277,6 +277,8 @@ public class Fragment1 extends LazyFragment {
 
         easyPopup = EasyPopup.create(getContext())
                 .setContentView(R.layout.popupwindow_index_more)
+                .setWidth(LinearLayout.LayoutParams.WRAP_CONTENT)
+                .setHeight(LinearLayout.LayoutParams.WRAP_CONTENT)
                 .setFocusAndOutsideEnable(true)
                 //允许背景变暗
                 .setBackgroundDimEnable(true)

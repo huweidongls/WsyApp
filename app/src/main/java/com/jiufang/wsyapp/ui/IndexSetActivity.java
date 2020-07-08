@@ -160,12 +160,14 @@ public class IndexSetActivity extends BaseActivity {
                 tvAreaName.setText(bean.getData().getAreaFullName());
                 tvAddress.setText(bean.getData().getAddress());
                 tvName.setText(bean.getData().getPersonName()+"  "+toPhone(bean.getData().getPersonPhone()));
-                String pic = bean.getData().getSnapImage();
-                if(pic.length()>2){
-                    if(pic.substring(0, 1).equals("/")){
-                        pic = pic.substring(1, pic.length());
+                if(bean.getData().getSnapImage()!=null){
+                    String pic = bean.getData().getSnapImage();
+                    if(pic.length()>2){
+                        if(pic.substring(0, 1).equals("/")){
+                            pic = pic.substring(1, pic.length());
+                        }
+                        Glide.with(context).load(NetUrl.BASE_IMG_URL+pic).into(ivTitle);
                     }
-                    Glide.with(context).load(NetUrl.BASE_IMG_URL+pic).into(ivTitle);
                 }
             }
 

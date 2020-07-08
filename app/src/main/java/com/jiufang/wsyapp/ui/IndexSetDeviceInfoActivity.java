@@ -97,12 +97,14 @@ public class IndexSetDeviceInfoActivity extends BaseActivity {
                 sncode = bean.getData().getDeviceSn();
                 tvSncode.setText(bean.getData().getDeviceSn());
                 tvVersion.setText(bean.getData().getCurrentVersion());
-                String pic = bean.getData().getSnapImage();
-                if(pic.length()>2){
-                    if(pic.substring(0, 1).equals("/")){
-                        pic = pic.substring(1, pic.length());
+                if(bean.getData().getSnapImage()!=null){
+                    String pic = bean.getData().getSnapImage();
+                    if(pic.length()>2){
+                        if(pic.substring(0, 1).equals("/")){
+                            pic = pic.substring(1, pic.length());
+                        }
+                        Glide.with(context).load(NetUrl.BASE_IMG_URL+pic).into(ivFengmian);
                     }
-                    Glide.with(context).load(NetUrl.BASE_IMG_URL+pic).into(ivFengmian);
                 }
             }
 
