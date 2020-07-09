@@ -151,5 +151,11 @@ public class NetUrl {
     public static final String getAndroidUpdateInfo = "/app/getAndroidUpdateInfo";
     //获取更新信息
     public static final String getAndroidDownloadUrl = "/app/getAndroidDownloadUrl";
+    //获取绑定设备列表
+    public static final String getComboDeviceChooseByUserId = "/combo/v1.0.0/getComboDeviceChooseByUserId";
+    //通过设备ID获取套餐订单
+    public static final String getComboOrderByDeviceId = "/combo/v1.0.0/getComboOrderByDeviceId";
+    //设置萤石云存储状态
+    public static final String setYsCloudStorageEnable = "/device/storage/v1.0.0/setYsCloudStorageEnable";
 
 }

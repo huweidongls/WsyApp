@@ -242,9 +242,13 @@ public class Fragment4 extends LazyFragment {
                 }
                 break;
             case R.id.rl1:
-//                ToastUtil.showShort(getContext(), "功能开发中...");
-                intent.setClass(getContext(), CloudActivity.class);
-                startActivity(intent);
+                if(SpUtils.getUserId(getContext()).equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), CloudActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

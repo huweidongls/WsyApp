@@ -53,10 +53,14 @@ public class SetActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_exit, R.id.rl_safe, R.id.rl_check_version})
+    @OnClick({R.id.rl_back, R.id.btn_exit, R.id.rl_safe, R.id.rl_check_version, R.id.rl_msg})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_msg:
+                intent.setClass(context, MsgPushActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_check_version:
                 checkVersion();
                 break;

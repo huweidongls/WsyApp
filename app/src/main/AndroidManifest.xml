@@ -327,6 +327,9 @@
         <activity
             android:name=".ui.WifiCheckResultActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MsgPushActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
