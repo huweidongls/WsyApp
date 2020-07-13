@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_ffffff"
+    tools:context="com.jiufang.wsyapp.ui.LoginHistoryDetailsActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_top_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="信息详情"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black_333333"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="20dp"
+        android:text="物视云账号登录成功！"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="#999999"
+        android:textSize="13sp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="3dp"
+        android:text="2020/07/10 14:42:51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="13sp"
+        android:textColor="@color/black_333333"
+        android:text="你的物视云账号 已于2020年7月10日 14:37:23 在已下手机登录：
+手机类型：苹果/华为/小米
+手机型号：iPhone X Max/ 华为p10 / 红米note 8"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -18,6 +18,17 @@ public class SpUtils {
     public static String TOKEN = "token";
     public static String SEARCH_HISTORY = "search_history";
     public static String WIFI = "wifi";
+    public static String PUSH_TIME = "push_time";
+
+    public static void setPushTime(Context context, String pushTime){
+        spCache = new SpCache(context, "user_info");
+        spCache.put(PUSH_TIME, pushTime);
+    }
+
+    public static String getPushTime(Context context){
+        spCache = new SpCache(context, "user_info");
+        return spCache.get(PUSH_TIME, "");
+    }
 
     public static void setWifi(Context context, Map<String, String> token){
         spCache = new SpCache(context, "user_info");

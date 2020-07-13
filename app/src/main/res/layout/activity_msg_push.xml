@@ -42,12 +42,48 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/iv_push"
             android:layout_marginRight="19dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/turn_on"
             android:layout_width="32dp"
             android:layout_height="19dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_time"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:textColor="@color/black_333333"
+            android:textSize="13sp"
+            android:text="设置免打扰时间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_marginRight="27dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="#C2BDBD"
+            android:textSize="10sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginRight="14dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/right_gray"
+            android:layout_width="6dp"
+            android:layout_height="11dp" />
 
     </RelativeLayout>
 
@@ -67,10 +103,10 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/iv_sound"
             android:layout_marginRight="19dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/turn_on"
             android:layout_width="32dp"
             android:layout_height="19dp" />
 
@@ -92,10 +128,10 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:id="@+id/iv_vibrate"
             android:layout_marginRight="19dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/turn_on"
             android:layout_width="32dp"
             android:layout_height="19dp" />
 

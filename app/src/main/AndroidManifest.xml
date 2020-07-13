@@ -330,6 +330,9 @@
         <activity
             android:name=".ui.MsgPushActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.MsgPushTimeActivity" />
+        <activity android:name=".ui.LoginHistoryActivity" />
+        <activity android:name=".ui.LoginHistoryDetailsActivity"></activity>
     </application>
 
 </manifest>

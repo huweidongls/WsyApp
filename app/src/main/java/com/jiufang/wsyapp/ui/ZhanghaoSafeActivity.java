@@ -44,10 +44,14 @@ public class ZhanghaoSafeActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_pwd})
+    @OnClick({R.id.rl_back, R.id.rl_pwd, R.id.rl_login_history})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_login_history:
+                intent.setClass(context, LoginHistoryActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_pwd:
                 intent.setClass(context, ForgetActivity.class);
                 startActivity(intent);

@@ -18,6 +18,7 @@ import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.ForgetTimeCount;
 import com.jiufang.wsyapp.utils.RegisterTimeCount;
 import com.jiufang.wsyapp.utils.SpUtils;
+import com.jiufang.wsyapp.utils.SystemUtil;
 import com.jiufang.wsyapp.utils.VersionUtils;
 import com.lechange.opensdk.api.LCOpenSDK_Api;
 import com.lechange.opensdk.utils.LogUtils;
@@ -69,6 +70,8 @@ public class MyApplication extends Application {
         map.put("device-type", "1");
         map.put("device-unique-id", "123");
         map.put("device-name", "");
+        map.put("os-name", SystemUtil.getDeviceBrand());//品牌名称
+        map.put("os-version", SystemUtil.getSystemModel());//设备型号
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL)
         .globalHeaders(map);
@@ -128,6 +131,8 @@ public class MyApplication extends Application {
                 map1.put("device-type", "1");
                 map1.put("device-unique-id", deviceId);
                 map1.put("device-name", "");
+                map1.put("os-name", SystemUtil.getDeviceBrand());//品牌名称
+                map1.put("os-version", SystemUtil.getSystemModel());//设备型号
                 ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL)
                         .globalHeaders(map1);
             }

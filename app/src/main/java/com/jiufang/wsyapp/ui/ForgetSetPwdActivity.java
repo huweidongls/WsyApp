@@ -14,6 +14,7 @@ import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.SystemUtil;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.VersionUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
@@ -88,6 +89,8 @@ public class ForgetSetPwdActivity extends BaseActivity {
                     map1.put("device-type", "1");
                     map1.put("device-unique-id", MyApplication.deviceId);
                     map1.put("device-name", "");
+                    map1.put("os-name", SystemUtil.getDeviceBrand());//品牌名称
+                    map1.put("os-version", SystemUtil.getSystemModel());//设备型号
                     ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL)
                             .globalHeaders(map1);
                     Map<String, String> map = new LinkedHashMap<>();

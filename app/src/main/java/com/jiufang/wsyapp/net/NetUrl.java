@@ -12,7 +12,7 @@ public class NetUrl {
     public static final String BASE_URL = "http://hvc.jiufangkeji.com";
 //    public static final String BASE_URL = "http://192.168.1.125:8888";
     public static final String BASE_IMG_URL = "http://hvc.jiufangkeji.com/resource/";
-    public static final String H5BASE_URL = "http://xfsysh5.5ijiaoyu.cn/";
+    public static final String H5BASE_URL = "https://hvc.jiufangkeji.com/";
     //用户获取验证码
     public static final String sendCaptchaCodeWithSMS = "/v1.0.0/sendCaptchaCodeWithSMS";
     //手机验证码登录
