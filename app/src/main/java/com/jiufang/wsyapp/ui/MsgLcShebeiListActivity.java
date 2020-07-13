@@ -105,7 +105,10 @@ public class MsgLcShebeiListActivity extends BaseActivity {
 
     private EasyPopup easyPopup;
 
-    private GetBindDeviceListBean.DataBean.RecordsBean bean;
+//    private GetBindDeviceListBean.DataBean.RecordsBean bean;
+
+    private String deviceName = "";
+    private String id = "";
 
     private String page = "";
 
@@ -116,7 +119,9 @@ public class MsgLcShebeiListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msg_lc_shebei_list);
 
-        bean = (GetBindDeviceListBean.DataBean.RecordsBean) getIntent().getSerializableExtra("bean");
+        deviceName = getIntent().getStringExtra("name");
+        id = getIntent().getStringExtra("id");
+//        bean = (GetBindDeviceListBean.DataBean.RecordsBean) getIntent().getSerializableExtra("bean");
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
@@ -129,7 +134,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
 
     private void initData() {
 
-        tvTitle.setText(bean.getDeviceName());
+        tvTitle.setText(deviceName);
 
         String time = mYear+"-"+ StringUtils.getBuling(mMonth+1)+"-"+StringUtils.getBuling(mDay);
         tvTime.setText(time);
@@ -146,7 +151,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 Map<String, String> map = new LinkedHashMap<>();
                 map.put("userId", SpUtils.getUserId(context));
-                map.put("deviceId", bean.getId()+"");
+                map.put("deviceId", id);
                 map.put("startTime", startTime);
                 map.put("endTime", endTime);
                 map.put("nextAlarmId", "-1");
@@ -178,7 +183,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 Map<String, String> map = new LinkedHashMap<>();
                 map.put("userId", SpUtils.getUserId(context));
-                map.put("deviceId", bean.getId()+"");
+                map.put("deviceId", id);
                 map.put("startTime", startTime);
                 map.put("endTime", endTime);
                 map.put("nextAlarmId", page);
@@ -203,7 +208,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
 
         Map<String, String> map = new LinkedHashMap<>();
         map.put("userId", SpUtils.getUserId(context));
-        map.put("deviceId", bean.getId()+"");
+        map.put("deviceId", id);
         map.put("startTime", startTime);
         map.put("endTime", endTime);
         ViseUtil.Post(context, NetUrl.getDeviceAlarmLcPage, map, new ViseUtil.ViseListener() {
@@ -215,7 +220,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
                 Gson gson = new Gson();
                 GetDeviceAlarmLcPageBean lcPageBean = gson.fromJson(s, GetDeviceAlarmLcPageBean.class);
                 mList = lcPageBean.getData().getAlarms();
-                adapter = new MsgLcShebeiListAdapter(mList, bean.getId()+"");
+                adapter = new MsgLcShebeiListAdapter(mList, id);
                 LinearLayoutManager manager = new LinearLayoutManager(context);
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(manager);
@@ -245,7 +250,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
                     dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
                     Map<String, String> map = new LinkedHashMap<>();
                     map.put("userId", SpUtils.getUserId(context));
-                    map.put("deviceId", bean.getId()+"");
+                    map.put("deviceId", id);
                     map.put("startTime", startTime);
                     map.put("endTime", endTime);
                     ViseUtil.Post(context, NetUrl.getDeviceAlarmLcPage, map, dialog, new ViseUtil.ViseListener() {
@@ -257,7 +262,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
                             Gson gson = new Gson();
                             GetDeviceAlarmLcPageBean lcPageBean = gson.fromJson(s, GetDeviceAlarmLcPageBean.class);
                             mList = lcPageBean.getData().getAlarms();
-                            adapter = new MsgLcShebeiListAdapter(mList, bean.getId()+"");
+                            adapter = new MsgLcShebeiListAdapter(mList, id);
                             LinearLayoutManager manager = new LinearLayoutManager(context);
                             manager.setOrientation(LinearLayoutManager.VERTICAL);
                             recyclerView.setLayoutManager(manager);
@@ -418,7 +423,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
                 dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
                 Map<String, String> map = new LinkedHashMap<>();
                 map.put("userId", SpUtils.getUserId(context));
-                map.put("deviceId", bean.getId()+"");
+                map.put("deviceId", id);
                 map.put("startTime", startTime);
                 map.put("endTime", endTime);
                 ViseUtil.Post(context, NetUrl.getDeviceAlarmLcPage, map, dialog, new ViseUtil.ViseListener() {
@@ -430,7 +435,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
                         Gson gson = new Gson();
                         GetDeviceAlarmLcPageBean lcPageBean = gson.fromJson(s, GetDeviceAlarmLcPageBean.class);
                         mList = lcPageBean.getData().getAlarms();
-                        adapter = new MsgLcShebeiListAdapter(mList, bean.getId()+"");
+                        adapter = new MsgLcShebeiListAdapter(mList, id);
                         LinearLayoutManager manager = new LinearLayoutManager(context);
                         manager.setOrientation(LinearLayoutManager.VERTICAL);
                         recyclerView.setLayoutManager(manager);
@@ -518,7 +523,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
             dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
             Map<String, String> map = new LinkedHashMap<>();
             map.put("userId", SpUtils.getUserId(context));
-            map.put("deviceId", bean.getId()+"");
+            map.put("deviceId", id);
             map.put("startTime", startTime);
             map.put("endTime", endTime);
             ViseUtil.Post(context, NetUrl.getDeviceAlarmLcPage, map, dialog, new ViseUtil.ViseListener() {
@@ -530,7 +535,7 @@ public class MsgLcShebeiListActivity extends BaseActivity {
                     Gson gson = new Gson();
                     GetDeviceAlarmLcPageBean lcPageBean = gson.fromJson(s, GetDeviceAlarmLcPageBean.class);
                     mList = lcPageBean.getData().getAlarms();
-                    adapter = new MsgLcShebeiListAdapter(mList, bean.getId()+"");
+                    adapter = new MsgLcShebeiListAdapter(mList, id);
                     LinearLayoutManager manager = new LinearLayoutManager(context);
                     manager.setOrientation(LinearLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(manager);

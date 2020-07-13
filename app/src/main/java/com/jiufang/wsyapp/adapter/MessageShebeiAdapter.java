@@ -48,12 +48,16 @@ public class MessageShebeiAdapter extends RecyclerView.Adapter<MessageShebeiAdap
                 if(brandId == 1){
                     Intent intent = new Intent();
                     intent.setClass(context, MsgLcShebeiListActivity.class);
-                    intent.putExtra("bean", data.get(i));
+//                    intent.putExtra("bean", data.get(i));
+                    intent.putExtra("name", data.get(i).getDeviceName());
+                    intent.putExtra("id", data.get(i).getId()+"");
                     context.startActivity(intent);
                 }else {
                     Intent intent = new Intent();
                     intent.setClass(context, MsgYsShebeiListActivity.class);
-                    intent.putExtra("bean", data.get(i));
+//                    intent.putExtra("bean", data.get(i));
+                    intent.putExtra("name", data.get(i).getDeviceName());
+                    intent.putExtra("id", data.get(i).getId()+"");
                     context.startActivity(intent);
                 }
             }

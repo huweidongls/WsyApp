@@ -186,7 +186,8 @@ public class LocalLcVideoActivity extends BaseActivity {
                             Logger.e("123123", s);
                             Gson gson = new Gson();
                             GetLcLocalStorageRecordListBean bean = gson.fromJson(s, GetLcLocalStorageRecordListBean.class);
-                            mList = bean.getData();
+                            mList.clear();
+                            mList.addAll(bean.getData());
                             adapter = new LocalLcVideoAdapter(mList, new LocalLcVideoAdapter.ClickListener() {
                                 @Override
                                 public void onClick(int pos) {
@@ -364,7 +365,8 @@ public class LocalLcVideoActivity extends BaseActivity {
                         Logger.e("123123", s);
                         Gson gson = new Gson();
                         GetLcLocalStorageRecordListBean bean = gson.fromJson(s, GetLcLocalStorageRecordListBean.class);
-                        mList = bean.getData();
+                        mList.clear();
+                        mList.addAll(bean.getData());
                         adapter = new LocalLcVideoAdapter(mList, new LocalLcVideoAdapter.ClickListener() {
                             @Override
                             public void onClick(int pos) {
@@ -442,7 +444,8 @@ public class LocalLcVideoActivity extends BaseActivity {
                     Logger.e("123123", s);
                     Gson gson = new Gson();
                     GetLcLocalStorageRecordListBean bean = gson.fromJson(s, GetLcLocalStorageRecordListBean.class);
-                    mList = bean.getData();
+                    mList.clear();
+                    mList.addAll(bean.getData());
                     adapter = new LocalLcVideoAdapter(mList, new LocalLcVideoAdapter.ClickListener() {
                         @Override
                         public void onClick(int pos) {

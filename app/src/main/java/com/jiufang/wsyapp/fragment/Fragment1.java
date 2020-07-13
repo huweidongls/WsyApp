@@ -25,6 +25,8 @@ import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.IndexSetActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
 import com.jiufang.wsyapp.ui.MainActivity;
+import com.jiufang.wsyapp.ui.MsgLcShebeiListActivity;
+import com.jiufang.wsyapp.ui.MsgYsShebeiListActivity;
 import com.jiufang.wsyapp.ui.SearchActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
@@ -298,8 +300,24 @@ public class Fragment1 extends LazyFragment {
             @Override
             public void onClick(View view) {
                 easyPopup.dismiss();
-                MainActivity activity = (MainActivity) getActivity();
-                activity.selectFragment(1);
+//                MainActivity activity = (MainActivity) getActivity();
+//                activity.selectFragment(1);
+                int brandId = mList.get(pos).getBrandId();
+                if(brandId == 1){
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), MsgLcShebeiListActivity.class);
+//                    intent.putExtra("bean", data.get(i));
+                    intent.putExtra("name", mList.get(pos).getDeviceName());
+                    intent.putExtra("id", mList.get(pos).getId()+"");
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), MsgYsShebeiListActivity.class);
+//                    intent.putExtra("bean", data.get(i));
+                    intent.putExtra("name", mList.get(pos).getDeviceName());
+                    intent.putExtra("id", mList.get(pos).getId()+"");
+                    startActivity(intent);
+                }
             }
         });
 

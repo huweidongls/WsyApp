@@ -196,7 +196,8 @@ public class CloudLcVideoActivity extends BaseActivity {
                             Logger.e("123123", s);
                             Gson gson = new Gson();
                             GetLcCloudStorageRecordListBean bean = gson.fromJson(s, GetLcCloudStorageRecordListBean.class);
-                            mList = bean.getData();
+                            mList.clear();
+                            mList.addAll(bean.getData());
                             adapter = new CloudLcVideoAdapter(mList, new CloudLcVideoAdapter.ClickListener() {
                                 @Override
                                 public void onClick(int pos) {
@@ -374,7 +375,8 @@ public class CloudLcVideoActivity extends BaseActivity {
                         Logger.e("123123", s);
                         Gson gson = new Gson();
                         GetLcCloudStorageRecordListBean bean = gson.fromJson(s, GetLcCloudStorageRecordListBean.class);
-                        mList = bean.getData();
+                        mList.clear();
+                        mList.addAll(bean.getData());
                         adapter = new CloudLcVideoAdapter(mList, new CloudLcVideoAdapter.ClickListener() {
                             @Override
                             public void onClick(int pos) {
@@ -452,7 +454,8 @@ public class CloudLcVideoActivity extends BaseActivity {
                     Logger.e("123123", s);
                     Gson gson = new Gson();
                     GetLcCloudStorageRecordListBean bean = gson.fromJson(s, GetLcCloudStorageRecordListBean.class);
-                    mList = bean.getData();
+                    mList.clear();
+                    mList.addAll(bean.getData());
                     adapter = new CloudLcVideoAdapter(mList, new CloudLcVideoAdapter.ClickListener() {
                         @Override
                         public void onClick(int pos) {

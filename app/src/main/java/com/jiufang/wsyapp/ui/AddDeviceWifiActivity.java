@@ -113,8 +113,8 @@ public class AddDeviceWifiActivity extends BaseActivity {
         }
     };
 
-    private static final int CONFIG_WIFI_TIMEOUT_TIME = 120 * 1000;
-    private static final int CONFIG_SEARCH_DEVICE_TIME = 120 * 1000;
+    private static final int CONFIG_WIFI_TIMEOUT_TIME = 60 * 1000;
+    private static final int CONFIG_SEARCH_DEVICE_TIME = 60 * 1000;
     String ssid="";
     private String devType="";
     private Runnable progressRun = new Runnable() {
