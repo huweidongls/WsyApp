@@ -32,6 +32,8 @@ public class LoginHistoryDetailsActivity extends BaseActivity {
 
     private void initData() {
 
+        Logger.e("123123", "pinpai--"+SystemUtil.getDeviceBrand()+"--model--"+SystemUtil.getSystemModel());
+
     }
 
     @OnClick({R.id.rl_back})
