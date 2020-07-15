@@ -157,5 +157,9 @@ public class NetUrl {
     public static final String getComboOrderByDeviceId = "/combo/v1.0.0/getComboOrderByDeviceId";
     //设置萤石云存储状态
     public static final String setYsCloudStorageEnable = "/device/storage/v1.0.0/setYsCloudStorageEnable";
+    //用户登录日志列表
+    public static final String getLoginLogPageList = "/user/v1.0.0/getLoginLogPageList";
+    //用户登录日志详细
+    public static final String getLoginLogById = "/user/v1.0.0/getLoginLogById";
 
 }

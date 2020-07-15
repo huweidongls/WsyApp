@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.bean.GetLoginLogPageListBean;
 import com.jiufang.wsyapp.ui.LoginHistoryDetailsActivity;
 
 import java.util.List;
@@ -20,9 +22,9 @@ import java.util.List;
 public class LoginHistoryAdapter extends RecyclerView.Adapter<LoginHistoryAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<GetLoginLogPageListBean.DataBean.RecordsBean> data;
 
-    public LoginHistoryAdapter(List<String> data) {
+    public LoginHistoryAdapter(List<GetLoginLogPageListBean.DataBean.RecordsBean> data) {
         this.data = data;
     }
 
@@ -38,11 +40,15 @@ public class LoginHistoryAdapter extends RecyclerView.Adapter<LoginHistoryAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
+        viewHolder.tv.setText(data.get(i).getOsName()+"("+data.get(i).getOsVersion()+")");
+        viewHolder.tvTime.setText(data.get(i).getLoginTime());
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(context, LoginHistoryDetailsActivity.class);
+                intent.putExtra("id", data.get(i).getId()+"");
                 context.startActivity(intent);
             }
         });
@@ -56,8 +62,13 @@ public class LoginHistoryAdapter extends RecyclerView.Adapter<LoginHistoryAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        private TextView tv;
+        private TextView tvTime;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tv = itemView.findViewById(R.id.tv);
+            tvTime = itemView.findViewById(R.id.tv_time);
         }
     }
 

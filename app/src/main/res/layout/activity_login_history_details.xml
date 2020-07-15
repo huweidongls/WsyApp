@@ -43,23 +43,41 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/tv_time"
         android:textColor="#999999"
         android:textSize="13sp"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="3dp"
-        android:text="2020/07/10 14:42:51"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/tv1"
         android:textSize="13sp"
         android:textColor="@color/black_333333"
-        android:text="你的物视云账号 已于2020年7月10日 14:37:23 在已下手机登录：
-手机类型：苹果/华为/小米
-手机型号：iPhone X Max/ 华为p10 / 红米note 8"
         android:layout_marginRight="14dp"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:textSize="13sp"
+        android:textColor="@color/black_333333"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv3"
+        android:textSize="13sp"
+        android:textColor="@color/black_333333"
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
