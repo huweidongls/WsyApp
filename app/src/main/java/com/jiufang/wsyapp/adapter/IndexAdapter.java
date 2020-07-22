@@ -23,6 +23,7 @@ import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.mediaplay.MediaPlayActivity;
 import com.jiufang.wsyapp.mediaplay.entity.ChannelInfo;
 import com.jiufang.wsyapp.net.NetUrl;
+import com.jiufang.wsyapp.ui.HelpActivity;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
@@ -316,6 +317,14 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
 //                return false;
 //            }
 //        });
+        holder.tvHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(context, HelpActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -344,6 +353,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         private TextView tvBrand;
         private TextView tvBrand2;
         private LinearLayout llMore1;
+        private TextView tvHelp;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -365,6 +375,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             tvBrand = itemView.findViewById(R.id.tv_brand);
             tvBrand2 = itemView.findViewById(R.id.tv_brand2);
             llMore1 = itemView.findViewById(R.id.ll_more1);
+            tvHelp = itemView.findViewById(R.id.tv_help);
         }
     }
 

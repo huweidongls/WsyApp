@@ -330,9 +330,18 @@
         <activity
             android:name=".ui.MsgPushActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.MsgPushTimeActivity" />
-        <activity android:name=".ui.LoginHistoryActivity" />
-        <activity android:name=".ui.LoginHistoryDetailsActivity"></activity>
+        <activity
+            android:name=".ui.MsgPushTimeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.LoginHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.LoginHistoryDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.HelpActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

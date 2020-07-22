@@ -369,6 +369,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_help"
                     android:background="@drawable/bg_ffffff_11dp_bord"
                     android:gravity="center"
                     android:textColor="@color/white_ffffff"
