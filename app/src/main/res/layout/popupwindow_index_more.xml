@@ -19,11 +19,11 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_device_name"
             android:layout_marginTop="3dp"
             android:layout_gravity="center_horizontal"
             android:textColor="#171F24"
             android:textSize="14sp"
-            android:text="设备名称:CS_XP1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -42,18 +42,18 @@
             android:layout_width="match_parent"
             android:layout_height="39dp" />
 
-        <View
-            android:background="@color/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+        <!--<View-->
+            <!--android:background="@color/line"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"/>-->
 
-        <TextView
-            android:gravity="center"
-            android:textColor="#FFA16F"
-            android:textSize="15sp"
-            android:text="画面分享"
-            android:layout_width="match_parent"
-            android:layout_height="39dp" />
+        <!--<TextView-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="#FFA16F"-->
+            <!--android:textSize="15sp"-->
+            <!--android:text="画面分享"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="39dp" />-->
 
         <View
             android:background="@color/line"

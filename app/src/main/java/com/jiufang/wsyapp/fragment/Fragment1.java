@@ -295,6 +295,9 @@ public class Fragment1 extends LazyFragment {
         TextView tvJiebang = easyPopup.findViewById(R.id.tv_jiebang);
         TextView tvSet = easyPopup.findViewById(R.id.tv_set);
         TextView tvMsg = easyPopup.findViewById(R.id.tv_msg);
+        TextView tvDeviceName = easyPopup.findViewById(R.id.tv_device_name);
+
+        tvDeviceName.setText("设备名称:"+mList.get(pos).getDeviceName());
 
         tvMsg.setOnClickListener(new View.OnClickListener() {
             @Override
