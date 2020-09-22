@@ -157,7 +157,7 @@
                     android:layout_marginLeft="14dp"
                     android:textColor="#171F24"
                     android:textSize="14sp"
-                    android:text="侦测灵敏度"
+                    android:text="侦测灵敏度（1表示灵敏度最低）"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

@@ -253,8 +253,10 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
                 }
                 int day = storageDetailInfoBean.getData().getDays();
                 if(day == -1){
+                    tvShengyu.setTextColor(Color.parseColor("#FFA16F"));
                     tvShengyu.setText("(已过期)");
                 }else {
+                    tvShengyu.setTextColor(Color.parseColor("#ffffff"));
                     tvShengyu.setText("(剩余"+day+"天)");
                 }
             }
