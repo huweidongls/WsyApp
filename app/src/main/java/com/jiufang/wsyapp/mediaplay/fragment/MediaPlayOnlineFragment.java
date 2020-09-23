@@ -248,16 +248,27 @@ public class MediaPlayOnlineFragment extends MediaPlayFragment implements
                 int isHaveCloud = storageDetailInfoBean.getData().getIsHaveCloud();
                 if(isHaveCloud == 0){
                     tvIsHave.setText("(未开通)");
+                    int day = storageDetailInfoBean.getData().getDays();
+                    if(day == -1){
+                        tvShengyu.setTextColor(Color.parseColor("#FFA16F"));
+                        tvShengyu.setText("(已过期)");
+                    }else if(day == 0){
+                        tvShengyu.setTextColor(Color.parseColor("#FFA16F"));
+                        tvShengyu.setText("(请在套餐页面开通服务)");
+                    }else {
+                        tvShengyu.setTextColor(Color.parseColor("#ffffff"));
+                        tvShengyu.setText("(剩余"+day+"天)");
+                    }
                 }else {
                     tvIsHave.setText("(已开通)");
-                }
-                int day = storageDetailInfoBean.getData().getDays();
-                if(day == -1){
-                    tvShengyu.setTextColor(Color.parseColor("#FFA16F"));
-                    tvShengyu.setText("(已过期)");
-                }else {
-                    tvShengyu.setTextColor(Color.parseColor("#ffffff"));
-                    tvShengyu.setText("(剩余"+day+"天)");
+                    int day = storageDetailInfoBean.getData().getDays();
+                    if(day == -1){
+                        tvShengyu.setTextColor(Color.parseColor("#FFA16F"));
+                        tvShengyu.setText("(已过期)");
+                    }else {
+                        tvShengyu.setTextColor(Color.parseColor("#ffffff"));
+                        tvShengyu.setText("(剩余"+day+"天)");
+                    }
                 }
             }
 
