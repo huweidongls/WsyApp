@@ -61,8 +61,14 @@ public class MyFileActivity extends BaseActivity {
         mList = new ArrayList<>();
         String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Wsy/Captures";
         String path1 = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Wsy/Records";
-        mList.addAll(GetFilesUtils.getInstance().getSonNode(path));
-        mList.addAll(GetFilesUtils.getInstance().getSonNode(path1));
+        List<Map<String, Object>> mList1 = GetFilesUtils.getInstance().getSonNode(path);
+        List<Map<String, Object>> mList2 = GetFilesUtils.getInstance().getSonNode(path1);
+        if(mList1 != null){
+            mList.addAll(mList1);
+        }
+        if(mList2 != null){
+            mList.addAll(mList2);
+        }
 
         Map<String, List<Map<String, Object>>> stringMapMap = new LinkedHashMap<>();
 
