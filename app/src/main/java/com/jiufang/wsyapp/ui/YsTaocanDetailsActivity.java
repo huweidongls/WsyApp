@@ -150,12 +150,12 @@ public class YsTaocanDetailsActivity extends BaseActivity {
                 break;
             case R.id.ll_buy:
                 if(isAgree){
-                    DialogBuy dialogBuy = new DialogBuy(context);
-                    dialogBuy.show();
-//                    intent.putExtra("id", bean.getData().getId()+"");
-//                    intent.putExtra("type", "2");
-//                    intent.setClass(context, TaocanShebeiActivity.class);
-//                    startActivity(intent);
+//                    DialogBuy dialogBuy = new DialogBuy(context);
+//                    dialogBuy.show();
+                    intent.putExtra("id", bean.getData().getId()+"");
+                    intent.putExtra("type", "2");
+                    intent.setClass(context, TaocanShebeiActivity.class);
+                    startActivity(intent);
                 }else {
                     ToastUtil.showShort(context, "请勾选萤石云服务协议");
                 }

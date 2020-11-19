@@ -26,9 +26,11 @@ public class TaocanShebeiAdapter extends RecyclerView.Adapter<TaocanShebeiAdapte
 
     private Context context;
     private List<GetComboDeviceChooseListBean.DataBean> data;
+    private ClickListener listener;
 
-    public TaocanShebeiAdapter(List<GetComboDeviceChooseListBean.DataBean> data) {
+    public TaocanShebeiAdapter(List<GetComboDeviceChooseListBean.DataBean> data, ClickListener listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @NonNull
@@ -51,9 +53,7 @@ public class TaocanShebeiAdapter extends RecyclerView.Adapter<TaocanShebeiAdapte
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(context, TaocanBuyActivity.class);
-                context.startActivity(intent);
+                listener.onItemClick(i);
             }
         });
 
@@ -78,6 +78,10 @@ public class TaocanShebeiAdapter extends RecyclerView.Adapter<TaocanShebeiAdapte
             tvContent = itemView.findViewById(R.id.tv_content);
             tvTime = itemView.findViewById(R.id.tv_time);
         }
+    }
+
+    public interface ClickListener{
+        void onItemClick(int pos);
     }
 
 }

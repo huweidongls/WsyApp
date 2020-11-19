@@ -161,5 +161,7 @@ public class NetUrl {
     public static final String getLoginLogPageList = "/user/v1.0.0/getLoginLogPageList";
     //用户登录日志详细
     public static final String getLoginLogById = "/user/v1.0.0/getLoginLogById";
+    //创建云存储订单
+    public static final String createComboOrder = "/combo/v1.0.0/createComboOrder";
 
 }

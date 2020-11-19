@@ -1,6 +1,7 @@
 package com.jiufang.wsyapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,7 +48,7 @@ public class TaocanShebeiActivity extends BaseActivity {
     private TaocanShebeiAdapter adapter;
     private List<GetComboDeviceChooseListBean.DataBean> mList;
 
-    private String id = "";
+    private String taocanId = "";
     private String type = "";//乐橙 1   萤石 2
 
     @Override
@@ -55,7 +56,8 @@ public class TaocanShebeiActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taocan_shebei);
 
-        id = getIntent().getStringExtra("id");
+        taocanId = getIntent().getStringExtra("id");
+        type = getIntent().getStringExtra("type");
         StatusBarUtils.setStatusBar(TaocanShebeiActivity.this, getResources().getColor(R.color.white_ffffff));
         ButterKnife.bind(TaocanShebeiActivity.this);
         initData();
@@ -65,7 +67,7 @@ public class TaocanShebeiActivity extends BaseActivity {
     private void initData() {
 
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("brandId", id);
+        map.put("brandId", type);
         map.put("userId", SpUtils.getUserId(context));
         ViseUtil.Post(context, NetUrl.getComboDeviceChooseList, map, new ViseUtil.ViseListener() {
             @Override
@@ -76,7 +78,16 @@ public class TaocanShebeiActivity extends BaseActivity {
                     Gson gson = new Gson();
                     GetComboDeviceChooseListBean bean = gson.fromJson(s, GetComboDeviceChooseListBean.class);
                     mList = bean.getData();
-                    adapter = new TaocanShebeiAdapter(mList);
+                    adapter = new TaocanShebeiAdapter(mList, new TaocanShebeiAdapter.ClickListener() {
+                        @Override
+                        public void onItemClick(int pos) {
+                            Intent intent = new Intent();
+                            intent.setClass(context, TaocanBuyActivity.class);
+                            intent.putExtra("deviceId", mList.get(pos).getId()+"");
+                            intent.putExtra("taocanId", taocanId);
+                            startActivity(intent);
+                        }
+                    });
                     LinearLayoutManager manager = new LinearLayoutManager(context);
                     manager.setOrientation(LinearLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(manager);
