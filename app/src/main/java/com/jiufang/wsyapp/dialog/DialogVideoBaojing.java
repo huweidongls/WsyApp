@@ -89,6 +89,7 @@ public class DialogVideoBaojing extends Dialog {
                 if(type.equals("1")){
                     Map<String, String> map = new LinkedHashMap<>();
                     map.put("deviceId", id);
+                    map.put("alarmType", "2");
                     map.put("isNative", playType);
                     map.put("userId", SpUtils.getUserId(context));
                     map.put("beginTime", startTime);
@@ -108,6 +109,7 @@ public class DialogVideoBaojing extends Dialog {
                 }else {
                     Map<String, String> map = new LinkedHashMap<>();
                     map.put("deviceId", id);
+                    map.put("alarmType", "2");
                     map.put("isNative", playType);
                     map.put("userId", SpUtils.getUserId(context));
                     map.put("beginTime", startTime);

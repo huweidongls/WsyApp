@@ -58,6 +58,8 @@ public class TaocanBuyActivity extends BaseActivity {
 
     private Dialog dialog;
 
+    private boolean isBuy = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +143,7 @@ public class TaocanBuyActivity extends BaseActivity {
                                 CreateComboOrderBean bean = gson.fromJson(s, CreateComboOrderBean.class);
                                 rlOrderId.setVisibility(View.VISIBLE);
                                 tvOrderId.setText(bean.getData().getOrderSn());
+                                isBuy = true;
                                 ToastUtil.showShort(context, "创建订单成功，请联系销售人员购买");
                             }
 
@@ -154,8 +157,12 @@ public class TaocanBuyActivity extends BaseActivity {
                 dialogCustom.show();
                 break;
             case R.id.rl_call:
-                DialogBuy dialogBuy = new DialogBuy(context);
-                dialogBuy.show();
+                if(isBuy){
+                    DialogBuy dialogBuy = new DialogBuy(context);
+                    dialogBuy.show();
+                }else {
+                    ToastUtil.showShort(context, "请购买并记住订单号");
+                }
                 break;
         }
     }

@@ -358,6 +358,7 @@
                         android:layout_height="10dp" />
 
                     <TextView
+                        android:id="@+id/tv_off_time"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="5dp"
                         android:textColor="@color/white_ffffff"

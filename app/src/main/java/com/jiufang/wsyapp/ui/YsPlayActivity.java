@@ -24,7 +24,6 @@ import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.app.MyApplication;
 import com.jiufang.wsyapp.base.BaseActivity;
 import com.jiufang.wsyapp.bean.GetBindDeviceUserInfoBean;
-import com.jiufang.wsyapp.dialog.DialogBaojing;
 import com.jiufang.wsyapp.dialog.DialogBaojingSuccess;
 import com.jiufang.wsyapp.dialog.DialogVideoBaojing;
 import com.jiufang.wsyapp.mediaplay.RecoderSeekBar;

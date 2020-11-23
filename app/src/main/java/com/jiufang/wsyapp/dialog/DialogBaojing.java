@@ -83,6 +83,7 @@ public class DialogBaojing extends Dialog {
                 if(type.equals("1")){
                     Map<String, String> map = new LinkedHashMap<>();
                     map.put("deviceId", id);
+                    map.put("alarmType", "1");
                     map.put("isNative", "false");
                     map.put("userId", SpUtils.getUserId(context));
                     ViseUtil.Post(context, NetUrl.createLcAlarm, map, new ViseUtil.ViseListener() {
@@ -100,6 +101,7 @@ public class DialogBaojing extends Dialog {
                 }else {
                     Map<String, String> map = new LinkedHashMap<>();
                     map.put("deviceId", id);
+                    map.put("alarmType", "1");
                     map.put("isNative", "false");
                     map.put("userId", SpUtils.getUserId(context));
                     ViseUtil.Post(context, NetUrl.createYsAlarm, map, new ViseUtil.ViseListener() {

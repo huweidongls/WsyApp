@@ -105,6 +105,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             holder.ll1.setVisibility(View.GONE);
             holder.ll2.setVisibility(View.VISIBLE);
             holder.tvDeviceName2.setText(data.get(position).getDeviceName());
+            holder.tvOffTime.setText(data.get(position).getOfflineTime());
         }else {
             //在线
             holder.ll1.setVisibility(View.VISIBLE);
@@ -354,6 +355,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
         private TextView tvBrand2;
         private LinearLayout llMore1;
         private TextView tvHelp;
+        private TextView tvOffTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -376,6 +378,7 @@ public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> 
             tvBrand2 = itemView.findViewById(R.id.tv_brand2);
             llMore1 = itemView.findViewById(R.id.ll_more1);
             tvHelp = itemView.findViewById(R.id.tv_help);
+            tvOffTime = itemView.findViewById(R.id.tv_off_time);
         }
     }
 

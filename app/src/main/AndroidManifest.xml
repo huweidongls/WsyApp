@@ -342,6 +342,11 @@
         <activity
             android:name=".ui.HelpActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PoliceListActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

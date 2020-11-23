@@ -52,10 +52,15 @@ public class AddDeviceAddressActivity extends BaseActivity {
     TextView tv;
     @BindView(R.id.rl)
     RelativeLayout rl;
+    @BindView(R.id.tv_police)
+    TextView tvPolice;
 
     private String id = "";
     private String area = "";
     private String type = "";//0为绑定设备跳过来        1为播放详情一键报警跳过来
+
+    private String policeId = "";
+    private String policeName = "";
 
     private Dialog dialog;
 
@@ -114,7 +119,7 @@ public class AddDeviceAddressActivity extends BaseActivity {
         editText.setFilters(new InputFilter[]{filter_space, filter_speChat});
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_complete, R.id.tv_map, R.id.ll_map})
+    @OnClick({R.id.rl_back, R.id.btn_complete, R.id.tv_map, R.id.ll_map, R.id.rl_police})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -132,6 +137,10 @@ public class AddDeviceAddressActivity extends BaseActivity {
                 intent.setClass(context, AddDeviceMapActivity.class);
                 startActivityForResult(intent, 1001);
                 break;
+            case R.id.rl_police:
+                intent.setClass(context, PoliceListActivity.class);
+                startActivityForResult(intent, 1002);
+                break;
         }
     }
 
@@ -146,6 +155,13 @@ public class AddDeviceAddressActivity extends BaseActivity {
             Logger.e("123123", area);
         }
 
+        if(data != null&&requestCode == 1002){
+            policeId = data.getStringExtra("id");
+            policeName = data.getStringExtra("name");
+            tvPolice.setText(policeName);
+            Logger.e("123123", policeId+"--"+policeName);
+        }
+
     }
 
     private void onComplete() {
@@ -157,7 +173,8 @@ public class AddDeviceAddressActivity extends BaseActivity {
         String address = etAddress.getText().toString();
 
         if(StringUtils.isEmpty(name)||StringUtils.isEmpty(phone)
-                ||StringUtils.isEmpty(map)||StringUtils.isEmpty(address)){
+                ||StringUtils.isEmpty(map)||StringUtils.isEmpty(address)
+                ||StringUtils.isEmpty(policeId)||StringUtils.isEmpty(policeName)){
             ToastUtil.showShort(context, "请完善信息");
         }else {
             dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待");
@@ -180,6 +197,8 @@ public class AddDeviceAddressActivity extends BaseActivity {
                     map2.put("houseNumber", address);
                     map2.put("personName", name);
                     map2.put("personPhone", phone);
+                    map2.put("policeStationId", policeId);
+                    map2.put("policeStationName", policeName);
                     String asd = gson.toJson(map2);
                     Logger.e("123123", asd);
                     ViseUtil.Post(context, NetUrl.updateBindDeviceUsePerson, map2, dialog, new ViseUtil.ViseListener() {

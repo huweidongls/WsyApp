@@ -72,6 +72,7 @@ public class TaocanShebeiActivity extends BaseActivity {
         ViseUtil.Post(context, NetUrl.getComboDeviceChooseList, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
+                Logger.e("123123", s);
                 if(!StringUtils.isEmpty(s)){
                     recyclerView.setVisibility(View.VISIBLE);
                     llMsg.setVisibility(View.GONE);

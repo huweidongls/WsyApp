@@ -197,6 +197,29 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/rl_police"
+            android:background="@drawable/bg_dcdada_2dp_bord"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="31dp">
+
+            <TextView
+                android:id="@+id/tv_police"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:textColor="@color/black_333333"
+                android:textSize="11sp"
+                android:hint="设备附近派出所"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
     <Button

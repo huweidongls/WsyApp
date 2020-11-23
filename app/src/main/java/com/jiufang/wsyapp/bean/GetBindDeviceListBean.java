@@ -135,7 +135,7 @@ public class GetBindDeviceListBean implements Serializable {
             private String deviceName;
             private String deviceModel;
             private int haveCloudConsole;
-            private Object offlineTime;
+            private String offlineTime;
             private int deviceStatus = 0;//设备在线状态  0不在线  1在线
             private int cloudStorageStatus = 0;//云存储状态：0 未开启 1已开启 2即将到期 3已过期
             private int isHaveNewMessage = 0;//是否有新消息：0没有 1有
@@ -261,11 +261,11 @@ public class GetBindDeviceListBean implements Serializable {
                 this.haveCloudConsole = haveCloudConsole;
             }
 
-            public Object getOfflineTime() {
+            public String getOfflineTime() {
                 return offlineTime;
             }
 
-            public void setOfflineTime(Object offlineTime) {
+            public void setOfflineTime(String offlineTime) {
                 this.offlineTime = offlineTime;
             }
         }
