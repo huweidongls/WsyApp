@@ -140,6 +140,15 @@ public class GetBindDeviceListBean implements Serializable {
             private int cloudStorageStatus = 0;//云存储状态：0 未开启 1已开启 2即将到期 3已过期
             private int isHaveNewMessage = 0;//是否有新消息：0没有 1有
             private int nativeStorageStatus = 0;//本地存储状态：0 没有 1有
+            private String lastAlarmTime;
+
+            public String getLastAlarmTime() {
+                return lastAlarmTime;
+            }
+
+            public void setLastAlarmTime(String lastAlarmTime) {
+                this.lastAlarmTime = lastAlarmTime;
+            }
 
             public int getDeviceStatus() {
                 return deviceStatus;

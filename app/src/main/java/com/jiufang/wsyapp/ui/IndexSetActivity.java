@@ -61,6 +61,8 @@ public class IndexSetActivity extends BaseActivity {
     ImageView ivYinpin;
     @BindView(R.id.iv_title)
     ImageView ivTitle;
+    @BindView(R.id.tv_police_name)
+    TextView tvPoliceName;
 
     private String id = "";
     private int brandId = 0;
@@ -159,6 +161,7 @@ public class IndexSetActivity extends BaseActivity {
                 }
                 tvAreaName.setText(bean.getData().getAreaFullName());
                 tvAddress.setText(bean.getData().getAddress());
+                tvPoliceName.setText("("+bean.getData().getPoliceStationName()+")");
                 tvName.setText(bean.getData().getPersonName()+"  "+toPhone(bean.getData().getPersonPhone()));
                 if(bean.getData().getSnapImage()!=null){
                     String pic = bean.getData().getSnapImage();

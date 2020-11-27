@@ -103,6 +103,24 @@ public class GetDeviceDetailInfoBean {
         private String personName;
         private String personPhone;
         private String securityCode;
+        private int policeStationId;
+        private String policeStationName;
+
+        public int getPoliceStationId() {
+            return policeStationId;
+        }
+
+        public void setPoliceStationId(int policeStationId) {
+            this.policeStationId = policeStationId;
+        }
+
+        public String getPoliceStationName() {
+            return policeStationName;
+        }
+
+        public void setPoliceStationName(String policeStationName) {
+            this.policeStationName = policeStationName;
+        }
 
         public String getSecurityCode() {
             return securityCode;

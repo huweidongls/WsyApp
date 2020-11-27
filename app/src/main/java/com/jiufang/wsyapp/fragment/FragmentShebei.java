@@ -125,6 +125,7 @@ public class FragmentShebei extends LazyFragment {
         ViseUtil.Post(getContext(), NetUrl.getBindDeviceList, map, new ViseUtil.ViseListener() {
             @Override
             public void onReturn(String s) {
+                Logger.e("123123", s);
                 Gson gson = new Gson();
                 GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
                 mList = bean.getData().getRecords();

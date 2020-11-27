@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -38,6 +39,8 @@ public class RegisterActivity extends BaseActivity {
     EditText etPhone;
     @BindView(R.id.et_code)
     EditText etCode;
+    @BindView(R.id.iv_agree)
+    ImageView ivAgree;
 
     public TextView getCode_btn() {
         return tvGetCode;
@@ -47,6 +50,8 @@ public class RegisterActivity extends BaseActivity {
     private String code = "";
 
     private InputMethodManager manager;
+
+    private boolean isAgree = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +72,18 @@ public class RegisterActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.tv_send, R.id.btn_next, R.id.ll_phone, R.id.ll_pwd})
+    @OnClick({R.id.rl_back, R.id.tv_send, R.id.btn_next, R.id.ll_phone, R.id.ll_pwd, R.id.iv_agree, R.id.tv_xy})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.tv_xy:
+                intent.setClass(context, YonghuxieyiActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_agree:
+                ivAgree.setImageResource(R.mipmap.gouxuan);
+                isAgree = true;
+                break;
             case R.id.ll_phone:
                 etPhone.requestFocus();
                 if (manager != null) manager.showSoftInput(etPhone, 0);
@@ -98,6 +111,8 @@ public class RegisterActivity extends BaseActivity {
                 code = etCode.getText().toString();
                 if(StringUtils.isEmpty(phone)||StringUtils.isEmpty(code)){
                     ToastUtil.showShort(context, "手机号或验证码不能为空");
+                }else if(!isAgree){
+                    ToastUtil.showShort(context, "请勾选用户协议");
                 }else {
                     Map<String, String> map = new LinkedHashMap<>();
                     map.put("captcha", code);

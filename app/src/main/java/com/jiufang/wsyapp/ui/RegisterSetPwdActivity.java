@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.app.MyApplication;
@@ -35,11 +36,15 @@ public class RegisterSetPwdActivity extends BaseActivity {
     EditText etPwd;
     @BindView(R.id.et_pwd2)
     EditText etPwd2;
+    @BindView(R.id.iv_agree)
+    ImageView ivAgree;
 
     private String userId = "";
     private String token = "";
 
     private InputMethodManager manager;
+
+    private boolean isAgree = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +66,18 @@ public class RegisterSetPwdActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_register, R.id.ll_phone, R.id.ll_pwd})
+    @OnClick({R.id.rl_back, R.id.btn_register, R.id.ll_phone, R.id.ll_pwd, R.id.iv_agree, R.id.tv_xy})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.tv_xy:
+                Intent intent = new Intent();
+                intent.setClass(context, YonghuxieyiActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_agree:
+                ivAgree.setImageResource(R.mipmap.gouxuan);
+                isAgree = true;
+                break;
             case R.id.ll_phone:
                 etPwd.requestFocus();
                 if (manager != null) manager.showSoftInput(etPwd, 0);
@@ -82,6 +96,8 @@ public class RegisterSetPwdActivity extends BaseActivity {
                     ToastUtil.showShort(context, "密码不能为空");
                 }else if(!pwd.equals(pwd2)){
                     ToastUtil.showShort(context, "密码不一致");
+                }else if(!isAgree){
+                    ToastUtil.showShort(context, "请勾选用户协议");
                 }else {
                     Map<String, String> map1 = new LinkedHashMap<>();
                     map1.put("token", token);

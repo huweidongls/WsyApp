@@ -13,6 +13,7 @@ import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.bean.GetBindDeviceListBean;
 import com.jiufang.wsyapp.ui.MsgLcShebeiListActivity;
 import com.jiufang.wsyapp.ui.MsgYsShebeiListActivity;
+import com.jiufang.wsyapp.utils.StringUtils;
 
 import java.util.List;
 
@@ -41,6 +42,10 @@ public class MessageShebeiAdapter extends RecyclerView.Adapter<MessageShebeiAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.tvName.setText(data.get(i).getDeviceName());
+        String time = data.get(i).getLastAlarmTime();
+        if(!StringUtils.isEmpty(time)){
+            viewHolder.tvTime.setText(time);
+        }
         int brandId = data.get(i).getBrandId();
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +77,12 @@ public class MessageShebeiAdapter extends RecyclerView.Adapter<MessageShebeiAdap
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tvName;
+        private TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
+            tvTime = itemView.findViewById(R.id.tv_time);
         }
     }
 
