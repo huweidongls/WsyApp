@@ -72,10 +72,14 @@ public class RegisterActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.tv_send, R.id.btn_next, R.id.ll_phone, R.id.ll_pwd, R.id.iv_agree, R.id.tv_xy})
+    @OnClick({R.id.rl_back, R.id.tv_send, R.id.btn_next, R.id.ll_phone, R.id.ll_pwd, R.id.iv_agree, R.id.tv_xy, R.id.tv_ys})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.tv_ys:
+                intent.setClass(context, YinsizhengceActivity.class);
+                startActivity(intent);
+                break;
             case R.id.tv_xy:
                 intent.setClass(context, YonghuxieyiActivity.class);
                 startActivity(intent);

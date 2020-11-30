@@ -123,6 +123,58 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_yhxy"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:textColor="@color/black_333333"
+            android:textSize="13sp"
+            android:text="用户协议"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginRight="14dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/right_gray"
+            android:layout_width="6dp"
+            android:layout_height="11dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_yszc"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:textColor="@color/black_333333"
+            android:textSize="13sp"
+            android:text="隐私政策"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginRight="14dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/right_gray"
+            android:layout_width="6dp"
+            android:layout_height="11dp" />
+
+    </RelativeLayout>
+
     <Button
         android:id="@+id/btn_exit"
         android:background="@drawable/bg_ffa36e_16dp_bord"

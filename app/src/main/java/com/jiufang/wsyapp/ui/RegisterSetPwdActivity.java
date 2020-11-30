@@ -66,9 +66,14 @@ public class RegisterSetPwdActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_register, R.id.ll_phone, R.id.ll_pwd, R.id.iv_agree, R.id.tv_xy})
+    @OnClick({R.id.rl_back, R.id.btn_register, R.id.ll_phone, R.id.ll_pwd, R.id.iv_agree, R.id.tv_xy, R.id.tv_ys})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.tv_ys:
+                Intent intent1 = new Intent();
+                intent1.setClass(context, YinsizhengceActivity.class);
+                startActivity(intent1);
+                break;
             case R.id.tv_xy:
                 Intent intent = new Intent();
                 intent.setClass(context, YonghuxieyiActivity.class);

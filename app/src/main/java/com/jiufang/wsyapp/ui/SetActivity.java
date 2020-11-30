@@ -53,10 +53,18 @@ public class SetActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_exit, R.id.rl_safe, R.id.rl_check_version, R.id.rl_msg})
+    @OnClick({R.id.rl_back, R.id.btn_exit, R.id.rl_safe, R.id.rl_check_version, R.id.rl_msg, R.id.rl_yhxy, R.id.rl_yszc})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_yszc:
+                intent.setClass(context, YinsizhengceActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_yhxy:
+                intent.setClass(context, YonghuxieyiActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_msg:
                 intent.setClass(context, MsgPushActivity.class);
                 startActivity(intent);

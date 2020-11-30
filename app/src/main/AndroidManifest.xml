@@ -344,10 +344,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.PoliceListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.YonghuxieyiActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.YinsizhengceActivity"></activity>
     </application>
 
 </manifest>
