@@ -70,10 +70,13 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_eye, R.id.tv_register, R.id.tv_forget, R.id.btn_login, R.id.ll_phone, R.id.ll_pwd})
+    @OnClick({R.id.rl_back, R.id.rl_eye, R.id.tv_register, R.id.tv_forget, R.id.btn_login, R.id.ll_phone, R.id.ll_pwd})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.rl_back:
+                finish();
+                break;
             case R.id.ll_phone:
                 etPhone.requestFocus();
                 if (manager != null) manager.showSoftInput(etPhone, 0);

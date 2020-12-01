@@ -1,5 +1,6 @@
 package com.jiufang.wsyapp.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,7 +25,6 @@ import com.jiufang.wsyapp.dialog.DialogMsgDelete;
 import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.ui.IndexSetActivity;
 import com.jiufang.wsyapp.ui.LoginActivity;
-import com.jiufang.wsyapp.ui.MainActivity;
 import com.jiufang.wsyapp.ui.MsgLcShebeiListActivity;
 import com.jiufang.wsyapp.ui.MsgYsShebeiListActivity;
 import com.jiufang.wsyapp.ui.SearchActivity;
@@ -41,6 +41,8 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.videogo.exception.BaseException;
 import com.videogo.util.LocalValidate;
+import com.vise.xsnow.permission.OnPermissionCallback;
+import com.vise.xsnow.permission.PermissionManager;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
@@ -411,7 +413,22 @@ public class Fragment1 extends LazyFragment {
 //                recyclerView.scrollToPosition(lastPostion);
                 break;
             case R.id.rl_right:
-                startActivityForResult(new Intent(getContext(), CaptureActivity.class), 1001);
+                PermissionManager.instance().request(getActivity(), new OnPermissionCallback() {
+                    @Override
+                    public void onRequestAllow(String permissionName) {
+                        startActivityForResult(new Intent(getContext(), CaptureActivity.class), 1001);
+                    }
+
+                    @Override
+                    public void onRequestRefuse(String permissionName) {
+
+                    }
+
+                    @Override
+                    public void onRequestNoAsk(String permissionName) {
+                        startActivityForResult(new Intent(getContext(), CaptureActivity.class), 1001);
+                    }
+                }, Manifest.permission.CAMERA);
                 break;
             case R.id.btn_login:
                 intent.setClass(getContext(), LoginActivity.class);
