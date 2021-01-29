@@ -12,15 +12,13 @@ public class GetDeviceAlarmYsPageBean {
      * code : 200
      * success : true
      * message : 操作成功
-     * data : {"deviceId":27,"snCode":"C78047095","totals":12,"pageIndex":1,"pageSize":10,"alrams":[{"alarmId":"KBKQLDTB7PU_0N9DKZK01_C78047095_1","alarmName":"C1HC(C78047095)","alarmType":10002,"alarmTime":"2020-06-18 20:04:38","channelNo":1,"isEncrypt":0,"isChecked":0,"recState":5,"preTime":5,"delayTime":25,"alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9jb3MuYXAtYmVpamluZy5teXFjbG91ZC5jb20vY2xvdWQtaGJiai1iaWctMTI1NjY4MzA0MS83L0M3ODA0NzA5NV8xXzIwMjAwNjE4MjAwNDM5LUM3ODA0NzA5NS0xLTEwMDAyLTItMT9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1EYXRlPTIwMjAwNjE4VDEyNDUyN1omWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JlgtQW16LUV4cGlyZXM9NjA0Nzk5JlgtQW16LUNyZWRlbnRpYWw9QUtJRHhFSW80MjFBWGFHbTZCTlhqR1lTTHh3dGM1UEFEejhCJTJGMjAyMDA2MTglMkZjb3MuYXAtYmVpamluZyUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LVNpZ25hdHVyZT05M2E0Nzk5ZTAwZTY4MDNlNmFiMzg4MGM5ODFmZTZmOWQ3NTU2YTJmMjg4MjUyNGJhZWZkNzllOGNhOGVlOGQ4&amp;crypt=2&amp;time=2020-06-18T20:04:38&amp;key=cde837bd509a88fec10a7ed208509cb2","relationAlarms":[]},{"alarmId":"KBKQK3107PU_0N9DKZK00_C78047095_1","alarmName":"C1HC(C78047095)","alarmType":10002,"alarmTime":"2020-06-18 20:03:38","channelNo":1,"isEncrypt":0,"isChecked":0,"recState":5,"preTime":5,"delayTime":25,"alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9jb3MuYXAtYmVpamluZy5teXFjbG91ZC5jb20vY2xvdWQtaGJiai1iaWctMTI1NjY4MzA0MS83L0M3ODA0NzA5NV8xXzIwMjAwNjE4MjAwMzM4LUM3ODA0NzA5NS0xLTEwMDAyLTItMT9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1EYXRlPTIwMjAwNjE4VDEyNDUyN1omWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JlgtQW16LUV4cGlyZXM9NjA0ODAwJlgtQW16LUNyZWRlbnRpYWw9QUtJRHhFSW80MjFBWGFHbTZCTlhqR1lTTHh3dGM1UEFEejhCJTJGMjAyMDA2MTglMkZjb3MuYXAtYmVpamluZyUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LVNpZ25hdHVyZT02YTJkZTIyODkyYzYyNGMxNmIyNDg2YjUyOTVmMWFhMDVkNTE3NTM0ZTEwMzA0M2Q5YjU1YjkwYWY0NTlmNjMw&amp;crypt=2&amp;time=2020-06-18T20:03:38&amp;key=cde837bd509a88fec10a7ed208509cb2","relationAlarms":[]}]}
-     * time : 2020-06-18 20:45:27
+     * data : {"total":7,"totalPages":1,"records":[{"id":1,"brandId":2,"bindDeviceId":59,"deviceSn":"D97176623","recState":null,"alarmType":"intelligentDetection","alarmTime":"2021-01-29 11:27:01","alarmId":"ea928764-6224-11eb-8000-ca9aff9a779e","alarmPicId":"20210129112702-D97176623-1-10079-2-1","alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjcwMi1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI3MDZaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDc5OSZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9OTc3ZDI1YzY1ZTUxMGU0MTI0OWZmN2I0YjAxMTgzOWRjNGI1YjcyYTc4ZWJmMGE5MDM3N2YyMzVmMjY5ODhjNg==&amp;crypt=2&amp;time=2021-01-29T11:27:01&amp;key=95f5b6722e03628ecc6257e7b4fc95f1","isRead":0},{"id":2,"brandId":2,"bindDeviceId":59,"deviceSn":"D97176623","recState":null,"alarmType":"intelligentDetection","alarmTime":"2021-01-29 11:28:11","alarmId":"13e32c54-6225-11eb-8000-ca9aff9a779e","alarmPicId":"20210129112812-D97176623-1-10079-2-1","alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjgxMi1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI4MTZaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDgwMCZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9NmZmMGI5MmIzNTkzNWM3NjNiZWVhN2Y2MGEzY2VkOGM3NDRkNGEzZTY4ZmEwOTNlM2U5YjMyMDIxM2JkNTIxZQ==&amp;crypt=2&amp;time=2021-01-29T11:28:11&amp;key=95f5b6722e03628ecc6257e7b4fc95f1","isRead":0},{"id":3,"brandId":2,"bindDeviceId":59,"deviceSn":"D97176623","recState":null,"alarmType":"intelligentDetection","alarmTime":"2021-01-29 11:28:56","alarmId":"30677934-6225-11eb-8000-ca9aff9a779e","alarmPicId":"20210129112857-D97176623-1-10079-2-1","alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjg1Ny1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI5MDNaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDgwMCZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9ZGQzMTMwZWM0MzkwN2Q2NjhjZDJlZjVkODllOTY3MzU5NTBlYzM4ZWNmYmZjZWJjNjAxM2JmMWYwMzA3MTQyZA==&amp;crypt=2&amp;time=2021-01-29T11:28:56&amp;key=95f5b6722e03628ecc6257e7b4fc95f1","isRead":0},{"id":4,"brandId":2,"bindDeviceId":59,"deviceSn":"D97176623","recState":null,"alarmType":"intelligentDetection","alarmTime":"2021-01-29 11:29:26","alarmId":"410afe00-6225-11eb-8000-ca9aff9a779e","alarmPicId":"20210129112926-D97176623-1-10079-2-1","alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjkyNi1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI5MzFaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDgwMCZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9MDk5NDdiMjY1YjhjOTIxN2Y3MzM2OGI4Yjc3MWQ0ZmU1N2ExMjc3MWY4MWQ3MTE3MWQyY2RmMmNkZGE4ZDhjMw==&amp;crypt=2&amp;time=2021-01-29T11:29:26&amp;key=95f5b6722e03628ecc6257e7b4fc95f1","isRead":0}]}
      */
 
     private int code;
     private boolean success;
     private String message;
     private DataBean data;
-    private String time;
 
     public int getCode() {
         return code;
@@ -54,129 +52,113 @@ public class GetDeviceAlarmYsPageBean {
         this.data = data;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public static class DataBean {
         /**
-         * deviceId : 27
-         * snCode : C78047095
-         * totals : 12
-         * pageIndex : 1
-         * pageSize : 10
-         * alrams : [{"alarmId":"KBKQLDTB7PU_0N9DKZK01_C78047095_1","alarmName":"C1HC(C78047095)","alarmType":10002,"alarmTime":"2020-06-18 20:04:38","channelNo":1,"isEncrypt":0,"isChecked":0,"recState":5,"preTime":5,"delayTime":25,"alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9jb3MuYXAtYmVpamluZy5teXFjbG91ZC5jb20vY2xvdWQtaGJiai1iaWctMTI1NjY4MzA0MS83L0M3ODA0NzA5NV8xXzIwMjAwNjE4MjAwNDM5LUM3ODA0NzA5NS0xLTEwMDAyLTItMT9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1EYXRlPTIwMjAwNjE4VDEyNDUyN1omWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JlgtQW16LUV4cGlyZXM9NjA0Nzk5JlgtQW16LUNyZWRlbnRpYWw9QUtJRHhFSW80MjFBWGFHbTZCTlhqR1lTTHh3dGM1UEFEejhCJTJGMjAyMDA2MTglMkZjb3MuYXAtYmVpamluZyUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LVNpZ25hdHVyZT05M2E0Nzk5ZTAwZTY4MDNlNmFiMzg4MGM5ODFmZTZmOWQ3NTU2YTJmMjg4MjUyNGJhZWZkNzllOGNhOGVlOGQ4&amp;crypt=2&amp;time=2020-06-18T20:04:38&amp;key=cde837bd509a88fec10a7ed208509cb2","relationAlarms":[]},{"alarmId":"KBKQK3107PU_0N9DKZK00_C78047095_1","alarmName":"C1HC(C78047095)","alarmType":10002,"alarmTime":"2020-06-18 20:03:38","channelNo":1,"isEncrypt":0,"isChecked":0,"recState":5,"preTime":5,"delayTime":25,"alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9jb3MuYXAtYmVpamluZy5teXFjbG91ZC5jb20vY2xvdWQtaGJiai1iaWctMTI1NjY4MzA0MS83L0M3ODA0NzA5NV8xXzIwMjAwNjE4MjAwMzM4LUM3ODA0NzA5NS0xLTEwMDAyLTItMT9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1EYXRlPTIwMjAwNjE4VDEyNDUyN1omWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JlgtQW16LUV4cGlyZXM9NjA0ODAwJlgtQW16LUNyZWRlbnRpYWw9QUtJRHhFSW80MjFBWGFHbTZCTlhqR1lTTHh3dGM1UEFEejhCJTJGMjAyMDA2MTglMkZjb3MuYXAtYmVpamluZyUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LVNpZ25hdHVyZT02YTJkZTIyODkyYzYyNGMxNmIyNDg2YjUyOTVmMWFhMDVkNTE3NTM0ZTEwMzA0M2Q5YjU1YjkwYWY0NTlmNjMw&amp;crypt=2&amp;time=2020-06-18T20:03:38&amp;key=cde837bd509a88fec10a7ed208509cb2","relationAlarms":[]}]
+         * total : 7
+         * totalPages : 1
+         * records : [{"id":1,"brandId":2,"bindDeviceId":59,"deviceSn":"D97176623","recState":null,"alarmType":"intelligentDetection","alarmTime":"2021-01-29 11:27:01","alarmId":"ea928764-6224-11eb-8000-ca9aff9a779e","alarmPicId":"20210129112702-D97176623-1-10079-2-1","alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjcwMi1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI3MDZaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDc5OSZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9OTc3ZDI1YzY1ZTUxMGU0MTI0OWZmN2I0YjAxMTgzOWRjNGI1YjcyYTc4ZWJmMGE5MDM3N2YyMzVmMjY5ODhjNg==&amp;crypt=2&amp;time=2021-01-29T11:27:01&amp;key=95f5b6722e03628ecc6257e7b4fc95f1","isRead":0},{"id":2,"brandId":2,"bindDeviceId":59,"deviceSn":"D97176623","recState":null,"alarmType":"intelligentDetection","alarmTime":"2021-01-29 11:28:11","alarmId":"13e32c54-6225-11eb-8000-ca9aff9a779e","alarmPicId":"20210129112812-D97176623-1-10079-2-1","alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjgxMi1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI4MTZaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDgwMCZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9NmZmMGI5MmIzNTkzNWM3NjNiZWVhN2Y2MGEzY2VkOGM3NDRkNGEzZTY4ZmEwOTNlM2U5YjMyMDIxM2JkNTIxZQ==&amp;crypt=2&amp;time=2021-01-29T11:28:11&amp;key=95f5b6722e03628ecc6257e7b4fc95f1","isRead":0},{"id":3,"brandId":2,"bindDeviceId":59,"deviceSn":"D97176623","recState":null,"alarmType":"intelligentDetection","alarmTime":"2021-01-29 11:28:56","alarmId":"30677934-6225-11eb-8000-ca9aff9a779e","alarmPicId":"20210129112857-D97176623-1-10079-2-1","alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjg1Ny1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI5MDNaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDgwMCZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9ZGQzMTMwZWM0MzkwN2Q2NjhjZDJlZjVkODllOTY3MzU5NTBlYzM4ZWNmYmZjZWJjNjAxM2JmMWYwMzA3MTQyZA==&amp;crypt=2&amp;time=2021-01-29T11:28:56&amp;key=95f5b6722e03628ecc6257e7b4fc95f1","isRead":0},{"id":4,"brandId":2,"bindDeviceId":59,"deviceSn":"D97176623","recState":null,"alarmType":"intelligentDetection","alarmTime":"2021-01-29 11:29:26","alarmId":"410afe00-6225-11eb-8000-ca9aff9a779e","alarmPicId":"20210129112926-D97176623-1-10079-2-1","alarmPicUrl":"https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjkyNi1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI5MzFaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDgwMCZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9MDk5NDdiMjY1YjhjOTIxN2Y3MzM2OGI4Yjc3MWQ0ZmU1N2ExMjc3MWY4MWQ3MTE3MWQyY2RmMmNkZGE4ZDhjMw==&amp;crypt=2&amp;time=2021-01-29T11:29:26&amp;key=95f5b6722e03628ecc6257e7b4fc95f1","isRead":0}]
          */
 
-        private int deviceId;
-        private String snCode;
-        private int totals;
-        private int pageIndex;
-        private int pageSize;
-        private List<AlramsBean> alrams;
+        private int total;
+        private int totalPages;
+        private List<RecordsBean> records;
 
-        public int getDeviceId() {
-            return deviceId;
+        public int getTotal() {
+            return total;
         }
 
-        public void setDeviceId(int deviceId) {
-            this.deviceId = deviceId;
+        public void setTotal(int total) {
+            this.total = total;
         }
 
-        public String getSnCode() {
-            return snCode;
+        public int getTotalPages() {
+            return totalPages;
         }
 
-        public void setSnCode(String snCode) {
-            this.snCode = snCode;
+        public void setTotalPages(int totalPages) {
+            this.totalPages = totalPages;
         }
 
-        public int getTotals() {
-            return totals;
+        public List<RecordsBean> getRecords() {
+            return records;
         }
 
-        public void setTotals(int totals) {
-            this.totals = totals;
+        public void setRecords(List<RecordsBean> records) {
+            this.records = records;
         }
 
-        public int getPageIndex() {
-            return pageIndex;
-        }
-
-        public void setPageIndex(int pageIndex) {
-            this.pageIndex = pageIndex;
-        }
-
-        public int getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
-
-        public List<AlramsBean> getAlrams() {
-            return alrams;
-        }
-
-        public void setAlrams(List<AlramsBean> alrams) {
-            this.alrams = alrams;
-        }
-
-        public static class AlramsBean {
+        public static class RecordsBean {
             /**
-             * alarmId : KBKQLDTB7PU_0N9DKZK01_C78047095_1
-             * alarmName : C1HC(C78047095)
-             * alarmType : 10002
-             * alarmTime : 2020-06-18 20:04:38
-             * channelNo : 1
-             * isEncrypt : 0
-             * isChecked : 0
-             * recState : 5
-             * preTime : 5
-             * delayTime : 25
-             * alarmPicUrl : https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9jb3MuYXAtYmVpamluZy5teXFjbG91ZC5jb20vY2xvdWQtaGJiai1iaWctMTI1NjY4MzA0MS83L0M3ODA0NzA5NV8xXzIwMjAwNjE4MjAwNDM5LUM3ODA0NzA5NS0xLTEwMDAyLTItMT9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1EYXRlPTIwMjAwNjE4VDEyNDUyN1omWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JlgtQW16LUV4cGlyZXM9NjA0Nzk5JlgtQW16LUNyZWRlbnRpYWw9QUtJRHhFSW80MjFBWGFHbTZCTlhqR1lTTHh3dGM1UEFEejhCJTJGMjAyMDA2MTglMkZjb3MuYXAtYmVpamluZyUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LVNpZ25hdHVyZT05M2E0Nzk5ZTAwZTY4MDNlNmFiMzg4MGM5ODFmZTZmOWQ3NTU2YTJmMjg4MjUyNGJhZWZkNzllOGNhOGVlOGQ4&amp;crypt=2&amp;time=2020-06-18T20:04:38&amp;key=cde837bd509a88fec10a7ed208509cb2
-             * relationAlarms : []
+             * id : 1
+             * brandId : 2
+             * bindDeviceId : 59
+             * deviceSn : D97176623
+             * recState : null
+             * alarmType : intelligentDetection
+             * alarmTime : 2021-01-29 11:27:01
+             * alarmId : ea928764-6224-11eb-8000-ca9aff9a779e
+             * alarmPicId : 20210129112702-D97176623-1-10079-2-1
+             * alarmPicUrl : https://alipicdeco.ys7.com:8089/ezviz/pic/down?url=aHR0cHM6Ly9zMy1jbi1iai51ZmlsZW9zLmNvbS91Y2xvdWQtYmovNy9EOTcxNzY2MjNfMV8yMDIxMDEyOTExMjcwMi1EOTcxNzY2MjMtMS0xMDA3OS0yLTE/WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotRGF0ZT0yMDIxMDEyOVQwMzI3MDZaJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZYLUFtei1FeHBpcmVzPTYwNDc5OSZYLUFtei1DcmVkZW50aWFsPVRPS0VOXzdhYTFkNTUwLWI1MTgtNGRjOC1hNDgxLWEzMDhjY2U5YjQwMCUyRjIwMjEwMTI5JTJGY24tYmolMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1TaWduYXR1cmU9OTc3ZDI1YzY1ZTUxMGU0MTI0OWZmN2I0YjAxMTgzOWRjNGI1YjcyYTc4ZWJmMGE5MDM3N2YyMzVmMjY5ODhjNg==&amp;crypt=2&amp;time=2021-01-29T11:27:01&amp;key=95f5b6722e03628ecc6257e7b4fc95f1
+             * isRead : 0
              */
 
-            private String alarmId;
-            private String alarmName;
-            private int alarmType;
+            private int id;
+            private int brandId;
+            private int bindDeviceId;
+            private String deviceSn;
+            private Object recState;
+            private String alarmType;
             private String alarmTime;
-            private int channelNo;
-            private int isEncrypt;
-            private int isChecked;
-            private int recState;
-            private int preTime;
-            private int delayTime;
+            private String alarmId;
+            private String alarmPicId;
             private String alarmPicUrl;
-            private List<?> relationAlarms;
+            private int isRead;
 
-            public String getAlarmId() {
-                return alarmId;
+            public int getId() {
+                return id;
             }
 
-            public void setAlarmId(String alarmId) {
-                this.alarmId = alarmId;
+            public void setId(int id) {
+                this.id = id;
             }
 
-            public String getAlarmName() {
-                return alarmName;
+            public int getBrandId() {
+                return brandId;
             }
 
-            public void setAlarmName(String alarmName) {
-                this.alarmName = alarmName;
+            public void setBrandId(int brandId) {
+                this.brandId = brandId;
             }
 
-            public int getAlarmType() {
+            public int getBindDeviceId() {
+                return bindDeviceId;
+            }
+
+            public void setBindDeviceId(int bindDeviceId) {
+                this.bindDeviceId = bindDeviceId;
+            }
+
+            public String getDeviceSn() {
+                return deviceSn;
+            }
+
+            public void setDeviceSn(String deviceSn) {
+                this.deviceSn = deviceSn;
+            }
+
+            public Object getRecState() {
+                return recState;
+            }
+
+            public void setRecState(Object recState) {
+                this.recState = recState;
+            }
+
+            public String getAlarmType() {
                 return alarmType;
             }
 
-            public void setAlarmType(int alarmType) {
+            public void setAlarmType(String alarmType) {
                 this.alarmType = alarmType;
             }
 
@@ -188,52 +170,20 @@ public class GetDeviceAlarmYsPageBean {
                 this.alarmTime = alarmTime;
             }
 
-            public int getChannelNo() {
-                return channelNo;
+            public String getAlarmId() {
+                return alarmId;
             }
 
-            public void setChannelNo(int channelNo) {
-                this.channelNo = channelNo;
+            public void setAlarmId(String alarmId) {
+                this.alarmId = alarmId;
             }
 
-            public int getIsEncrypt() {
-                return isEncrypt;
+            public String getAlarmPicId() {
+                return alarmPicId;
             }
 
-            public void setIsEncrypt(int isEncrypt) {
-                this.isEncrypt = isEncrypt;
-            }
-
-            public int getIsChecked() {
-                return isChecked;
-            }
-
-            public void setIsChecked(int isChecked) {
-                this.isChecked = isChecked;
-            }
-
-            public int getRecState() {
-                return recState;
-            }
-
-            public void setRecState(int recState) {
-                this.recState = recState;
-            }
-
-            public int getPreTime() {
-                return preTime;
-            }
-
-            public void setPreTime(int preTime) {
-                this.preTime = preTime;
-            }
-
-            public int getDelayTime() {
-                return delayTime;
-            }
-
-            public void setDelayTime(int delayTime) {
-                this.delayTime = delayTime;
+            public void setAlarmPicId(String alarmPicId) {
+                this.alarmPicId = alarmPicId;
             }
 
             public String getAlarmPicUrl() {
@@ -244,12 +194,12 @@ public class GetDeviceAlarmYsPageBean {
                 this.alarmPicUrl = alarmPicUrl;
             }
 
-            public List<?> getRelationAlarms() {
-                return relationAlarms;
+            public int getIsRead() {
+                return isRead;
             }
 
-            public void setRelationAlarms(List<?> relationAlarms) {
-                this.relationAlarms = relationAlarms;
+            public void setIsRead(int isRead) {
+                this.isRead = isRead;
             }
         }
     }

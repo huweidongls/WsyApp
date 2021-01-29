@@ -93,7 +93,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
     TextView tvEnd;
 
     private MsgYsShebeiListAdapter adapter;
-    private List<GetDeviceAlarmYsPageBean.DataBean.AlramsBean> mList;
+    private List<GetDeviceAlarmYsPageBean.DataBean.RecordsBean> mList;
 
     private int mYear;
     private int mMonth;
@@ -166,7 +166,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                         Gson gson = new Gson();
                         GetDeviceAlarmYsPageBean ysPageBean = gson.fromJson(s, GetDeviceAlarmYsPageBean.class);
                         mList.clear();
-                        mList.addAll(ysPageBean.getData().getAlrams());
+                        mList.addAll(ysPageBean.getData().getRecords());
                         adapter.notifyDataSetChanged();
                         page = 1;
                     }
@@ -196,7 +196,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                         Logger.e("123123", s);
                         Gson gson = new Gson();
                         GetDeviceAlarmYsPageBean ysPageBean = gson.fromJson(s, GetDeviceAlarmYsPageBean.class);
-                        mList.addAll(ysPageBean.getData().getAlrams());
+                        mList.addAll(ysPageBean.getData().getRecords());
                         page = page+1;
                     }
 
@@ -223,7 +223,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                 llMsg.setVisibility(View.GONE);
                 Gson gson = new Gson();
                 GetDeviceAlarmYsPageBean ysPageBean = gson.fromJson(s, GetDeviceAlarmYsPageBean.class);
-                mList = ysPageBean.getData().getAlrams();
+                mList = ysPageBean.getData().getRecords();
                 adapter = new MsgYsShebeiListAdapter(mList, id);
                 LinearLayoutManager manager = new LinearLayoutManager(context);
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -267,7 +267,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                             llMsg.setVisibility(View.GONE);
                             Gson gson = new Gson();
                             GetDeviceAlarmYsPageBean ysPageBean = gson.fromJson(s, GetDeviceAlarmYsPageBean.class);
-                            mList = ysPageBean.getData().getAlrams();
+                            mList = ysPageBean.getData().getRecords();
                             adapter = new MsgYsShebeiListAdapter(mList, id);
                             LinearLayoutManager manager = new LinearLayoutManager(context);
                             manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -442,7 +442,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                         llMsg.setVisibility(View.GONE);
                         Gson gson = new Gson();
                         GetDeviceAlarmYsPageBean ysPageBean = gson.fromJson(s, GetDeviceAlarmYsPageBean.class);
-                        mList = ysPageBean.getData().getAlrams();
+                        mList = ysPageBean.getData().getRecords();
                         adapter = new MsgYsShebeiListAdapter(mList, id);
                         LinearLayoutManager manager = new LinearLayoutManager(context);
                         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -544,7 +544,7 @@ public class MsgYsShebeiListActivity extends BaseActivity {
                     llMsg.setVisibility(View.GONE);
                     Gson gson = new Gson();
                     GetDeviceAlarmYsPageBean ysPageBean = gson.fromJson(s, GetDeviceAlarmYsPageBean.class);
-                    mList = ysPageBean.getData().getAlrams();
+                    mList = ysPageBean.getData().getRecords();
                     adapter = new MsgYsShebeiListAdapter(mList, id);
                     LinearLayoutManager manager = new LinearLayoutManager(context);
                     manager.setOrientation(LinearLayoutManager.VERTICAL);

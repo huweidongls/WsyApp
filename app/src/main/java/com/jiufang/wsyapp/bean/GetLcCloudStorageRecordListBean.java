@@ -64,6 +64,29 @@ public class GetLcCloudStorageRecordListBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "deviceId=" + deviceId +
+                    ", brandId=" + brandId +
+                    ", deviceSN='" + deviceSN + '\'' +
+                    ", channelId='" + channelId + '\'' +
+                    ", recordId='" + recordId + '\'' +
+                    ", recordRegionId='" + recordRegionId + '\'' +
+                    ", encryptMode=" + encryptMode +
+                    ", crypt=" + crypt +
+                    ", startTime='" + startTime + '\'' +
+                    ", endTime='" + endTime + '\'' +
+                    ", fileSize='" + fileSize + '\'' +
+                    ", coverPic='" + coverPic + '\'' +
+                    ", fileIndex=" + fileIndex +
+                    ", locked=" + locked +
+                    ", keyChecksum=" + keyChecksum +
+                    ", storageType=" + storageType +
+                    ", recordPath=" + recordPath +
+                    '}';
+        }
+
         /**
          * deviceId : 7
          * brandId : 1

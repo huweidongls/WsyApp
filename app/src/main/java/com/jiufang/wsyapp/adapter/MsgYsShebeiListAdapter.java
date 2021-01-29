@@ -55,7 +55,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MsgYsShebeiListAdapter extends RecyclerView.Adapter<MsgYsShebeiListAdapter.ViewHolder> {
 
     private Context context;
-    private List<GetDeviceAlarmYsPageBean.DataBean.AlramsBean> data;
+    private List<GetDeviceAlarmYsPageBean.DataBean.RecordsBean> data;
     private boolean isEdit = false;
     private String deviceId;
     private EZCameraInfo mCameraInfo;
@@ -74,7 +74,7 @@ public class MsgYsShebeiListAdapter extends RecyclerView.Adapter<MsgYsShebeiList
         }
     };
 
-    public MsgYsShebeiListAdapter(List<GetDeviceAlarmYsPageBean.DataBean.AlramsBean> data, String deviceId) {
+    public MsgYsShebeiListAdapter(List<GetDeviceAlarmYsPageBean.DataBean.RecordsBean> data, String deviceId) {
         this.data = data;
         this.deviceId = deviceId;
     }

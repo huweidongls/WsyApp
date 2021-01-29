@@ -81,8 +81,6 @@ public class NetUrl {
     public static final String getLcLocalStorageRecordList = "/device/storage/v1.0.0/getLcLocalStorageRecordList";
     //乐橙云台控制
     public static final String controlLcDeviceMovePTZ = "/device/console/v1.0.0/controlLcDeviceMovePTZ";
-    //获取萤石设备报警信息
-    public static final String getDeviceAlarmYsPage = "/device/alarm/v1.0.0/getDeviceAlarmYsPage";
     //获取乐橙设备报警信息
     public static final String getDeviceAlarmLcPage = "/device/alarm/v1.0.0/getDeviceAlarmLcPage";
     //一键报警-乐橙
@@ -165,5 +163,9 @@ public class NetUrl {
     public static final String createComboOrder = "/combo/v1.0.0/createComboOrder";
     //获取派出所分页列表(增)
     public static final String getPoliceStationPageList = "/device/v1.0.0/getPoliceStationPageList";
+    //获取萤石设备报警信息
+//    public static final String getDeviceAlarmYsPage = "/device/alarm/v1.0.0/getDeviceAlarmYsPage";
+    //获取萤石设备报警信息
+    public static final String getDeviceAlarmYsPage = "/device/alarm/v1.0.0/getAlarmMessageYsPage";
 
 }
