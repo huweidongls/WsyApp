@@ -37,9 +37,11 @@ public class MsgPushActivity extends BaseActivity {
     TextView tvTime;
 
     private String pushType = "";
-    private int remindType = 0;
+//    private int remindType = 0;
 
     private Dialog dialog;
+
+    private BasicCustomPushNotification notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,21 +62,22 @@ public class MsgPushActivity extends BaseActivity {
 
     private void initData() {
 
-        BasicCustomPushNotification notification = new BasicCustomPushNotification();
-        remindType = notification.getRemindType();
-        if(remindType == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
+        notification = new BasicCustomPushNotification();
+        notification.setServerOptionFirst(true);
+//        remindType = notification.getRemindType();
+        if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
             //声音+震动
             ivSound.setImageResource(R.mipmap.turn_on);
             ivVibrate.setImageResource(R.mipmap.turn_on);
-        }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_SOUND){
+        }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SOUND){
             //声音
             ivSound.setImageResource(R.mipmap.turn_on);
             ivVibrate.setImageResource(R.mipmap.turn_off);
-        }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
+        }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
             //震动
             ivSound.setImageResource(R.mipmap.turn_off);
             ivVibrate.setImageResource(R.mipmap.turn_on);
-        }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_SILENT){
+        }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SILENT){
             //静默
             ivSound.setImageResource(R.mipmap.turn_off);
             ivVibrate.setImageResource(R.mipmap.turn_off);
@@ -109,80 +112,80 @@ public class MsgPushActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.iv_vibrate:
-                if(remindType == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
+                if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
                     //声音+震动
-                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
+//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
                     notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_SOUND);
                     boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
-//                    if(res){
+                    if(res){
                         ivVibrate.setImageResource(R.mipmap.turn_off);
-                        remindType = BasicCustomPushNotification.REMIND_TYPE_SOUND;
-//                    }
-                }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_SOUND){
+//                        remindType = BasicCustomPushNotification.REMIND_TYPE_SOUND;
+                    }
+                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SOUND){
                     //声音
-                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
+//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
                     notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
+                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(2, notification);
 //                    if(res) {
                         ivVibrate.setImageResource(R.mipmap.turn_on);
-                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND;
+//                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND;
 //                    }
-                }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
+                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
                     //震动
-                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
+//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
                     notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_SILENT);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
+                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(3, notification);
 //                    if(res) {
                         ivVibrate.setImageResource(R.mipmap.turn_off);
-                        remindType = BasicCustomPushNotification.REMIND_TYPE_SILENT;
+//                        remindType = BasicCustomPushNotification.REMIND_TYPE_SILENT;
 //                    }
-                }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_SILENT){
+                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SILENT){
                     //静默
-                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
+//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
                     notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_VIBRATE);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
+                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(4, notification);
 //                    if(res) {
                         ivVibrate.setImageResource(R.mipmap.turn_on);
-                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE;
+//                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE;
 //                    }
                 }
                 break;
             case R.id.iv_sound:
-                if(remindType == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
+                if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
                     //声音+震动
-                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
+//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
                     notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_VIBRATE);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
+                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(5, notification);
 //                    if(res) {
                         ivSound.setImageResource(R.mipmap.turn_off);
-                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE;
+//                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE;
 //                    }
-                }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_SOUND){
+                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SOUND){
                     //声音
-                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
+//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
                     notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_SILENT);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
+                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(6, notification);
 //                    if(res) {
                         ivSound.setImageResource(R.mipmap.turn_off);
-                        remindType = BasicCustomPushNotification.REMIND_TYPE_SILENT;
+//                        remindType = BasicCustomPushNotification.REMIND_TYPE_SILENT;
 //                    }
-                }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
+                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
                     //震动
-                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
+//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
                     notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
+                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(7, notification);
 //                    if(res) {
                         ivSound.setImageResource(R.mipmap.turn_on);
-                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND;
+//                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND;
 //                    }
-                }else if(remindType == BasicCustomPushNotification.REMIND_TYPE_SILENT){
+                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SILENT){
                     //静默
-                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
+//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
                     notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_SOUND);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
+                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(8, notification);
 //                    if(res) {
                         ivSound.setImageResource(R.mipmap.turn_on);
-                        remindType = BasicCustomPushNotification.REMIND_TYPE_SOUND;
+//                        remindType = BasicCustomPushNotification.REMIND_TYPE_SOUND;
 //                    }
                 }
                 break;

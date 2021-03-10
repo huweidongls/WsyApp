@@ -291,7 +291,7 @@ public class Fragment1 extends LazyFragment {
                 //变暗的背景颜色
                 .setDimColor(Color.BLACK)
                 .apply();
-        easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.ALIGN_BOTTOM, XGravity.CENTER, 0, 0);
+        easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.BELOW, XGravity.CENTER, 0, 0);
 
         TextView tvCancel = easyPopup.findViewById(R.id.tv_cancel);
         TextView tvJiebang = easyPopup.findViewById(R.id.tv_jiebang);

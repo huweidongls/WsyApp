@@ -16,6 +16,7 @@ import com.jiufang.wsyapp.net.NetSpeedTimer;
 import com.jiufang.wsyapp.utils.FileUtils;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
+import com.vise.xsnow.common.GsonUtil;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.vise.xsnow.http.callback.UCallback;
@@ -90,23 +91,34 @@ public class WifiCheckActivity extends BaseActivity {
                 state = "无法访问";
             }
         }
-        Intent intent = new Intent();
-        intent.setClass(context, WifiCheckResultActivity.class);
-        intent.putExtra("download", downloadResult);
-        intent.putExtra("upload", uploadResult);
-        intent.putExtra("delay", delay);
-        intent.putExtra("state", state);
-        startActivity(intent);
-        finish();
+        if(WifiCheckActivity.this.isFinishing()&&WifiCheckActivity.this.isDestroyed()){
+
+        }else {
+            Intent intent = new Intent();
+            intent.setClass(context, WifiCheckResultActivity.class);
+            intent.putExtra("download", downloadResult);
+            intent.putExtra("upload", uploadResult);
+            intent.putExtra("delay", delay);
+            intent.putExtra("state", state);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void upload() {
 
         try {
+
             InputStream is = getResources().getAssets().open("wifitest.file");
             String appFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Wsy/" + "wifitest.file";
-            File file = new File(appFile);
-            writeBytesToFile(is, file);
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Wsy";
+            File file = new File(path);
+            //判断文件夹是否存在,如果不存在则创建文件夹
+            if (!file.exists()) {
+                file.mkdir();
+            }
+            File file1 = new File(appFile);
+            writeBytesToFile(is, file1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -192,14 +204,14 @@ public class WifiCheckActivity extends BaseActivity {
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
-                            Logger.e("123123", data);
+//                            Logger.e("123123", data);
                             end = System.currentTimeMillis();
                             long size = 0;
                             try {
                                 size = FileUtils.getFileSize(file);
                                 long sudu = size / (end - start) * 1000;
                                 uploadResult = FileUtils.formatFileSize(sudu);
-                                Logger.e("123123", "size--" + size + "--sudu--" + sudu + "--result--" + uploadResult);
+//                                Logger.e("123123", "size--" + size + "--sudu--" + sudu + "--result--" + uploadResult);
                                 file.delete();
                                 initData();
                             } catch (Exception e) {
@@ -209,7 +221,7 @@ public class WifiCheckActivity extends BaseActivity {
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
-                            Logger.e("123123", errMsg);
+                            Logger.e("123123", "upload"+errMsg);
                         }
                     });
         }

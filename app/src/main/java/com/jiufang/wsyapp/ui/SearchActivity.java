@@ -3,6 +3,7 @@ package com.jiufang.wsyapp.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,6 +22,12 @@ import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.ViseUtil;
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -39,6 +46,8 @@ public class SearchActivity extends BaseActivity {
     RecyclerView recyclerView;
     @BindView(R.id.et_search)
     EditText etSearch;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout smartRefreshLayout;
 
     private SearchAdapter adapter;
     private List<GetBindDeviceListBean.DataBean.RecordsBean> mList;
@@ -61,6 +70,62 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void initData() {
+
+        smartRefreshLayout.setRefreshHeader(new MaterialHeader(SearchActivity.this));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(SearchActivity.this));
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("pageIndex", "1");
+                map.put("pageSize", "10");
+                map.put("userId", SpUtils.getUserId(context));
+                map.put("keyword", search);
+                ViseUtil.Post(context, NetUrl.getBindDeviceList, map, refreshLayout, 0, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        Logger.e("123123", s);
+                        Gson gson = new Gson();
+                        GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
+                        mList.clear();
+                        mList.addAll(bean.getData().getRecords());
+                        adapter.notifyDataSetChanged();
+                        page = 2;
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
+            }
+        });
+        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                Map<String, String> map = new LinkedHashMap<>();
+                map.put("pageIndex", page+"");
+                map.put("pageSize", "10");
+                map.put("userId", SpUtils.getUserId(context));
+                map.put("keyword", search);
+                ViseUtil.Post(context, NetUrl.getBindDeviceList, map, refreshLayout, 1, new ViseUtil.ViseListener() {
+                    @Override
+                    public void onReturn(String s) {
+                        Logger.e("123123", s);
+                        Gson gson = new Gson();
+                        GetBindDeviceListBean bean = gson.fromJson(s, GetBindDeviceListBean.class);
+                        mList.addAll(bean.getData().getRecords());
+                        adapter.notifyDataSetChanged();
+                        page = page + 1;
+                    }
+
+                    @Override
+                    public void onElse(String s) {
+
+                    }
+                });
+            }
+        });
 
         mList = new ArrayList<>();
         adapter = new SearchAdapter(mList);

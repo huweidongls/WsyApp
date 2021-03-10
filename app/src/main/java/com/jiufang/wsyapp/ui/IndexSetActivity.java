@@ -162,7 +162,11 @@ public class IndexSetActivity extends BaseActivity {
                 tvAreaName.setText(bean.getData().getAreaFullName());
                 tvAddress.setText(bean.getData().getAddress());
                 tvPoliceName.setText("("+bean.getData().getPoliceStationName()+")");
-                tvName.setText(bean.getData().getPersonName()+"  "+toPhone(bean.getData().getPersonPhone()));
+                if(bean.getData().getPersonPhone() == null){
+                    tvName.setText(bean.getData().getPersonName());
+                }else {
+                    tvName.setText(bean.getData().getPersonName()+"  "+toPhone(bean.getData().getPersonPhone()));
+                }
                 if(bean.getData().getSnapImage()!=null){
                     String pic = bean.getData().getSnapImage();
                     if(pic.length()>2){
