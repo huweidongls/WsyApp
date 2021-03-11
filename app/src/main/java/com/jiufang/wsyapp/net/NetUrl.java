@@ -167,5 +167,9 @@ public class NetUrl {
 //    public static final String getDeviceAlarmYsPage = "/device/alarm/v1.0.0/getDeviceAlarmYsPage";
     //获取萤石设备报警信息
     public static final String getDeviceAlarmYsPage = "/device/alarm/v1.0.0/getAlarmMessageYsPage";
+    //获取用户通知方式
+    public static final String getUserNotifyType = "/user/v1.0.0/getUserNotifyType";
+    //设置用户通知方式
+    public static final String setUserNotifyType = "/user/v1.0.0/setUserNotifyType";
 
 }

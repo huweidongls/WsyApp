@@ -14,10 +14,18 @@ import com.alibaba.sdk.android.push.notification.BasicCustomPushNotification;
 import com.alibaba.sdk.android.push.notification.CustomNotificationBuilder;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
+import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +49,7 @@ public class MsgPushActivity extends BaseActivity {
 
     private Dialog dialog;
 
-    private BasicCustomPushNotification notification;
+    private String type = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,26 +70,59 @@ public class MsgPushActivity extends BaseActivity {
 
     private void initData() {
 
-        notification = new BasicCustomPushNotification();
-        notification.setServerOptionFirst(true);
-//        remindType = notification.getRemindType();
-        if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
-            //声音+震动
-            ivSound.setImageResource(R.mipmap.turn_on);
-            ivVibrate.setImageResource(R.mipmap.turn_on);
-        }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SOUND){
-            //声音
-            ivSound.setImageResource(R.mipmap.turn_on);
-            ivVibrate.setImageResource(R.mipmap.turn_off);
-        }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
-            //震动
-            ivSound.setImageResource(R.mipmap.turn_off);
-            ivVibrate.setImageResource(R.mipmap.turn_on);
-        }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SILENT){
-            //静默
-            ivSound.setImageResource(R.mipmap.turn_off);
-            ivVibrate.setImageResource(R.mipmap.turn_off);
-        }
+        Map<String, String> map = new HashMap<>();
+        map.put("userId", SpUtils.getUserId(context));
+        ViseUtil.Post(context, NetUrl.getUserNotifyType, map, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                Logger.e("123123", s);
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    type = jsonObject.optString("data");
+//                    if(type.equals("notifyType=BOTH")){
+//                        //声音+震动
+//                        ivSound.setImageResource(R.mipmap.turn_on);
+//                        ivVibrate.setImageResource(R.mipmap.turn_on);
+//                    }else if(type.equals("notifyType=SOUND")){
+//                        //声音
+//                        ivSound.setImageResource(R.mipmap.turn_on);
+//                        ivVibrate.setImageResource(R.mipmap.turn_off);
+//                    }else if(type.equals("notifyType=VIBRATE")){
+//                        //震动
+//                        ivSound.setImageResource(R.mipmap.turn_off);
+//                        ivVibrate.setImageResource(R.mipmap.turn_on);
+//                    }else if(type.equals("notifyType=NONE")){
+//                        //静默
+//                        ivSound.setImageResource(R.mipmap.turn_off);
+//                        ivVibrate.setImageResource(R.mipmap.turn_off);
+//                    }
+                    if(type.equals("BOTH")){
+                        //声音+震动
+                        ivSound.setImageResource(R.mipmap.turn_on);
+                        ivVibrate.setImageResource(R.mipmap.turn_on);
+                    }else if(type.equals("SOUND")){
+                        //声音
+                        ivSound.setImageResource(R.mipmap.turn_on);
+                        ivVibrate.setImageResource(R.mipmap.turn_off);
+                    }else if(type.equals("VIBRATE")){
+                        //震动
+                        ivSound.setImageResource(R.mipmap.turn_off);
+                        ivVibrate.setImageResource(R.mipmap.turn_on);
+                    }else if(type.equals("NONE")){
+                        //静默
+                        ivSound.setImageResource(R.mipmap.turn_off);
+                        ivVibrate.setImageResource(R.mipmap.turn_off);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
 
         PushServiceFactory.getCloudPushService().checkPushChannelStatus(new CommonCallback() {
             @Override
@@ -103,6 +144,26 @@ public class MsgPushActivity extends BaseActivity {
 
     }
 
+    private void setType(String type){
+
+        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+        Map<String, String> map = new HashMap<>();
+        map.put("userId", SpUtils.getUserId(context));
+        map.put("notifyType", type);
+        ViseUtil.Post(context, NetUrl.setUserNotifyType, map, dialog, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
+
+    }
+
     @OnClick({R.id.rl_back, R.id.iv_push, R.id.iv_sound, R.id.iv_vibrate, R.id.rl_time})
     public void onClick(View view){
         Intent intent = new Intent();
@@ -112,81 +173,49 @@ public class MsgPushActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.iv_vibrate:
-                if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
+                if(type.equals("BOTH")){
                     //声音+震动
-//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
-                    notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_SOUND);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(1, notification);
-                    if(res){
-                        ivVibrate.setImageResource(R.mipmap.turn_off);
-//                        remindType = BasicCustomPushNotification.REMIND_TYPE_SOUND;
-                    }
-                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SOUND){
+                    setType("SOUND");
+                    ivVibrate.setImageResource(R.mipmap.turn_off);
+                    type = "SOUND";
+                }else if(type.equals("SOUND")){
                     //声音
-//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
-                    notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(2, notification);
-//                    if(res) {
-                        ivVibrate.setImageResource(R.mipmap.turn_on);
-//                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND;
-//                    }
-                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
+                    setType("BOTH");
+                    ivVibrate.setImageResource(R.mipmap.turn_on);
+                    type = "BOTH";
+                }else if(type.equals("VIBRATE")){
                     //震动
-//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
-                    notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_SILENT);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(3, notification);
-//                    if(res) {
-                        ivVibrate.setImageResource(R.mipmap.turn_off);
-//                        remindType = BasicCustomPushNotification.REMIND_TYPE_SILENT;
-//                    }
-                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SILENT){
+                    setType("NONE");
+                    ivVibrate.setImageResource(R.mipmap.turn_off);
+                    type = "NONE";
+                }else if(type.equals("NONE")){
                     //静默
-//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
-                    notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_VIBRATE);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(4, notification);
-//                    if(res) {
-                        ivVibrate.setImageResource(R.mipmap.turn_on);
-//                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE;
-//                    }
+                    setType("VIBRATE");
+                    ivVibrate.setImageResource(R.mipmap.turn_on);
+                    type = "VIBRATE";
                 }
                 break;
             case R.id.iv_sound:
-                if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND){
+                if(type.equals("BOTH")){
                     //声音+震动
-//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
-                    notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_VIBRATE);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(5, notification);
-//                    if(res) {
-                        ivSound.setImageResource(R.mipmap.turn_off);
-//                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE;
-//                    }
-                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SOUND){
+                    setType("VIBRATE");
+                    ivSound.setImageResource(R.mipmap.turn_off);
+                    type = "VIBRATE";
+                }else if(type.equals("SOUND")){
                     //声音
-//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
-                    notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_SILENT);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(6, notification);
-//                    if(res) {
-                        ivSound.setImageResource(R.mipmap.turn_off);
-//                        remindType = BasicCustomPushNotification.REMIND_TYPE_SILENT;
-//                    }
-                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_VIBRATE){
+                    setType("NONE");
+                    ivSound.setImageResource(R.mipmap.turn_off);
+                    type = "NONE";
+                }else if(type.equals("VIBRATE")){
                     //震动
-//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
-                    notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(7, notification);
-//                    if(res) {
-                        ivSound.setImageResource(R.mipmap.turn_on);
-//                        remindType = BasicCustomPushNotification.REMIND_TYPE_VIBRATE_AND_SOUND;
-//                    }
-                }else if(notification.getRemindType() == BasicCustomPushNotification.REMIND_TYPE_SILENT){
+                    setType("BOTH");
+                    ivSound.setImageResource(R.mipmap.turn_on);
+                    type = "BOTH";
+                }else if(type.equals("NONE")){
                     //静默
-//                    BasicCustomPushNotification notification = new BasicCustomPushNotification();
-                    notification.setRemindType(BasicCustomPushNotification.REMIND_TYPE_SOUND);
-                    boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(8, notification);
-//                    if(res) {
-                        ivSound.setImageResource(R.mipmap.turn_on);
-//                        remindType = BasicCustomPushNotification.REMIND_TYPE_SOUND;
-//                    }
+                    setType("SOUND");
+                    ivSound.setImageResource(R.mipmap.turn_on);
+                    type = "SOUND";
                 }
                 break;
             case R.id.iv_push:
