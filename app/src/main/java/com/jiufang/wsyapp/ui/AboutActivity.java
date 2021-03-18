@@ -43,6 +43,8 @@ public class AboutActivity extends BaseActivity {
     TextView tvVersion;
     @BindView(R.id.btn)
     Button btn;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
 
     private GetAndroidUpdateInfoBean bean;
 
@@ -70,6 +72,7 @@ public class AboutActivity extends BaseActivity {
                 Gson gson = new Gson();
                 bean = gson.fromJson(s, GetAndroidUpdateInfoBean.class);
                 int versionCode = VersionUtils.packageCode(context);
+                tvTime.setText("上次更新日期："+bean.getTime());
                 if(bean.getData().getCode()>versionCode){
                     btn.setVisibility(View.VISIBLE);
                 }else {

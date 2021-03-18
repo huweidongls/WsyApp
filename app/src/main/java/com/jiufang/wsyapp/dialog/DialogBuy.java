@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jiufang.wsyapp.R;
+import com.jiufang.wsyapp.utils.StringUtils;
+import com.jiufang.wsyapp.utils.ToastUtil;
 
 /**
  * Created by Administrator on 2020/6/18.
@@ -19,13 +21,15 @@ import com.jiufang.wsyapp.R;
 public class DialogBuy extends Dialog {
 
     private Context context;
+    private String phone;
 
     private Button btnSure;
     private Button btnCancel;
 
-    public DialogBuy(@NonNull Context context) {
+    public DialogBuy(@NonNull Context context, String phone) {
         super(context, R.style.RoundCornerDialog);
         this.context = context;
+        this.phone = phone;
     }
 
     @Override
@@ -45,12 +49,16 @@ public class DialogBuy extends Dialog {
         btnSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phone = "18245026640";
-                Intent intent1 = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + phone);
-                intent1.setData(data);
-                context.startActivity(intent1);
-                dismiss();
+                if(StringUtils.isEmpty(phone)){
+                    ToastUtil.showShort(context, "销售经理电话维护中，暂时无法拨号");
+                    dismiss();
+                }else {
+                    Intent intent1 = new Intent(Intent.ACTION_DIAL);
+                    Uri data = Uri.parse("tel:" + phone);
+                    intent1.setData(data);
+                    context.startActivity(intent1);
+                    dismiss();
+                }
             }
         });
 

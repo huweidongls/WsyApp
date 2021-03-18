@@ -171,5 +171,7 @@ public class NetUrl {
     public static final String getUserNotifyType = "/user/v1.0.0/getUserNotifyType";
     //设置用户通知方式
     public static final String setUserNotifyType = "/user/v1.0.0/setUserNotifyType";
+    //获取客服电话
+    public static final String getServiceNumber = "/user/v1.0.0/getServiceNumber";
 
 }

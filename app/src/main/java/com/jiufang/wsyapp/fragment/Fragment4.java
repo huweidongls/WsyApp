@@ -128,11 +128,23 @@ public class Fragment4 extends LazyFragment {
                 DialogBohao dialogBohao = new DialogBohao(getContext(), new DialogBohao.ClickListener() {
                     @Override
                     public void onSure() {
-                        String phone = "0451-88886666";
-                        Intent intent1 = new Intent(Intent.ACTION_DIAL);
-                        Uri data = Uri.parse("tel:" + phone);
-                        intent1.setData(data);
-                        startActivity(intent1);
+                        ViseUtil.Post(getContext(), NetUrl.getServiceNumber, null, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                Logger.e("123123", s);
+                                ToastUtil.showShort(getContext(), s);
+                            }
+
+                            @Override
+                            public void onElse(String s) {
+
+                            }
+                        });
+//                        String phone = "0451-88886666";
+//                        Intent intent1 = new Intent(Intent.ACTION_DIAL);
+//                        Uri data = Uri.parse("tel:" + phone);
+//                        intent1.setData(data);
+//                        startActivity(intent1);
                     }
                 });
                 dialogBohao.show();
