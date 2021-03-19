@@ -1,9 +1,13 @@
 package com.jiufang.wsyapp.fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,6 +51,7 @@ import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
+import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -291,7 +296,11 @@ public class Fragment1 extends LazyFragment {
                 //变暗的背景颜色
                 .setDimColor(Color.BLACK)
                 .apply();
-        easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.BELOW, XGravity.CENTER, 0, 0);
+        if(isNavigationBarShowing(getContext())){
+            easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.BELOW, XGravity.CENTER, 0, 0);
+        }else{
+            easyPopup.showAtAnchorView(getActivity().getWindow().getDecorView(), YGravity.ALIGN_BOTTOM, XGravity.CENTER, 0, 0);
+        }
 
         TextView tvCancel = easyPopup.findViewById(R.id.tv_cancel);
         TextView tvJiebang = easyPopup.findViewById(R.id.tv_jiebang);
@@ -380,6 +389,55 @@ public class Fragment1 extends LazyFragment {
             }
         });
 
+    }
+
+    private static boolean checkDeviceHasNavigationBar(Context context) {
+        boolean hasNavigationBar = false;
+        Resources rs = context.getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            hasNavigationBar = rs.getBoolean(id);
+        }
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                hasNavigationBar = false;
+            } else if ("0".equals(navBarOverride)) {
+                hasNavigationBar = true;
+            }
+        } catch (Exception e) {
+
+        }
+        return hasNavigationBar;
+    }
+
+    public static boolean isNavigationBarShowing(Context context) {
+        //判断手机底部是否支持导航栏显示
+        boolean haveNavigationBar = checkDeviceHasNavigationBar(context);
+        if (haveNavigationBar) {
+            if (Build.VERSION.SDK_INT >= 17) {
+                String brand = Build.BRAND;
+                String mDeviceInfo;
+                if (brand.equalsIgnoreCase("HUAWEI")) {
+                    mDeviceInfo = "navigationbar_is_min";
+                } else if (brand.equalsIgnoreCase("XIAOMI")) {
+                    mDeviceInfo = "force_fsg_nav_bar";
+                } else if (brand.equalsIgnoreCase("VIVO")) {
+                    mDeviceInfo = "navigation_gesture_on";
+                } else if (brand.equalsIgnoreCase("OPPO")) {
+                    mDeviceInfo = "navigation_gesture_on";
+                } else {
+                    mDeviceInfo = "navigationbar_is_min";
+                }
+
+                if (Settings.Global.getInt(context.getContentResolver(), mDeviceInfo, 0) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @OnClick({R.id.rl_left, R.id.rl_right, R.id.btn_login, R.id.ll_search})
