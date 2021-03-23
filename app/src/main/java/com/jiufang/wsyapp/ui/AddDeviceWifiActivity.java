@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -33,18 +34,24 @@ import com.ezviz.sdk.configwifi.ap.ApConfigParam;
 import com.ezviz.sdk.configwifi.common.EZConfigWifiCallback;
 import com.jiufang.wsyapp.R;
 import com.jiufang.wsyapp.base.BaseActivity;
+import com.jiufang.wsyapp.dialog.DialogBohao;
 import com.jiufang.wsyapp.mediaplay.Business;
+import com.jiufang.wsyapp.net.NetUrl;
 import com.jiufang.wsyapp.utils.NetUtil;
 import com.jiufang.wsyapp.utils.SpUtils;
 import com.jiufang.wsyapp.utils.StatusBarUtils;
 import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
+import com.jiufang.wsyapp.utils.ViseUtil;
 import com.jiufang.wsyapp.utils.WeiboDialogUtils;
 import com.lechange.common.configwifi.LCSmartConfig;
 import com.lechange.common.log.Logger;
 import com.lechange.opensdk.configwifi.LCOpenSDK_ConfigWifi;
 import com.vise.xsnow.permission.OnPermissionCallback;
 import com.vise.xsnow.permission.PermissionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -183,7 +190,7 @@ public class AddDeviceWifiActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_eye, R.id.btn_sure, R.id.rl_wifi, R.id.ll_jizhu})
+    @OnClick({R.id.rl_back, R.id.rl_eye, R.id.btn_sure, R.id.rl_wifi, R.id.ll_jizhu, R.id.rl_right})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_jizhu:
@@ -282,6 +289,39 @@ public class AddDeviceWifiActivity extends BaseActivity {
                     etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     etPwd.setSelection(etPwd.getText().length());
                 }
+                break;
+            case R.id.rl_right:
+                DialogBohao dialogBohao = new DialogBohao(context, new DialogBohao.ClickListener() {
+                    @Override
+                    public void onSure() {
+                        ViseUtil.Post(context, NetUrl.getServiceNumber, null, new ViseUtil.ViseListener() {
+                            @Override
+                            public void onReturn(String s) {
+                                com.jiufang.wsyapp.utils.Logger.e("123123", s);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    String phone = jsonObject.optString("data");
+                                    if(StringUtils.isEmpty(phone)){
+                                        ToastUtil.showShort(context, "客服电话维护中，暂时无法拨号");
+                                    }else {
+                                        Intent intent1 = new Intent(Intent.ACTION_DIAL);
+                                        Uri data = Uri.parse("tel:" + phone);
+                                        intent1.setData(data);
+                                        startActivity(intent1);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onElse(String s) {
+
+                            }
+                        });
+                    }
+                });
+                dialogBohao.show();
                 break;
         }
     }

@@ -27,10 +27,14 @@ import com.jiufang.wsyapp.ui.WifiCheckActivity;
 import com.jiufang.wsyapp.utils.GlideUtils;
 import com.jiufang.wsyapp.utils.Logger;
 import com.jiufang.wsyapp.utils.SpUtils;
+import com.jiufang.wsyapp.utils.StringUtils;
 import com.jiufang.wsyapp.utils.ToastUtil;
 import com.jiufang.wsyapp.utils.ViseUtil;
 import com.vise.xsnow.permission.OnPermissionCallback;
 import com.vise.xsnow.permission.PermissionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -53,6 +57,8 @@ public class Fragment4 extends LazyFragment {
     TextView tvHy;
     @BindView(R.id.tv_login)
     TextView tvLogin;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
 
     private String phoneNum = "";
 
@@ -72,6 +78,25 @@ public class Fragment4 extends LazyFragment {
     }
 
     private void initData() {
+
+        ViseUtil.Post(getContext(), NetUrl.getServiceNumber, null, new ViseUtil.ViseListener() {
+            @Override
+            public void onReturn(String s) {
+                Logger.e("123123", s);
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String phone = jsonObject.optString("data");
+                    tvPhone.setText(phone);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onElse(String s) {
+
+            }
+        });
 
         if(SpUtils.getUserId(getContext()).equals("0")){
             tvLogin.setVisibility(View.VISIBLE);
@@ -132,7 +157,20 @@ public class Fragment4 extends LazyFragment {
                             @Override
                             public void onReturn(String s) {
                                 Logger.e("123123", s);
-                                ToastUtil.showShort(getContext(), s);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    String phone = jsonObject.optString("data");
+                                    if(StringUtils.isEmpty(phone)){
+                                        ToastUtil.showShort(getContext(), "客服电话维护中，暂时无法拨号");
+                                    }else {
+                                        Intent intent1 = new Intent(Intent.ACTION_DIAL);
+                                        Uri data = Uri.parse("tel:" + phone);
+                                        intent1.setData(data);
+                                        startActivity(intent1);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
                             @Override
@@ -140,11 +178,6 @@ public class Fragment4 extends LazyFragment {
 
                             }
                         });
-//                        String phone = "0451-88886666";
-//                        Intent intent1 = new Intent(Intent.ACTION_DIAL);
-//                        Uri data = Uri.parse("tel:" + phone);
-//                        intent1.setData(data);
-//                        startActivity(intent1);
                     }
                 });
                 dialogBohao.show();
